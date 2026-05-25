@@ -164,7 +164,7 @@ def _add_include_patterns(
     return list(nodes_by_path.values())
 
 
-def _fallback_flat_nodes(
+def _flat_nodes_from_concepts(
     concepts: list[CandidateConcept],
     chunks: list[DocumentChunk],
 ) -> list[TreeNode]:
@@ -204,6 +204,6 @@ def build_taxonomy(
         return sorted(nodes, key=lambda node: (node.path.count(" / "), node.path))
 
     if selected_dimension is None or selected_dimension.needs_review:
-        return _fallback_flat_nodes(concepts, chunks)
+        return _flat_nodes_from_concepts(concepts, chunks)
 
-    return _fallback_flat_nodes(concepts, chunks)
+    return _flat_nodes_from_concepts(concepts, chunks)

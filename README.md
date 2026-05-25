@@ -2,7 +2,7 @@
 
 `rule-tree-agent` is a local Python MVP for generating a candidate classification and grading rule tree from source documents.
 
-The project is intentionally simple and offline. It does not use LangChain, LangGraph, vector databases, RAG frameworks, a frontend, Docker, a database, or a multi-agent architecture.
+The project is intentionally simple. It always uses an OpenAI-compatible LLM endpoint for candidate generation. It does not use LangChain, LangGraph, vector databases, RAG frameworks, a frontend, Docker, a database, or a multi-agent architecture.
 
 ## Core Principle
 
@@ -23,6 +23,8 @@ This agent proposes. Humans review. It does not create final approved enterprise
 
 - Parses local `.md` and `.txt` files.
 - Chunks documents using headings, numbered sections, blank lines, and list blocks.
+- Calls the configured OpenAI-compatible LLM to propose grounded JSON candidates.
+- Fails clearly if the API key or LLM endpoint is unavailable.
 - Extracts candidate concepts from document structure and text.
 - Discovers possible classification dimensions from explicit document wording.
 - Builds a candidate taxonomy from evidence-backed hierarchy.
@@ -59,7 +61,25 @@ rule-tree-agent/
 From the project directory:
 
 ```bash
-python -m src.agent_demo --docs data/sample_docs/sample_policy.md --out outputs
+python3 -m src.agent_demo --docs data/sample_docs/sample_policy.md --out outputs
+```
+
+By default the agent calls:
+
+- Base URL: `https://api.example.com/v1`
+- Model: `your-model-name`
+
+Create `.env` from `.env.example` and set `LLM_API_KEY`.
+
+Useful options:
+
+```bash
+# Override endpoint or model
+python3 -m src.agent_demo \
+  --docs data/sample_docs/sample_policy.md \
+  --out outputs \
+  --llm-base-url https://api.example.com/v1 \
+  --llm-model your-model-name
 ```
 
 Generated files:
@@ -70,20 +90,18 @@ Generated files:
 
 ## MVP Limitations
 
-- Local keyword and fuzzy matching only.
 - No vector search.
-- No LLM call by default.
+- LLM JSON quality depends on the configured model and endpoint.
+- Requires a valid API key and network access to the configured LLM gateway.
 - Markdown and text input only.
-- Heuristics are conservative and may over-flag items for review.
 - Complex tables, scanned PDFs, and ambiguous policies are not handled in v0.1.
 
 ## Future Improvements
 
-- Add optional OpenAI-compatible LLM calls through `llm_client.py`.
+- Add stricter LLM output repair and retry loops.
 - Add stronger table parsing.
 - Add richer evidence scoring.
 - Add reviewer feedback loops.
 - Add export formats for enterprise review workflows.
 
 Even in future LLM-enabled versions, all business content must remain traceable to document evidence.
-

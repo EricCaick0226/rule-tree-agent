@@ -126,4 +126,8 @@ class AgentState:
     nodes: list[TreeNode] = field(default_factory=list)
     validation_issues: list[ValidationIssue] = field(default_factory=list)
     output_paths: dict[str, str] = field(default_factory=dict)
-
+    llm_enabled: bool = False
+    llm_used: bool = False
+    llm_model: str = ""
+    llm_base_url: str = ""
+    llm_error: str = ""

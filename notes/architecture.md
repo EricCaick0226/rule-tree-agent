@@ -33,15 +33,10 @@
 
 1. 解析文档：读取 `.md` 和 `.txt`。
 2. 切分文档：按标题、编号、空行和列表块形成 chunk。
-3. 抽取概念：根据文档结构和通用结构词抽取候选概念。
-4. 发现分类维度：寻找明确的分类原则、分类依据或划分语句。
-5. 构建分类树：优先使用标题、嵌套列表和“包括/包含”关系。
-6. 抽取分级方案：仅从分级相关证据中抽取等级名称和定义。
-7. 生成节点说明：从节点相关证据中抽取定义、范围或上下文。
-8. 分配等级：仅当文档明确映射节点与等级时分配。
-9. 生成规则：仅使用节点名称、证据中的短语、示例和排除条件。
-10. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
-11. 导出结果：生成 JSON、候选规则树 Markdown 和人工复核报告。
+3. LLM 证据内生成：必须调用 OpenAI-compatible 接口，让模型只基于 chunk 输出候选 JSON。
+4. 转换结构：把模型返回的 JSON 转换为概念、维度、节点、等级和规则等内部结构。
+5. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
+6. 导出结果：生成 JSON、候选规则树 Markdown 和人工复核报告。
 
 ## 模块职责
 
@@ -49,18 +44,19 @@
 - `task_router.py`：识别任务类型。
 - `document_parser.py`：只负责解析与切分，不解释业务含义。
 - `evidence_store.py`：创建证据引用，提供简单本地关键词搜索。
-- `concept_extractor.py`：从文档结构中抽取候选概念。
-- `dimension_discoverer.py`：发现分类维度，无法确定时标记复核。
-- `taxonomy_builder.py`：按证据构建候选树，不强制固定层级。
-- `description_generator.py`：从证据生成节点说明，证据不足时使用谨慎表述。
-- `grade_scheme_extractor.py`：抽取文档中明确定义的分级方案。
-- `grade_assigner.py`：根据明确映射为节点分级。
-- `rule_generator.py`：基于文档术语生成简单匹配规则。
+- `concept_extractor.py`：早期本地抽取模块，当前主流程不再调用。
+- `dimension_discoverer.py`：早期本地维度发现模块，当前主流程不再调用。
+- `taxonomy_builder.py`：早期本地建树模块，当前主流程不再调用。
+- `description_generator.py`：早期本地描述生成模块，当前主流程不再调用。
+- `grade_scheme_extractor.py`：早期本地分级抽取模块，当前主流程不再调用。
+- `grade_assigner.py`：早期本地分级分配模块，当前主流程不再调用。
+- `rule_generator.py`：早期本地规则生成模块，当前主流程不再调用。
 - `grounding_validator.py`：严格检查所有生成内容是否有证据。
+- `llm_client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
+- `llm_grounded_generator.py`：将模型输出的证据 JSON 转换为内部数据结构。
 - `exporter.py`：导出结构化结果、候选树和复核报告。
 - `agent_executor.py`：串联整个 MVP 流水线。
 - `agent_demo.py`：命令行演示入口。
-- `llm_client.py`：未来 LLM 接口占位，当前离线运行。
 
 ## 数据结构
 
@@ -82,7 +78,7 @@
 
 - 只支持 Markdown 和纯文本。
 - 只使用本地规则、关键词和轻量模糊匹配。
-- 不接入 LLM。
+- 必须接入 OpenAI-compatible LLM，LLM 调用失败即任务失败。
 - 不使用向量数据库。
 - 不处理复杂表格、PDF OCR 或跨文档冲突消解。
 - 输出是候选结果，不是最终标准。
@@ -95,4 +91,3 @@
 - 支持多版本文档对比与冲突标注。
 - 支持更丰富的导出格式和审批流集成。
 - 增加更严格的可追溯性测试。
-

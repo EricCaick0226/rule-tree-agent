@@ -10,6 +10,7 @@ from .exporter import export_outputs
 from .grade_assigner import assign_grades_to_nodes
 from .grade_scheme_extractor import extract_grade_scheme
 from .grounding_validator import validate_grounding
+from .llm_grounded_generator import generate_grounded_candidates_with_llm
 from .rule_generator import generate_node_rules
 from .taxonomy_builder import build_taxonomy
 
@@ -24,6 +25,7 @@ TOOL_REGISTRY = {
     "generate_node_descriptions": generate_node_descriptions,
     "assign_grades_to_nodes": assign_grades_to_nodes,
     "generate_node_rules": generate_node_rules,
+    "generate_grounded_candidates_with_llm": generate_grounded_candidates_with_llm,
     "validate_grounding": validate_grounding,
     "export_outputs": export_outputs,
 }
@@ -72,6 +74,11 @@ def execute_tool(tool_name: str, state: AgentState, **kwargs) -> AgentState:
         state.nodes = assign_grades_to_nodes(state.nodes, state.grade_scheme, state.chunks)
     elif tool_name == "generate_node_rules":
         state.nodes = generate_node_rules(state.nodes, state.chunks)
+    elif tool_name == "generate_grounded_candidates_with_llm":
+        llm_client = kwargs.get("llm_client")
+        if llm_client is None:
+            raise ValueError("llm_client is required for generate_grounded_candidates_with_llm.")
+        state = generate_grounded_candidates_with_llm(state, llm_client)
     elif tool_name == "validate_grounding":
         state.validation_issues = validate_grounding(state)
     elif tool_name == "export_outputs":

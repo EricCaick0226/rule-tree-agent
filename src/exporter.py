@@ -51,6 +51,11 @@ def _review_report(state: AgentState) -> str:
         "# Human Review Report",
         "",
         "## Summary",
+        f"- LLM enabled: {'yes' if state.llm_enabled else 'no'}",
+        f"- LLM used: {'yes' if state.llm_used else 'no'}",
+        f"- LLM model: {state.llm_model if state.llm_enabled else 'not used'}",
+        f"- LLM base URL: {state.llm_base_url if state.llm_enabled else 'not used'}",
+        f"- LLM error: {state.llm_error if state.llm_error else 'none'}",
         f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
         f"- Selected dimension: {state.selected_dimension.name if state.selected_dimension else 'cannot determine from current documents'}",
         f"- Grade scheme found: {'yes' if state.grade_scheme else 'no'}",
@@ -120,6 +125,13 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         "> This is a candidate output. It requires human review before use.",
         "",
     ]
+    tree_lines.append(f"- LLM enabled: {'yes' if state.llm_enabled else 'no'}")
+    tree_lines.append(f"- LLM used: {'yes' if state.llm_used else 'no'}")
+    if state.llm_enabled:
+        tree_lines.append(f"- LLM model: {state.llm_model}")
+        tree_lines.append(f"- LLM base URL: {state.llm_base_url}")
+    if state.llm_error:
+        tree_lines.append(f"- LLM error: {state.llm_error}")
     if state.selected_dimension:
         tree_lines.append(f"- Selected dimension: {state.selected_dimension.name}")
     else:
