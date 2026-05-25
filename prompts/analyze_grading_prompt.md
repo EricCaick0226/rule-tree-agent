@@ -1,15 +1,15 @@
-# Analyze Grading Prompt
+# 分级分析 Prompt
 
-Task: Extract grading scheme and assign grades where supported.
+任务：从证据中抽取分级方案，并且只在证据充分支持时为候选节点分配等级。
 
-Rules:
-- Use only provided evidence claims and candidate nodes.
-- Do not invent grading levels.
-- Do not create default levels.
-- Do not assign grades from prior assumptions.
-- Extract grade definitions only if documents define them.
-- Assign node grades only if explicit mappings or explicit criteria support them.
-- Return evidence_claim_ids for every grade definition and assignment.
-- If evidence is insufficient, set grade = null and needs_review = true.
+规则：
+- 只能使用输入中提供的 `evidence_claims` 和候选节点。
+- 不得编造分级等级。
+- 不得创建默认等级。
+- 不得根据先验知识或常识给节点分级。
+- 只有当文档证据明确给出等级名称、等级定义或判定条件时，才能抽取 `grade_scheme`。
+- 只有当文档证据明确映射了节点与等级，或明确标准足以支持判断时，才能填写节点等级。
+- 每一个等级定义和节点分级结果都必须返回对应的 `evidence_claim_ids`。
+- 如果证据不足，必须设置 `grade = null` 且 `needs_review = true`。
 
-Output JSON object only.
+只输出 JSON object，不要输出 Markdown、解释文字或额外说明。

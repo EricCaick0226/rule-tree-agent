@@ -79,9 +79,11 @@ def _run_llm_steps(state: AgentState, output_dir: str, llm_client) -> AgentState
         if step["tool"].endswith("_with_llm"):
             try:
                 state = _run_step(step["tool"], state, output_dir, llm_client)
+                state.llm_used = True
             except LLMGenerationError:
                 raise
             except Exception as exc:
+                state.llm_error = str(exc)
                 raise LLMGenerationError(str(exc)) from exc
             if step["tool"] == "synthesize_taxonomy_with_llm" and not state.nodes:
                 raise LLMGenerationError("LLM did not return any candidate nodes.")

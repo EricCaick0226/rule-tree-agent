@@ -1,22 +1,21 @@
 from __future__ import annotations
 
-import json
+import os
 from typing import Any
 
 from .agent_state import AgentState, EvidenceClaim
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     chunk_payload,
     clamp_confidence,
-    common_system_prompt,
-    extract_json_object,
     parse_bool,
     refs_from_chunk_ids,
     stable_id,
 )
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(chunks: list) -> dict[str, Any]:
     schema = {
         "claims": [
             {
@@ -36,26 +35,22 @@ def _user_prompt(state: AgentState) -> str:
             }
         ]
     }
-    return json.dumps(
-        {
-            "task": "从文档 chunk 中抽取证据事实 claim。不要生成规则树。",
-            "allowed_claim_types": [
-                "definition",
-                "inclusion",
-                "exclusion",
-                "hierarchy",
-                "classification_principle",
-                "grade_definition",
-                "grade_mapping",
-                "rule_phrase",
-                "insufficient_evidence",
-            ],
-            "output_schema": schema,
-            "document_chunks": chunk_payload(state.chunks),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "从文档 chunk 中抽取证据事实 claim。不要生成规则树。",
+        "allowed_claim_types": [
+            "definition",
+            "inclusion",
+            "exclusion",
+            "hierarchy",
+            "classification_principle",
+            "grade_definition",
+            "grade_mapping",
+            "rule_phrase",
+            "insufficient_evidence",
+        ],
+        "output_schema": schema,
+        "document_chunks": chunk_payload(chunks),
+    }
 
 
 def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
@@ -104,19 +99,56 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
 
 
 def extract_evidence_claims_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("抽取 evidence claims")},
-        {"role": "user", "content": _user_prompt(state)},
+    batch_size = max(1, int(os.getenv("CLAIM_BATCH_SIZE", "8")))
+    all_claims: list[EvidenceClaim] = []
+    raw_batches: list[str] = []
+    seen: set[str] = set()
+
+    if not state.chunks:
+        state.evidence_claims = []
+        append_step_trace(
+            state.step_traces,
+            step_name="extract_evidence_claims_with_llm",
+            status="success",
+            message="No chunks available for claim extraction.",
+            input_summary={"chunks": 0, "batch_size": batch_size, "batches": 0},
+            output_summary={"claims": 0},
+        )
+        return state
+
+    batches = [
+        state.chunks[index : index + batch_size]
+        for index in range(0, len(state.chunks), batch_size)
     ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
-    state.evidence_claims = _to_claims(data, state)
+    for batch_index, batch_chunks in enumerate(batches, start=1):
+        data, raw_response = call_llm_json(
+            llm_client=llm_client,
+            task_name=f"抽取 evidence claims batch {batch_index}/{len(batches)}",
+            prompt_file="extract_evidence_claims_prompt.md",
+            payload={
+                **_payload(batch_chunks),
+                "batch_index": batch_index,
+                "batch_count": len(batches),
+            },
+            required_keys={"claims": list},
+        )
+        raw_batches.append(f"batch={batch_index}/{len(batches)}\n{raw_response}")
+        for claim in _to_claims(data, state):
+            fingerprint = "|".join(
+                [claim.claim_type, claim.subject, claim.predicate, claim.object, claim.value]
+            )
+            if fingerprint in seen:
+                continue
+            seen.add(fingerprint)
+            all_claims.append(claim)
+
+    state.evidence_claims = all_claims
     append_step_trace(
         state.step_traces,
         step_name="extract_evidence_claims_with_llm",
         status="success",
-        input_summary={"chunks": len(state.chunks)},
+        input_summary={"chunks": len(state.chunks), "batch_size": batch_size, "batches": len(batches)},
         output_summary={"claims": len(state.evidence_claims)},
-        raw_response=response.content,
+        raw_response="\n\n===\n\n".join(raw_batches),
     )
     return state

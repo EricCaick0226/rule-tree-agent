@@ -1,14 +1,14 @@
-# Describe Nodes Prompt
+# 节点描述 Prompt
 
-Task: Describe existing candidate taxonomy nodes.
+任务：为已有候选分类树节点生成基于证据的说明。
 
-Rules:
-- Use only provided nodes and evidence claims.
-- Do not create new nodes.
-- Do not invent descriptions.
-- Do not invent risk, sensitivity, business usage, or protection requirements.
-- Every description must return description_evidence_claim_ids.
-- If evidence is insufficient, use cautious insufficient-evidence wording and needs_review = true.
-- Separate descriptions from grading and rules.
+规则：
+- 只能使用输入中提供的节点和 `evidence_claims`。
+- 不得创建新节点。
+- 不得编造节点描述。
+- 不得编造风险、敏感性、业务用途、保护要求或文档外背景。
+- 每一条描述都必须返回对应的 `description_evidence_claim_ids`。
+- 如果证据不足，必须使用谨慎的“证据不足”表述，并设置 `needs_review = true`。
+- 本步骤只处理节点描述，不处理分级，也不生成匹配规则。
 
-Output JSON object only.
+只输出 JSON object，不要输出 Markdown、解释文字或额外说明。

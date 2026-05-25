@@ -1,20 +1,20 @@
-# Extract Evidence Claims Prompt
+# 证据 Claim 抽取 Prompt
 
-Task: Extract evidence claims from document chunks.
+任务：从文档 chunk 中抽取可追溯的证据 claim。
 
-Rules:
-- Use only provided document chunks.
-- Do not build a taxonomy.
-- Do not invent categories.
-- Do not invent grading levels.
-- Do not invent hierarchy.
-- Do not invent descriptions.
-- Do not invent rules.
-- If evidence is insufficient, output needs_review = true.
-- Return evidence_chunk_ids for every claim.
-- Separate classification, grading, rules, and evidence.
+规则：
+- 只能使用输入中提供的 `document_chunks`。
+- 不要构建分类树。
+- 不得编造分类类别。
+- 不得编造分级等级。
+- 不得编造分类层级。
+- 不得编造节点描述。
+- 不得编造匹配规则。
+- 如果证据不足，必须输出 `needs_review = true`。
+- 每一个 claim 都必须返回对应的 `evidence_chunk_ids`。
+- 必须区分分类、分级、规则和证据，不要把它们混在一起。
 
-Allowed claim types:
+允许的 `claim_type` 枚举值如下。这些值是程序识别用的英文标识，不要翻译：
 - definition
 - inclusion
 - exclusion
@@ -25,4 +25,4 @@ Allowed claim types:
 - rule_phrase
 - insufficient_evidence
 
-Output JSON object only.
+只输出 JSON object，不要输出 Markdown、解释文字或额外说明。

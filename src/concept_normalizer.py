@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from .agent_state import AgentState, CandidateConcept, ConceptProfile
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     claim_payload,
     clamp_confidence,
-    common_system_prompt,
-    extract_json_object,
     normalize_text,
     parse_bool,
     refs_from_claim_ids,
@@ -19,7 +17,7 @@ from .llm_task_utils import (
 )
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(state: AgentState) -> dict[str, Any]:
     schema = {
         "concept_profiles": [
             {
@@ -35,24 +33,21 @@ def _user_prompt(state: AgentState) -> str:
             }
         ]
     }
-    return json.dumps(
-        {
-            "task": "基于 evidence_claims 形成概念画像。不要建树，不要分级。",
-            "output_schema": schema,
-            "evidence_claims": claim_payload(state.evidence_claims),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "基于 evidence_claims 形成概念画像。不要建树，不要分级。",
+        "output_schema": schema,
+        "evidence_claims": claim_payload(state.evidence_claims),
+    }
 
 
 def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("归一化概念并形成概念画像")},
-        {"role": "user", "content": _user_prompt(state)},
-    ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
+    data, raw_response = call_llm_json(
+        llm_client=llm_client,
+        task_name="归一化概念并形成概念画像",
+        prompt_file="normalize_concepts_prompt.md",
+        payload=_payload(state),
+        required_keys={"concept_profiles": list},
+    )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     profiles: list[ConceptProfile] = []
     candidates: list[CandidateConcept] = []
@@ -106,6 +101,6 @@ def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentStat
         status="success",
         input_summary={"claims": len(state.evidence_claims)},
         output_summary={"concept_profiles": len(state.concept_profiles)},
-        raw_response=response.content,
+        raw_response=raw_response,
     )
     return state

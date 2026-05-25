@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from .agent_state import AgentState, TreeNode
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     claim_payload,
     clamp_confidence,
-    common_system_prompt,
-    extract_json_object,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -46,7 +44,7 @@ def _dimension_payload(state: AgentState) -> dict[str, Any] | None:
     }
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(state: AgentState) -> dict[str, Any]:
     schema = {
         "nodes": [
             {
@@ -61,26 +59,23 @@ def _user_prompt(state: AgentState) -> str:
             }
         ]
     }
-    return json.dumps(
-        {
-            "task": "基于 evidence_claims 和 concept_profiles 合成候选分类树。不要生成描述、分级或规则。",
-            "selected_dimension": _dimension_payload(state),
-            "output_schema": schema,
-            "evidence_claims": claim_payload(state.evidence_claims),
-            "concept_profiles": _concept_payload(state),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "基于 evidence_claims 和 concept_profiles 合成候选分类树。不要生成描述、分级或规则。",
+        "selected_dimension": _dimension_payload(state),
+        "output_schema": schema,
+        "evidence_claims": claim_payload(state.evidence_claims),
+        "concept_profiles": _concept_payload(state),
+    }
 
 
 def synthesize_taxonomy_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("合成候选分类树")},
-        {"role": "user", "content": _user_prompt(state)},
-    ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
+    data, raw_response = call_llm_json(
+        llm_client=llm_client,
+        task_name="合成候选分类树",
+        prompt_file="synthesize_taxonomy_prompt.md",
+        payload=_payload(state),
+        required_keys={"nodes": list},
+    )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     nodes_by_path: dict[str, TreeNode] = {}
     parent_paths: dict[str, str | None] = {}
@@ -128,6 +123,6 @@ def synthesize_taxonomy_with_llm(state: AgentState, llm_client: Any) -> AgentSta
         status="success",
         input_summary={"claims": len(state.evidence_claims), "concept_profiles": len(state.concept_profiles)},
         output_summary={"nodes": len(state.nodes)},
-        raw_response=response.content,
+        raw_response=raw_response,
     )
     return state

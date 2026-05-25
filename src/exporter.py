@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import asdict
 from pathlib import Path
 
@@ -105,9 +106,10 @@ def _review_report(state: AgentState) -> str:
     lines.extend(["", "## Step Trace"])
     if state.step_traces:
         for trace in state.step_traces:
+            trace_path = f"; raw={trace.raw_response_path}" if trace.raw_response_path else ""
             lines.append(
                 f"- {trace.step_name}: {trace.status}; "
-                f"input={trace.input_summary}; output={trace.output_summary}"
+                f"input={trace.input_summary}; output={trace.output_summary}{trace_path}"
             )
     else:
         lines.append("- No step traces recorded.")
@@ -115,9 +117,34 @@ def _review_report(state: AgentState) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _safe_trace_name(index: int, step_name: str) -> str:
+    safe_step = re.sub(r"[^a-zA-Z0-9_.-]+", "_", step_name).strip("_") or "step"
+    return f"{index:02d}_{safe_step}.txt"
+
+
+def _export_raw_traces(state: AgentState, out_dir: Path) -> Path | None:
+    traces_with_raw = [trace for trace in state.step_traces if trace.raw_response]
+    if not traces_with_raw:
+        return None
+
+    trace_dir = out_dir / "traces"
+    trace_dir.mkdir(parents=True, exist_ok=True)
+
+    for index, trace in enumerate(state.step_traces, start=1):
+        if not trace.raw_response:
+            continue
+        trace_path = trace_dir / _safe_trace_name(index, trace.step_name)
+        trace_path.write_text(trace.raw_response, encoding="utf-8")
+        trace.raw_response_path = str(trace_path)
+        trace.raw_response = ""
+
+    return trace_dir
+
+
 def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     out_dir = Path(output_dir).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    trace_dir = _export_raw_traces(state, out_dir)
 
     json_path = out_dir / "rule_tree.json"
     md_path = out_dir / "rule_tree.md"
@@ -127,6 +154,8 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         "rule_tree_md": str(md_path),
         "review_report_md": str(report_path),
     }
+    if trace_dir:
+        state.output_paths["trace_dir"] = str(trace_dir)
 
     json_path.write_text(
         json.dumps(asdict(state), ensure_ascii=False, indent=2),

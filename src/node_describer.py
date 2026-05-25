@@ -1,16 +1,13 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from .agent_state import AgentState
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     claim_payload,
-    common_system_prompt,
-    extract_json_object,
     refs_from_claim_ids,
-    string_list,
     valid_claim_ids,
 )
 
@@ -31,7 +28,7 @@ def _node_payload(state: AgentState) -> list[dict[str, Any]]:
     ]
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(state: AgentState) -> dict[str, Any]:
     schema = {
         "node_descriptions": [
             {
@@ -43,25 +40,22 @@ def _user_prompt(state: AgentState) -> str:
             }
         ]
     }
-    return json.dumps(
-        {
-            "task": "为已有候选节点生成证据内描述。不要新增节点，不要分级，不要生成规则。",
-            "output_schema": schema,
-            "nodes": _node_payload(state),
-            "evidence_claims": claim_payload(state.evidence_claims),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "为已有候选节点生成证据内描述。不要新增节点，不要分级，不要生成规则。",
+        "output_schema": schema,
+        "nodes": _node_payload(state),
+        "evidence_claims": claim_payload(state.evidence_claims),
+    }
 
 
 def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("生成节点证据内描述")},
-        {"role": "user", "content": _user_prompt(state)},
-    ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
+    data, raw_response = call_llm_json(
+        llm_client=llm_client,
+        task_name="生成节点证据内描述",
+        prompt_file="describe_nodes_prompt.md",
+        payload=_payload(state),
+        required_keys={"node_descriptions": list},
+    )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     nodes_by_path = {node.path: node for node in state.nodes}
 
@@ -98,6 +92,6 @@ def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         status="success",
         input_summary={"nodes": len(state.nodes), "claims": len(state.evidence_claims)},
         output_summary={"described_nodes": sum(1 for node in state.nodes if node.description)},
-        raw_response=response.content,
+        raw_response=raw_response,
     )
     return state

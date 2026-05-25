@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from .agent_state import AgentState, MatchingRule
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     claim_payload,
     clamp_confidence,
-    common_system_prompt,
-    extract_json_object,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -32,7 +30,7 @@ def _node_payload(state: AgentState) -> list[dict[str, Any]]:
     ]
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(state: AgentState) -> dict[str, Any]:
     schema = {
         "node_rules": [
             {
@@ -51,25 +49,22 @@ def _user_prompt(state: AgentState) -> str:
             }
         ]
     }
-    return json.dumps(
-        {
-            "task": "只为已有节点生成匹配规则。规则词、短语、排除条件必须来自 evidence_claims。",
-            "output_schema": schema,
-            "nodes": _node_payload(state),
-            "evidence_claims": claim_payload(state.evidence_claims),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "只为已有节点生成匹配规则。规则词、短语、排除条件必须来自 evidence_claims。",
+        "output_schema": schema,
+        "nodes": _node_payload(state),
+        "evidence_claims": claim_payload(state.evidence_claims),
+    }
 
 
 def synthesize_rules_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("生成证据内匹配规则")},
-        {"role": "user", "content": _user_prompt(state)},
-    ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
+    data, raw_response = call_llm_json(
+        llm_client=llm_client,
+        task_name="生成证据内匹配规则",
+        prompt_file="synthesize_rules_prompt.md",
+        payload=_payload(state),
+        required_keys={"node_rules": list},
+    )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     nodes_by_path = {node.path: node for node in state.nodes}
 
@@ -118,6 +113,6 @@ def synthesize_rules_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         status="success",
         input_summary={"nodes": len(state.nodes), "claims": len(state.evidence_claims)},
         output_summary={"rules": sum(len(node.rules) for node in state.nodes)},
-        raw_response=response.content,
+        raw_response=raw_response,
     )
     return state

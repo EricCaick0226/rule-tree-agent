@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import json
 from typing import Any
 
 from .agent_state import AgentState, ClassificationDimension
 from .llm_task_utils import (
     append_step_trace,
+    call_llm_json,
     claim_payload,
     clamp_confidence,
-    common_system_prompt,
-    extract_json_object,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -32,7 +30,7 @@ def _concept_payload(state: AgentState) -> list[dict[str, Any]]:
     ]
 
 
-def _user_prompt(state: AgentState) -> str:
+def _payload(state: AgentState) -> dict[str, Any]:
     schema = {
         "classification_dimensions": [
             {
@@ -46,25 +44,22 @@ def _user_prompt(state: AgentState) -> str:
         ],
         "selected_dimension_name": "可靠主维度名称；无法确定则为 null",
     }
-    return json.dumps(
-        {
-            "task": "发现文档支持的分类维度。只处理分类维度，不建树。",
-            "output_schema": schema,
-            "evidence_claims": claim_payload(state.evidence_claims),
-            "concept_profiles": _concept_payload(state),
-        },
-        ensure_ascii=False,
-        indent=2,
-    )
+    return {
+        "task": "发现文档支持的分类维度。只处理分类维度，不建树。",
+        "output_schema": schema,
+        "evidence_claims": claim_payload(state.evidence_claims),
+        "concept_profiles": _concept_payload(state),
+    }
 
 
 def discover_dimensions_with_llm(state: AgentState, llm_client: Any) -> AgentState:
-    messages = [
-        {"role": "system", "content": common_system_prompt("发现分类维度")},
-        {"role": "user", "content": _user_prompt(state)},
-    ]
-    response = llm_client.chat(messages)
-    data = extract_json_object(response.content)
+    data, raw_response = call_llm_json(
+        llm_client=llm_client,
+        task_name="发现分类维度",
+        prompt_file="discover_dimensions_prompt.md",
+        payload=_payload(state),
+        required_keys={"classification_dimensions": list, "selected_dimension_name": (str, type(None))},
+    )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     dimensions: list[ClassificationDimension] = []
 
@@ -105,6 +100,6 @@ def discover_dimensions_with_llm(state: AgentState, llm_client: Any) -> AgentSta
         status="success",
         input_summary={"claims": len(state.evidence_claims), "concept_profiles": len(state.concept_profiles)},
         output_summary={"dimensions": len(dimensions), "selected": selected.name if selected else None},
-        raw_response=response.content,
+        raw_response=raw_response,
     )
     return state

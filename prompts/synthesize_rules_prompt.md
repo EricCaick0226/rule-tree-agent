@@ -1,15 +1,15 @@
-# Synthesize Rules Prompt
+# 规则生成 Prompt
 
-Task: Generate matching rules for existing candidate nodes.
+任务：为已有候选节点生成基于证据的匹配规则。
 
-Rules:
-- Use only provided nodes and evidence claims.
-- Do not invent keywords.
-- Do not invent regex patterns.
-- Do not use field examples unless they appear in evidence.
-- Conditions and negative_conditions must come from evidence claims.
-- Generate negative rules only when exclusion evidence exists.
-- Return evidence_claim_ids for every rule.
-- If evidence is insufficient, output insufficient_evidence and needs_review = true.
+规则：
+- 只能使用输入中提供的节点和 `evidence_claims`。
+- 不得编造关键词。
+- 不得编造正则表达式。
+- 除非字段示例明确出现在证据中，否则不得使用字段示例。
+- `conditions` 和 `negative_conditions` 必须来自证据 claim。
+- 只有在存在明确排除证据时，才能生成负向规则。
+- 每一条规则都必须返回对应的 `evidence_claim_ids`。
+- 如果证据不足，必须输出 `insufficient_evidence` 并设置 `needs_review = true`。
 
-Output JSON object only.
+只输出 JSON object，不要输出 Markdown、解释文字或额外说明。

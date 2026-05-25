@@ -152,6 +152,7 @@ class StepTrace:
     input_summary: dict[str, Any] = field(default_factory=dict)
     output_summary: dict[str, Any] = field(default_factory=dict)
     raw_response: str = ""
+    raw_response_path: str = ""
 
 
 @dataclass

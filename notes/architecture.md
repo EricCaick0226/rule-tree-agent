@@ -34,7 +34,7 @@
 1. 解析文档：读取 `.md` 和 `.txt`。
 2. 切分文档：按标题、编号、空行和列表块形成 chunk。
 3. 构建证据索引：记录 chunk、文档、章节之间的关系。
-4. 抽取 evidence claims：必须调用 LLM，只抽取文档事实，不生成树。
+4. 抽取 evidence claims：必须调用 LLM，按 chunk 批量抽取文档事实，不生成树。
 5. 归一概念画像：必须调用 LLM，把 claims 组织成概念、定义、包含项、排除项。
 6. 发现分类维度：必须调用 LLM，只判断文档支持的分类依据。
 7. 合成候选分类树：必须调用 LLM，只生成节点与父子关系。
@@ -42,7 +42,7 @@
 9. 分析分级方案：必须调用 LLM，只抽取等级定义和节点映射。
 10. 生成匹配规则：必须调用 LLM，只使用 claims 中的术语、短语和排除关系。
 11. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
-12. 导出结果：生成 JSON、候选规则树 Markdown 和人工复核报告。
+12. 导出结果：生成 JSON、候选规则树 Markdown、人工复核报告和原始 LLM trace 文件。
 
 ## 模块职责
 
@@ -59,7 +59,8 @@
 - `rule_synthesizer.py`：LLM 匹配规则生成步骤。
 - `grounding_validator.py`：严格检查所有生成内容是否有证据。
 - `llm_client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
-- `exporter.py`：导出结构化结果、候选树和复核报告。
+- `llm_task_utils.py`：加载 prompt 文件，统一 LLM JSON 调用、顶层 schema 校验和一次重试。
+- `exporter.py`：导出结构化结果、候选树、复核报告和原始 LLM trace。
 - `agent_executor.py`：串联整个 MVP 流水线。
 - `agent_demo.py`：命令行演示入口。
 
@@ -84,13 +85,15 @@
 - 只支持 Markdown 和纯文本。
 - 只使用本地规则、关键词和轻量模糊匹配。
 - 必须接入 OpenAI-compatible LLM，LLM 调用失败即任务失败。
+- 运行时 prompt 来自 `prompts/`，每个 LLM 阶段只允许处理当前阶段职责。
+- LLM 原始回复不写入主 `rule_tree.json`，而是单独写入 `outputs/traces/`。
 - 不使用向量数据库。
 - 不处理复杂表格、PDF OCR 或跨文档冲突消解。
 - 输出是候选结果，不是最终标准。
 
 ## 未来版本想法
 
-- 接入 OpenAI-compatible API，但要求模型输出 evidence_refs。
+- 增加更细的嵌套 JSON schema 校验。
 - 增加表格解析和单元格级证据引用。
 - 支持人工反馈后重新生成。
 - 支持多版本文档对比与冲突标注。

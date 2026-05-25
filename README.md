@@ -24,7 +24,9 @@ This agent proposes. Humans review. It does not create final approved enterprise
 - Parses local `.md` and `.txt` files.
 - Chunks documents using headings, numbered sections, blank lines, and list blocks.
 - Builds a local evidence index over source chunks.
-- Calls the configured OpenAI-compatible LLM in narrow stages.
+- Calls the configured OpenAI-compatible LLM in narrow stages using prompt files under `prompts/`.
+- Extracts evidence claims in batches for larger documents.
+- Retries invalid LLM JSON output once with schema error feedback.
 - Extracts evidence claims before building any rule tree.
 - Normalizes concepts into concept profiles.
 - Fails clearly if the API key or LLM endpoint is unavailable.
@@ -35,7 +37,7 @@ This agent proposes. Humans review. It does not create final approved enterprise
 - Assigns grades only when documents map nodes to grades or criteria are explicitly supported.
 - Generates evidence-based keyword, phrase, context, or negative rules.
 - Validates grounding strictly.
-- Exports JSON, Markdown tree, and human review report.
+- Exports JSON, Markdown tree, human review report, and raw LLM traces.
 
 ## What It Does Not Do
 
@@ -105,18 +107,28 @@ Generated files:
 - `outputs/rule_tree.json`
 - `outputs/rule_tree.md`
 - `outputs/review_report.md`
+- `outputs/traces/` when LLM raw responses are available
+
+Optional tuning:
+
+```bash
+# Number of document chunks per evidence-claim LLM call.
+CLAIM_BATCH_SIZE=8 python3 -m src.agent_demo --docs data/sample_docs/sample_policy.md --out outputs
+```
+
+`rule_tree.json` intentionally stores structured state and trace file paths only. Full raw LLM responses are written under `outputs/traces/` for debugging and audit review.
 
 ## MVP Limitations
 
 - No vector search.
-- LLM JSON quality depends on the configured model and endpoint.
+- LLM JSON quality depends on the configured model and endpoint, even with one repair retry.
 - Requires a valid API key and network access to the configured LLM gateway.
 - Markdown and text input only.
 - Complex tables, scanned PDFs, and ambiguous policies are not handled in v0.1.
 
 ## Future Improvements
 
-- Add stricter LLM output repair and retry loops.
+- Add deeper schema validation for nested objects and cross-step contracts.
 - Add stronger table parsing.
 - Add richer evidence scoring.
 - Add reviewer feedback loops.
