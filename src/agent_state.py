@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Any, Optional
 
 
 @dataclass
@@ -45,11 +45,41 @@ class CandidateConcept:
 
 
 @dataclass
+class EvidenceClaim:
+    claim_id: str
+    claim_type: str
+    subject: str
+    predicate: str
+    object: str = ""
+    value: str = ""
+    evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    confidence: float = 0.0
+    needs_review: bool = True
+    status: str = "proposed"
+
+
+@dataclass
+class ConceptProfile:
+    concept_id: str
+    name: str
+    aliases: list[str] = field(default_factory=list)
+    definitions: list[str] = field(default_factory=list)
+    included_items: list[str] = field(default_factory=list)
+    excluded_items: list[str] = field(default_factory=list)
+    related_claim_ids: list[str] = field(default_factory=list)
+    evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    confidence: float = 0.0
+    needs_review: bool = True
+    status: str = "proposed"
+
+
+@dataclass
 class ClassificationDimension:
     dimension_id: str
     name: str
     description: str
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    evidence_claim_ids: list[str] = field(default_factory=list)
     reason: str = ""
     confidence: float = 0.0
     needs_review: bool = True
@@ -63,6 +93,7 @@ class MatchingRule:
     conditions: list[str] = field(default_factory=list)
     negative_conditions: list[str] = field(default_factory=list)
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    evidence_claim_ids: list[str] = field(default_factory=list)
     confidence: float = 0.0
     needs_review: bool = True
     status: str = "proposed"
@@ -85,6 +116,7 @@ class TreeNode:
     needs_review: bool = True
     status: str = "proposed"
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    evidence_claim_ids: list[str] = field(default_factory=list)
     description_evidence_level: str = "D"
 
 
@@ -95,6 +127,7 @@ class GradeDefinition:
     definition: str
     criteria: list[str] = field(default_factory=list)
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    evidence_claim_ids: list[str] = field(default_factory=list)
     confidence: float = 0.0
     needs_review: bool = True
     status: str = "proposed"
@@ -112,13 +145,26 @@ class ValidationIssue:
 
 
 @dataclass
+class StepTrace:
+    step_name: str
+    status: str
+    message: str = ""
+    input_summary: dict[str, Any] = field(default_factory=dict)
+    output_summary: dict[str, Any] = field(default_factory=dict)
+    raw_response: str = ""
+
+
+@dataclass
 class AgentState:
     task: str
     task_type: str = "unknown"
     input_files: list[str] = field(default_factory=list)
     documents: list[SourceDocument] = field(default_factory=list)
     chunks: list[DocumentChunk] = field(default_factory=list)
+    evidence_index: dict[str, Any] = field(default_factory=dict)
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    evidence_claims: list[EvidenceClaim] = field(default_factory=list)
+    concept_profiles: list[ConceptProfile] = field(default_factory=list)
     candidate_concepts: list[CandidateConcept] = field(default_factory=list)
     classification_dimensions: list[ClassificationDimension] = field(default_factory=list)
     selected_dimension: Optional[ClassificationDimension] = None
@@ -126,6 +172,7 @@ class AgentState:
     nodes: list[TreeNode] = field(default_factory=list)
     validation_issues: list[ValidationIssue] = field(default_factory=list)
     output_paths: dict[str, str] = field(default_factory=dict)
+    step_traces: list[StepTrace] = field(default_factory=list)
     llm_enabled: bool = False
     llm_used: bool = False
     llm_model: str = ""

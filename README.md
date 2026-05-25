@@ -6,7 +6,7 @@ The project is intentionally simple. It always uses an OpenAI-compatible LLM end
 
 ## Core Principle
 
-Documents → evidence → candidate concepts → possible classification dimensions → candidate tree → optional grading scheme → grounded descriptions → grounded matching rules → validation issues → human review.
+Documents → evidence index → evidence claims → concept profiles → possible classification dimensions → candidate taxonomy → grounded descriptions → optional grading scheme → grounded matching rules → validation issues → human review.
 
 Everything meaningful must come from the input documents:
 
@@ -23,14 +23,17 @@ This agent proposes. Humans review. It does not create final approved enterprise
 
 - Parses local `.md` and `.txt` files.
 - Chunks documents using headings, numbered sections, blank lines, and list blocks.
-- Calls the configured OpenAI-compatible LLM to propose grounded JSON candidates.
+- Builds a local evidence index over source chunks.
+- Calls the configured OpenAI-compatible LLM in narrow stages.
+- Extracts evidence claims before building any rule tree.
+- Normalizes concepts into concept profiles.
 - Fails clearly if the API key or LLM endpoint is unavailable.
-- Extracts candidate concepts from document structure and text.
-- Discovers possible classification dimensions from explicit document wording.
-- Builds a candidate taxonomy from evidence-backed hierarchy.
-- Extracts grading definitions only when the documents define them.
-- Assigns grades only when the documents map nodes to grades.
-- Generates simple evidence-based keyword or phrase rules.
+- Discovers possible classification dimensions from evidence claims.
+- Builds a candidate taxonomy from evidence-backed hierarchy claims.
+- Describes nodes only from supporting evidence.
+- Extracts grading definitions only when evidence claims support them.
+- Assigns grades only when documents map nodes to grades or criteria are explicitly supported.
+- Generates evidence-based keyword, phrase, context, or negative rules.
 - Validates grounding strictly.
 - Exports JSON, Markdown tree, and human review report.
 
@@ -55,6 +58,21 @@ rule-tree-agent/
 ├── src/
 └── notes/architecture.md
 ```
+
+## Agent Workflow
+
+1. Parse documents
+2. Chunk documents
+3. Build evidence index
+4. Extract evidence claims with LLM
+5. Normalize concept profiles with LLM
+6. Discover classification dimensions with LLM
+7. Synthesize candidate taxonomy with LLM
+8. Describe nodes with LLM
+9. Analyze grading with LLM
+10. Synthesize matching rules with LLM
+11. Validate grounding
+12. Export human review package
 
 ## Run
 

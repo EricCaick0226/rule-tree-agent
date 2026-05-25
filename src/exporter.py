@@ -26,6 +26,8 @@ def _node_lines(nodes: list[TreeNode]) -> list[str]:
                     lines.append(f"{indent}  - rule: {', '.join(rule.conditions)}")
                 else:
                     lines.append(f"{indent}  - rule: insufficient evidence")
+                if rule.negative_conditions:
+                    lines.append(f"{indent}  - negative: {', '.join(rule.negative_conditions)}")
         for child in sorted(children_by_parent.get(node.node_id, []), key=lambda item: item.path):
             render(child)
 
@@ -56,6 +58,8 @@ def _review_report(state: AgentState) -> str:
         f"- LLM model: {state.llm_model if state.llm_enabled else 'not used'}",
         f"- LLM base URL: {state.llm_base_url if state.llm_enabled else 'not used'}",
         f"- LLM error: {state.llm_error if state.llm_error else 'none'}",
+        f"- Evidence claims: {len(state.evidence_claims)}",
+        f"- Concept profiles: {len(state.concept_profiles)}",
         f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
         f"- Selected dimension: {state.selected_dimension.name if state.selected_dimension else 'cannot determine from current documents'}",
         f"- Grade scheme found: {'yes' if state.grade_scheme else 'no'}",
@@ -98,6 +102,16 @@ def _review_report(state: AgentState) -> str:
     else:
         lines.append("- Review the candidate tree before adopting it as an enterprise standard.")
 
+    lines.extend(["", "## Step Trace"])
+    if state.step_traces:
+        for trace in state.step_traces:
+            lines.append(
+                f"- {trace.step_name}: {trace.status}; "
+                f"input={trace.input_summary}; output={trace.output_summary}"
+            )
+    else:
+        lines.append("- No step traces recorded.")
+
     return "\n".join(lines) + "\n"
 
 
@@ -132,6 +146,8 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         tree_lines.append(f"- LLM base URL: {state.llm_base_url}")
     if state.llm_error:
         tree_lines.append(f"- LLM error: {state.llm_error}")
+    tree_lines.append(f"- Evidence claims: {len(state.evidence_claims)}")
+    tree_lines.append(f"- Concept profiles: {len(state.concept_profiles)}")
     if state.selected_dimension:
         tree_lines.append(f"- Selected dimension: {state.selected_dimension.name}")
     else:

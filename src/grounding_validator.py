@@ -38,6 +38,77 @@ def _corpus_text(state: AgentState) -> str:
 def validate_grounding(state: AgentState) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     corpus = _corpus_text(state)
+    claim_ids = {claim.claim_id for claim in state.evidence_claims}
+
+    if not state.evidence_claims:
+        _add_issue(
+            issues,
+            "missing_evidence_claims",
+            "high",
+            "evidence_claims",
+            "未抽取到 evidence claims，后续规则树缺少事实基础。",
+            "请检查输入文档或 LLM claim 抽取步骤。",
+        )
+
+    for claim in state.evidence_claims:
+        if not claim.evidence_refs:
+            _add_issue(
+                issues,
+                "unsupported_generation",
+                "high",
+                claim.claim_id,
+                "Evidence claim 缺少证据引用。",
+                "删除该 claim 或补充 chunk 证据。",
+            )
+        if claim.subject and claim.subject not in corpus:
+            _add_issue(
+                issues,
+                "hardcoded_or_ungrounded_content",
+                "high",
+                claim.claim_id,
+                f"Claim subject 未出现在输入文档中：{claim.subject}",
+                "Claim 主体必须来自文档原文。",
+            )
+        for value in [claim.object, claim.value]:
+            if value and len(value) <= 80 and value not in corpus:
+                _add_issue(
+                    issues,
+                    "hardcoded_or_ungrounded_content",
+                    "medium",
+                    claim.claim_id,
+                    f"Claim 内容可能未出现在输入文档中：{value}",
+                    "请人工确认该 claim 是否为证据内归纳，或改为直接原文片段。",
+                )
+
+    for concept in state.concept_profiles:
+        if not concept.evidence_refs:
+            _add_issue(
+                issues,
+                "unsupported_generation",
+                "high",
+                concept.name,
+                "概念画像缺少证据引用。",
+                "删除该概念或补充 claim 证据。",
+            )
+        if concept.name and concept.name not in corpus:
+            _add_issue(
+                issues,
+                "hardcoded_or_ungrounded_content",
+                "high",
+                concept.name,
+                "概念名称未出现在输入文档中。",
+                "概念名称必须来自文档原文。",
+            )
+        for claim_id in concept.related_claim_ids:
+            if claim_id not in claim_ids:
+                _add_issue(
+                    issues,
+                    "broken_trace",
+                    "high",
+                    concept.name,
+                    f"概念引用了不存在的 claim：{claim_id}",
+                    "修复 related_claim_ids 或删除无效引用。",
+                )
 
     if state.selected_dimension is None:
         _add_issue(
@@ -56,6 +127,15 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
             state.selected_dimension.name,
             "分类维度缺少证据引用。",
             "回到原文确认分类依据，并补充证据。",
+        )
+    elif not state.selected_dimension.evidence_claim_ids:
+        _add_issue(
+            issues,
+            "weak_trace",
+            "medium",
+            state.selected_dimension.name,
+            "分类维度缺少 evidence_claim_ids。",
+            "建议维度直接引用支持它的 evidence claims。",
         )
 
     if not state.grade_scheme:
@@ -90,6 +170,25 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "节点缺少创建依据。",
                 "删除该节点或补充原文证据。",
             )
+        if not node.evidence_claim_ids:
+            _add_issue(
+                issues,
+                "weak_trace",
+                "medium",
+                node.path,
+                "节点缺少 evidence_claim_ids。",
+                "建议节点直接引用支持其存在或层级关系的 evidence claims。",
+            )
+        for claim_id in node.evidence_claim_ids:
+            if claim_id not in claim_ids:
+                _add_issue(
+                    issues,
+                    "broken_trace",
+                    "high",
+                    node.path,
+                    f"节点引用了不存在的 claim：{claim_id}",
+                    "修复节点 evidence_claim_ids。",
+                )
 
         if node.name not in corpus:
             _add_issue(
@@ -171,6 +270,16 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                         f"规则条件“{condition}”未出现在输入文档中。",
                         "只能使用文档中出现过的术语、短语或格式模式。",
                     )
+            for claim_id in rule.evidence_claim_ids:
+                if claim_id not in claim_ids:
+                    _add_issue(
+                        issues,
+                        "broken_trace",
+                        "high",
+                        rule.rule_id,
+                        f"规则引用了不存在的 claim：{claim_id}",
+                        "修复规则 evidence_claim_ids。",
+                    )
 
         if node.confidence < 0.6:
             _add_issue(
@@ -202,6 +311,15 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "等级定义缺少证据引用。",
                 "删除该等级或补充原文证据。",
             )
+        if not grade.evidence_claim_ids:
+            _add_issue(
+                issues,
+                "weak_trace",
+                "medium",
+                grade.grade_name,
+                "等级定义缺少 evidence_claim_ids。",
+                "建议等级定义直接引用 grade_definition claim。",
+            )
         if grade.grade_name not in corpus:
             _add_issue(
                 issues,
@@ -212,5 +330,14 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "不得保留未由文档支持的等级名称。",
             )
 
-    return issues
+    if not state.nodes:
+        _add_issue(
+            issues,
+            "insufficient_evidence",
+            "high",
+            "taxonomy",
+            "未生成候选规则树节点。",
+            "请检查文档是否包含分类结构，或检查 LLM 建树步骤输出。",
+        )
 
+    return issues

@@ -1,17 +1,18 @@
 # Discover Dimensions Prompt
 
-You are discovering possible classification dimensions from document evidence.
+Task: Discover classification dimensions from evidence claims and concept profiles.
 
 Rules:
-- Use only provided document evidence.
+- Use only provided evidence claims and concept profiles.
 - Do not invent categories.
 - Do not invent grading levels.
 - Do not invent hierarchy.
 - Do not invent descriptions.
 - Do not invent rules.
-- If evidence is insufficient, output needs_review = true.
-- Return evidence_refs for every generated item.
+- Prefer explicit classification principle claims.
+- If no reliable dimension exists, set selected_dimension_name = null.
+- Every dimension must return evidence_claim_ids.
+- If evidence is weak, output needs_review = true.
 - Separate classification, grading, rules, and evidence.
 
-Task:
-Find explicit classification principles or classification basis statements. If none exist, return insufficient evidence or a weak candidate marked for human review.
+Output JSON object only.

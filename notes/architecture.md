@@ -33,27 +33,32 @@
 
 1. 解析文档：读取 `.md` 和 `.txt`。
 2. 切分文档：按标题、编号、空行和列表块形成 chunk。
-3. LLM 证据内生成：必须调用 OpenAI-compatible 接口，让模型只基于 chunk 输出候选 JSON。
-4. 转换结构：把模型返回的 JSON 转换为概念、维度、节点、等级和规则等内部结构。
-5. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
-6. 导出结果：生成 JSON、候选规则树 Markdown 和人工复核报告。
+3. 构建证据索引：记录 chunk、文档、章节之间的关系。
+4. 抽取 evidence claims：必须调用 LLM，只抽取文档事实，不生成树。
+5. 归一概念画像：必须调用 LLM，把 claims 组织成概念、定义、包含项、排除项。
+6. 发现分类维度：必须调用 LLM，只判断文档支持的分类依据。
+7. 合成候选分类树：必须调用 LLM，只生成节点与父子关系。
+8. 生成节点描述：必须调用 LLM，只基于 claims 写定义和范围。
+9. 分析分级方案：必须调用 LLM，只抽取等级定义和节点映射。
+10. 生成匹配规则：必须调用 LLM，只使用 claims 中的术语、短语和排除关系。
+11. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
+12. 导出结果：生成 JSON、候选规则树 Markdown 和人工复核报告。
 
 ## 模块职责
 
 - `agent_state.py`：定义文档、证据、概念、维度、节点、等级、规则、校验问题和整体状态。
-- `task_router.py`：识别任务类型。
 - `document_parser.py`：只负责解析与切分，不解释业务含义。
 - `evidence_store.py`：创建证据引用，提供简单本地关键词搜索。
-- `concept_extractor.py`：早期本地抽取模块，当前主流程不再调用。
-- `dimension_discoverer.py`：早期本地维度发现模块，当前主流程不再调用。
-- `taxonomy_builder.py`：早期本地建树模块，当前主流程不再调用。
-- `description_generator.py`：早期本地描述生成模块，当前主流程不再调用。
-- `grade_scheme_extractor.py`：早期本地分级抽取模块，当前主流程不再调用。
-- `grade_assigner.py`：早期本地分级分配模块，当前主流程不再调用。
-- `rule_generator.py`：早期本地规则生成模块，当前主流程不再调用。
+- `evidence_index.py`：建立 chunk 与文档、章节的索引。
+- `evidence_claim_extractor.py`：LLM claim 抽取步骤，只产生证据事实。
+- `concept_normalizer.py`：LLM 概念画像步骤。
+- `dimension_analyzer.py`：LLM 分类维度分析步骤。
+- `taxonomy_synthesizer.py`：LLM 候选分类树合成步骤。
+- `node_describer.py`：LLM 节点描述生成步骤。
+- `grading_analyzer.py`：LLM 分级方案与节点分级分析步骤。
+- `rule_synthesizer.py`：LLM 匹配规则生成步骤。
 - `grounding_validator.py`：严格检查所有生成内容是否有证据。
 - `llm_client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
-- `llm_grounded_generator.py`：将模型输出的证据 JSON 转换为内部数据结构。
 - `exporter.py`：导出结构化结果、候选树和复核报告。
 - `agent_executor.py`：串联整个 MVP 流水线。
 - `agent_demo.py`：命令行演示入口。
