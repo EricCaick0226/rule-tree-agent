@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import os
+import time
+from dataclasses import asdict, fields
+from pathlib import Path
 from typing import Any
 
-from ..core.agent_state import AgentState, EvidenceClaim
+from ..core.agent_state import AgentState, EvidenceClaim, EvidenceRef
 from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
@@ -29,6 +34,80 @@ ALLOWED_CLAIM_TYPES = {
 }
 
 ALLOWED_SUPPORT_LEVELS = {"explicit", "structural", "inferred", "weak", "ocr"}
+
+
+def _load_dotenv_if_available() -> None:
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return
+    load_dotenv()
+
+
+def _env_bool(name: str, default: bool = True) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _checkpoint_path(output_dir: str) -> Path:
+    return Path(output_dir).expanduser().resolve() / "checkpoints" / "evidence_claim_batches.jsonl"
+
+
+def _chunk_signature(chunks: list) -> str:
+    digest = hashlib.sha1()
+    for chunk in chunks:
+        digest.update(chunk.chunk_id.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(chunk.doc_name.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(chunk.text.encode("utf-8"))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _make_dataclass(cls, data: dict[str, Any]):
+    allowed = {field.name for field in fields(cls)}
+    return cls(**{key: value for key, value in data.items() if key in allowed})
+
+
+def _claims_from_checkpoint(record: dict[str, Any]) -> list[EvidenceClaim]:
+    claims: list[EvidenceClaim] = []
+    for item in record.get("claims") or []:
+        claim = _make_dataclass(EvidenceClaim, {**item, "evidence_refs": []})
+        claim.evidence_refs = [
+            _make_dataclass(EvidenceRef, ref)
+            for ref in item.get("evidence_refs") or []
+            if isinstance(ref, dict)
+        ]
+        claims.append(claim)
+    return claims
+
+
+def _load_checkpoint_records(path: Path, signature: str) -> dict[int, dict[str, Any]]:
+    records: dict[int, dict[str, Any]] = {}
+    if not path.exists():
+        return records
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if record.get("signature") != signature:
+            continue
+        batch_index = int(record.get("batch_index") or 0)
+        if batch_index > 0:
+            records[batch_index] = record
+    return records
+
+
+def _write_checkpoint_record(path: Path, record: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as file:
+        file.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
 def _payload(chunks: list) -> dict[str, Any]:
@@ -127,8 +206,22 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
     return claims
 
 
-def extract_evidence_claims_with_llm(state: AgentState, llm_client: Any) -> AgentState:
+def extract_evidence_claims_with_llm(
+    state: AgentState,
+    llm_client: Any,
+    output_dir: str = "outputs",
+) -> AgentState:
+    _load_dotenv_if_available()
     batch_size = max(1, int(os.getenv("CLAIM_BATCH_SIZE", "8")))
+    checkpoint_enabled = _env_bool("CLAIM_CHECKPOINT_ENABLED", True)
+    resume_enabled = _env_bool("CLAIM_RESUME", True)
+    checkpoint_path = _checkpoint_path(output_dir)
+    signature = _chunk_signature(state.chunks)
+    cached_records = (
+        _load_checkpoint_records(checkpoint_path, signature)
+        if checkpoint_enabled and resume_enabled
+        else {}
+    )
     all_claims: list[EvidenceClaim] = []
     raw_batches: list[str] = []
     seen: set[str] = set()
@@ -149,23 +242,79 @@ def extract_evidence_claims_with_llm(state: AgentState, llm_client: Any) -> Agen
         state.chunks[index : index + batch_size]
         for index in range(0, len(state.chunks), batch_size)
     ]
+    print(
+        "Claim extraction:",
+        f"chunks={len(state.chunks)}",
+        f"batch_size={batch_size}",
+        f"batches={len(batches)}",
+        f"resume={'on' if resume_enabled else 'off'}",
+    )
+    if checkpoint_enabled:
+        print(f"Claim checkpoint: {checkpoint_path}")
+    step_start = time.monotonic()
+
     for batch_index, batch_chunks in enumerate(batches, start=1):
-        data, raw_response = call_llm_json(
-            llm_client=llm_client,
-            task_name=f"抽取 evidence claims batch {batch_index}/{len(batches)}",
-            prompt_file="extract_evidence_claims_prompt.md",
-            payload={
-                **_payload(batch_chunks),
-                "batch_index": batch_index,
-                "batch_count": len(batches),
-            },
-            required_keys={"claims": list},
-            max_tokens=env_int("LLM_CLAIM_MAX_TOKENS", 2000),
-            temperature=0.0,
-            disable_thinking=True,
-        )
+        chunk_ids = [chunk.chunk_id for chunk in batch_chunks]
+        batch_chars = sum(len(chunk.text) for chunk in batch_chunks)
+        cached = cached_records.get(batch_index)
+        if cached and cached.get("chunk_ids") == chunk_ids:
+            batch_claims = _claims_from_checkpoint(cached)
+            raw_response = cached.get("raw_response") or "checkpoint hit; raw response not recorded"
+            print(
+                f"  - claims batch {batch_index}/{len(batches)} cached",
+                f"chunks={len(batch_chunks)}",
+                f"chars={batch_chars}",
+                f"claims={len(batch_claims)}",
+            )
+        else:
+            batch_start = time.monotonic()
+            print(
+                f"  - claims batch {batch_index}/{len(batches)} start",
+                f"chunks={len(batch_chunks)}",
+                f"chars={batch_chars}",
+            )
+            try:
+                data, raw_response = call_llm_json(
+                    llm_client=llm_client,
+                    task_name=f"抽取 evidence claims batch {batch_index}/{len(batches)}",
+                    prompt_file="extract_evidence_claims_prompt.md",
+                    payload={
+                        **_payload(batch_chunks),
+                        "batch_index": batch_index,
+                        "batch_count": len(batches),
+                    },
+                    required_keys={"claims": list},
+                    max_tokens=env_int("LLM_CLAIM_MAX_TOKENS", 2000),
+                    temperature=0.0,
+                    disable_thinking=True,
+                )
+            except Exception:
+                elapsed = round(time.monotonic() - batch_start, 1)
+                print(f"  - claims batch {batch_index}/{len(batches)} failed elapsed={elapsed}s")
+                raise
+            batch_claims = _to_claims(data, state)
+            elapsed = round(time.monotonic() - batch_start, 1)
+            print(
+                f"  - claims batch {batch_index}/{len(batches)} done",
+                f"claims={len(batch_claims)}",
+                f"elapsed={elapsed}s",
+            )
+            if checkpoint_enabled:
+                _write_checkpoint_record(
+                    checkpoint_path,
+                    {
+                        "signature": signature,
+                        "batch_index": batch_index,
+                        "batch_count": len(batches),
+                        "chunk_ids": chunk_ids,
+                        "claims": [asdict(claim) for claim in batch_claims],
+                        "raw_response": raw_response,
+                        "elapsed_seconds": elapsed,
+                    },
+                )
+
         raw_batches.append(f"batch={batch_index}/{len(batches)}\n{raw_response}")
-        for claim in _to_claims(data, state):
+        for claim in batch_claims:
             fingerprint = "|".join(
                 [claim.claim_type, claim.subject, claim.predicate, claim.object, claim.value]
             )
@@ -179,7 +328,19 @@ def extract_evidence_claims_with_llm(state: AgentState, llm_client: Any) -> Agen
         state.step_traces,
         step_name="extract_evidence_claims_with_llm",
         status="success",
-        input_summary={"chunks": len(state.chunks), "batch_size": batch_size, "batches": len(batches)},
+        input_summary={
+            "chunks": len(state.chunks),
+            "batch_size": batch_size,
+            "batches": len(batches),
+            "cached_batches": sum(
+                1
+                for index, batch_chunks in enumerate(batches, start=1)
+                if cached_records.get(index)
+                and cached_records[index].get("chunk_ids") == [chunk.chunk_id for chunk in batch_chunks]
+            ),
+            "checkpoint_path": str(checkpoint_path) if checkpoint_enabled else "",
+            "elapsed_seconds": round(time.monotonic() - step_start, 1),
+        },
         output_summary={"claims": len(state.evidence_claims)},
         raw_response="\n\n===\n\n".join(raw_batches),
     )

@@ -48,7 +48,7 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
     elif tool_name == "build_evidence_index":
         state = build_evidence_index(state)
     elif tool_name == "extract_evidence_claims_with_llm":
-        state = extract_evidence_claims_with_llm(state, llm_client)
+        state = extract_evidence_claims_with_llm(state, llm_client, output_dir)
     elif tool_name == "normalize_concepts_with_llm":
         state = normalize_concepts_with_llm(state, llm_client)
     elif tool_name == "discover_dimensions_with_llm":
