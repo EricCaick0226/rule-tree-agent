@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import subprocess
+import sys
 import unittest
+from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from src.core.agent_state import AgentState, SourceDocument
@@ -68,6 +71,31 @@ class RowFirstPipelineTests(unittest.TestCase):
         with patch("src.pipeline.agent_executor.project_tree_from_rows", return_value=state) as project:
             self.assertIs(_run_step("project_tree_from_rows", state, "outputs", object()), state)
         project.assert_called_once_with(state)
+
+    def test_llm_used_stays_false_when_llm_steps_short_circuit_without_raw_response(self) -> None:
+        state = AgentState(task="test", task_type="generate_rule_tree_from_docs", input_files=[])
+
+        with TemporaryDirectory() as tmp:
+            result = _run_llm_steps(state, tmp, object())
+
+        self.assertFalse(result.llm_used)
+        self.assertTrue(result.step_traces)
+        self.assertFalse(any(trace.raw_response for trace in result.step_traces))
+
+    def test_agent_demo_help_marks_ocr_as_legacy_noop(self) -> None:
+        result = subprocess.run(
+            [sys.executable, "-m", "src.agent_demo", "--help"],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+        normalized_help = " ".join(result.stdout.split())
+        self.assertIn(
+            "Legacy option retained for compatibility; row-first MVP supports .txt and .md only.",
+            normalized_help,
+        )
+        self.assertNotIn("Use OCR for PDF pages", normalized_help)
 
 
 if __name__ == "__main__":

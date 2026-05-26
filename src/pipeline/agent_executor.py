@@ -84,9 +84,11 @@ def _run_llm_steps(state: AgentState, output_dir: str, llm_client) -> AgentState
     for index, step in enumerate(plan, start=1):
         print(f"[{index}/{len(plan)}] {step['label']} ({step['tool']})")
         if step["tool"].endswith("_with_llm"):
+            trace_count = len(state.step_traces)
             try:
                 state = _run_step(step["tool"], state, output_dir, llm_client)
-                state.llm_used = True
+                if any(trace.raw_response for trace in state.step_traces[trace_count:]):
+                    state.llm_used = True
             except LLMGenerationError:
                 raise
             except Exception as exc:

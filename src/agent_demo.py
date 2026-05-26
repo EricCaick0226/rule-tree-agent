@@ -23,12 +23,14 @@ def main() -> None:
     parser.add_argument(
         "--ocr",
         action="store_true",
-        help="Use OCR for PDF pages that have little or no extractable text.",
+        help="Legacy option retained for compatibility; row-first MVP supports .txt and .md only.",
     )
     args = parser.parse_args()
 
     docs = [str(Path(doc).expanduser().resolve()) for doc in args.docs]
     out_dir = str(Path(args.out).expanduser().resolve())
+    if args.ocr:
+        print("Warning: --ocr is ignored by the row-first txt/md MVP.")
     try:
         state = run_agent(
             user_task="Generate a new document-grounded classification and grading rule tree from documents.",
