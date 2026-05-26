@@ -60,13 +60,13 @@ def _flush_block(
     chunks: list[DocumentChunk],
     doc: SourceDocument,
     section_title: str,
-    block: list[str],
+    block: list[tuple[int, str]],
     position: int,
     page_number: int | None,
     source_method: str,
     source_warning: str,
 ) -> int:
-    text = "\n".join(line.rstrip() for line in block).strip()
+    text = "\n".join(line.rstrip() for _, line in block).strip()
     if not text:
         return position
     position += 1
@@ -82,6 +82,8 @@ def _flush_block(
             text=text,
             position=position,
             page_number=page_number,
+            line_start=block[0][0],
+            line_end=block[-1][0],
             source_method=source_method,
             source_warning=source_warning,
         )
@@ -97,12 +99,12 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
         pages = doc.pages or [DocumentPage(page_number=None, text=doc.raw_text, source_method="text")]
 
         for page in pages:
-            block: list[str] = []
+            block: list[tuple[int, str]] = []
             previous_was_list = False
             source_method = page.source_method
             source_warning = page.warning
 
-            for raw_line in page.text.splitlines():
+            for line_number, raw_line in enumerate(page.text.splitlines(), start=1):
                 line = raw_line.rstrip()
                 stripped = line.strip()
 
@@ -129,6 +131,8 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                             text=stripped,
                             position=position,
                             page_number=page.page_number,
+                            line_start=line_number,
+                            line_end=line_number,
                             source_method=source_method,
                             source_warning=source_warning,
                         )
@@ -165,7 +169,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                     )
                     block = []
 
-                block.append(line)
+                block.append((line_number, line))
                 previous_was_list = current_is_list
 
             position = _flush_block(

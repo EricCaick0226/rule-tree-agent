@@ -31,6 +31,8 @@ class DocumentChunk:
     text: str
     position: int
     page_number: Optional[int] = None
+    line_start: Optional[int] = None
+    line_end: Optional[int] = None
     source_method: str = "text"
     source_warning: str = ""
 
