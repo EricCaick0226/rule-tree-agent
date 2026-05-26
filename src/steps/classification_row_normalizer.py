@@ -6,6 +6,7 @@ from ..llm.task_utils import append_step_trace, stable_id
 
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 DEFAULT_INSUFFICIENT_REVIEW_REASON = "当前文档未提供该分类项的说明或范围描述。"
+GRADE_CONFLICT_REVIEW_REASON = "同一分类路径存在不同推荐分级候选，需要人工确认。"
 SUPPORT_RANK = {"weak": 0, "structural": 1, "explicit": 2}
 DESCRIPTION_SOURCE_RANK = {"insufficient": 0, "summarized": 1, "quoted": 2}
 
@@ -14,11 +15,12 @@ def _row_key(row: ClassificationRow) -> tuple[str, ...]:
     return tuple(level.strip() for level in row.path_levels if level.strip())
 
 
-def _row_rank(row: ClassificationRow) -> tuple[int, int, int, float]:
+def _row_rank(row: ClassificationRow) -> tuple[int, int, int, int, float]:
     return (
-        DESCRIPTION_SOURCE_RANK.get(row.description_source, 0),
         1 if row.evidence_refs else 0,
         SUPPORT_RANK.get(row.support_level, 0),
+        1 if row.description_source != "insufficient" and row.description.strip() else 0,
+        DESCRIPTION_SOURCE_RANK.get(row.description_source, 0),
         row.confidence,
     )
 
@@ -27,6 +29,11 @@ def _merge_review_context(selected: ClassificationRow, other: ClassificationRow)
     selected.needs_review = selected.needs_review or other.needs_review
     reasons = [reason for reason in [selected.review_reason, other.review_reason] if reason]
     selected.review_reason = "；".join(dict.fromkeys(reasons))
+
+
+def _append_review_reason(row: ClassificationRow, reason: str) -> None:
+    reasons = [item for item in [row.review_reason, reason] if item]
+    row.review_reason = "；".join(dict.fromkeys(reasons))
 
 
 def _normalize_row(row: ClassificationRow) -> ClassificationRow | None:
@@ -56,8 +63,8 @@ def _choose_row(existing: ClassificationRow, candidate: ClassificationRow) -> Cl
     _merge_review_context(selected, other)
     if selected is candidate or grade_changed:
         selected.needs_review = selected.needs_review or other.needs_review or grade_changed
-        if not selected.review_reason and grade_changed:
-            selected.review_reason = "重复候选行提供了不同推荐分级，需要人工确认合并结果。"
+        if grade_changed:
+            _append_review_reason(selected, GRADE_CONFLICT_REVIEW_REASON)
     return selected
 
 
