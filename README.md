@@ -130,8 +130,11 @@ Generated files:
 Optional tuning:
 
 ```bash
-# Number of document chunks per evidence-claim LLM call.
-CLAIM_BATCH_SIZE=8 python3 -m src.agent_demo --docs data/sample_docs/sample_policy.md --out outputs
+# Evidence-claim batching. CLAIM_BATCH_SIZE is the max chunks per call;
+# CLAIM_BATCH_MAX_CHARS is the max source-text budget per call. Checkpoints
+# are written under <output_dir>/checkpoints/evidence_claim_batches.jsonl.
+CLAIM_BATCH_SIZE=8 CLAIM_BATCH_MAX_CHARS=6000 \
+  python3 -m src.agent_demo --docs data/sample_docs/sample_policy.md --out outputs
 
 # OCR languages, render DPI, and timeout. Defaults are zh-Hans,en-US, 200, and 120 seconds.
 OCR_LANGUAGES=zh-Hans,en-US OCR_DPI=200 OCR_TIMEOUT_SECONDS=120 \

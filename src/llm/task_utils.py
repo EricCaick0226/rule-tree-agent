@@ -182,6 +182,41 @@ def string_list(value: Any) -> list[str]:
     return [str(item).strip() for item in value if str(item).strip()]
 
 
+def _chunk_signal(chunk: DocumentChunk) -> str:
+    text = str(chunk.text or "").strip()
+    if not text:
+        return "possible_noise"
+
+    non_space_chars = [char for char in text if not char.isspace()]
+    if non_space_chars:
+        useful_chars = [
+            char for char in non_space_chars
+            if "\u4e00" <= char <= "\u9fff" or char.isalnum()
+        ]
+        if len(useful_chars) / len(non_space_chars) < 0.35:
+            return "possible_noise"
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if len(lines) >= 2:
+        table_markers = sum(
+            1
+            for line in lines
+            if "\t" in line or "|" in line or re.search(r"\s{2,}", line)
+        )
+        if table_markers >= max(1, len(lines) // 2):
+            return "table_like"
+
+    if chunk.source_method == "ocr" and len(text) <= 30:
+        return "short_ocr"
+
+    if len(text) <= 40 and re.match(r"^[\d一二三四五六七八九十]+[.、．]?\s*\S+", text):
+        return "heading_only"
+    if len(text) <= 40 and not re.search(r"[。；;：:，,]", text):
+        return "heading_only"
+
+    return "normal"
+
+
 def chunk_payload(chunks: list[DocumentChunk]) -> list[dict[str, Any]]:
     return [
         {
@@ -192,6 +227,7 @@ def chunk_payload(chunks: list[DocumentChunk]) -> list[dict[str, Any]]:
             "page_number": chunk.page_number,
             "source_method": chunk.source_method,
             "source_warning": chunk.source_warning,
+            "chunk_signal": _chunk_signal(chunk),
             "text": chunk.text,
         }
         for chunk in chunks

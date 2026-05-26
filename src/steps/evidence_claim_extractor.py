@@ -110,6 +110,43 @@ def _write_checkpoint_record(path: Path, record: dict[str, Any]) -> None:
         file.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
+def _build_claim_batches(chunks: list, max_chunks: int, max_chars: int) -> list[list]:
+    max_chunks = max(1, int(max_chunks or 1))
+    max_chars = max(0, int(max_chars or 0))
+    if max_chars <= 0:
+        return [
+            chunks[index : index + max_chunks]
+            for index in range(0, len(chunks), max_chunks)
+        ]
+
+    batches: list[list] = []
+    current: list = []
+    current_chars = 0
+
+    for chunk in chunks:
+        chunk_chars = len(chunk.text or "")
+        oversized = chunk_chars > max_chars
+        if current and (
+            len(current) >= max_chunks
+            or current_chars + chunk_chars > max_chars
+            or oversized
+        ):
+            batches.append(current)
+            current = []
+            current_chars = 0
+
+        if oversized:
+            batches.append([chunk])
+            continue
+
+        current.append(chunk)
+        current_chars += chunk_chars
+
+    if current:
+        batches.append(current)
+    return batches
+
+
 def _payload(chunks: list) -> dict[str, Any]:
     schema = {
         "claims": [
@@ -212,7 +249,9 @@ def extract_evidence_claims_with_llm(
     output_dir: str = "outputs",
 ) -> AgentState:
     _load_dotenv_if_available()
-    batch_size = max(1, int(os.getenv("CLAIM_BATCH_SIZE", "8")))
+    batch_size = max(1, env_int("CLAIM_BATCH_SIZE", 8))
+    batch_max_chars = max(0, env_int("CLAIM_BATCH_MAX_CHARS", 6000))
+    batching_mode = "char_budget" if batch_max_chars > 0 else "fixed_chunk_count"
     checkpoint_enabled = _env_bool("CLAIM_CHECKPOINT_ENABLED", True)
     resume_enabled = _env_bool("CLAIM_RESUME", True)
     checkpoint_path = _checkpoint_path(output_dir)
@@ -233,19 +272,24 @@ def extract_evidence_claims_with_llm(
             step_name="extract_evidence_claims_with_llm",
             status="success",
             message="No chunks available for claim extraction.",
-            input_summary={"chunks": 0, "batch_size": batch_size, "batches": 0},
+            input_summary={
+                "chunks": 0,
+                "batch_size": batch_size,
+                "batch_max_chars": batch_max_chars,
+                "batching_mode": batching_mode,
+                "batches": 0,
+            },
             output_summary={"claims": 0},
         )
         return state
 
-    batches = [
-        state.chunks[index : index + batch_size]
-        for index in range(0, len(state.chunks), batch_size)
-    ]
+    batches = _build_claim_batches(state.chunks, batch_size, batch_max_chars)
     print(
         "Claim extraction:",
         f"chunks={len(state.chunks)}",
         f"batch_size={batch_size}",
+        f"batch_max_chars={batch_max_chars}",
+        f"mode={batching_mode}",
         f"batches={len(batches)}",
         f"resume={'on' if resume_enabled else 'off'}",
     )
@@ -264,6 +308,7 @@ def extract_evidence_claims_with_llm(
                 f"  - claims batch {batch_index}/{len(batches)} cached",
                 f"chunks={len(batch_chunks)}",
                 f"chars={batch_chars}",
+                f"chunk_ids={chunk_ids[0]}..{chunk_ids[-1]}",
                 f"claims={len(batch_claims)}",
             )
         else:
@@ -272,6 +317,7 @@ def extract_evidence_claims_with_llm(
                 f"  - claims batch {batch_index}/{len(batches)} start",
                 f"chunks={len(batch_chunks)}",
                 f"chars={batch_chars}",
+                f"chunk_ids={chunk_ids[0]}..{chunk_ids[-1]}",
             )
             try:
                 data, raw_response = call_llm_json(
@@ -331,6 +377,8 @@ def extract_evidence_claims_with_llm(
         input_summary={
             "chunks": len(state.chunks),
             "batch_size": batch_size,
+            "batch_max_chars": batch_max_chars,
+            "batching_mode": batching_mode,
             "batches": len(batches),
             "cached_batches": sum(
                 1
