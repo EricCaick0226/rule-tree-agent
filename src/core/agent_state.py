@@ -142,6 +142,34 @@ class GradeDefinition:
 
 
 @dataclass
+class ClassificationSchema:
+    max_depth: int = 0
+    source: str = "insufficient_evidence"
+    evidence_quote: str = ""
+    evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    confidence: float = 0.0
+    needs_review: bool = True
+    review_reason: str = "证据不足，无法从当前文档确定分类层级。"
+
+
+@dataclass
+class ClassificationRow:
+    row_id: str
+    path_levels: list[str] = field(default_factory=list)
+    recommended_grade: Optional[str] = None
+    description: str = "证据不足，无法从当前文档确定"
+    description_source: str = "insufficient"
+    description_evidence_quote: str = ""
+    evidence_quote: str = ""
+    evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    support_level: str = "weak"
+    confidence: float = 0.0
+    needs_review: bool = True
+    review_reason: str = ""
+    status: str = "proposed"
+
+
+@dataclass
 class ValidationIssue:
     issue_id: str
     issue_type: str
@@ -176,6 +204,9 @@ class AgentState:
     classification_dimensions: list[ClassificationDimension] = field(default_factory=list)
     selected_dimension: Optional[ClassificationDimension] = None
     grade_scheme: list[GradeDefinition] = field(default_factory=list)
+    block_signals: dict[str, dict[str, Any]] = field(default_factory=dict)
+    classification_schema: Optional[ClassificationSchema] = None
+    classification_rows: list[ClassificationRow] = field(default_factory=list)
     nodes: list[TreeNode] = field(default_factory=list)
     validation_issues: list[ValidationIssue] = field(default_factory=list)
     output_paths: dict[str, str] = field(default_factory=dict)
