@@ -7,8 +7,8 @@ from .pipeline.agent_executor import run_agent
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the document-grounded rule tree agent demo.")
-    parser.add_argument("--docs", nargs="+", required=True, help="Markdown, text, or PDF documents.")
+    parser = argparse.ArgumentParser(description="Run the document-grounded row-first rule tree agent demo.")
+    parser.add_argument("--docs", nargs="+", required=True, help="Markdown or text documents.")
     parser.add_argument("--out", default="outputs", help="Output directory.")
     parser.add_argument(
         "--llm-base-url",
@@ -42,19 +42,20 @@ def main() -> None:
         print(f"Agent failed: {exc}")
         raise SystemExit(1) from exc
 
-    review_count = sum(1 for node in state.nodes if node.needs_review)
+    review_count = sum(1 for row in state.classification_rows if row.needs_review)
+    classification_depth = (
+        state.classification_schema.max_depth if state.classification_schema else "insufficient evidence"
+    )
     print("")
     print("Run complete.")
-    print(
-        "Selected classification dimension:",
-        state.selected_dimension.name if state.selected_dimension else "insufficient evidence",
-    )
+    print("Classification rows:", len(state.classification_rows))
+    print("Classification depth:", classification_depth)
     print("Grade scheme found:", "yes" if state.grade_scheme else "no")
     print("LLM used:", "yes" if state.llm_used else "no")
     if state.llm_error:
         print("LLM error:", state.llm_error)
-    print("Number of nodes:", len(state.nodes))
-    print("Review-required nodes:", review_count)
+    print("Derived tree nodes:", len(state.nodes))
+    print("Review-required rows:", review_count)
     print("Output paths:")
     for name, path in state.output_paths.items():
         print(f"- {name}: {path}")

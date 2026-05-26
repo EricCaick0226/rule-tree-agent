@@ -7,14 +7,13 @@ from ..io.document_parser import chunk_documents, parse_documents
 from ..io.evidence_index import build_evidence_index
 from ..llm.client import DEFAULT_BASE_URL, DEFAULT_MODEL, OpenAICompatibleLLMClient
 from ..output.exporter import export_outputs
-from ..steps.concept_normalizer import normalize_concepts_with_llm
-from ..steps.dimension_analyzer import discover_dimensions_with_llm
+from ..steps.block_classifier import classify_document_blocks_with_llm
+from ..steps.classification_row_extractor import extract_classification_rows_with_llm
+from ..steps.classification_row_normalizer import normalize_classification_rows
 from ..steps.evidence_claim_extractor import extract_evidence_claims_with_llm
-from ..steps.grading_analyzer import analyze_grading_with_llm
-from ..steps.node_describer import describe_nodes_with_llm
-from ..steps.rule_synthesizer import synthesize_rules_with_llm
-from ..steps.taxonomy_synthesizer import synthesize_taxonomy_with_llm
-from ..validation.grounding_validator import validate_grounding
+from ..steps.grade_definition_extractor import extract_grade_definitions_with_llm
+from ..steps.tree_projector import project_tree_from_rows
+from ..validation.row_grounding_validator import validate_row_grounding
 
 
 class LLMGenerationError(RuntimeError):
@@ -28,13 +27,12 @@ def create_plan(task_type: str) -> list[dict]:
             {"tool": "chunk_documents", "label": "Chunk documents"},
             {"tool": "build_evidence_index", "label": "Build evidence index"},
             {"tool": "extract_evidence_claims_with_llm", "label": "Extract evidence claims with LLM"},
-            {"tool": "normalize_concepts_with_llm", "label": "Normalize concepts with LLM"},
-            {"tool": "discover_dimensions_with_llm", "label": "Discover classification dimensions with LLM"},
-            {"tool": "synthesize_taxonomy_with_llm", "label": "Synthesize taxonomy with LLM"},
-            {"tool": "describe_nodes_with_llm", "label": "Describe nodes with LLM"},
-            {"tool": "analyze_grading_with_llm", "label": "Analyze grading with LLM"},
-            {"tool": "synthesize_rules_with_llm", "label": "Synthesize matching rules with LLM"},
-            {"tool": "validate_grounding", "label": "Validate grounding"},
+            {"tool": "classify_document_blocks_with_llm", "label": "Classify document blocks with LLM"},
+            {"tool": "extract_classification_rows_with_llm", "label": "Extract classification rows with LLM"},
+            {"tool": "extract_grade_definitions_with_llm", "label": "Extract grade definitions with LLM"},
+            {"tool": "normalize_classification_rows", "label": "Normalize classification rows"},
+            {"tool": "validate_row_grounding", "label": "Validate row grounding"},
+            {"tool": "project_tree_from_rows", "label": "Project tree from rows"},
             {"tool": "export_outputs", "label": "Export outputs"},
         ]
     return []
@@ -49,20 +47,18 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
         state = build_evidence_index(state)
     elif tool_name == "extract_evidence_claims_with_llm":
         state = extract_evidence_claims_with_llm(state, llm_client, output_dir)
-    elif tool_name == "normalize_concepts_with_llm":
-        state = normalize_concepts_with_llm(state, llm_client)
-    elif tool_name == "discover_dimensions_with_llm":
-        state = discover_dimensions_with_llm(state, llm_client)
-    elif tool_name == "synthesize_taxonomy_with_llm":
-        state = synthesize_taxonomy_with_llm(state, llm_client)
-    elif tool_name == "describe_nodes_with_llm":
-        state = describe_nodes_with_llm(state, llm_client)
-    elif tool_name == "analyze_grading_with_llm":
-        state = analyze_grading_with_llm(state, llm_client)
-    elif tool_name == "synthesize_rules_with_llm":
-        state = synthesize_rules_with_llm(state, llm_client)
-    elif tool_name == "validate_grounding":
-        state.validation_issues = validate_grounding(state)
+    elif tool_name == "classify_document_blocks_with_llm":
+        state = classify_document_blocks_with_llm(state, llm_client)
+    elif tool_name == "extract_classification_rows_with_llm":
+        state = extract_classification_rows_with_llm(state, llm_client)
+    elif tool_name == "extract_grade_definitions_with_llm":
+        state = extract_grade_definitions_with_llm(state, llm_client)
+    elif tool_name == "normalize_classification_rows":
+        state = normalize_classification_rows(state)
+    elif tool_name == "validate_row_grounding":
+        state.validation_issues = validate_row_grounding(state)
+    elif tool_name == "project_tree_from_rows":
+        state = project_tree_from_rows(state)
     elif tool_name == "export_outputs":
         state = export_outputs(state, output_dir)
     else:
@@ -71,6 +67,17 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
 
 
 def _run_llm_steps(state: AgentState, output_dir: str, llm_client) -> AgentState:
+    unsupported_files = [
+        file_path
+        for file_path in state.input_files
+        if Path(file_path).suffix.lower() not in {".txt", ".md"}
+    ]
+    if unsupported_files:
+        raise ValueError(
+            "row-first MVP only supports .txt and .md inputs; unsupported files: "
+            + ", ".join(unsupported_files)
+        )
+
     plan = create_plan(state.task_type)
     print(f"Task type: {state.task_type}")
     print(f"LLM: required model={state.llm_model} base_url={state.llm_base_url}")
