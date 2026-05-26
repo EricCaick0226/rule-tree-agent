@@ -27,12 +27,14 @@ This agent proposes. Humans review. It does not create final approved enterprise
 - Builds a local evidence index over source chunks.
 - Calls the configured OpenAI-compatible LLM in narrow stages using prompt files under `prompts/`.
 - Extracts evidence claims in batches for larger documents.
+- Stores evidence claim support level, short source quote, and human-review reason.
 - Retries invalid LLM JSON output once with schema error feedback.
 - Extracts evidence claims before building any rule tree.
 - Normalizes concepts into concept profiles.
 - Fails clearly if the API key or LLM endpoint is unavailable.
 - Discovers possible classification dimensions from evidence claims.
 - Builds a candidate taxonomy from evidence-backed hierarchy claims.
+- Exports an insufficient-evidence review package instead of failing when documents do not support a tree.
 - Describes nodes only from supporting evidence.
 - Extracts grading definitions only when evidence claims support them.
 - Assigns grades only when documents map nodes to grades or criteria are explicitly supported.

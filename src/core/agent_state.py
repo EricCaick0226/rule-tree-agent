@@ -57,9 +57,12 @@ class EvidenceClaim:
     predicate: str
     object: str = ""
     value: str = ""
+    evidence_quote: str = ""
+    support_level: str = "weak"
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
     confidence: float = 0.0
     needs_review: bool = True
+    review_reason: str = ""
     status: str = "proposed"
 
 

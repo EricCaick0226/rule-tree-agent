@@ -15,6 +15,21 @@ from ..llm.task_utils import (
 )
 
 
+ALLOWED_CLAIM_TYPES = {
+    "definition",
+    "inclusion",
+    "exclusion",
+    "hierarchy",
+    "classification_principle",
+    "grade_definition",
+    "grade_mapping",
+    "rule_phrase",
+    "insufficient_evidence",
+}
+
+ALLOWED_SUPPORT_LEVELS = {"explicit", "structural", "inferred", "weak", "ocr"}
+
+
 def _payload(chunks: list) -> dict[str, Any]:
     schema = {
         "claims": [
@@ -28,26 +43,20 @@ def _payload(chunks: list) -> dict[str, Any]:
                 "predicate": "定义/包括/不包括/属于/分为/映射为等关系",
                 "object": "关系对象，没有则为空字符串",
                 "value": "原文支持的补充信息，没有则为空字符串",
+                "evidence_quote": "支持该 claim 的短原文片段；必须来自 chunk 原文",
+                "support_level": "explicit | structural | inferred | weak | ocr",
                 "evidence_chunk_ids": ["doc_1_chunk_1"],
                 "confidence": 0.0,
                 "needs_review": False,
+                "review_reason": "需要人工复核的原因；无需复核则为空字符串",
                 "status": "evidence_supported | proposed | insufficient_evidence",
             }
         ]
     }
     return {
         "task": "从文档 chunk 中抽取证据事实 claim。不要生成规则树。",
-        "allowed_claim_types": [
-            "definition",
-            "inclusion",
-            "exclusion",
-            "hierarchy",
-            "classification_principle",
-            "grade_definition",
-            "grade_mapping",
-            "rule_phrase",
-            "insufficient_evidence",
-        ],
+        "allowed_claim_types": sorted(ALLOWED_CLAIM_TYPES),
+        "allowed_support_levels": sorted(ALLOWED_SUPPORT_LEVELS),
         "output_schema": schema,
         "document_chunks": chunk_payload(chunks),
     }
@@ -66,8 +75,14 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
         predicate = str(item.get("predicate") or "").strip()
         obj = str(item.get("object") or "").strip()
         value = str(item.get("value") or "").strip()
+        evidence_quote = str(item.get("evidence_quote") or "").strip()
+        support_level = str(item.get("support_level") or "").strip().lower()
         if not claim_type or not subject:
             continue
+        if claim_type not in ALLOWED_CLAIM_TYPES:
+            continue
+        if support_level not in ALLOWED_SUPPORT_LEVELS:
+            support_level = "weak"
         fingerprint = "|".join([claim_type, subject, predicate, obj, value])
         if fingerprint in seen:
             continue
@@ -79,7 +94,16 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
             0.88,
         )
         has_ocr_evidence = any(ref.source_method == "ocr" for ref in refs)
-        needs_review = has_ocr_evidence or parse_bool(item.get("needs_review"), not bool(refs))
+        if has_ocr_evidence:
+            support_level = "ocr"
+        review_reason = str(item.get("review_reason") or "").strip()
+        if has_ocr_evidence and not review_reason:
+            review_reason = "证据来自 OCR，需要人工核验识别结果。"
+        needs_review = (
+            has_ocr_evidence
+            or support_level in {"inferred", "weak", "ocr"}
+            or parse_bool(item.get("needs_review"), not bool(refs))
+        )
         claim_id = str(item.get("claim_id") or "").strip() or stable_id("claim", fingerprint)
         claims.append(
             EvidenceClaim(
@@ -89,9 +113,12 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
                 predicate=predicate,
                 object=obj,
                 value=value,
+                evidence_quote=evidence_quote,
+                support_level=support_level,
                 evidence_refs=refs,
                 confidence=clamp_confidence(item.get("confidence"), 0.55 if has_ocr_evidence else 0.65),
                 needs_review=needs_review,
+                review_reason=review_reason,
                 status=str(item.get("status") or ("proposed" if needs_review else "evidence_supported")),
             )
         )

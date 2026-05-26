@@ -1,8 +1,24 @@
 from __future__ import annotations
 
 import hashlib
+import re
 
 from ..core.agent_state import AgentState, ValidationIssue
+
+
+ALLOWED_CLAIM_TYPES = {
+    "definition",
+    "inclusion",
+    "exclusion",
+    "hierarchy",
+    "classification_principle",
+    "grade_definition",
+    "grade_mapping",
+    "rule_phrase",
+    "insufficient_evidence",
+}
+
+ALLOWED_SUPPORT_LEVELS = {"explicit", "structural", "inferred", "weak", "ocr"}
 
 
 def _issue_id(*parts: str) -> str:
@@ -35,6 +51,16 @@ def _corpus_text(state: AgentState) -> str:
     return "\n".join(doc.raw_text for doc in state.documents)
 
 
+def _normalize_for_match(text: str) -> str:
+    return re.sub(r"\s+", "", text or "")
+
+
+def _contains_text(container: str, text: str) -> bool:
+    if not text:
+        return True
+    return text in container or _normalize_for_match(text) in _normalize_for_match(container)
+
+
 def validate_grounding(state: AgentState) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     corpus = _corpus_text(state)
@@ -51,6 +77,25 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
         )
 
     for claim in state.evidence_claims:
+        ref_text = "\n".join(ref.text for ref in claim.evidence_refs)
+        if claim.claim_type not in ALLOWED_CLAIM_TYPES:
+            _add_issue(
+                issues,
+                "schema_contract_violation",
+                "high",
+                claim.claim_id,
+                f"Evidence claim 使用了不允许的 claim_type：{claim.claim_type}",
+                "删除该 claim，或让 LLM 按允许的 claim_type 重新抽取。",
+            )
+        if claim.support_level not in ALLOWED_SUPPORT_LEVELS:
+            _add_issue(
+                issues,
+                "schema_contract_violation",
+                "high",
+                claim.claim_id,
+                f"Evidence claim 使用了不允许的 support_level：{claim.support_level}",
+                "删除该 claim，或让 LLM 按允许的 support_level 重新抽取。",
+            )
         if not claim.evidence_refs:
             _add_issue(
                 issues,
@@ -73,7 +118,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 f"Evidence claim 使用 OCR 证据，可能存在识别误差（{page_text}）。",
                 "请对照 PDF 原件人工核验 OCR 证据后再采用该 claim。",
             )
-        if claim.subject and claim.subject not in corpus:
+        if claim.subject and not _contains_text(corpus, claim.subject):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -82,8 +127,44 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 f"Claim subject 未出现在输入文档中：{claim.subject}",
                 "Claim 主体必须来自文档原文。",
             )
+        if not claim.evidence_quote:
+            _add_issue(
+                issues,
+                "weak_trace",
+                "medium",
+                claim.claim_id,
+                "Evidence claim 缺少 evidence_quote 短原文片段。",
+                "建议 claim 抽取阶段返回支持该 claim 的短原文片段。",
+            )
+        elif not _contains_text(ref_text or corpus, claim.evidence_quote):
+            _add_issue(
+                issues,
+                "hardcoded_or_ungrounded_content",
+                "high",
+                claim.claim_id,
+                "Evidence claim 的 evidence_quote 未出现在其引用证据中。",
+                "删除该 claim，或改为引用文档中的直接原文片段。",
+            )
+        if claim.support_level in {"inferred", "weak", "ocr"} and not claim.needs_review:
+            _add_issue(
+                issues,
+                "schema_contract_violation",
+                "medium",
+                claim.claim_id,
+                "弱证据、推断证据或 OCR 证据没有标记 needs_review。",
+                "将该 claim 标记为需要人工复核。",
+            )
+        if claim.needs_review and not claim.review_reason:
+            _add_issue(
+                issues,
+                "weak_trace",
+                "low",
+                claim.claim_id,
+                "Evidence claim 需要人工复核但缺少 review_reason。",
+                "补充需要复核的具体原因，例如 OCR、证据弱、结构推断或证据不足。",
+            )
         for value in [claim.object, claim.value]:
-            if value and len(value) <= 80 and value not in corpus:
+            if value and len(value) <= 80 and not _contains_text(corpus, value):
                 _add_issue(
                     issues,
                     "hardcoded_or_ungrounded_content",
@@ -103,7 +184,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "概念画像缺少证据引用。",
                 "删除该概念或补充 claim 证据。",
             )
-        if concept.name and concept.name not in corpus:
+        if concept.name and not _contains_text(corpus, concept.name):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -203,7 +284,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                     "修复节点 evidence_claim_ids。",
                 )
 
-        if node.name not in corpus:
+        if not _contains_text(corpus, node.name):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -243,7 +324,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "移除分级建议，或补充分级映射证据。",
             )
 
-        if node.grade is not None and node.grade not in corpus:
+        if node.grade is not None and not _contains_text(corpus, node.grade):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -274,7 +355,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                     "移除规则或补充术语来源证据。",
                 )
             for condition in [*rule.conditions, *rule.negative_conditions]:
-                if condition and condition not in corpus:
+                if condition and not _contains_text(corpus, condition):
                     _add_issue(
                         issues,
                         "hardcoded_or_ungrounded_content",
@@ -333,7 +414,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "等级定义缺少 evidence_claim_ids。",
                 "建议等级定义直接引用 grade_definition claim。",
             )
-        if grade.grade_name not in corpus:
+        if not _contains_text(corpus, grade.grade_name):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",

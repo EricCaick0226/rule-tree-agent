@@ -48,6 +48,14 @@ def _review_report(state: AgentState) -> str:
         for claim in state.evidence_claims
         if any(ref.source_method == "ocr" for ref in claim.evidence_refs)
     ]
+    claim_support_counts: dict[str, int] = {}
+    for claim in state.evidence_claims:
+        claim_support_counts[claim.support_level] = claim_support_counts.get(claim.support_level, 0) + 1
+    review_claims = [
+        claim
+        for claim in state.evidence_claims
+        if claim.needs_review and claim.review_reason
+    ]
     unsupported = [
         issue
         for issue in state.validation_issues
@@ -75,6 +83,7 @@ def _review_report(state: AgentState) -> str:
         f"- PDF OCR enabled: {'yes' if state.pdf_ocr_enabled else 'no'}",
         f"- Source chunks by method: {source_counts if source_counts else 'none'}",
         f"- Evidence claims: {len(state.evidence_claims)}",
+        f"- Evidence claims by support level: {claim_support_counts if claim_support_counts else 'none'}",
         f"- Concept profiles: {len(state.concept_profiles)}",
         f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
         f"- Selected dimension: {selected_dimension}",
@@ -114,6 +123,15 @@ def _review_report(state: AgentState) -> str:
         lines.append("- OCR was enabled, but no OCR-backed evidence claims were produced.")
     else:
         lines.append("- OCR was not enabled.")
+
+    lines.extend(["", "## Evidence Claim Review Reasons"])
+    if review_claims:
+        for claim in review_claims[:30]:
+            lines.append(f"- {claim.claim_id}: {claim.review_reason}")
+        if len(review_claims) > 30:
+            lines.append(f"- ... {len(review_claims) - 30} more review reasons omitted from this summary.")
+    else:
+        lines.append("- None recorded.")
 
     lines.extend(["", "## Low Confidence Nodes"])
     if low_confidence:

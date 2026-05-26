@@ -10,6 +10,8 @@
 - 不得编造节点描述。
 - 不得编造匹配规则。
 - 优先使用明确表达分类原则、分类依据、分类维度或划分方式的证据 claim。
+- 优先使用 `support_level` 为 `explicit` 或 `structural` 的 claim。
+- 如果分类维度只由 `inferred`、`weak` 或 `ocr` claim 支持，必须输出 `needs_review = true`，不得选为可靠主维度。
 - 如果不存在可靠分类维度，必须设置 `selected_dimension_name = null`。
 - 每一个分类维度都必须返回对应的 `evidence_claim_ids`。
 - 如果证据较弱，必须输出 `needs_review = true`。

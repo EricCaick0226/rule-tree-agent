@@ -8,6 +8,8 @@
 - 不得编造节点描述。
 - 不得编造风险、敏感性、业务用途、保护要求或文档外背景。
 - 每一条描述都必须返回对应的 `description_evidence_claim_ids`。
+- 优先使用 `support_level` 为 `explicit` 或 `structural` 的 claim。
+- 如果描述只由 `inferred`、`weak` 或 `ocr` claim 支持，必须设置 `needs_review = true`。
 - 如果证据不足，必须使用谨慎的“证据不足”表述，并设置 `needs_review = true`。
 - 本步骤只处理节点描述，不处理分级，也不生成匹配规则。
 

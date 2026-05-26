@@ -10,6 +10,8 @@
 - 不得编造节点描述。
 - 不得编造匹配规则。
 - 概念名称、别名、定义、包含项和排除项都必须能追溯到 claim ID。
+- 优先使用 `support_level` 为 `explicit` 或 `structural` 的 claim。
+- 如果只依赖 `inferred`、`weak` 或 `ocr` claim，必须输出 `needs_review = true`。
 - 如果证据不足，必须输出 `needs_review = true`。
 - 每一个概念画像都必须返回对应的 `related_claim_ids`。
 - 必须区分分类、分级、规则和证据，不要把它们混在一起。

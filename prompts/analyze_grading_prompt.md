@@ -9,6 +9,8 @@
 - 不得根据先验知识或常识给节点分级。
 - 只有当文档证据明确给出等级名称、等级定义或判定条件时，才能抽取 `grade_scheme`。
 - 只有当文档证据明确映射了节点与等级，或明确标准足以支持判断时，才能填写节点等级。
+- 优先使用 `support_level` 为 `explicit` 或 `structural` 的 claim。
+- 如果等级或节点分级只由 `inferred`、`weak` 或 `ocr` claim 支持，必须设置 `needs_review = true`。
 - 每一个等级定义和节点分级结果都必须返回对应的 `evidence_claim_ids`。
 - 如果证据不足，必须设置 `grade = null` 且 `needs_review = true`。
 

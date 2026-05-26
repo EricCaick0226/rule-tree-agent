@@ -36,7 +36,7 @@ def extract_json_object(text: str) -> dict[str, Any]:
 
 
 def load_prompt(prompt_file: str) -> str:
-    prompt_path = Path(__file__).resolve().parents[1] / "prompts" / prompt_file
+    prompt_path = Path(__file__).resolve().parents[2] / "prompts" / prompt_file
     return prompt_path.read_text(encoding="utf-8").strip()
 
 
@@ -180,8 +180,11 @@ def claim_payload(claims: list[EvidenceClaim]) -> list[dict[str, Any]]:
             "predicate": claim.predicate,
             "object": claim.object,
             "value": claim.value,
+            "evidence_quote": claim.evidence_quote,
+            "support_level": claim.support_level,
             "confidence": claim.confidence,
             "needs_review": claim.needs_review,
+            "review_reason": claim.review_reason,
             "evidence_ids": [ref.evidence_id for ref in claim.evidence_refs],
             "evidence_page_numbers": [ref.page_number for ref in claim.evidence_refs],
             "evidence_source_methods": [ref.source_method for ref in claim.evidence_refs],
