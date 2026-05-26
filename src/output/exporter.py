@@ -33,11 +33,9 @@ def _rule_table_json(state: AgentState) -> dict:
 
 
 def _rule_table_md(state: AgentState) -> str:
-    max_depth = (
-        state.classification_schema.max_depth
-        if state.classification_schema
-        else max((len(row.path_levels) for row in state.classification_rows), default=0)
-    )
+    schema_depth = state.classification_schema.max_depth if state.classification_schema else 0
+    row_depth = max((len(row.path_levels) for row in state.classification_rows), default=0)
+    max_depth = max(schema_depth, row_depth)
     headers = [_level_column(index) for index in range(1, max_depth + 1)]
     headers.extend(["推荐分级", "分类说明", "证据强度", "需复核", "复核原因"])
 

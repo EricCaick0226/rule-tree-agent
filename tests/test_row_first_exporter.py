@@ -68,6 +68,26 @@ class RowFirstExporterTests(unittest.TestCase):
         self.assertIn("四级分类", table_md)
         self.assertIn("| 一级 | 二级 | 三级 | 四级 |", table_md)
 
+    def test_uses_row_depth_when_schema_depth_is_too_shallow(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_schema=ClassificationSchema(max_depth=1, source="inferred_from_header"),
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者"],
+                    recommended_grade="3级",
+                )
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            result = export_outputs(state, tmp)
+            table_md = Path(result.output_paths["rule_table_md"]).read_text(encoding="utf-8")
+
+        self.assertIn("三级分类", table_md)
+        self.assertIn("| 基础资源 | 服务范围与对象 | 患者 |", table_md)
+
     def test_markdown_escapes_pipes_and_newlines_in_cells(self) -> None:
         state = AgentState(
             task="test",
