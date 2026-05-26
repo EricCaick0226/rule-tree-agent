@@ -61,6 +61,15 @@ def _contains_text(container: str, text: str) -> bool:
     return text in container or _normalize_for_match(text) in _normalize_for_match(container)
 
 
+def _contains_evidence_quote(container: str, quote: str) -> bool:
+    if _contains_text(container, quote):
+        return True
+    quote_lines = [line.strip() for line in quote.splitlines() if line.strip()]
+    if len(quote_lines) <= 1:
+        return False
+    return all(_contains_text(container, line) for line in quote_lines)
+
+
 def validate_grounding(state: AgentState) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     corpus = _corpus_text(state)
@@ -136,7 +145,7 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 "Evidence claim 缺少 evidence_quote 短原文片段。",
                 "建议 claim 抽取阶段返回支持该 claim 的短原文片段。",
             )
-        elif not _contains_text(ref_text or corpus, claim.evidence_quote):
+        elif not _contains_evidence_quote(ref_text or corpus, claim.evidence_quote):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",

@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -54,6 +56,19 @@ def _type_name(expected_type: Any) -> str:
     return str(expected_type)
 
 
+def env_int(name: str, default: int) -> int:
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        pass
+    else:
+        load_dotenv()
+    try:
+        return int(os.getenv(name, str(default)))
+    except (TypeError, ValueError):
+        return default
+
+
 def validate_json_shape(
     data: dict[str, Any],
     required_keys: dict[str, Any] | list[str] | tuple[str, ...],
@@ -86,7 +101,8 @@ def _llm_user_message(
     if retry_error:
         body["retry_instruction"] = (
             "Your previous answer could not be parsed or failed schema validation. "
-            "Return one valid JSON object only, using the required schema and grounded evidence IDs."
+            "Return one complete valid JSON object only, using the required schema and grounded evidence IDs. "
+            "Do not truncate strings, do not omit closing brackets, and keep text fields concise."
         )
         body["previous_error"] = retry_error
         body["previous_response_excerpt"] = previous_response[:4000]
@@ -100,6 +116,9 @@ def call_llm_json(
     payload: dict[str, Any],
     required_keys: dict[str, Any] | list[str] | tuple[str, ...],
     max_attempts: int = 2,
+    max_tokens: int | None = None,
+    temperature: float | None = None,
+    disable_thinking: bool = False,
 ) -> tuple[dict[str, Any], str]:
     task_prompt = load_prompt(prompt_file)
     raw_responses: list[str] = []
@@ -107,6 +126,9 @@ def call_llm_json(
     previous_response = ""
 
     for attempt in range(max(1, max_attempts)):
+        attempt_max_tokens = max_tokens
+        if max_tokens is not None and attempt > 0:
+            attempt_max_tokens = int(max_tokens * 2)
         messages = [
             {"role": "system", "content": common_system_prompt(task_name)},
             {
@@ -119,7 +141,12 @@ def call_llm_json(
                 ),
             },
         ]
-        response = llm_client.chat(messages)
+        response = llm_client.chat(
+            messages,
+            max_tokens=attempt_max_tokens,
+            temperature=temperature,
+            disable_thinking=disable_thinking,
+        )
         previous_response = response.content
         raw_responses.append(f"attempt={attempt + 1}\n{response.content}")
         try:
@@ -171,16 +198,89 @@ def chunk_payload(chunks: list[DocumentChunk]) -> list[dict[str, Any]]:
     ]
 
 
-def claim_payload(claims: list[EvidenceClaim]) -> list[dict[str, Any]]:
-    return [
-        {
+STAGE_CLAIM_TYPES = {
+    "concept": {
+        "definition",
+        "inclusion",
+        "exclusion",
+        "hierarchy",
+        "classification_principle",
+        "grade_definition",
+        "grade_mapping",
+        "rule_phrase",
+    },
+    "dimension": {"classification_principle", "definition", "hierarchy", "inclusion"},
+    "taxonomy": {"classification_principle", "definition", "hierarchy", "inclusion"},
+    "description": {"classification_principle", "definition", "hierarchy", "inclusion", "exclusion"},
+    "grading": {"grade_definition", "grade_mapping", "definition", "hierarchy"},
+    "rules": {"rule_phrase", "definition", "inclusion", "exclusion", "hierarchy"},
+}
+
+SUPPORT_PRIORITY = {
+    "explicit": 0,
+    "structural": 1,
+    "inferred": 2,
+    "weak": 3,
+    "ocr": 4,
+}
+
+
+def filter_claims_for_stage(
+    claims: list[EvidenceClaim],
+    stage: str,
+    max_claims: int | None = None,
+) -> list[EvidenceClaim]:
+    allowed_types = STAGE_CLAIM_TYPES.get(stage)
+    candidates = [
+        claim
+        for claim in claims
+        if claim.claim_type != "insufficient_evidence"
+        and (allowed_types is None or claim.claim_type in allowed_types)
+    ]
+    if not candidates and allowed_types is not None:
+        candidates = [claim for claim in claims if claim.claim_type != "insufficient_evidence"]
+
+    candidates.sort(
+        key=lambda claim: (
+            SUPPORT_PRIORITY.get(claim.support_level, 9),
+            claim.needs_review,
+            -claim.confidence,
+            claim.claim_type,
+            claim.subject,
+            claim.object,
+        )
+    )
+    if max_claims is not None and max_claims > 0:
+        return candidates[:max_claims]
+    return candidates
+
+
+def count_claim_types(claims: list[EvidenceClaim]) -> dict[str, int]:
+    return dict(Counter(claim.claim_type for claim in claims))
+
+
+def _truncate_text(text: str, max_chars: int) -> str:
+    text = str(text or "").strip()
+    if max_chars <= 0 or len(text) <= max_chars:
+        return text
+    return text[: max_chars - 3].rstrip() + "..."
+
+
+def claim_payload(
+    claims: list[EvidenceClaim],
+    include_evidence_texts: bool = False,
+    max_quote_chars: int = 500,
+) -> list[dict[str, Any]]:
+    payload: list[dict[str, Any]] = []
+    for claim in claims:
+        item = {
             "claim_id": claim.claim_id,
             "claim_type": claim.claim_type,
             "subject": claim.subject,
             "predicate": claim.predicate,
             "object": claim.object,
             "value": claim.value,
-            "evidence_quote": claim.evidence_quote,
+            "evidence_quote": _truncate_text(claim.evidence_quote, max_quote_chars),
             "support_level": claim.support_level,
             "confidence": claim.confidence,
             "needs_review": claim.needs_review,
@@ -188,10 +288,14 @@ def claim_payload(claims: list[EvidenceClaim]) -> list[dict[str, Any]]:
             "evidence_ids": [ref.evidence_id for ref in claim.evidence_refs],
             "evidence_page_numbers": [ref.page_number for ref in claim.evidence_refs],
             "evidence_source_methods": [ref.source_method for ref in claim.evidence_refs],
-            "evidence_texts": [ref.text for ref in claim.evidence_refs[:2]],
         }
-        for claim in claims
-    ]
+        if include_evidence_texts:
+            item["evidence_texts"] = [
+                _truncate_text(ref.text, max_quote_chars)
+                for ref in claim.evidence_refs[:2]
+            ]
+        payload.append(item)
+    return payload
 
 
 def refs_from_chunk_ids(

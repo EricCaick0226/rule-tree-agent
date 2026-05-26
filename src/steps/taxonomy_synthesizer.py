@@ -8,6 +8,9 @@ from ..llm.task_utils import (
     call_llm_json,
     claim_payload,
     clamp_confidence,
+    count_claim_types,
+    env_int,
+    filter_claims_for_stage,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -44,7 +47,7 @@ def _dimension_payload(state: AgentState) -> dict[str, Any] | None:
     }
 
 
-def _payload(state: AgentState) -> dict[str, Any]:
+def _payload(state: AgentState, claims) -> dict[str, Any]:
     schema = {
         "nodes": [
             {
@@ -66,18 +69,25 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ),
         "selected_dimension": _dimension_payload(state),
         "output_schema": schema,
-        "evidence_claims": claim_payload(state.evidence_claims),
+        "evidence_claims": claim_payload(claims),
         "concept_profiles": _concept_payload(state),
     }
 
 
 def synthesize_taxonomy_with_llm(state: AgentState, llm_client: Any) -> AgentState:
+    stage_claims = filter_claims_for_stage(
+        state.evidence_claims,
+        "taxonomy",
+        env_int("LLM_TAXONOMY_MAX_CLAIMS", 350),
+    )
     data, raw_response = call_llm_json(
         llm_client=llm_client,
         task_name="合成候选分类树",
         prompt_file="synthesize_taxonomy_prompt.md",
-        payload=_payload(state),
+        payload=_payload(state, stage_claims),
         required_keys={"nodes": list},
+        max_tokens=env_int("LLM_TAXONOMY_MAX_TOKENS", 3000),
+        temperature=0.0,
     )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     nodes_by_path: dict[str, TreeNode] = {}
@@ -124,7 +134,12 @@ def synthesize_taxonomy_with_llm(state: AgentState, llm_client: Any) -> AgentSta
         state.step_traces,
         step_name="synthesize_taxonomy_with_llm",
         status="success",
-        input_summary={"claims": len(state.evidence_claims), "concept_profiles": len(state.concept_profiles)},
+        input_summary={
+            "claims": len(state.evidence_claims),
+            "stage_claims": len(stage_claims),
+            "stage_claim_types": count_claim_types(stage_claims),
+            "concept_profiles": len(state.concept_profiles),
+        },
         output_summary={"nodes": len(state.nodes)},
         raw_response=raw_response,
     )

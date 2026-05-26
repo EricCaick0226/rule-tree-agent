@@ -8,6 +8,9 @@ from ..llm.task_utils import (
     call_llm_json,
     claim_payload,
     clamp_confidence,
+    count_claim_types,
+    env_int,
+    filter_claims_for_stage,
     normalize_text,
     parse_bool,
     refs_from_claim_ids,
@@ -17,7 +20,7 @@ from ..llm.task_utils import (
 )
 
 
-def _payload(state: AgentState) -> dict[str, Any]:
+def _payload(state: AgentState, claims) -> dict[str, Any]:
     schema = {
         "concept_profiles": [
             {
@@ -36,17 +39,25 @@ def _payload(state: AgentState) -> dict[str, Any]:
     return {
         "task": "基于 evidence_claims 形成概念画像。不要建树，不要分级。",
         "output_schema": schema,
-        "evidence_claims": claim_payload(state.evidence_claims),
+        "evidence_claims": claim_payload(claims),
     }
 
 
 def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentState:
+    stage_claims = filter_claims_for_stage(
+        state.evidence_claims,
+        "concept",
+        env_int("LLM_CONCEPT_MAX_CLAIMS", 300),
+    )
     data, raw_response = call_llm_json(
         llm_client=llm_client,
         task_name="归一化概念并形成概念画像",
         prompt_file="normalize_concepts_prompt.md",
-        payload=_payload(state),
+        payload=_payload(state, stage_claims),
         required_keys={"concept_profiles": list},
+        max_tokens=env_int("LLM_CONCEPT_MAX_TOKENS", 1600),
+        temperature=0.0,
+        disable_thinking=True,
     )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     profiles: list[ConceptProfile] = []
@@ -86,7 +97,11 @@ def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentStat
         state.step_traces,
         step_name="normalize_concepts_with_llm",
         status="success",
-        input_summary={"claims": len(state.evidence_claims)},
+        input_summary={
+            "claims": len(state.evidence_claims),
+            "stage_claims": len(stage_claims),
+            "stage_claim_types": count_claim_types(stage_claims),
+        },
         output_summary={"concept_profiles": len(state.concept_profiles)},
         raw_response=raw_response,
     )

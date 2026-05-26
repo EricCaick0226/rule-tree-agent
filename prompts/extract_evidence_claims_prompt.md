@@ -11,6 +11,9 @@
 - 不得编造节点描述。
 - 不得编造匹配规则。
 - 如果证据不足，必须输出 `needs_review = true`。
+- 如果 chunk 只包含标题、页眉、页脚、目录项或没有实质事实，不要输出 claim；不要为了标题生成 `insufficient_evidence`。
+- 如果一句话列出多个对象、类别、等级或规则项，必须拆成多个原子 claim，不要把多个对象合并到同一个 `object` 或 `value` 字符串里。
+- `subject`、`object`、`value` 和 `evidence_quote` 应尽量短；优先使用原文中的单个术语、短语或一个明确事实。
 - 每一个 claim 都必须返回对应的 `evidence_chunk_ids`。
 - 每一个 claim 都必须返回 `evidence_quote`，它必须是支持该 claim 的短原文片段，不要改写。
 - 每一个 claim 都必须返回 `support_level`，只能使用输入 schema 中允许的英文枚举值。

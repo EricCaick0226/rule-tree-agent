@@ -25,10 +25,10 @@ def _node_lines(nodes: list[TreeNode]) -> list[str]:
             for rule in node.rules:
                 if rule.conditions:
                     lines.append(f"{indent}  - rule: {', '.join(rule.conditions)}")
-                else:
-                    lines.append(f"{indent}  - rule: insufficient evidence")
                 if rule.negative_conditions:
                     lines.append(f"{indent}  - negative: {', '.join(rule.negative_conditions)}")
+                if not rule.conditions and not rule.negative_conditions:
+                    lines.append(f"{indent}  - rule: insufficient evidence")
         for child in sorted(children_by_parent.get(node.node_id, []), key=lambda item: item.path):
             render(child)
 

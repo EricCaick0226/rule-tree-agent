@@ -7,6 +7,9 @@ from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
     claim_payload,
+    count_claim_types,
+    env_int,
+    filter_claims_for_stage,
     merge_unique,
     parse_bool,
     refs_from_claim_ids,
@@ -32,7 +35,7 @@ def _node_payload(state: AgentState) -> list[dict[str, Any]]:
     ]
 
 
-def _payload(state: AgentState) -> dict[str, Any]:
+def _payload(state: AgentState, claims) -> dict[str, Any]:
     schema = {
         "node_descriptions": [
             {
@@ -51,17 +54,24 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ),
         "output_schema": schema,
         "nodes": _node_payload(state),
-        "evidence_claims": claim_payload(state.evidence_claims),
+        "evidence_claims": claim_payload(claims),
     }
 
 
 def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
+    stage_claims = filter_claims_for_stage(
+        state.evidence_claims,
+        "description",
+        env_int("LLM_DESCRIPTION_MAX_CLAIMS", 350),
+    )
     data, raw_response = call_llm_json(
         llm_client=llm_client,
         task_name="生成节点证据内描述",
         prompt_file="describe_nodes_prompt.md",
-        payload=_payload(state),
+        payload=_payload(state, stage_claims),
         required_keys={"node_descriptions": list},
+        max_tokens=env_int("LLM_DESCRIPTION_MAX_TOKENS", 3000),
+        temperature=0.0,
     )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     nodes_by_path = {node.path: node for node in state.nodes}
@@ -97,7 +107,12 @@ def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         state.step_traces,
         step_name="describe_nodes_with_llm",
         status="success",
-        input_summary={"nodes": len(state.nodes), "claims": len(state.evidence_claims)},
+        input_summary={
+            "nodes": len(state.nodes),
+            "claims": len(state.evidence_claims),
+            "stage_claims": len(stage_claims),
+            "stage_claim_types": count_claim_types(stage_claims),
+        },
         output_summary={
             "described_nodes": sum(1 for node in state.nodes if node.description),
         },

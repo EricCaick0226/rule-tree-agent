@@ -9,6 +9,7 @@ from ..llm.task_utils import (
     call_llm_json,
     chunk_payload,
     clamp_confidence,
+    env_int,
     parse_bool,
     refs_from_chunk_ids,
     stable_id,
@@ -159,6 +160,9 @@ def extract_evidence_claims_with_llm(state: AgentState, llm_client: Any) -> Agen
                 "batch_count": len(batches),
             },
             required_keys={"claims": list},
+            max_tokens=env_int("LLM_CLAIM_MAX_TOKENS", 2000),
+            temperature=0.0,
+            disable_thinking=True,
         )
         raw_batches.append(f"batch={batch_index}/{len(batches)}\n{raw_response}")
         for claim in _to_claims(data, state):
