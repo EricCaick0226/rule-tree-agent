@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from ..core.agent_state import AgentState, CandidateConcept, ConceptProfile
+from ..core.agent_state import AgentState, ConceptProfile
 from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
@@ -50,7 +50,6 @@ def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentStat
     )
     claim_by_id = {claim.claim_id: claim for claim in state.evidence_claims}
     profiles: list[ConceptProfile] = []
-    candidates: list[CandidateConcept] = []
     seen: set[str] = set()
 
     for item in data.get("concept_profiles") or []:
@@ -81,20 +80,8 @@ def normalize_concepts_with_llm(state: AgentState, llm_client: Any) -> AgentStat
             status=str(item.get("status") or ("proposed" if needs_review else "evidence_supported")),
         )
         profiles.append(profile)
-        candidates.append(
-            CandidateConcept(
-                concept_id=profile.concept_id,
-                text=profile.name,
-                normalized_text=norm,
-                concept_type="llm_concept_profile",
-                evidence_refs=refs,
-                confidence=confidence,
-                needs_review=needs_review,
-            )
-        )
 
     state.concept_profiles = profiles
-    state.candidate_concepts = candidates
     append_step_trace(
         state.step_traces,
         step_name="normalize_concepts_with_llm",

@@ -8,6 +8,7 @@ from ..llm.task_utils import (
     call_llm_json,
     claim_payload,
     clamp_confidence,
+    merge_unique,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -50,7 +51,10 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ]
     }
     return {
-        "task": "只为已有节点生成匹配规则。规则词、短语、排除条件必须来自 evidence_claims。",
+        "task": (
+            "只为已有节点生成匹配规则。"
+            "规则词、短语、排除条件必须来自 evidence_claims。"
+        ),
         "output_schema": schema,
         "nodes": _node_payload(state),
         "evidence_claims": claim_payload(state.evidence_claims),
@@ -94,11 +98,14 @@ def synthesize_rules_with_llm(state: AgentState, llm_client: Any) -> AgentState:
                     evidence_claim_ids=claim_ids,
                     confidence=clamp_confidence(rule_item.get("confidence"), 0.6),
                     needs_review=needs_review,
-                    status=str(rule_item.get("status") or ("proposed" if needs_review else "evidence_supported")),
+                    status=str(
+                        rule_item.get("status")
+                        or ("proposed" if needs_review else "evidence_supported")
+                    ),
                 )
             )
             if claim_ids:
-                node.evidence_claim_ids = list(dict.fromkeys([*node.evidence_claim_ids, *claim_ids]))
+                node.evidence_claim_ids = merge_unique(node.evidence_claim_ids, claim_ids)
             if needs_review:
                 node.needs_review = True
         node.rules = rules

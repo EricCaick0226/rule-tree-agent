@@ -60,7 +60,10 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ]
     }
     return {
-        "task": "基于 evidence_claims 和 concept_profiles 合成候选分类树。不要生成描述、分级或规则。",
+        "task": (
+            "基于 evidence_claims 和 concept_profiles 合成候选分类树。"
+            "不要生成描述、分级或规则。"
+        ),
         "selected_dimension": _dimension_payload(state),
         "output_schema": schema,
         "evidence_claims": claim_payload(state.evidence_claims),

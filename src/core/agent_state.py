@@ -50,17 +50,6 @@ class EvidenceRef:
 
 
 @dataclass
-class CandidateConcept:
-    concept_id: str
-    text: str
-    normalized_text: str
-    concept_type: str
-    evidence_refs: list[EvidenceRef] = field(default_factory=list)
-    confidence: float = 0.0
-    needs_review: bool = True
-
-
-@dataclass
 class EvidenceClaim:
     claim_id: str
     claim_type: str
@@ -179,10 +168,8 @@ class AgentState:
     documents: list[SourceDocument] = field(default_factory=list)
     chunks: list[DocumentChunk] = field(default_factory=list)
     evidence_index: dict[str, Any] = field(default_factory=dict)
-    evidence_refs: list[EvidenceRef] = field(default_factory=list)
     evidence_claims: list[EvidenceClaim] = field(default_factory=list)
     concept_profiles: list[ConceptProfile] = field(default_factory=list)
-    candidate_concepts: list[CandidateConcept] = field(default_factory=list)
     classification_dimensions: list[ClassificationDimension] = field(default_factory=list)
     selected_dimension: Optional[ClassificationDimension] = None
     grade_scheme: list[GradeDefinition] = field(default_factory=list)

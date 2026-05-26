@@ -54,7 +54,10 @@ def _type_name(expected_type: Any) -> str:
     return str(expected_type)
 
 
-def validate_json_shape(data: dict[str, Any], required_keys: dict[str, Any] | list[str] | tuple[str, ...]) -> None:
+def validate_json_shape(
+    data: dict[str, Any],
+    required_keys: dict[str, Any] | list[str] | tuple[str, ...],
+) -> None:
     expected = _format_required_keys(required_keys)
     missing = [key for key in expected if key not in data]
     if missing:
@@ -219,6 +222,10 @@ def refs_from_claim_ids(
 
 def valid_claim_ids(claim_by_id: dict[str, EvidenceClaim], claim_ids: list[Any]) -> list[str]:
     return [str(claim_id) for claim_id in claim_ids or [] if str(claim_id) in claim_by_id]
+
+
+def merge_unique(existing: list[str], additions: list[str]) -> list[str]:
+    return list(dict.fromkeys([*existing, *additions]))
 
 
 def common_system_prompt(task_name: str) -> str:

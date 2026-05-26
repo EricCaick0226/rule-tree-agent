@@ -57,6 +57,11 @@ def _review_report(state: AgentState) -> str:
     missing_grading = [
         issue for issue in state.validation_issues if issue.issue_type == "missing_grade_scheme"
     ]
+    selected_dimension = (
+        state.selected_dimension.name
+        if state.selected_dimension
+        else "cannot determine from current documents"
+    )
 
     lines = [
         "# Human Review Report",
@@ -72,7 +77,7 @@ def _review_report(state: AgentState) -> str:
         f"- Evidence claims: {len(state.evidence_claims)}",
         f"- Concept profiles: {len(state.concept_profiles)}",
         f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
-        f"- Selected dimension: {state.selected_dimension.name if state.selected_dimension else 'cannot determine from current documents'}",
+        f"- Selected dimension: {selected_dimension}",
         f"- Grade scheme found: {'yes' if state.grade_scheme else 'no'}",
         f"- Number of nodes: {len(state.nodes)}",
         f"- Nodes with evidence: {nodes_with_evidence}",
@@ -90,7 +95,9 @@ def _review_report(state: AgentState) -> str:
 
     lines.extend(["", "## OCR Evidence Notes"])
     if ocr_claims:
-        lines.append("- OCR-derived evidence is not final evidence until manually checked against the PDF pages.")
+        lines.append(
+            "- OCR-derived evidence is not final evidence until manually checked against the PDF pages."
+        )
         for claim in ocr_claims[:30]:
             pages = sorted(
                 {
@@ -99,7 +106,8 @@ def _review_report(state: AgentState) -> str:
                     if ref.source_method == "ocr" and ref.page_number is not None
                 }
             )
-            lines.append(f"- {claim.claim_id}: {claim.subject} ({'pages ' + str(pages) if pages else 'pages unknown'})")
+            page_note = f"pages {pages}" if pages else "pages unknown"
+            lines.append(f"- {claim.claim_id}: {claim.subject} ({page_note})")
         if len(ocr_claims) > 30:
             lines.append(f"- ... {len(ocr_claims) - 30} more OCR-backed claims omitted from this summary.")
     elif state.pdf_ocr_enabled:

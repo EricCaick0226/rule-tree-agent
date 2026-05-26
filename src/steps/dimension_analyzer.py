@@ -89,8 +89,8 @@ def discover_dimensions_with_llm(state: AgentState, llm_client: Any) -> AgentSta
     selected = None
     if selected_name:
         selected = next((dim for dim in dimensions if dim.name == selected_name), None)
-    if selected is None and dimensions:
-        selected = sorted(dimensions, key=lambda item: (item.needs_review, -item.confidence))[0]
+    if selected is not None and selected.needs_review:
+        selected = None
 
     state.classification_dimensions = dimensions
     state.selected_dimension = selected

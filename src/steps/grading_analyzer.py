@@ -8,6 +8,7 @@ from ..llm.task_utils import (
     call_llm_json,
     claim_payload,
     clamp_confidence,
+    merge_unique,
     parse_bool,
     refs_from_claim_ids,
     stable_id,
@@ -54,7 +55,9 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ],
     }
     return {
-        "task": "只处理分级方案和节点分级。不得创造默认等级，不得基于常识分级。",
+        "task": (
+            "只处理分级方案和节点分级。不得创造默认等级，不得基于常识分级。"
+        ),
         "output_schema": schema,
         "nodes": _node_payload(state),
         "evidence_claims": claim_payload(state.evidence_claims),
@@ -111,7 +114,7 @@ def analyze_grading_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         node.grade_reason = str(item.get("grade_reason") or "")
         node.grade_evidence_refs = refs
         if claim_ids:
-            node.evidence_claim_ids = list(dict.fromkeys([*node.evidence_claim_ids, *claim_ids]))
+            node.evidence_claim_ids = merge_unique(node.evidence_claim_ids, claim_ids)
         if not node.grade or not refs or parse_bool(item.get("needs_review"), False):
             node.needs_review = True
 
@@ -121,7 +124,10 @@ def analyze_grading_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         step_name="analyze_grading_with_llm",
         status="success",
         input_summary={"nodes": len(state.nodes), "claims": len(state.evidence_claims)},
-        output_summary={"grades": len(state.grade_scheme), "graded_nodes": sum(1 for node in state.nodes if node.grade)},
+        output_summary={
+            "grades": len(state.grade_scheme),
+            "graded_nodes": sum(1 for node in state.nodes if node.grade),
+        },
         raw_response=raw_response,
     )
     return state

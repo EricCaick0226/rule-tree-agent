@@ -7,12 +7,16 @@ from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
     claim_payload,
+    merge_unique,
+    parse_bool,
     refs_from_claim_ids,
     valid_claim_ids,
 )
 
 
-INSUFFICIENT_DESCRIPTION = "当前文档未提供该分类的明确说明，建议人工确认其定义、范围和适用边界。"
+INSUFFICIENT_DESCRIPTION = (
+    "当前文档未提供该分类的明确说明，建议人工确认其定义、范围和适用边界。"
+)
 
 
 def _node_payload(state: AgentState) -> list[dict[str, Any]]:
@@ -41,7 +45,10 @@ def _payload(state: AgentState) -> dict[str, Any]:
         ]
     }
     return {
-        "task": "为已有候选节点生成证据内描述。不要新增节点，不要分级，不要生成规则。",
+        "task": (
+            "为已有候选节点生成证据内描述。"
+            "不要新增节点，不要分级，不要生成规则。"
+        ),
         "output_schema": schema,
         "nodes": _node_payload(state),
         "evidence_claims": claim_payload(state.evidence_claims),
@@ -76,8 +83,8 @@ def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         node.description_evidence_refs = refs
         node.description_evidence_level = level
         if claim_ids:
-            node.evidence_claim_ids = list(dict.fromkeys([*node.evidence_claim_ids, *claim_ids]))
-        if level in {"C", "D"} or not refs or bool(item.get("needs_review")):
+            node.evidence_claim_ids = merge_unique(node.evidence_claim_ids, claim_ids)
+        if level in {"C", "D"} or not refs or parse_bool(item.get("needs_review"), False):
             node.needs_review = True
 
     for node in state.nodes:
@@ -91,7 +98,9 @@ def describe_nodes_with_llm(state: AgentState, llm_client: Any) -> AgentState:
         step_name="describe_nodes_with_llm",
         status="success",
         input_summary={"nodes": len(state.nodes), "claims": len(state.evidence_claims)},
-        output_summary={"described_nodes": sum(1 for node in state.nodes if node.description)},
+        output_summary={
+            "described_nodes": sum(1 for node in state.nodes if node.description),
+        },
         raw_response=raw_response,
     )
     return state
