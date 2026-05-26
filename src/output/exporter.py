@@ -8,6 +8,68 @@ from pathlib import Path
 from ..core.agent_state import AgentState, TreeNode
 
 
+LEVEL_NAMES = "一二三四五六七八九十"
+
+
+def _level_column(index: int) -> str:
+    if 1 <= index <= len(LEVEL_NAMES):
+        return f"{LEVEL_NAMES[index - 1]}级分类"
+    return f"第{index}级分类"
+
+
+def _safe_md_cell(value: object) -> str:
+    return str(value).replace("|", "\\|").replace("\n", "<br>")
+
+
+def _rule_table_json(state: AgentState) -> dict:
+    return {
+        "classification_schema": (
+            asdict(state.classification_schema) if state.classification_schema else None
+        ),
+        "grade_scheme": [asdict(grade) for grade in state.grade_scheme],
+        "classification_rows": [asdict(row) for row in state.classification_rows],
+        "validation_issues": [asdict(issue) for issue in state.validation_issues],
+    }
+
+
+def _rule_table_md(state: AgentState) -> str:
+    max_depth = (
+        state.classification_schema.max_depth
+        if state.classification_schema
+        else max((len(row.path_levels) for row in state.classification_rows), default=0)
+    )
+    headers = [_level_column(index) for index in range(1, max_depth + 1)]
+    headers.extend(["推荐分级", "分类说明", "证据强度", "需复核", "复核原因"])
+
+    lines = [
+        "# Candidate Classification Table",
+        "",
+        "> This is a candidate output. It requires human review before use.",
+        "",
+    ]
+    if not state.classification_rows:
+        lines.append("证据不足，无法从当前文档确定分类分级明细。")
+        return "\n".join(lines) + "\n"
+
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
+    for row in state.classification_rows:
+        cells: list[object] = []
+        for index in range(max_depth):
+            cells.append(row.path_levels[index] if index < len(row.path_levels) else "")
+        cells.extend(
+            [
+                row.recommended_grade or "",
+                row.description,
+                row.support_level,
+                "yes" if row.needs_review else "no",
+                row.review_reason,
+            ]
+        )
+        lines.append("| " + " | ".join(_safe_md_cell(cell) for cell in cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
 def _node_lines(nodes: list[TreeNode]) -> list[str]:
     lines: list[str] = []
     children_by_parent: dict[str | None, list[TreeNode]] = {}
@@ -203,10 +265,14 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
 
     json_path = out_dir / "rule_tree.json"
     md_path = out_dir / "rule_tree.md"
+    table_json_path = out_dir / "rule_table.json"
+    table_md_path = out_dir / "rule_table.md"
     report_path = out_dir / "review_report.md"
     state.output_paths = {
         "rule_tree_json": str(json_path),
         "rule_tree_md": str(md_path),
+        "rule_table_json": str(table_json_path),
+        "rule_table_md": str(table_md_path),
         "review_report_md": str(report_path),
     }
     if trace_dir:
@@ -216,6 +282,12 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         json.dumps(asdict(state), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+
+    table_json_path.write_text(
+        json.dumps(_rule_table_json(state), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    table_md_path.write_text(_rule_table_md(state), encoding="utf-8")
 
     tree_lines = [
         "# Candidate Rule Tree",
