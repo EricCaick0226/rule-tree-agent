@@ -142,25 +142,25 @@ class RowGroundingValidatorTests(unittest.TestCase):
         issue = next(issue for issue in issues if issue.issue_type == "duplicated_path")
         self.assertEqual(issue.severity, "medium")
 
-    def test_flags_grade_found_elsewhere_but_missing_from_row_evidence(self) -> None:
+    def test_flags_grade_in_ref_text_but_missing_from_row_quote(self) -> None:
         doc = SourceDocument(
             doc_id="doc_1",
             doc_name="policy.txt",
             file_path="policy.txt",
-            raw_text="基础资源 服务范围与对象 患者\n等级定义 3级 一般数据",
+            raw_text="基础资源 服务范围与对象 患者\n医生 4级",
             pages=[
                 DocumentPage(
                     page_number=None,
-                    text="基础资源 服务范围与对象 患者\n等级定义 3级 一般数据",
+                    text="基础资源 服务范围与对象 患者\n医生 4级",
                 )
             ],
         )
         row = ClassificationRow(
             row_id="row_1",
             path_levels=["基础资源", "服务范围与对象", "患者"],
-            recommended_grade="3级",
-            evidence_quote="基础资源 服务范围与对象 患者",
-            evidence_refs=[_evidence_ref("基础资源 服务范围与对象 患者")],
+            recommended_grade="4级",
+            evidence_quote="患者",
+            evidence_refs=[_evidence_ref("患者\n医生 4级")],
             support_level="explicit",
         )
         state = AgentState(task="test", documents=[doc], classification_rows=[row])
@@ -198,13 +198,13 @@ class RowGroundingValidatorTests(unittest.TestCase):
         ]
         self.assertNotIn("分类说明缺少 description_evidence_quote。", weak_trace_problems)
 
-    def test_multiline_quote_lines_must_match_in_order(self) -> None:
+    def test_multiline_quote_must_be_contiguous_after_whitespace_normalization(self) -> None:
         row = ClassificationRow(
             row_id="row_1",
             path_levels=["基础资源", "服务范围与对象", "患者"],
             recommended_grade="3级",
-            evidence_quote="患者 3级\n服务范围与对象",
-            evidence_refs=[_evidence_ref("基础资源 服务范围与对象 患者 3级")],
+            evidence_quote="患者\n3级",
+            evidence_refs=[_evidence_ref("基础资源 服务范围与对象 患者\n中间无关内容\n3级")],
             support_level="explicit",
         )
         state = AgentState(task="test", documents=[_doc()], classification_rows=[row])

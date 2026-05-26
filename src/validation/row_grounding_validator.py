@@ -54,20 +54,7 @@ def _contains_text(container: str, text: str) -> bool:
 
 
 def _contains_evidence_quote(container: str, quote: str) -> bool:
-    if _contains_text(container, quote):
-        return True
-    quote_lines = [line.strip() for line in quote.splitlines() if line.strip()]
-    if len(quote_lines) <= 1:
-        return False
-    normalized_container = _normalize_for_match(container)
-    start = 0
-    for line in quote_lines:
-        normalized_line = _normalize_for_match(line)
-        index = normalized_container.find(normalized_line, start)
-        if index < 0:
-            return False
-        start = index + len(normalized_line)
-    return True
+    return _contains_text(container, quote)
 
 
 def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
@@ -216,7 +203,6 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
 
         if (
             row.recommended_grade
-            and not _contains_text(ref_text, row.recommended_grade)
             and not _contains_text(row.evidence_quote, row.recommended_grade)
         ):
             legality_note = "；该等级名称存在于分级定义中" if row.recommended_grade in grade_names else ""
