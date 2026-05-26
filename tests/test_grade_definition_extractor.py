@@ -99,6 +99,96 @@ class GradeDefinitionExtractorTests(unittest.TestCase):
         self.assertEqual(asdict(result.grade_scheme[0])["review_reason"], "分级定义缺少有效证据引用。")
         self.assertEqual(result.grade_scheme[0].status, "proposed")
 
+    def test_empty_definition_forces_review_even_with_valid_refs(self) -> None:
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_1",
+            doc_id="doc_1",
+            doc_name="policy.txt",
+            section_title="分级说明",
+            text="一般数据3级",
+            position=1,
+            source_method="text",
+        )
+        state = AgentState(task="test", chunks=[chunk])
+
+        def fake_call_llm_json(**kwargs):
+            return (
+                {
+                    "grade_definitions": [
+                        {
+                            "grade_name": "一般数据3级",
+                            "definition": "",
+                            "criteria": ["有条件开放"],
+                            "evidence_quote": "一般数据3级",
+                            "evidence_chunk_ids": ["doc_1_chunk_1"],
+                            "confidence": 0.9,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        }
+                    ]
+                },
+                "raw",
+            )
+
+        with patch("src.steps.grade_definition_extractor.call_llm_json", side_effect=fake_call_llm_json):
+            result = extract_grade_definitions_with_llm(state, object())
+
+        self.assertTrue(result.grade_scheme[0].needs_review)
+        self.assertEqual(result.grade_scheme[0].review_reason, "分级定义缺少明确释义。")
+        self.assertEqual(result.grade_scheme[0].status, "proposed")
+
+    def test_duplicate_grade_names_keep_stronger_definition_and_refs(self) -> None:
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_1",
+            doc_id="doc_1",
+            doc_name="policy.txt",
+            section_title="分级说明",
+            text="一般数据3级 无条件共享 有条件开放",
+            position=1,
+            source_method="text",
+        )
+        state = AgentState(task="test", chunks=[chunk])
+
+        def fake_call_llm_json(**kwargs):
+            return (
+                {
+                    "grade_definitions": [
+                        {
+                            "grade_name": "一般数据3级",
+                            "definition": "",
+                            "criteria": [],
+                            "evidence_quote": "一般数据3级",
+                            "evidence_chunk_ids": ["missing_chunk"],
+                            "confidence": 0.8,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        },
+                        {
+                            "grade_name": "一般数据3级",
+                            "definition": "一般数据3级",
+                            "criteria": ["无条件共享", "有条件开放"],
+                            "evidence_quote": "一般数据3级 无条件共享 有条件开放",
+                            "evidence_chunk_ids": ["doc_1_chunk_1"],
+                            "confidence": 0.7,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        },
+                    ]
+                },
+                "raw",
+            )
+
+        with patch("src.steps.grade_definition_extractor.call_llm_json", side_effect=fake_call_llm_json):
+            result = extract_grade_definitions_with_llm(state, object())
+
+        self.assertEqual(len(result.grade_scheme), 1)
+        self.assertEqual(result.grade_scheme[0].definition, "一般数据3级")
+        self.assertEqual(result.grade_scheme[0].criteria, ["无条件共享", "有条件开放"])
+        self.assertEqual(result.grade_scheme[0].evidence_refs[0].chunk_id, "doc_1_chunk_1")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -43,10 +43,18 @@ def _payload(state: AgentState) -> dict[str, Any]:
     }
 
 
+def _grade_rank(grade: GradeDefinition) -> tuple[int, int, int, float]:
+    return (
+        1 if grade.evidence_refs else 0,
+        1 if grade.definition else 0,
+        len(grade.criteria),
+        grade.confidence,
+    )
+
+
 def _to_grade_definitions(data: dict[str, Any], state: AgentState) -> list[GradeDefinition]:
     chunk_by_id = {chunk.chunk_id: chunk for chunk in state.chunks}
-    grades: list[GradeDefinition] = []
-    seen: set[str] = set()
+    grades_by_name: dict[str, GradeDefinition] = {}
 
     for item in data.get("grade_definitions") or []:
         if not isinstance(item, dict):
@@ -54,9 +62,8 @@ def _to_grade_definitions(data: dict[str, Any], state: AgentState) -> list[Grade
 
         grade_name = str(item.get("grade_name") or "").strip()
         definition = str(item.get("definition") or "").strip()
-        if not grade_name or grade_name in seen:
+        if not grade_name:
             continue
-        seen.add(grade_name)
 
         refs = refs_from_chunk_ids(
             chunk_by_id,
@@ -73,6 +80,12 @@ def _to_grade_definitions(data: dict[str, Any], state: AgentState) -> list[Grade
                 review_reason = "分级定义缺少有效证据引用。"
             if status == "evidence_supported":
                 status = "proposed"
+        if not definition:
+            needs_review = True
+            if not review_reason:
+                review_reason = "分级定义缺少明确释义。"
+            if status == "evidence_supported":
+                status = "proposed"
 
         grade = GradeDefinition(
             grade_id=stable_id("grade", grade_name),
@@ -86,9 +99,11 @@ def _to_grade_definitions(data: dict[str, Any], state: AgentState) -> list[Grade
             review_reason=review_reason,
             status=status,
         )
-        grades.append(grade)
+        existing = grades_by_name.get(grade_name)
+        if existing is None or _grade_rank(grade) > _grade_rank(existing):
+            grades_by_name[grade_name] = grade
 
-    return grades
+    return list(grades_by_name.values())
 
 
 def extract_grade_definitions_with_llm(state: AgentState, llm_client: Any) -> AgentState:
