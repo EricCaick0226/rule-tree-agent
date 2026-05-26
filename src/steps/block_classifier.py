@@ -52,6 +52,16 @@ def _normal_signal(reason: str, needs_review: bool = True) -> dict[str, Any]:
     }
 
 
+def _fallback_review_reason(existing_reason: str) -> str:
+    fallback_reason = "LLM 返回了不允许的 block_signal，已回退为 normal，需要人工复核。"
+    existing_reason = existing_reason.strip()
+    if not existing_reason:
+        return fallback_reason
+    if fallback_reason in existing_reason:
+        return existing_reason
+    return f"{fallback_reason} {existing_reason}"
+
+
 def classify_document_blocks_with_llm(state: AgentState, llm_client: Any) -> AgentState:
     if not state.chunks:
         state.block_signals = {}
@@ -84,14 +94,23 @@ def classify_document_blocks_with_llm(state: AgentState, llm_client: Any) -> Age
         if chunk_id not in known_chunk_ids:
             continue
         block_signal = str(item.get("block_signal") or "").strip()
+        invalid_signal = block_signal not in ALLOWED_BLOCK_SIGNALS
         if block_signal not in ALLOWED_BLOCK_SIGNALS:
             block_signal = "normal"
+        review_reason = str(item.get("review_reason") or "")
+        if invalid_signal:
+            review_reason = _fallback_review_reason(review_reason)
+        needs_review = (
+            True
+            if invalid_signal
+            else parse_bool(item.get("needs_review"), block_signal == "normal")
+        )
         block_signals[chunk_id] = {
             "block_signal": block_signal,
             "reason": str(item.get("reason") or ""),
             "confidence": clamp_confidence(item.get("confidence"), 0.0),
-            "needs_review": parse_bool(item.get("needs_review"), block_signal == "normal"),
-            "review_reason": str(item.get("review_reason") or ""),
+            "needs_review": needs_review,
+            "review_reason": review_reason,
         }
 
     for chunk in state.chunks:

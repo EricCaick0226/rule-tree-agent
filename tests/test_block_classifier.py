@@ -64,6 +64,45 @@ class BlockClassifierTests(unittest.TestCase):
         self.assertEqual(len(result.chunks), 2)
         self.assertEqual(result.step_traces[-1].step_name, "classify_document_blocks_with_llm")
 
+    def test_invalid_and_omitted_signals_require_review(self) -> None:
+        state = AgentState(
+            task="test",
+            chunks=[
+                chunk("doc_1_chunk_1", "无法识别的块类型"),
+                chunk("doc_1_chunk_2", "LLM 省略了这个 chunk"),
+            ],
+        )
+
+        def fake_call_llm_json(**kwargs):
+            return (
+                {
+                    "block_signals": [
+                        {
+                            "chunk_id": "doc_1_chunk_1",
+                            "block_signal": "summary_table",
+                            "reason": "LLM 返回了未注册的信号",
+                            "confidence": 0.7,
+                            "needs_review": False,
+                            "review_reason": "",
+                        },
+                    ]
+                },
+                "raw",
+            )
+
+        with patch("src.steps.block_classifier.call_llm_json", side_effect=fake_call_llm_json):
+            result = classify_document_blocks_with_llm(state, object())
+
+        invalid_signal = result.block_signals["doc_1_chunk_1"]
+        self.assertEqual(invalid_signal["block_signal"], "normal")
+        self.assertTrue(invalid_signal["needs_review"])
+        self.assertTrue(invalid_signal["review_reason"])
+
+        omitted_signal = result.block_signals["doc_1_chunk_2"]
+        self.assertEqual(omitted_signal["block_signal"], "normal")
+        self.assertTrue(omitted_signal["needs_review"])
+        self.assertTrue(omitted_signal["review_reason"])
+
 
 if __name__ == "__main__":
     unittest.main()
