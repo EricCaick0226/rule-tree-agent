@@ -59,7 +59,15 @@ def _contains_evidence_quote(container: str, quote: str) -> bool:
     quote_lines = [line.strip() for line in quote.splitlines() if line.strip()]
     if len(quote_lines) <= 1:
         return False
-    return all(_contains_text(container, line) for line in quote_lines)
+    normalized_container = _normalize_for_match(container)
+    start = 0
+    for line in quote_lines:
+        normalized_line = _normalize_for_match(line)
+        index = normalized_container.find(normalized_line, start)
+        if index < 0:
+            return False
+        start = index + len(normalized_line)
+    return True
 
 
 def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
@@ -175,7 +183,15 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 f"将分类说明改为：{INSUFFICIENT_DESCRIPTION}",
             )
 
-        if row.description_source != "insufficient" and not row.description_evidence_quote:
+        description_is_covered = row.description and _contains_evidence_quote(
+            row.evidence_quote,
+            row.description,
+        )
+        if (
+            row.description_source != "insufficient"
+            and not row.description_evidence_quote
+            and not description_is_covered
+        ):
             _add_issue(
                 issues,
                 "weak_trace",
@@ -200,16 +216,17 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
 
         if (
             row.recommended_grade
-            and row.recommended_grade not in grade_names
-            and not _contains_text(corpus, row.recommended_grade)
+            and not _contains_text(ref_text, row.recommended_grade)
+            and not _contains_text(row.evidence_quote, row.recommended_grade)
         ):
+            legality_note = "；该等级名称存在于分级定义中" if row.recommended_grade in grade_names else ""
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
                 "medium",
                 target,
-                f"推荐分级未出现在分级定义或原文中：{row.recommended_grade}",
-                "人工确认该等级是否来自文档。",
+                f"推荐分级未出现在该行证据中：{row.recommended_grade}{legality_note}",
+                "人工确认该行是否应绑定该推荐分级，或补充包含该分级映射的行级证据。",
             )
 
         if row.support_level in {"structural", "weak"} and not row.needs_review:

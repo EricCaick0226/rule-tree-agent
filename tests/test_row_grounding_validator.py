@@ -142,6 +142,84 @@ class RowGroundingValidatorTests(unittest.TestCase):
         issue = next(issue for issue in issues if issue.issue_type == "duplicated_path")
         self.assertEqual(issue.severity, "medium")
 
+    def test_flags_grade_found_elsewhere_but_missing_from_row_evidence(self) -> None:
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="policy.txt",
+            file_path="policy.txt",
+            raw_text="基础资源 服务范围与对象 患者\n等级定义 3级 一般数据",
+            pages=[
+                DocumentPage(
+                    page_number=None,
+                    text="基础资源 服务范围与对象 患者\n等级定义 3级 一般数据",
+                )
+            ],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            recommended_grade="3级",
+            evidence_quote="基础资源 服务范围与对象 患者",
+            evidence_refs=[_evidence_ref("基础资源 服务范围与对象 患者")],
+            support_level="explicit",
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        grade_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "推荐分级" in issue.problem
+        ]
+        self.assertTrue(grade_issues)
+        self.assertEqual(grade_issues[0].severity, "medium")
+
+    def test_evidence_quote_can_cover_description_quote(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            recommended_grade="3级",
+            description="患者相关资料",
+            description_source="quoted",
+            description_evidence_quote="",
+            evidence_quote="基础资源 服务范围与对象 患者 3级 分类说明 患者相关资料",
+            evidence_refs=[_evidence_ref()],
+            support_level="explicit",
+            needs_review=False,
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        weak_trace_problems = [
+            issue.problem for issue in issues if issue.issue_type == "weak_trace"
+        ]
+        self.assertNotIn("分类说明缺少 description_evidence_quote。", weak_trace_problems)
+
+    def test_multiline_quote_lines_must_match_in_order(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            recommended_grade="3级",
+            evidence_quote="患者 3级\n服务范围与对象",
+            evidence_refs=[_evidence_ref("基础资源 服务范围与对象 患者 3级")],
+            support_level="explicit",
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        quote_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "evidence_quote" in issue.problem
+        ]
+        self.assertTrue(quote_issues)
+        self.assertEqual(quote_issues[0].severity, "high")
+
 
 if __name__ == "__main__":
     unittest.main()
