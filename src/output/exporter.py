@@ -5,7 +5,7 @@ import re
 from dataclasses import asdict
 from pathlib import Path
 
-from .agent_state import AgentState, TreeNode
+from ..core.agent_state import AgentState, TreeNode
 
 
 def _node_lines(nodes: list[TreeNode]) -> list[str]:
@@ -40,6 +40,14 @@ def _node_lines(nodes: list[TreeNode]) -> list[str]:
 def _review_report(state: AgentState) -> str:
     nodes_with_evidence = sum(1 for node in state.nodes if node.evidence_refs)
     review_nodes = sum(1 for node in state.nodes if node.needs_review)
+    source_counts: dict[str, int] = {}
+    for chunk in state.chunks:
+        source_counts[chunk.source_method] = source_counts.get(chunk.source_method, 0) + 1
+    ocr_claims = [
+        claim
+        for claim in state.evidence_claims
+        if any(ref.source_method == "ocr" for ref in claim.evidence_refs)
+    ]
     unsupported = [
         issue
         for issue in state.validation_issues
@@ -59,6 +67,8 @@ def _review_report(state: AgentState) -> str:
         f"- LLM model: {state.llm_model if state.llm_enabled else 'not used'}",
         f"- LLM base URL: {state.llm_base_url if state.llm_enabled else 'not used'}",
         f"- LLM error: {state.llm_error if state.llm_error else 'none'}",
+        f"- PDF OCR enabled: {'yes' if state.pdf_ocr_enabled else 'no'}",
+        f"- Source chunks by method: {source_counts if source_counts else 'none'}",
         f"- Evidence claims: {len(state.evidence_claims)}",
         f"- Concept profiles: {len(state.concept_profiles)}",
         f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
@@ -77,6 +87,25 @@ def _review_report(state: AgentState) -> str:
         )
     else:
         lines.append("- None detected.")
+
+    lines.extend(["", "## OCR Evidence Notes"])
+    if ocr_claims:
+        lines.append("- OCR-derived evidence is not final evidence until manually checked against the PDF pages.")
+        for claim in ocr_claims[:30]:
+            pages = sorted(
+                {
+                    ref.page_number
+                    for ref in claim.evidence_refs
+                    if ref.source_method == "ocr" and ref.page_number is not None
+                }
+            )
+            lines.append(f"- {claim.claim_id}: {claim.subject} ({'pages ' + str(pages) if pages else 'pages unknown'})")
+        if len(ocr_claims) > 30:
+            lines.append(f"- ... {len(ocr_claims) - 30} more OCR-backed claims omitted from this summary.")
+    elif state.pdf_ocr_enabled:
+        lines.append("- OCR was enabled, but no OCR-backed evidence claims were produced.")
+    else:
+        lines.append("- OCR was not enabled.")
 
     lines.extend(["", "## Low Confidence Nodes"])
     if low_confidence:
@@ -173,6 +202,7 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     if state.llm_enabled:
         tree_lines.append(f"- LLM model: {state.llm_model}")
         tree_lines.append(f"- LLM base URL: {state.llm_base_url}")
+    tree_lines.append(f"- PDF OCR enabled: {'yes' if state.pdf_ocr_enabled else 'no'}")
     if state.llm_error:
         tree_lines.append(f"- LLM error: {state.llm_error}")
     tree_lines.append(f"- Evidence claims: {len(state.evidence_claims)}")

@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 from difflib import SequenceMatcher
 
-from .agent_state import DocumentChunk, EvidenceRef
+from ..core.agent_state import DocumentChunk, EvidenceRef
 
 
 def _stable_id(prefix: str, *parts: str) -> str:
@@ -26,6 +26,9 @@ def create_evidence_ref(
         text=evidence_text,
         used_for=used_for,
         relevance_score=round(float(relevance_score), 3),
+        page_number=chunk.page_number,
+        source_method=chunk.source_method,
+        source_warning=chunk.source_warning,
     )
 
 
@@ -72,4 +75,3 @@ def collect_unique_evidence(*groups: list[EvidenceRef]) -> list[EvidenceRef]:
     for group in groups:
         refs.extend(group)
     return dedupe_evidence_refs(refs)
-

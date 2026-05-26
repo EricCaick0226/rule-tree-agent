@@ -31,7 +31,7 @@
 
 ## 工作流
 
-1. 解析文档：读取 `.md` 和 `.txt`。
+1. 解析文档：读取 `.md`、`.txt` 和 `.pdf`；PDF 先用文本层抽取，必要时在显式开启 OCR 后用 macOS Vision 对无文本页进行 OCR。
 2. 切分文档：按标题、编号、空行和列表块形成 chunk。
 3. 构建证据索引：记录 chunk、文档、章节之间的关系。
 4. 抽取 evidence claims：必须调用 LLM，按 chunk 批量抽取文档事实，不生成树。
@@ -46,23 +46,24 @@
 
 ## 模块职责
 
-- `agent_state.py`：定义文档、证据、概念、维度、节点、等级、规则、校验问题和整体状态。
-- `document_parser.py`：只负责解析与切分，不解释业务含义。
-- `evidence_store.py`：创建证据引用，提供简单本地关键词搜索。
-- `evidence_index.py`：建立 chunk 与文档、章节的索引。
-- `evidence_claim_extractor.py`：LLM claim 抽取步骤，只产生证据事实。
-- `concept_normalizer.py`：LLM 概念画像步骤。
-- `dimension_analyzer.py`：LLM 分类维度分析步骤。
-- `taxonomy_synthesizer.py`：LLM 候选分类树合成步骤。
-- `node_describer.py`：LLM 节点描述生成步骤。
-- `grading_analyzer.py`：LLM 分级方案与节点分级分析步骤。
-- `rule_synthesizer.py`：LLM 匹配规则生成步骤。
-- `grounding_validator.py`：严格检查所有生成内容是否有证据。
-- `llm_client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
-- `llm_task_utils.py`：加载 prompt 文件，统一 LLM JSON 调用、顶层 schema 校验和一次重试。
-- `exporter.py`：导出结构化结果、候选树、复核报告和原始 LLM trace。
-- `agent_executor.py`：串联整个 MVP 流水线。
-- `agent_demo.py`：命令行演示入口。
+- `src/core/agent_state.py`：定义文档、证据、概念、维度、节点、等级、规则、校验问题和整体状态。
+- `src/io/document_parser.py`：只负责普通文本解析入口与 chunk 切分，不解释业务含义。
+- `src/io/pdf_document_parser.py`：只负责 PDF 文本层抽取、按需调用 macOS Vision OCR，并生成带页码和来源方式的原文转写。
+- `src/io/evidence_store.py`：创建证据引用，提供简单本地关键词搜索。
+- `src/io/evidence_index.py`：建立 chunk 与文档、章节的索引。
+- `src/steps/evidence_claim_extractor.py`：LLM claim 抽取步骤，只产生证据事实。
+- `src/steps/concept_normalizer.py`：LLM 概念画像步骤。
+- `src/steps/dimension_analyzer.py`：LLM 分类维度分析步骤。
+- `src/steps/taxonomy_synthesizer.py`：LLM 候选分类树合成步骤。
+- `src/steps/node_describer.py`：LLM 节点描述生成步骤。
+- `src/steps/grading_analyzer.py`：LLM 分级方案与节点分级分析步骤。
+- `src/steps/rule_synthesizer.py`：LLM 匹配规则生成步骤。
+- `src/validation/grounding_validator.py`：严格检查所有生成内容是否有证据。
+- `src/llm/client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
+- `src/llm/task_utils.py`：加载 prompt 文件，统一 LLM JSON 调用、顶层 schema 校验和一次重试。
+- `src/output/exporter.py`：导出结构化结果、候选树、复核报告和原始 LLM trace。
+- `src/pipeline/agent_executor.py`：串联整个 MVP 流水线。
+- `src/agent_demo.py`：命令行演示入口。
 
 ## 数据结构
 
@@ -82,13 +83,13 @@
 
 ## MVP 边界
 
-- 只支持 Markdown 和纯文本。
+- 支持 Markdown、纯文本和 PDF；OCR 必须显式开启，当前 OCR 后端依赖 macOS Vision，且 OCR 证据默认需要人工复核。
 - 只使用本地规则、关键词和轻量模糊匹配。
 - 必须接入 OpenAI-compatible LLM，LLM 调用失败即任务失败。
 - 运行时 prompt 来自 `prompts/`，每个 LLM 阶段只允许处理当前阶段职责。
 - LLM 原始回复不写入主 `rule_tree.json`，而是单独写入 `outputs/traces/`。
 - 不使用向量数据库。
-- 不处理复杂表格、PDF OCR 或跨文档冲突消解。
+- 不处理复杂表格、版面重建、低质量扫描修复或跨文档冲突消解。
 - 输出是候选结果，不是最终标准。
 
 ## 未来版本想法

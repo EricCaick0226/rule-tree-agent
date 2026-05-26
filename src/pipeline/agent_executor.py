@@ -2,19 +2,19 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .agent_state import AgentState
-from .concept_normalizer import normalize_concepts_with_llm
-from .dimension_analyzer import discover_dimensions_with_llm
-from .document_parser import chunk_documents, parse_documents
-from .evidence_claim_extractor import extract_evidence_claims_with_llm
-from .evidence_index import build_evidence_index
-from .exporter import export_outputs
-from .grading_analyzer import analyze_grading_with_llm
-from .grounding_validator import validate_grounding
-from .llm_client import DEFAULT_BASE_URL, DEFAULT_MODEL, OpenAICompatibleLLMClient
-from .node_describer import describe_nodes_with_llm
-from .rule_synthesizer import synthesize_rules_with_llm
-from .taxonomy_synthesizer import synthesize_taxonomy_with_llm
+from ..core.agent_state import AgentState
+from ..io.document_parser import chunk_documents, parse_documents
+from ..io.evidence_index import build_evidence_index
+from ..llm.client import DEFAULT_BASE_URL, DEFAULT_MODEL, OpenAICompatibleLLMClient
+from ..output.exporter import export_outputs
+from ..steps.concept_normalizer import normalize_concepts_with_llm
+from ..steps.dimension_analyzer import discover_dimensions_with_llm
+from ..steps.evidence_claim_extractor import extract_evidence_claims_with_llm
+from ..steps.grading_analyzer import analyze_grading_with_llm
+from ..steps.node_describer import describe_nodes_with_llm
+from ..steps.rule_synthesizer import synthesize_rules_with_llm
+from ..steps.taxonomy_synthesizer import synthesize_taxonomy_with_llm
+from ..validation.grounding_validator import validate_grounding
 
 
 class LLMGenerationError(RuntimeError):
@@ -42,7 +42,7 @@ def create_plan(task_type: str) -> list[dict]:
 
 def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) -> AgentState:
     if tool_name == "parse_documents":
-        state.documents = parse_documents(state.input_files)
+        state.documents = parse_documents(state.input_files, enable_ocr=state.pdf_ocr_enabled)
     elif tool_name == "chunk_documents":
         state.chunks = chunk_documents(state.documents)
     elif tool_name == "build_evidence_index":
@@ -98,6 +98,7 @@ def run_agent(
     output_dir: str = "outputs",
     llm_base_url: str | None = None,
     llm_model: str | None = None,
+    enable_ocr: bool = False,
 ) -> AgentState:
     resolved_inputs = [str(Path(file_path).expanduser().resolve()) for file_path in input_files]
     base_url = llm_base_url or DEFAULT_BASE_URL
@@ -109,6 +110,7 @@ def run_agent(
         llm_enabled=True,
         llm_model=model,
         llm_base_url=base_url,
+        pdf_ocr_enabled=enable_ocr,
     )
 
     llm_client = OpenAICompatibleLLMClient(base_url=base_url, model=model)

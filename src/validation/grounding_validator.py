@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 
-from .agent_state import AgentState, ValidationIssue
+from ..core.agent_state import AgentState, ValidationIssue
 
 
 def _issue_id(*parts: str) -> str:
@@ -59,6 +59,19 @@ def validate_grounding(state: AgentState) -> list[ValidationIssue]:
                 claim.claim_id,
                 "Evidence claim 缺少证据引用。",
                 "删除该 claim 或补充 chunk 证据。",
+            )
+        if any(ref.source_method == "ocr" for ref in claim.evidence_refs):
+            pages = sorted(
+                {ref.page_number for ref in claim.evidence_refs if ref.page_number is not None}
+            )
+            page_text = f"页码：{pages}" if pages else "页码未知"
+            _add_issue(
+                issues,
+                "ocr_evidence_requires_review",
+                "medium",
+                claim.claim_id,
+                f"Evidence claim 使用 OCR 证据，可能存在识别误差（{page_text}）。",
+                "请对照 PDF 原件人工核验 OCR 证据后再采用该 claim。",
             )
         if claim.subject and claim.subject not in corpus:
             _add_issue(

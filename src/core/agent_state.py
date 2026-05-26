@@ -10,6 +10,16 @@ class SourceDocument:
     doc_name: str
     file_path: str
     raw_text: str
+    pages: list["DocumentPage"] = field(default_factory=list)
+
+
+@dataclass
+class DocumentPage:
+    page_number: Optional[int]
+    text: str
+    source_method: str = "text"
+    needs_review: bool = False
+    warning: str = ""
 
 
 @dataclass
@@ -20,6 +30,9 @@ class DocumentChunk:
     section_title: str
     text: str
     position: int
+    page_number: Optional[int] = None
+    source_method: str = "text"
+    source_warning: str = ""
 
 
 @dataclass
@@ -31,6 +44,9 @@ class EvidenceRef:
     text: str
     used_for: str
     relevance_score: float
+    page_number: Optional[int] = None
+    source_method: str = "text"
+    source_warning: str = ""
 
 
 @dataclass
@@ -179,3 +195,4 @@ class AgentState:
     llm_model: str = ""
     llm_base_url: str = ""
     llm_error: str = ""
+    pdf_ocr_enabled: bool = False

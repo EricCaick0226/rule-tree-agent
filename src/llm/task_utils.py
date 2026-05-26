@@ -6,8 +6,8 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .agent_state import DocumentChunk, EvidenceClaim, EvidenceRef, StepTrace
-from .evidence_store import create_evidence_ref, dedupe_evidence_refs
+from ..core.agent_state import DocumentChunk, EvidenceClaim, EvidenceRef, StepTrace
+from ..io.evidence_store import create_evidence_ref, dedupe_evidence_refs
 
 
 def stable_id(prefix: str, value: str) -> str:
@@ -159,6 +159,9 @@ def chunk_payload(chunks: list[DocumentChunk]) -> list[dict[str, Any]]:
             "doc_name": chunk.doc_name,
             "section_title": chunk.section_title,
             "position": chunk.position,
+            "page_number": chunk.page_number,
+            "source_method": chunk.source_method,
+            "source_warning": chunk.source_warning,
             "text": chunk.text,
         }
         for chunk in chunks
@@ -177,6 +180,8 @@ def claim_payload(claims: list[EvidenceClaim]) -> list[dict[str, Any]]:
             "confidence": claim.confidence,
             "needs_review": claim.needs_review,
             "evidence_ids": [ref.evidence_id for ref in claim.evidence_refs],
+            "evidence_page_numbers": [ref.page_number for ref in claim.evidence_refs],
+            "evidence_source_methods": [ref.source_method for ref in claim.evidence_refs],
             "evidence_texts": [ref.text for ref in claim.evidence_refs[:2]],
         }
         for claim in claims
@@ -194,7 +199,8 @@ def refs_from_chunk_ids(
         chunk = chunk_by_id.get(str(raw_id))
         if chunk is None:
             continue
-        refs.append(create_evidence_ref(chunk, used_for, score))
+        ref_score = min(score, 0.68) if chunk.source_method == "ocr" else score
+        refs.append(create_evidence_ref(chunk, used_for, ref_score))
     return dedupe_evidence_refs(refs)
 
 
@@ -223,6 +229,7 @@ def common_system_prompt(task_name: str) -> str:
 - 不得使用行业常识、默认分类、默认等级、默认风险规则或文档外示例。
 - 所有业务名称、等级名称、描述、规则词、层级关系都必须能追溯到输入证据。
 - 如果证据不足，必须输出 needs_review=true 或 insufficient_evidence，不得补全。
+- 如果证据来自 OCR，必须保持谨慎并标记 needs_review=true。
 - 输出必须是 JSON object，不要 Markdown，不要解释文字。
 """
 

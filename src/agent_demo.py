@@ -3,12 +3,12 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .agent_executor import run_agent
+from .pipeline.agent_executor import run_agent
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the document-grounded rule tree agent demo.")
-    parser.add_argument("--docs", nargs="+", required=True, help="Markdown or text documents.")
+    parser.add_argument("--docs", nargs="+", required=True, help="Markdown, text, or PDF documents.")
     parser.add_argument("--out", default="outputs", help="Output directory.")
     parser.add_argument(
         "--llm-base-url",
@@ -19,6 +19,11 @@ def main() -> None:
         "--llm-model",
         default=None,
         help="Model name. Defaults to your-model-name.",
+    )
+    parser.add_argument(
+        "--ocr",
+        action="store_true",
+        help="Use OCR for PDF pages that have little or no extractable text.",
     )
     args = parser.parse_args()
 
@@ -31,6 +36,7 @@ def main() -> None:
             output_dir=out_dir,
             llm_base_url=args.llm_base_url,
             llm_model=args.llm_model,
+            enable_ocr=args.ocr,
         )
     except Exception as exc:
         print(f"Agent failed: {exc}")

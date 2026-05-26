@@ -3,8 +3,8 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from .agent_state import AgentState, EvidenceClaim
-from .llm_task_utils import (
+from ..core.agent_state import AgentState, EvidenceClaim
+from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
     chunk_payload,
@@ -78,7 +78,8 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
             f"claim:{claim_type}:{subject}",
             0.88,
         )
-        needs_review = parse_bool(item.get("needs_review"), not bool(refs))
+        has_ocr_evidence = any(ref.source_method == "ocr" for ref in refs)
+        needs_review = has_ocr_evidence or parse_bool(item.get("needs_review"), not bool(refs))
         claim_id = str(item.get("claim_id") or "").strip() or stable_id("claim", fingerprint)
         claims.append(
             EvidenceClaim(
@@ -89,7 +90,7 @@ def _to_claims(data: dict[str, Any], state: AgentState) -> list[EvidenceClaim]:
                 object=obj,
                 value=value,
                 evidence_refs=refs,
-                confidence=clamp_confidence(item.get("confidence"), 0.65),
+                confidence=clamp_confidence(item.get("confidence"), 0.55 if has_ocr_evidence else 0.65),
                 needs_review=needs_review,
                 status=str(item.get("status") or ("proposed" if needs_review else "evidence_supported")),
             )
