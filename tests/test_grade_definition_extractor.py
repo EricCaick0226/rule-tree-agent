@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import asdict
 import unittest
 from unittest.mock import patch
 
@@ -94,7 +95,8 @@ class GradeDefinitionExtractorTests(unittest.TestCase):
             result = extract_grade_definitions_with_llm(state, object())
 
         self.assertTrue(result.grade_scheme[0].needs_review)
-        self.assertEqual(getattr(result.grade_scheme[0], "review_reason"), "分级定义缺少有效证据引用。")
+        self.assertEqual(result.grade_scheme[0].review_reason, "分级定义缺少有效证据引用。")
+        self.assertEqual(asdict(result.grade_scheme[0])["review_reason"], "分级定义缺少有效证据引用。")
         self.assertEqual(result.grade_scheme[0].status, "proposed")
 
 

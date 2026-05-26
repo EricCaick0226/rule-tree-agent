@@ -83,9 +83,9 @@ def _to_grade_definitions(data: dict[str, Any], state: AgentState) -> list[Grade
             evidence_claim_ids=[],
             confidence=clamp_confidence(item.get("confidence"), 0.65),
             needs_review=needs_review,
+            review_reason=review_reason,
             status=status,
         )
-        setattr(grade, "review_reason", review_reason)
         grades.append(grade)
 
     return grades

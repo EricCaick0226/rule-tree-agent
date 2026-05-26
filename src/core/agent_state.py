@@ -140,6 +140,7 @@ class GradeDefinition:
     evidence_claim_ids: list[str] = field(default_factory=list)
     confidence: float = 0.0
     needs_review: bool = True
+    review_reason: str = ""
     status: str = "proposed"
 
 
