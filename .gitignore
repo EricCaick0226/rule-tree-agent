@@ -4,5 +4,8 @@ __pycache__/
 .venv/
 *.egg-info/
 .env
+.DS_Store
+outputs_pdf/
+outputs_sample/
 outputs/*
 !outputs/.gitkeep
