@@ -6,6 +6,24 @@ from src.core.agent_state import AgentState, ClassificationRow, ClassificationSc
 
 
 class RowFirstStateTests(unittest.TestCase):
+    def test_classification_row_holds_structured_table_fields(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["资源", "项目"],
+            recommended_grade="一般数据3级",
+            data_range_examples=["姓名", "联系方式"],
+            processing_degree="原始数据",
+            impact_object="个人",
+            impact_degree="严重危害",
+            grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+        )
+
+        self.assertEqual(row.data_range_examples, ["姓名", "联系方式"])
+        self.assertEqual(row.processing_degree, "原始数据")
+        self.assertEqual(row.impact_object, "个人")
+        self.assertEqual(row.impact_degree, "严重危害")
+        self.assertEqual(row.grade_evidence_quote, "原始数据 个人 严重危害 一般数据3级")
+
     def test_state_holds_classification_rows_and_schema(self) -> None:
         row = ClassificationRow(
             row_id="row_1",

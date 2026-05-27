@@ -165,6 +165,11 @@ class ClassificationRow:
     description_evidence_quote: str = ""
     evidence_quote: str = ""
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
+    data_range_examples: list[str] = field(default_factory=list)
+    processing_degree: str = ""
+    impact_object: str = ""
+    impact_degree: str = ""
+    grade_evidence_quote: str = ""
     support_level: str = "weak"
     confidence: float = 0.0
     needs_review: bool = True
