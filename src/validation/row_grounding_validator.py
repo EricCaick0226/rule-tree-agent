@@ -219,10 +219,8 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
 
         if (
             row.recommended_grade
-            and not _contains_text(
-                " ".join([row.evidence_quote, row.grade_evidence_quote]).strip(),
-                row.recommended_grade,
-            )
+            and not _contains_text(row.evidence_quote, row.recommended_grade)
+            and not _contains_text(row.grade_evidence_quote, row.recommended_grade)
         ):
             legality_note = "；该等级名称存在于分级定义中" if row.recommended_grade in grade_names else ""
             _add_issue(
