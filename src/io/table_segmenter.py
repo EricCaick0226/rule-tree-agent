@@ -117,8 +117,20 @@ def _split_chunk(chunk: DocumentChunk, block_signal: str, max_chars: int) -> lis
             if current:
                 flush()
             header_text = line.strip()
+            continue
 
         line_chars = len(line)
+        if not line.strip():
+            if not current:
+                continue
+            projected_chars = current_chars + _append_line_length(current, line)
+            if projected_chars > max_chars:
+                flush()
+                continue
+            current.append((offset, line))
+            current_chars = projected_chars
+            continue
+
         if line_chars > max_chars:
             flush()
             for start in range(0, line_chars, max_chars):
@@ -169,9 +181,11 @@ def segment_table_chunks_for_row_extraction(
                 header_text="",
                 text=chunk.text or "",
                 first_offset=0,
-                last_offset=0
-                if chunk.line_end is not None
-                else max(0, len((chunk.text or "").split("\n")) - 1),
+                last_offset=(
+                    chunk.line_end - chunk.line_start
+                    if chunk.line_start is not None and chunk.line_end is not None
+                    else max(0, len((chunk.text or "").splitlines()) - 1)
+                ),
             )
         )
     return segments

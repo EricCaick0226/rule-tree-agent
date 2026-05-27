@@ -106,11 +106,19 @@ class TableSegmenterTests(unittest.TestCase):
         segments = segment_table_chunks_for_row_extraction(
             [chunk],
             block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
-            max_chars=95,
+            max_chars=45,
         )
 
         self.assertGreater(len(segments), 1)
-        self.assertEqual("\n".join(segment.text for segment in segments), text)
+        expected_text_without_headers = "\n".join(
+            [
+                "001项目A 示例A 原始数据 个人 严重危害 一般数据3级",
+                "",
+                "002项目B 示例B 原始数据 个人 特别严重危害 一般数据4级",
+            ]
+        )
+        self.assertEqual("\n".join(segment.text for segment in segments), expected_text_without_headers)
+        self.assertTrue(all(segment.header_text == header for segment in segments))
 
     def test_preserves_source_metadata_and_real_line_spans(self):
         header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
@@ -126,18 +134,19 @@ class TableSegmenterTests(unittest.TestCase):
         segments = segment_table_chunks_for_row_extraction(
             [chunk],
             block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
-            max_chars=80,
+            max_chars=45,
         )
 
         self.assertEqual(len(segments), 2)
         self.assertTrue(all(segment.source_method == "ocr" for segment in segments))
         self.assertTrue(all(segment.source_warning == "low confidence" for segment in segments))
         self.assertTrue(all(segment.page_number == 3 for segment in segments))
-        self.assertEqual(segments[0].line_start, 100)
+        self.assertEqual(segments[0].line_start, 101)
         self.assertEqual(segments[0].line_end, 101)
         self.assertEqual(segments[1].line_start, 102)
         self.assertEqual(segments[1].line_end, 102)
         self.assertEqual(segments[1].header_text, header)
+        self.assertNotIn(header, segments[0].text)
         self.assertNotIn(header, segments[1].text)
 
     def test_splits_single_line_that_exceeds_max_chars(self):
@@ -198,6 +207,54 @@ class TableSegmenterTests(unittest.TestCase):
         self.assertEqual(segments[0].text, "x\n")
         self.assertEqual(segments[0].line_start, 100)
         self.assertEqual(segments[0].line_end, 100)
+
+    def test_small_normal_multiline_chunk_preserves_source_line_span(self):
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_9",
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            section_title="说明",
+            text="a\nb",
+            position=9,
+            line_start=100,
+            line_end=101,
+        )
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={},
+            max_chars=1000,
+        )
+
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(segments[0].line_start, 100)
+        self.assertEqual(segments[0].line_end, 101)
+
+    def test_table_header_is_not_in_segment_text(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        chunk = self._chunk("\n".join([header, "001项目A 示例A 原始数据 个人 严重危害 一般数据3级"]))
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(segments[0].header_text, header)
+        self.assertNotIn(header, segments[0].text)
+        self.assertIn("001项目A", segments[0].text)
+
+    def test_whitespace_only_long_line_does_not_create_segments(self):
+        chunk = self._chunk(" " * 25)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={},
+            max_chars=10,
+        )
+
+        self.assertEqual(segments, [])
 
 
 if __name__ == "__main__":
