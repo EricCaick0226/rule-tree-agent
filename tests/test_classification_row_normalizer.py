@@ -242,6 +242,44 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
         self.assertIn("一般数据4级", row.grade_evidence_quote)
         self.assertCountEqual(row.data_range_examples, ["联系人信息", "联系人邮箱", "参保人员信息"])
 
+    def test_numeric_grade_rank_does_not_depend_on_grade_scheme_order(self) -> None:
+        state = AgentState(task="test")
+        state.grade_scheme = [
+            GradeDefinition(grade_id="g4", grade_name="一般数据4级", definition="high"),
+            GradeDefinition(grade_id="g3", grade_name="一般数据3级", definition="middle"),
+        ]
+        state.classification_rows = [
+            ClassificationRow(
+                row_id="r1",
+                path_levels=["业务资源", "医疗保障", "参保登记"],
+                recommended_grade="一般数据3级",
+                description="参保人员信息",
+                description_source="quoted",
+                evidence_quote="参保人员信息 原始数据 个人 严重危害 一般数据3级",
+                grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                support_level="explicit",
+                confidence=0.9,
+                needs_review=False,
+            ),
+            ClassificationRow(
+                row_id="r2",
+                path_levels=["业务资源", "医疗保障", "参保登记"],
+                recommended_grade="一般数据4级",
+                description="联系人信息",
+                description_source="quoted",
+                evidence_quote="联系人信息 原始数据 个人 特别严重危害 一般数据4级",
+                grade_evidence_quote="原始数据 个人 特别严重危害 一般数据4级",
+                support_level="explicit",
+                confidence=0.9,
+                needs_review=False,
+            ),
+        ]
+
+        normalize_classification_rows(state)
+
+        self.assertEqual(state.classification_rows[0].recommended_grade, "一般数据4级")
+        self.assertIn("就高", state.classification_rows[0].review_reason)
+
     def test_duplicate_path_requires_review_when_grade_order_is_unknown(self) -> None:
         state = AgentState(
             task="test",

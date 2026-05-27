@@ -52,14 +52,6 @@ def _grade_rank(row: ClassificationRow, state: AgentState) -> int | None:
     if not grade_name:
         return None
 
-    scheme_ranks = {
-        grade.grade_name.strip(): index
-        for index, grade in enumerate(state.grade_scheme, start=1)
-        if grade.grade_name.strip()
-    }
-    if grade_name in scheme_ranks:
-        return scheme_ranks[grade_name]
-
     return _grade_rank_from_text(grade_name)
 
 
