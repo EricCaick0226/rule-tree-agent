@@ -114,6 +114,10 @@ class RowFirstPipelineTests(unittest.TestCase):
         self.assertIn("impact_object", prompt)
         self.assertIn("impact_degree", prompt)
         self.assertIn("grade_evidence_quote", prompt)
+        self.assertIn("table_segments", prompt)
+        self.assertIn("segment.text", prompt)
+        self.assertIn("source_chunk_id", prompt)
+        self.assertNotIn("document_chunks", prompt)
 
 
 if __name__ == "__main__":
