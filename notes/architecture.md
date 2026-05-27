@@ -83,7 +83,8 @@
 ## MVP 边界
 
 - 默认 row-first MVP 只支持 Markdown 和纯文本输入。
-- PDF/OCR 代码保留为 legacy/non-default 能力；OCR 必须显式开启，当前 OCR 后端依赖 macOS Vision，且 OCR 证据默认需要人工复核。
+- 底层 PDF/OCR 解析代码仍在仓库中作为 legacy/non-default 基础设施，但默认 row-first agent 不接受 PDF/OCR 输入；`agent_demo` / `run_agent` 会拒绝非 `.txt`/`.md` 文件。
+- 后续若恢复 PDF/OCR 到默认链路，需要单独设计解析、证据定位、OCR 质量复核和 row grounding 策略。
 - 只使用本地规则、关键词和轻量模糊匹配。
 - 必须接入 OpenAI-compatible LLM，LLM 调用失败即任务失败。
 - 运行时 prompt 来自 `prompts/`，每个 LLM 阶段只允许处理当前阶段职责。

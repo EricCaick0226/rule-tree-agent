@@ -127,21 +127,16 @@ Optional tuning:
 # are written under <output_dir>/checkpoints/evidence_claim_batches.jsonl.
 CLAIM_BATCH_SIZE=8 CLAIM_BATCH_MAX_CHARS=6000 \
   python3 -m src.agent_demo --docs data/sample_docs/sample_row_policy.md --out outputs
-
-# Legacy OCR settings for non-default PDF/OCR experiments. Defaults are zh-Hans,en-US, 200, and 120 seconds.
-OCR_LANGUAGES=zh-Hans,en-US OCR_DPI=200 OCR_TIMEOUT_SECONDS=120
 ```
 
 `rule_table.json` and `rule_tree.json` intentionally store structured state and trace file paths only. Full raw LLM responses are written under `outputs/traces/` for debugging and audit review.
 
-PDF/OCR notes:
+Legacy parser notes, not part of the default row-first MVP:
 
-- PDF/OCR support is legacy/non-default for the row-first MVP.
-- OCR is only attempted when `--ocr` is set.
-- `pypdf` is used first on every PDF page.
-- OCR uses macOS Vision through `scripts/vision_ocr_pages.swift`; it requires macOS with Swift command-line tools.
-- OCR-backed evidence is marked for human review because recognition errors can change business meaning.
-- OCR does not add table reconstruction, layout understanding, or image-region reasoning in this MVP.
+- PDF/OCR parser code remains in the repository as legacy/non-default infrastructure.
+- The default row-first `agent_demo` / `run_agent` path rejects non-`.txt`/`.md` inputs, including `.pdf`.
+- The `--ocr` CLI option is retained only for compatibility and is ignored by the row-first txt/md MVP.
+- Legacy OCR code uses macOS Vision through `scripts/vision_ocr_pages.swift`; restoring PDF/OCR to the default pipeline would require a separate design.
 
 ## MVP Limitations
 
@@ -149,7 +144,7 @@ PDF/OCR notes:
 - LLM JSON quality depends on the configured model and endpoint, even with one repair retry.
 - Requires a valid API key and network access to the configured LLM gateway.
 - Default row-first MVP input is Markdown and text only.
-- Complex tables, PDF/OCR default runs, low-quality scans, layout reconstruction, and ambiguous policies are not handled in v0.1.
+- Complex tables, PDF/OCR inputs, low-quality scans, layout reconstruction, and ambiguous policies are not handled by the default row-first MVP.
 
 ## Future Improvements
 
