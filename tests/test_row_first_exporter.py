@@ -124,6 +124,41 @@ class RowFirstExporterTests(unittest.TestCase):
         self.assertIn("证据不足，无法从当前文档确定分类分级明细。", table_md)
         self.assertNotIn("| 一级分类 |", table_md)
 
+    def test_exports_structured_row_fields(self) -> None:
+        state = AgentState(task="test")
+        state.classification_rows = [
+            ClassificationRow(
+                row_id="r1",
+                path_levels=["A", "B"],
+                recommended_grade="一般数据3级",
+                description="姓名",
+                description_source="quoted",
+                data_range_examples=["姓名"],
+                processing_degree="原始数据",
+                impact_object="个人",
+                impact_degree="严重危害",
+                grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                evidence_quote="姓名 原始数据 个人 严重危害 一般数据3级",
+                support_level="explicit",
+                confidence=0.9,
+                needs_review=False,
+            )
+        ]
+
+        with TemporaryDirectory() as tmp:
+            export_outputs(state, tmp)
+
+            table = json.loads(Path(tmp, "rule_table.json").read_text(encoding="utf-8"))
+            row = table["classification_rows"][0]
+            self.assertEqual(row["data_range_examples"], ["姓名"])
+            self.assertEqual(row["processing_degree"], "原始数据")
+            self.assertEqual(row["impact_object"], "个人")
+            self.assertEqual(row["impact_degree"], "严重危害")
+            self.assertEqual(row["grade_evidence_quote"], "原始数据 个人 严重危害 一般数据3级")
+            markdown = Path(tmp, "rule_table.md").read_text(encoding="utf-8")
+            self.assertIn("数据范围及示例", markdown)
+            self.assertIn("影响程度", markdown)
+
 
 if __name__ == "__main__":
     unittest.main()

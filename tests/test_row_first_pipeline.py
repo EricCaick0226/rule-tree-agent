@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import unittest
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
@@ -76,6 +77,26 @@ class RowFirstPipelineTests(unittest.TestCase):
             self.assertIs(_run_step("project_tree_from_rows", state, "outputs", object()), state)
         project.assert_called_once_with(state)
 
+    def test_run_step_passes_output_dir_to_row_extractor(self) -> None:
+        state = AgentState(task="test")
+        llm_client = object()
+
+        with patch(
+            "src.pipeline.agent_executor.extract_classification_rows_with_llm",
+            return_value=state,
+        ) as extract_rows:
+            self.assertIs(
+                _run_step(
+                    "extract_classification_rows_with_llm",
+                    state,
+                    "custom_outputs",
+                    llm_client,
+                ),
+                state,
+            )
+
+        extract_rows.assert_called_once_with(state, llm_client, output_dir="custom_outputs")
+
     def test_llm_used_stays_false_when_llm_steps_short_circuit_without_raw_response(self) -> None:
         state = AgentState(task="test", task_type="generate_rule_tree_from_docs", input_files=[])
 
@@ -100,6 +121,23 @@ class RowFirstPipelineTests(unittest.TestCase):
             normalized_help,
         )
         self.assertNotIn("Use OCR for PDF pages", normalized_help)
+
+    def test_row_extraction_prompt_requires_all_rows_and_continuation_inheritance(self) -> None:
+        prompt = Path("prompts/extract_classification_rows_prompt.md").read_text(encoding="utf-8")
+
+        self.assertIn("抽取本批次所有", prompt)
+        self.assertIn("不要只抽取示例", prompt)
+        self.assertIn("续表", prompt)
+        self.assertIn("继承", prompt)
+        self.assertIn("data_range_examples", prompt)
+        self.assertIn("processing_degree", prompt)
+        self.assertIn("impact_object", prompt)
+        self.assertIn("impact_degree", prompt)
+        self.assertIn("grade_evidence_quote", prompt)
+        self.assertIn("table_segments", prompt)
+        self.assertIn("segment.text", prompt)
+        self.assertIn("source_chunk_id", prompt)
+        self.assertNotIn("document_chunks", prompt)
 
 
 if __name__ == "__main__":

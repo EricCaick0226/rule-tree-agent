@@ -129,6 +129,13 @@ CLAIM_BATCH_SIZE=8 CLAIM_BATCH_MAX_CHARS=6000 \
   python3 -m src.agent_demo --docs data/sample_docs/sample_row_policy.md --out outputs
 ```
 
+For long table-like `.txt`/`.md` inputs, row extraction is segmented and checkpointed:
+
+- `ROW_SEGMENT_MAX_CHARS` controls deterministic table segment size.
+- `ROW_BATCH_MAX_CHARS` controls LLM batch payload size.
+- `ROW_CHECKPOINT_ENABLED=true` writes row batch checkpoints under `<output_dir>/checkpoints/classification_row_batches.jsonl`.
+- `ROW_RESUME=true` resumes completed row batches after interruption.
+
 `rule_table.json` and `rule_tree.json` intentionally store structured state and trace file paths only. Full raw LLM responses are written under `outputs/traces/` for debugging and audit review.
 
 Legacy parser notes, not part of the default row-first MVP:

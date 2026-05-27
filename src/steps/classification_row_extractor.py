@@ -1,13 +1,22 @@
 from __future__ import annotations
 
+import hashlib
+import json
+import os
+import time
+from dataclasses import asdict, fields
+from pathlib import Path
 from typing import Any
 
-from ..core.agent_state import AgentState, ClassificationRow
+from ..core.agent_state import AgentState, ClassificationRow, EvidenceRef
+from ..io.table_segmenter import TableSegment, segment_table_chunks_for_row_extraction
 from ..llm.task_utils import (
     append_step_trace,
     call_llm_json,
-    chunk_payload,
     clamp_confidence,
+    env_int,
+    LLMJSONValidationError,
+    load_prompt,
     parse_bool,
     refs_from_chunk_ids,
     stable_id,
@@ -20,18 +29,182 @@ ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient"}
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 SUPPORT_RANK = {"weak": 0, "structural": 1, "explicit": 2}
 DESCRIPTION_SOURCE_RANK = {"insufficient": 0, "summarized": 1, "quoted": 2}
+ROW_CHECKPOINT_SCHEMA_VERSION = "classification_rows_v2"
+ROW_PROMPT_FILE = "extract_classification_rows_prompt.md"
 
 
-def _payload(state: AgentState) -> dict[str, Any]:
-    chunks = chunk_payload(state.chunks)
-    for item in chunks:
-        signal = state.block_signals.get(item["chunk_id"], {})
-        item["block_signal"] = signal.get("block_signal", item.get("chunk_signal", "normal"))
-        item["block_signal_reason"] = signal.get("reason", "")
+def _load_dotenv_if_available() -> None:
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return
+    load_dotenv()
 
+
+def _env_bool(name: str, default: bool = True) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _checkpoint_path(output_dir: str) -> Path:
+    return Path(output_dir).expanduser().resolve() / "checkpoints" / "classification_row_batches.jsonl"
+
+
+def _segment_signature(
+    segments: list[TableSegment],
+    prompt_text: str,
+    cache_schema_version: str = ROW_CHECKPOINT_SCHEMA_VERSION,
+) -> str:
+    digest = hashlib.sha1()
+    digest.update(cache_schema_version.encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(prompt_text.encode("utf-8"))
+    digest.update(b"\0")
+    for segment in segments:
+        digest.update(segment.segment_id.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(segment.source_chunk_id.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(segment.header_text.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(segment.text.encode("utf-8"))
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def _make_dataclass(cls, data: dict[str, Any]):
+    allowed = {field.name for field in fields(cls)}
+    return cls(**{key: value for key, value in data.items() if key in allowed})
+
+
+def _rows_from_checkpoint(record: dict[str, Any]) -> list[ClassificationRow]:
+    rows: list[ClassificationRow] = []
+    for item in record.get("classification_rows") or []:
+        if not isinstance(item, dict):
+            continue
+        row = _make_dataclass(ClassificationRow, {**item, "evidence_refs": []})
+        row.evidence_refs = [
+            _make_dataclass(EvidenceRef, ref)
+            for ref in item.get("evidence_refs") or []
+            if isinstance(ref, dict)
+        ]
+        rows.append(row)
+    return rows
+
+
+def _load_checkpoint_records(path: Path, signature: str) -> dict[int, dict[str, Any]]:
+    records: dict[int, dict[str, Any]] = {}
+    if not path.exists():
+        return records
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if record.get("signature") != signature:
+            continue
+        if not isinstance(record.get("segment_ids"), list):
+            continue
+        try:
+            batch_index = int(record.get("batch_index") or 0)
+        except (TypeError, ValueError):
+            continue
+        if batch_index > 0:
+            records[batch_index] = record
+    return records
+
+
+def _write_checkpoint_record(path: Path, record: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as file:
+        file.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def _build_segment_batches(segments: list[TableSegment], max_chars: int) -> list[list[TableSegment]]:
+    max_chars = max(1, int(max_chars or 1))
+    batches: list[list[TableSegment]] = []
+    current: list[TableSegment] = []
+    current_chars = 0
+
+    for segment in segments:
+        chars = _segment_payload_chars(segment)
+        if current and current_chars + chars > max_chars:
+            batches.append(current)
+            current = []
+            current_chars = 0
+        current.append(segment)
+        current_chars += chars
+
+    if current:
+        batches.append(current)
+    return batches
+
+
+def _segment_payload_chars(segment: TableSegment) -> int:
+    return len(json.dumps(_segment_payload([segment]), ensure_ascii=False))
+
+
+def _segment_payload(segments: list[TableSegment]) -> list[dict[str, Any]]:
+    return [
+        {
+            "segment_id": segment.segment_id,
+            "source_chunk_id": segment.source_chunk_id,
+            "doc_name": segment.doc_name,
+            "section_title": segment.section_title,
+            "position": segment.position,
+            "page_number": segment.page_number,
+            "line_start": segment.line_start,
+            "line_end": segment.line_end,
+            "source_method": segment.source_method,
+            "source_warning": segment.source_warning,
+            "block_signal": segment.block_signal,
+            "header_text": segment.header_text,
+            "text": segment.text,
+        }
+        for segment in segments
+    ]
+
+
+def _debug_failure_path(output_dir: str, batch_label: str) -> Path:
+    safe_label = "".join(char if char.isalnum() or char in {"_", "-"} else "_" for char in batch_label)
+    return Path(output_dir).expanduser().resolve() / "debug" / f"failed_row_batch_{safe_label}.txt"
+
+
+def _write_failed_row_batch_debug(
+    output_dir: str,
+    batch_label: str,
+    batch_segments: list[TableSegment],
+    exc: Exception,
+) -> Path:
+    path = _debug_failure_path(output_dir, batch_label)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw_response = getattr(exc, "raw_response", "")
+    path.write_text(
+        "\n".join(
+            [
+                f"batch_label={batch_label}",
+                f"error={exc}",
+                "segment_ids=" + json.dumps([segment.segment_id for segment in batch_segments], ensure_ascii=False),
+                "source_chunk_ids="
+                + json.dumps([segment.source_chunk_id for segment in batch_segments], ensure_ascii=False),
+                "",
+                "raw_response:",
+                str(raw_response or ""),
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return path
+
+
+def _payload(segments: list[TableSegment]) -> dict[str, Any]:
     return {
-        "task": "从文档 chunk 中抽取候选分类分级明细行。",
-        "document_chunks": chunks,
+        "task": "从表格/层级文本 segment 中抽取候选分类分级明细行。",
+        "table_segments": _segment_payload(segments),
         "allowed_support_levels": sorted(ALLOWED_SUPPORT_LEVELS),
         "description_policy": {
             "insufficient_text": INSUFFICIENT_DESCRIPTION,
@@ -46,6 +219,11 @@ def _payload(state: AgentState) -> dict[str, Any]:
                     "description_source": "quoted | summarized | insufficient",
                     "description_evidence_quote": "",
                     "evidence_quote": "",
+                    "data_range_examples": [],
+                    "processing_degree": "",
+                    "impact_object": "",
+                    "impact_degree": "",
+                    "grade_evidence_quote": "",
                     "evidence_chunk_ids": [],
                     "support_level": "explicit | structural | weak",
                     "confidence": 0.0,
@@ -119,6 +297,11 @@ def _to_rows(data: dict[str, Any], state: AgentState) -> list[ClassificationRow]
             description_evidence_quote=str(item.get("description_evidence_quote") or "").strip(),
             evidence_quote=str(item.get("evidence_quote") or "").strip(),
             evidence_refs=refs,
+            data_range_examples=string_list(item.get("data_range_examples")),
+            processing_degree=str(item.get("processing_degree") or "").strip(),
+            impact_object=str(item.get("impact_object") or "").strip(),
+            impact_degree=str(item.get("impact_degree") or "").strip(),
+            grade_evidence_quote=str(item.get("grade_evidence_quote") or "").strip(),
             support_level=support_level,
             confidence=clamp_confidence(item.get("confidence"), 0.65),
             needs_review=needs_review,
@@ -141,7 +324,91 @@ def _row_rank(row: ClassificationRow) -> tuple[int, int, int, float]:
     )
 
 
-def extract_classification_rows_with_llm(state: AgentState, llm_client: Any) -> AgentState:
+def _call_row_extraction_batch(
+    llm_client: Any,
+    batch_segments: list[TableSegment],
+    batch_label: str,
+    batch_count: int,
+) -> tuple[dict[str, Any], str]:
+    return call_llm_json(
+        llm_client=llm_client,
+        task_name=f"抽取 classification rows batch {batch_label}/{batch_count}",
+        prompt_file=ROW_PROMPT_FILE,
+        payload={
+            **_payload(batch_segments),
+            "batch_index": batch_label,
+            "batch_count": batch_count,
+        },
+        required_keys={"classification_rows": list},
+        max_tokens=env_int("LLM_ROW_MAX_TOKENS", 6000),
+        temperature=0.0,
+        disable_thinking=True,
+    )
+
+
+def _extract_rows_for_batch_with_split_retry(
+    state: AgentState,
+    llm_client: Any,
+    output_dir: str,
+    batch_segments: list[TableSegment],
+    batch_label: str,
+    batch_count: int,
+) -> tuple[list[ClassificationRow], str, list[str]]:
+    try:
+        data, raw_response = _call_row_extraction_batch(
+            llm_client,
+            batch_segments,
+            batch_label,
+            batch_count,
+        )
+        return _to_rows(data, state), raw_response, []
+    except LLMJSONValidationError as exc:
+        debug_path = _write_failed_row_batch_debug(output_dir, batch_label, batch_segments, exc)
+        if len(batch_segments) <= 1:
+            raise
+
+        split_rows: list[ClassificationRow] = []
+        raw_parts = [
+            f"batch={batch_label} failed JSON validation; debug={debug_path}; split_retry=per_segment",
+            str(exc),
+        ]
+        debug_paths = [str(debug_path)]
+        for split_index, segment in enumerate(batch_segments, start=1):
+            split_label = f"{batch_label}_{split_index}"
+            try:
+                data, raw_response = _call_row_extraction_batch(
+                    llm_client,
+                    [segment],
+                    split_label,
+                    batch_count,
+                )
+            except LLMJSONValidationError as split_exc:
+                split_debug_path = _write_failed_row_batch_debug(
+                    output_dir,
+                    split_label,
+                    [segment],
+                    split_exc,
+                )
+                debug_paths.append(str(split_debug_path))
+                raise
+            split_rows.extend(_to_rows(data, state))
+            raw_parts.append(f"split_batch={split_label}\n{raw_response}")
+        return split_rows, "\n\n--- split retry ---\n\n".join(raw_parts), debug_paths
+
+
+def extract_classification_rows_with_llm(
+    state: AgentState,
+    llm_client: Any,
+    output_dir: str = "outputs",
+    segment_max_chars: int | None = None,
+) -> AgentState:
+    _load_dotenv_if_available()
+    max_chars = segment_max_chars if segment_max_chars is not None else env_int("ROW_SEGMENT_MAX_CHARS", 5000)
+    batch_max_chars = env_int("ROW_BATCH_MAX_CHARS", 7000)
+    checkpoint_enabled = _env_bool("ROW_CHECKPOINT_ENABLED", True)
+    resume_enabled = _env_bool("ROW_RESUME", True)
+    checkpoint_path = _checkpoint_path(output_dir)
+
     if not state.chunks:
         state.classification_rows = []
         append_step_trace(
@@ -149,28 +416,126 @@ def extract_classification_rows_with_llm(state: AgentState, llm_client: Any) -> 
             "extract_classification_rows_with_llm",
             "success",
             "No chunks available for row extraction.",
-            {"chunks": 0},
+            {
+                "chunks": 0,
+                "segments": 0,
+                "segment_max_chars": max_chars,
+                "batch_max_chars": batch_max_chars,
+                "batches": 0,
+                "cached_batches": 0,
+                "checkpoint_path": str(checkpoint_path) if checkpoint_enabled else "",
+                "elapsed_seconds": 0.0,
+            },
             {"classification_rows": 0},
         )
         return state
 
-    data, raw_response = call_llm_json(
-        llm_client=llm_client,
-        task_name="extract_classification_rows_with_llm",
-        prompt_file="extract_classification_rows_prompt.md",
-        payload=_payload(state),
-        required_keys={"classification_rows": list},
-        temperature=0.0,
-        disable_thinking=True,
+    segments = segment_table_chunks_for_row_extraction(
+        state.chunks,
+        state.block_signals,
+        max_chars=max_chars,
     )
-    state.classification_rows = _to_rows(data, state)
+    batches = _build_segment_batches(segments, batch_max_chars)
+    prompt_text = load_prompt(ROW_PROMPT_FILE)
+    signature = _segment_signature(segments, prompt_text=prompt_text)
+    cached_records = (
+        _load_checkpoint_records(checkpoint_path, signature)
+        if checkpoint_enabled and resume_enabled
+        else {}
+    )
+
+    all_rows: list[ClassificationRow] = []
+    raw_batches: list[str] = []
+    seen: set[str] = set()
+    step_start = time.monotonic()
+
+    print(
+        "Row extraction:",
+        f"chunks={len(state.chunks)}",
+        f"segments={len(segments)}",
+        f"segment_max_chars={max_chars}",
+        f"batch_max_chars={batch_max_chars}",
+        f"batches={len(batches)}",
+        f"resume={'on' if resume_enabled else 'off'}",
+    )
+    if checkpoint_enabled:
+        print(f"Row checkpoint: {checkpoint_path}")
+
+    cached_batch_count = 0
+    for batch_index, batch_segments in enumerate(batches, start=1):
+        segment_ids = [segment.segment_id for segment in batch_segments]
+        batch_chars = sum(_segment_payload_chars(segment) for segment in batch_segments)
+        cached = cached_records.get(batch_index)
+        if cached and cached.get("segment_ids") == segment_ids:
+            cached_batch_count += 1
+            batch_rows = _rows_from_checkpoint(cached)
+            raw_response = cached.get("raw_response") or "checkpoint hit; raw response not recorded"
+            print(
+                f"  - row batch {batch_index}/{len(batches)} cached "
+                f"segments={len(batch_segments)} rows={len(batch_rows)}"
+            )
+        else:
+            batch_start = time.monotonic()
+            print(
+                f"  - row batch {batch_index}/{len(batches)} start "
+                f"segments={len(batch_segments)} chars={batch_chars}"
+            )
+            batch_rows, raw_response, debug_paths = _extract_rows_for_batch_with_split_retry(
+                state=state,
+                llm_client=llm_client,
+                output_dir=output_dir,
+                batch_segments=batch_segments,
+                batch_label=str(batch_index),
+                batch_count=len(batches),
+            )
+            elapsed = round(time.monotonic() - batch_start, 1)
+            split_note = f" split_debug={len(debug_paths)}" if debug_paths else ""
+            print(
+                f"  - row batch {batch_index}/{len(batches)} done "
+                f"rows={len(batch_rows)} elapsed={elapsed}s{split_note}"
+            )
+            if checkpoint_enabled:
+                _write_checkpoint_record(
+                    checkpoint_path,
+                    {
+                        "signature": signature,
+                        "cache_schema_version": ROW_CHECKPOINT_SCHEMA_VERSION,
+                        "batch_index": batch_index,
+                        "batch_count": len(batches),
+                        "segment_ids": segment_ids,
+                        "source_chunk_ids": [segment.source_chunk_id for segment in batch_segments],
+                        "classification_rows": [asdict(row) for row in batch_rows],
+                        "raw_response": raw_response,
+                        "elapsed_seconds": elapsed,
+                        "split_retry_debug_paths": debug_paths,
+                    },
+                )
+
+        raw_batches.append(f"batch={batch_index}/{len(batches)}\n{raw_response}")
+        for row in batch_rows:
+            fingerprint = " / ".join(row.path_levels) + "|" + str(row.recommended_grade or "") + "|" + row.evidence_quote
+            if fingerprint in seen:
+                continue
+            seen.add(fingerprint)
+            all_rows.append(row)
+
+    state.classification_rows = all_rows
     append_step_trace(
         state.step_traces,
         "extract_classification_rows_with_llm",
         "success",
         "",
-        {"chunks": len(state.chunks)},
+        {
+            "chunks": len(state.chunks),
+            "segments": len(segments),
+            "segment_max_chars": max_chars,
+            "batch_max_chars": batch_max_chars,
+            "batches": len(batches),
+            "cached_batches": cached_batch_count,
+            "checkpoint_path": str(checkpoint_path) if checkpoint_enabled else "",
+            "elapsed_seconds": round(time.monotonic() - step_start, 1),
+        },
         {"classification_rows": len(state.classification_rows)},
-        raw_response,
+        "\n\n===\n\n".join(raw_batches),
     )
     return state

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -59,8 +60,9 @@ class ClassificationRowExtractorTests(unittest.TestCase):
                 "raw",
             )
 
-        with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
-            result = extract_classification_rows_with_llm(state, object())
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
 
         self.assertEqual(len(result.classification_rows), 1)
         row = result.classification_rows[0]
@@ -94,8 +96,9 @@ class ClassificationRowExtractorTests(unittest.TestCase):
                 "raw",
             )
 
-        with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
-            result = extract_classification_rows_with_llm(state, object())
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
 
         row = result.classification_rows[0]
         self.assertEqual(row.evidence_refs, [])
@@ -128,8 +131,9 @@ class ClassificationRowExtractorTests(unittest.TestCase):
                 "raw",
             )
 
-        with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
-            result = extract_classification_rows_with_llm(state, object())
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
 
         row = result.classification_rows[0]
         self.assertEqual(row.description_source, "insufficient")
@@ -176,8 +180,9 @@ class ClassificationRowExtractorTests(unittest.TestCase):
                 "raw",
             )
 
-        with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
-            result = extract_classification_rows_with_llm(state, object())
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
 
         self.assertEqual(len(result.classification_rows), 1)
         row = result.classification_rows[0]

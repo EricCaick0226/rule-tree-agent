@@ -70,7 +70,7 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
     elif tool_name == "classify_document_blocks_with_llm":
         state = classify_document_blocks_with_llm(state, llm_client)
     elif tool_name == "extract_classification_rows_with_llm":
-        state = extract_classification_rows_with_llm(state, llm_client)
+        state = extract_classification_rows_with_llm(state, llm_client, output_dir=output_dir)
     elif tool_name == "extract_grade_definitions_with_llm":
         state = extract_grade_definitions_with_llm(state, llm_client)
     elif tool_name == "normalize_classification_rows":

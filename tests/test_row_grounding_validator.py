@@ -220,6 +220,150 @@ class RowGroundingValidatorTests(unittest.TestCase):
         self.assertTrue(quote_issues)
         self.assertEqual(quote_issues[0].severity, "high")
 
+    def test_grade_evidence_quote_can_support_recommended_grade(self) -> None:
+        text = "姓名 原始数据 个人 严重危害 一般数据3级"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=text,
+            pages=[DocumentPage(page_number=None, text=text)],
+        )
+        state = AgentState(task="test", documents=[doc])
+        ref = EvidenceRef(
+            evidence_id="ev1",
+            chunk_id="c1",
+            doc_name="sample.txt",
+            section_title="附录B",
+            text=text,
+            used_for="row",
+            relevance_score=0.9,
+        )
+        state.classification_rows = [
+            ClassificationRow(
+                row_id="r1",
+                path_levels=["姓名"],
+                recommended_grade="一般数据3级",
+                description="姓名",
+                description_source="quoted",
+                evidence_quote="姓名",
+                grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                evidence_refs=[ref],
+                support_level="explicit",
+                needs_review=False,
+            )
+        ]
+
+        issues = validate_row_grounding(state)
+
+        self.assertEqual(issues, [])
+
+    def test_grade_evidence_quote_must_match_referenced_evidence_text(self) -> None:
+        text = "姓名 原始数据 个人 严重危害 一般数据3级"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=text,
+            pages=[DocumentPage(page_number=None, text=text)],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["姓名"],
+            recommended_grade="一般数据3级",
+            description="姓名",
+            description_source="quoted",
+            evidence_quote="姓名 一般数据3级",
+            grade_evidence_quote="原始数据 个人 中间无关内容 严重危害 一般数据3级",
+            evidence_refs=[_evidence_ref(text)],
+            support_level="explicit",
+            needs_review=False,
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        quote_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "grade_evidence_quote" in issue.problem
+        ]
+        self.assertTrue(quote_issues)
+        self.assertEqual(quote_issues[0].severity, "high")
+
+    def test_grade_evidence_quote_cannot_be_stitched_across_refs(self) -> None:
+        text = "姓名 原始数据 个人 严重危害 一般数据3级"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=text,
+            pages=[DocumentPage(page_number=None, text=text)],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["姓名"],
+            recommended_grade="一般数据3级",
+            description="姓名",
+            description_source="quoted",
+            evidence_quote="姓名 一般数据3级",
+            grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+            evidence_refs=[
+                _evidence_ref("姓名 原始数据 个人"),
+                _evidence_ref("严重危害 一般数据3级"),
+            ],
+            support_level="explicit",
+            needs_review=False,
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        quote_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "grade_evidence_quote" in issue.problem
+        ]
+        self.assertTrue(quote_issues)
+
+    def test_recommended_grade_cannot_be_stitched_across_row_quotes(self) -> None:
+        text = "姓名 一般数据 3级"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=text,
+            pages=[DocumentPage(page_number=None, text=text)],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["姓名"],
+            recommended_grade="一般数据3级",
+            description="姓名",
+            description_source="quoted",
+            evidence_quote="姓名 一般数据",
+            grade_evidence_quote="3级",
+            evidence_refs=[
+                _evidence_ref("姓名 一般数据"),
+                _evidence_ref("3级"),
+            ],
+            support_level="explicit",
+            needs_review=False,
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        grade_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "推荐分级" in issue.problem
+        ]
+        self.assertTrue(grade_issues)
+
 
 if __name__ == "__main__":
     unittest.main()
