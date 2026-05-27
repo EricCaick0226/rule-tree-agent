@@ -7,7 +7,7 @@ from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
 from src.core.agent_state import AgentState, SourceDocument
-from src.pipeline.agent_executor import _run_llm_steps, _run_step, create_plan
+from src.pipeline.agent_executor import _run_llm_steps, _run_step, create_plan, run_agent
 
 
 class RowFirstPipelineTests(unittest.TestCase):
@@ -56,6 +56,10 @@ class RowFirstPipelineTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ValueError, "row-first MVP only supports .txt and .md"):
             _run_llm_steps(state, "outputs", object())
+
+    def test_run_agent_rejects_pdf_before_llm_client_requires_key(self) -> None:
+        with self.assertRaisesRegex(ValueError, "row-first MVP only supports .txt and .md"):
+            run_agent("test", ["/tmp/policy.pdf"], output_dir="outputs")
 
     def test_run_step_routes_deterministic_row_first_steps(self) -> None:
         state = AgentState(task="test")

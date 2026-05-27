@@ -20,6 +20,26 @@ class LLMGenerationError(RuntimeError):
     pass
 
 
+SUPPORTED_ROW_FIRST_SUFFIXES = {".txt", ".md"}
+
+
+def _unsupported_row_first_inputs(input_files: list[str]) -> list[str]:
+    return [
+        file_path
+        for file_path in input_files
+        if Path(file_path).suffix.lower() not in SUPPORTED_ROW_FIRST_SUFFIXES
+    ]
+
+
+def _raise_for_unsupported_row_first_inputs(input_files: list[str]) -> None:
+    unsupported_files = _unsupported_row_first_inputs(input_files)
+    if unsupported_files:
+        raise ValueError(
+            "row-first MVP only supports .txt and .md inputs; unsupported files: "
+            + ", ".join(unsupported_files)
+        )
+
+
 def create_plan(task_type: str) -> list[dict]:
     if task_type == "generate_rule_tree_from_docs":
         return [
@@ -67,16 +87,7 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
 
 
 def _run_llm_steps(state: AgentState, output_dir: str, llm_client) -> AgentState:
-    unsupported_files = [
-        file_path
-        for file_path in state.input_files
-        if Path(file_path).suffix.lower() not in {".txt", ".md"}
-    ]
-    if unsupported_files:
-        raise ValueError(
-            "row-first MVP only supports .txt and .md inputs; unsupported files: "
-            + ", ".join(unsupported_files)
-        )
+    _raise_for_unsupported_row_first_inputs(state.input_files)
 
     plan = create_plan(state.task_type)
     print(f"Task type: {state.task_type}")
@@ -108,6 +119,7 @@ def run_agent(
     enable_ocr: bool = False,
 ) -> AgentState:
     resolved_inputs = [str(Path(file_path).expanduser().resolve()) for file_path in input_files]
+    _raise_for_unsupported_row_first_inputs(resolved_inputs)
     base_url = llm_base_url or DEFAULT_BASE_URL
     model = llm_model or DEFAULT_MODEL
     state = AgentState(
