@@ -45,16 +45,10 @@ def _make_segment(
     segment_index: int,
     block_signal: str,
     header_text: str,
-    lines: list[tuple[int, str]],
+    text: str,
+    first_offset: int,
+    last_offset: int,
 ) -> TableSegment:
-    if lines:
-        text = "\n".join(line for _, line in lines).strip()
-        first_offset = lines[0][0]
-        last_offset = lines[-1][0]
-    else:
-        text = ""
-        first_offset = 0
-        last_offset = 0
     return TableSegment(
         segment_id=f"{chunk.chunk_id}_seg_{segment_index}",
         source_chunk_id=chunk.chunk_id,
@@ -72,30 +66,48 @@ def _make_segment(
     )
 
 
-def _split_chunk(chunk: DocumentChunk, block_signal: str, max_chars: int) -> list[TableSegment]:
-    lines = [(index, line.rstrip()) for index, line in enumerate(chunk.text.splitlines()) if line.strip()]
-    if not lines:
-        return [
-            _make_segment(
-                chunk=chunk,
-                segment_index=1,
-                block_signal=block_signal,
-                header_text="",
-                lines=[],
-            )
-        ]
+def _make_segment_from_lines(
+    chunk: DocumentChunk,
+    segment_index: int,
+    block_signal: str,
+    header_text: str,
+    lines: list[tuple[int, str]],
+) -> TableSegment:
+    return _make_segment(
+        chunk=chunk,
+        segment_index=segment_index,
+        block_signal=block_signal,
+        header_text=header_text,
+        text="\n".join(line for _, line in lines),
+        first_offset=lines[0][0],
+        last_offset=lines[-1][0],
+    )
 
+
+def _append_line_length(current_lines: list[tuple[int, str]], line: str) -> int:
+    return len(line) if not current_lines else len(line) + 1
+
+
+def _split_chunk(chunk: DocumentChunk, block_signal: str, max_chars: int) -> list[TableSegment]:
     max_chars = max(1, int(max_chars or 1))
+    lines = [(index, line) for index, line in enumerate((chunk.text or "").split("\n"))]
     segments: list[TableSegment] = []
     current: list[tuple[int, str]] = []
     current_chars = 0
     header_text = ""
-    header_offset: int | None = None
 
     def flush() -> None:
         nonlocal current, current_chars
         if current:
-            segments.append(_make_segment(chunk, len(segments) + 1, block_signal, header_text, current))
+            segments.append(
+                _make_segment_from_lines(
+                    chunk=chunk,
+                    segment_index=len(segments) + 1,
+                    block_signal=block_signal,
+                    header_text=header_text,
+                    lines=current,
+                )
+            )
             current = []
             current_chars = 0
 
@@ -105,17 +117,31 @@ def _split_chunk(chunk: DocumentChunk, block_signal: str, max_chars: int) -> lis
             if current:
                 flush()
             header_text = line.strip()
-            header_offset = offset
 
         line_chars = len(line)
-        if current and current_chars + line_chars > max_chars:
+        if line_chars > max_chars:
             flush()
-            if header_text and not line_is_header:
-                current.append((header_offset if header_offset is not None else offset, header_text))
-                current_chars += len(header_text)
+            for start in range(0, line_chars, max_chars):
+                segments.append(
+                    _make_segment(
+                        chunk=chunk,
+                        segment_index=len(segments) + 1,
+                        block_signal=block_signal,
+                        header_text=header_text,
+                        text=line[start : start + max_chars],
+                        first_offset=offset,
+                        last_offset=offset,
+                    )
+                )
+            continue
+
+        projected_chars = current_chars + _append_line_length(current, line)
+        if current and projected_chars > max_chars:
+            flush()
+            projected_chars = line_chars
 
         current.append((offset, line))
-        current_chars += line_chars
+        current_chars = projected_chars
 
     flush()
     return segments
@@ -141,11 +167,9 @@ def segment_table_chunks_for_row_extraction(
                 segment_index=1,
                 block_signal=block_signal,
                 header_text="",
-                lines=[
-                    (index, line.rstrip())
-                    for index, line in enumerate(chunk.text.splitlines())
-                    if line.strip()
-                ],
+                text=chunk.text or "",
+                first_offset=0,
+                last_offset=max(0, len((chunk.text or "").split("\n")) - 1),
             )
         )
     return segments

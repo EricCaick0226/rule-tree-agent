@@ -17,6 +17,21 @@ class TableSegmenterTests(unittest.TestCase):
             line_end=100 + len(text.splitlines()) - 1,
         )
 
+    def _chunk_with_provenance(self, text: str) -> DocumentChunk:
+        return DocumentChunk(
+            chunk_id="doc_1_chunk_9",
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            section_title="附录B",
+            text=text,
+            position=9,
+            page_number=3,
+            line_start=100,
+            line_end=100 + len(text.splitlines()) - 1,
+            source_method="ocr",
+            source_warning="low confidence",
+        )
+
     def test_splits_large_table_chunk_without_dropping_lines(self):
         header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
         lines = [header]
@@ -72,6 +87,72 @@ class TableSegmenterTests(unittest.TestCase):
         self.assertEqual(len(segments), 2)
         self.assertIn("001项目A", segments[0].text)
         self.assertIn("002项目B", segments[1].text)
+        self.assertEqual(segments[0].header_text, header)
+        self.assertEqual(segments[1].header_text, header)
+
+    def test_preserves_blank_lines_when_reconstructing_segments(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        text = "\n".join(
+            [
+                header,
+                "",
+                "001项目A 示例A 原始数据 个人 严重危害 一般数据3级",
+                "",
+                "002项目B 示例B 原始数据 个人 特别严重危害 一般数据4级",
+            ]
+        )
+        chunk = self._chunk(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=95,
+        )
+
+        self.assertGreater(len(segments), 1)
+        self.assertEqual("\n".join(segment.text for segment in segments), text)
+
+    def test_preserves_source_metadata_and_real_line_spans(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        text = "\n".join(
+            [
+                header,
+                "001项目A 示例A 原始数据 个人 严重危害 一般数据3级",
+                "002项目B 示例B 原始数据 个人 特别严重危害 一般数据4级",
+            ]
+        )
+        chunk = self._chunk_with_provenance(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=80,
+        )
+
+        self.assertEqual(len(segments), 2)
+        self.assertTrue(all(segment.source_method == "ocr" for segment in segments))
+        self.assertTrue(all(segment.source_warning == "low confidence" for segment in segments))
+        self.assertTrue(all(segment.page_number == 3 for segment in segments))
+        self.assertEqual(segments[0].line_start, 100)
+        self.assertEqual(segments[0].line_end, 101)
+        self.assertEqual(segments[1].line_start, 102)
+        self.assertEqual(segments[1].line_end, 102)
+        self.assertEqual(segments[1].header_text, header)
+        self.assertNotIn(header, segments[1].text)
+
+    def test_splits_single_line_that_exceeds_max_chars(self):
+        chunk = self._chunk("A" * 25)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={},
+            max_chars=10,
+        )
+
+        self.assertGreater(len(segments), 1)
+        self.assertEqual("".join(segment.text for segment in segments), chunk.text)
+        self.assertTrue(all(segment.line_start == 100 for segment in segments))
+        self.assertTrue(all(segment.line_end == 100 for segment in segments))
 
 
 if __name__ == "__main__":
