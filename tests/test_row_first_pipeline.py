@@ -3,6 +3,7 @@ from __future__ import annotations
 import subprocess
 import sys
 import unittest
+from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import patch
 
@@ -100,6 +101,19 @@ class RowFirstPipelineTests(unittest.TestCase):
             normalized_help,
         )
         self.assertNotIn("Use OCR for PDF pages", normalized_help)
+
+    def test_row_extraction_prompt_requires_all_rows_and_continuation_inheritance(self) -> None:
+        prompt = Path("prompts/extract_classification_rows_prompt.md").read_text(encoding="utf-8")
+
+        self.assertIn("抽取本批次所有", prompt)
+        self.assertIn("不要只抽取示例", prompt)
+        self.assertIn("续表", prompt)
+        self.assertIn("继承", prompt)
+        self.assertIn("data_range_examples", prompt)
+        self.assertIn("processing_degree", prompt)
+        self.assertIn("impact_object", prompt)
+        self.assertIn("impact_degree", prompt)
+        self.assertIn("grade_evidence_quote", prompt)
 
 
 if __name__ == "__main__":

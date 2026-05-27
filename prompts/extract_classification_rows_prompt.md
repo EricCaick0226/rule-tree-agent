@@ -15,6 +15,12 @@
 - 如果 `evidence_quote` 不能完整覆盖 `description`，用 `description_evidence_quote` 单独给出说明证据。
 - 结构推断、弱证据、无明确分级、说明不足都必须设置 `needs_review=true`。
 - 输出字段名和枚举值保持英文，不要翻译 JSON key。
+- 必须抽取本批次所有可识别的分类分级明细行；不要只抽取示例、代表行或摘要行。
+- 如果一个 segment 是续表，分类路径中的上级 `类`、`项`、`目` 可以从本 segment 的相邻结构、上一行或表格上下文继承；继承属于 structural support，必须保留证据并在必要时 `needs_review=true`。
+- 当表格中出现 `数据范围及示例`、`数据加工程度`、`影响对象`、`影响程度`、`数据级别` 等列时，分别填入 `data_range_examples`、`processing_degree`、`impact_object`、`impact_degree`、`recommended_grade`。
+- `grade_evidence_quote` 必须覆盖推荐分级及其相邻分级因素，例如“原始数据 个人 严重危害 一般数据3级”。
+- 同一分类路径下如果出现多条数据范围或多个分级，不要丢弃；可以输出多条候选行，后续 normalization 会合并。
+- 如果本批次文本中只有下级项目，缺少上级路径，必须尽量从 segment 的 `header_text`、`section_title` 或相邻行恢复；无法恢复时输出可证据支持的部分路径并 `needs_review=true`。
 
 # 输出格式
 
@@ -26,9 +32,14 @@
     {
       "path_levels": [],
       "recommended_grade": null,
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
       "description": "",
       "description_source": "quoted",
       "description_evidence_quote": "",
+      "grade_evidence_quote": "",
       "evidence_quote": "",
       "evidence_chunk_ids": [],
       "support_level": "explicit",
