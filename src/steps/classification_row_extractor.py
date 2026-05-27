@@ -15,6 +15,7 @@ from ..llm.task_utils import (
     call_llm_json,
     clamp_confidence,
     env_int,
+    LLMJSONValidationError,
     load_prompt,
     parse_bool,
     refs_from_chunk_ids,
@@ -168,6 +169,38 @@ def _segment_payload(segments: list[TableSegment]) -> list[dict[str, Any]]:
     ]
 
 
+def _debug_failure_path(output_dir: str, batch_label: str) -> Path:
+    safe_label = "".join(char if char.isalnum() or char in {"_", "-"} else "_" for char in batch_label)
+    return Path(output_dir).expanduser().resolve() / "debug" / f"failed_row_batch_{safe_label}.txt"
+
+
+def _write_failed_row_batch_debug(
+    output_dir: str,
+    batch_label: str,
+    batch_segments: list[TableSegment],
+    exc: Exception,
+) -> Path:
+    path = _debug_failure_path(output_dir, batch_label)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    raw_response = getattr(exc, "raw_response", "")
+    path.write_text(
+        "\n".join(
+            [
+                f"batch_label={batch_label}",
+                f"error={exc}",
+                "segment_ids=" + json.dumps([segment.segment_id for segment in batch_segments], ensure_ascii=False),
+                "source_chunk_ids="
+                + json.dumps([segment.source_chunk_id for segment in batch_segments], ensure_ascii=False),
+                "",
+                "raw_response:",
+                str(raw_response or ""),
+            ]
+        ),
+        encoding="utf-8",
+    )
+    return path
+
+
 def _payload(segments: list[TableSegment]) -> dict[str, Any]:
     return {
         "task": "从表格/层级文本 segment 中抽取候选分类分级明细行。",
@@ -291,6 +324,78 @@ def _row_rank(row: ClassificationRow) -> tuple[int, int, int, float]:
     )
 
 
+def _call_row_extraction_batch(
+    llm_client: Any,
+    batch_segments: list[TableSegment],
+    batch_label: str,
+    batch_count: int,
+) -> tuple[dict[str, Any], str]:
+    return call_llm_json(
+        llm_client=llm_client,
+        task_name=f"抽取 classification rows batch {batch_label}/{batch_count}",
+        prompt_file=ROW_PROMPT_FILE,
+        payload={
+            **_payload(batch_segments),
+            "batch_index": batch_label,
+            "batch_count": batch_count,
+        },
+        required_keys={"classification_rows": list},
+        max_tokens=env_int("LLM_ROW_MAX_TOKENS", 6000),
+        temperature=0.0,
+        disable_thinking=True,
+    )
+
+
+def _extract_rows_for_batch_with_split_retry(
+    state: AgentState,
+    llm_client: Any,
+    output_dir: str,
+    batch_segments: list[TableSegment],
+    batch_label: str,
+    batch_count: int,
+) -> tuple[list[ClassificationRow], str, list[str]]:
+    try:
+        data, raw_response = _call_row_extraction_batch(
+            llm_client,
+            batch_segments,
+            batch_label,
+            batch_count,
+        )
+        return _to_rows(data, state), raw_response, []
+    except LLMJSONValidationError as exc:
+        debug_path = _write_failed_row_batch_debug(output_dir, batch_label, batch_segments, exc)
+        if len(batch_segments) <= 1:
+            raise
+
+        split_rows: list[ClassificationRow] = []
+        raw_parts = [
+            f"batch={batch_label} failed JSON validation; debug={debug_path}; split_retry=per_segment",
+            str(exc),
+        ]
+        debug_paths = [str(debug_path)]
+        for split_index, segment in enumerate(batch_segments, start=1):
+            split_label = f"{batch_label}_{split_index}"
+            try:
+                data, raw_response = _call_row_extraction_batch(
+                    llm_client,
+                    [segment],
+                    split_label,
+                    batch_count,
+                )
+            except LLMJSONValidationError as split_exc:
+                split_debug_path = _write_failed_row_batch_debug(
+                    output_dir,
+                    split_label,
+                    [segment],
+                    split_exc,
+                )
+                debug_paths.append(str(split_debug_path))
+                raise
+            split_rows.extend(_to_rows(data, state))
+            raw_parts.append(f"split_batch={split_label}\n{raw_response}")
+        return split_rows, "\n\n--- split retry ---\n\n".join(raw_parts), debug_paths
+
+
 def extract_classification_rows_with_llm(
     state: AgentState,
     llm_client: Any,
@@ -375,23 +480,20 @@ def extract_classification_rows_with_llm(
                 f"  - row batch {batch_index}/{len(batches)} start "
                 f"segments={len(batch_segments)} chars={batch_chars}"
             )
-            data, raw_response = call_llm_json(
+            batch_rows, raw_response, debug_paths = _extract_rows_for_batch_with_split_retry(
+                state=state,
                 llm_client=llm_client,
-                task_name=f"抽取 classification rows batch {batch_index}/{len(batches)}",
-                prompt_file=ROW_PROMPT_FILE,
-                payload={
-                    **_payload(batch_segments),
-                    "batch_index": batch_index,
-                    "batch_count": len(batches),
-                },
-                required_keys={"classification_rows": list},
-                max_tokens=env_int("LLM_ROW_MAX_TOKENS", 6000),
-                temperature=0.0,
-                disable_thinking=True,
+                output_dir=output_dir,
+                batch_segments=batch_segments,
+                batch_label=str(batch_index),
+                batch_count=len(batches),
             )
-            batch_rows = _to_rows(data, state)
             elapsed = round(time.monotonic() - batch_start, 1)
-            print(f"  - row batch {batch_index}/{len(batches)} done rows={len(batch_rows)} elapsed={elapsed}s")
+            split_note = f" split_debug={len(debug_paths)}" if debug_paths else ""
+            print(
+                f"  - row batch {batch_index}/{len(batches)} done "
+                f"rows={len(batch_rows)} elapsed={elapsed}s{split_note}"
+            )
             if checkpoint_enabled:
                 _write_checkpoint_record(
                     checkpoint_path,
@@ -405,6 +507,7 @@ def extract_classification_rows_with_llm(
                         "classification_rows": [asdict(row) for row in batch_rows],
                         "raw_response": raw_response,
                         "elapsed_seconds": elapsed,
+                        "split_retry_debug_paths": debug_paths,
                     },
                 )
 

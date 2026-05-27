@@ -12,6 +12,12 @@ from ..core.agent_state import DocumentChunk, EvidenceClaim, EvidenceRef, StepTr
 from ..io.evidence_store import create_evidence_ref, dedupe_evidence_refs
 
 
+class LLMJSONValidationError(ValueError):
+    def __init__(self, message: str, raw_response: str = "") -> None:
+        super().__init__(message)
+        self.raw_response = raw_response
+
+
 def stable_id(prefix: str, value: str) -> str:
     digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
     return f"{prefix}_{digest}"
@@ -156,7 +162,10 @@ def call_llm_json(
         except (json.JSONDecodeError, ValueError) as exc:
             last_error = str(exc)
 
-    raise ValueError(f"LLM JSON output failed validation after {max_attempts} attempt(s): {last_error}")
+    raise LLMJSONValidationError(
+        f"LLM JSON output failed validation after {max_attempts} attempt(s): {last_error}",
+        raw_response="\n\n---\n\n".join(raw_responses),
+    )
 
 
 def clamp_confidence(value: Any, default: float) -> float:

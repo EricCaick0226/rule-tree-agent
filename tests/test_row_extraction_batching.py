@@ -8,6 +8,7 @@ from unittest.mock import patch
 
 from src.core.agent_state import AgentState, DocumentChunk
 from src.io.table_segmenter import TableSegment
+from src.llm.task_utils import LLMJSONValidationError
 from src.steps.classification_row_extractor import (
     _build_segment_batches,
     _load_checkpoint_records,
@@ -173,6 +174,65 @@ class RowExtractionBatchingTests(unittest.TestCase):
         batches = _build_segment_batches(segments, max_chars=250)
 
         self.assertEqual(len(batches), 2)
+
+    def test_failed_multi_segment_batch_is_split_and_debugged(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            state = self._state()
+            calls: list[list[str]] = []
+
+            def fake_call_llm_json(**kwargs):
+                segments = kwargs["payload"]["table_segments"]
+                segment_ids = [segment["segment_id"] for segment in segments]
+                calls.append(segment_ids)
+                if len(segment_ids) > 1:
+                    raise LLMJSONValidationError(
+                        "bad json",
+                        raw_response="attempt=1\n{\"classification_rows\": [",
+                    )
+                segment = segments[0]
+                name = segment["segment_id"]
+                return (
+                    {
+                        "classification_rows": [
+                            {
+                                "path_levels": ["资源", name],
+                                "recommended_grade": "一般数据3级",
+                                "description": name,
+                                "description_source": "quoted",
+                                "description_evidence_quote": name,
+                                "data_range_examples": [name],
+                                "processing_degree": "原始数据",
+                                "impact_object": "个人",
+                                "impact_degree": "严重危害",
+                                "grade_evidence_quote": "原始数据 个人 严重危害 一般数据3级",
+                                "evidence_quote": segment["text"],
+                                "evidence_chunk_ids": [segment["source_chunk_id"]],
+                                "support_level": "explicit",
+                                "confidence": 0.9,
+                                "needs_review": False,
+                                "review_reason": "",
+                                "status": "evidence_supported",
+                            }
+                        ]
+                    },
+                    "ok",
+                )
+
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                with patch.dict("os.environ", {"ROW_BATCH_MAX_CHARS": "99999"}):
+                    extract_classification_rows_with_llm(
+                        state,
+                        object(),
+                        output_dir=tmp,
+                        segment_max_chars=180,
+                    )
+
+            self.assertGreater(len(calls[0]), 1)
+            self.assertTrue(all(len(call) == 1 for call in calls[1:]))
+            self.assertEqual(len(state.classification_rows), len(calls) - 1)
+            debug_files = list(Path(tmp, "debug").glob("failed_row_batch_*.txt"))
+            self.assertTrue(debug_files)
+            self.assertIn("classification_rows", debug_files[0].read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
