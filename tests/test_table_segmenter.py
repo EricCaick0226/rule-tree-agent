@@ -154,6 +154,51 @@ class TableSegmenterTests(unittest.TestCase):
         self.assertTrue(all(segment.line_start == 100 for segment in segments))
         self.assertTrue(all(segment.line_end == 100 for segment in segments))
 
+    def test_leading_blank_lines_before_header_do_not_create_empty_segment(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        text = "\n".join(
+            [
+                "",
+                "",
+                header,
+                "001项目A 示例A 原始数据 个人 严重危害 一般数据3级",
+            ]
+        )
+        chunk = self._chunk(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        self.assertTrue(all(segment.text.strip() for segment in segments))
+        self.assertEqual(len(segments), 1)
+        self.assertIn("001项目A", segments[0].text)
+
+    def test_small_normal_chunk_with_trailing_newline_uses_source_line_end(self):
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_9",
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            section_title="说明",
+            text="x\n",
+            position=9,
+            line_start=100,
+            line_end=100,
+        )
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={},
+            max_chars=1000,
+        )
+
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(segments[0].text, "x\n")
+        self.assertEqual(segments[0].line_start, 100)
+        self.assertEqual(segments[0].line_end, 100)
+
 
 if __name__ == "__main__":
     unittest.main()

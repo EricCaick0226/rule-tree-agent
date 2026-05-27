@@ -98,7 +98,7 @@ def _split_chunk(chunk: DocumentChunk, block_signal: str, max_chars: int) -> lis
 
     def flush() -> None:
         nonlocal current, current_chars
-        if current:
+        if current and any(line.strip() for _, line in current):
             segments.append(
                 _make_segment_from_lines(
                     chunk=chunk,
@@ -169,7 +169,9 @@ def segment_table_chunks_for_row_extraction(
                 header_text="",
                 text=chunk.text or "",
                 first_offset=0,
-                last_offset=max(0, len((chunk.text or "").split("\n")) - 1),
+                last_offset=0
+                if chunk.line_end is not None
+                else max(0, len((chunk.text or "").split("\n")) - 1),
             )
         )
     return segments
