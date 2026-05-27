@@ -37,7 +37,19 @@ def _rule_table_md(state: AgentState) -> str:
     row_depth = max((len(row.path_levels) for row in state.classification_rows), default=0)
     max_depth = max(schema_depth, row_depth)
     headers = [_level_column(index) for index in range(1, max_depth + 1)]
-    headers.extend(["推荐分级", "分类说明", "证据强度", "需复核", "复核原因"])
+    headers.extend(
+        [
+            "推荐分级",
+            "分类说明",
+            "数据范围及示例",
+            "数据加工程度",
+            "影响对象",
+            "影响程度",
+            "证据强度",
+            "需复核",
+            "复核原因",
+        ]
+    )
 
     lines = [
         "# Candidate Classification Table",
@@ -59,6 +71,10 @@ def _rule_table_md(state: AgentState) -> str:
             [
                 row.recommended_grade or "",
                 row.description,
+                "；".join(row.data_range_examples),
+                row.processing_degree,
+                row.impact_object,
+                row.impact_degree,
                 row.support_level,
                 "yes" if row.needs_review else "no",
                 row.review_reason,

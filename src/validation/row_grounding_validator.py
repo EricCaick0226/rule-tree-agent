@@ -140,6 +140,19 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "删除该行或改为引用原文片段。",
             )
 
+        if row.grade_evidence_quote and not _contains_evidence_quote(
+            evidence_text,
+            row.grade_evidence_quote,
+        ):
+            _add_issue(
+                issues,
+                "hardcoded_or_ungrounded_content",
+                "high",
+                target,
+                "grade_evidence_quote 未出现在引用证据或原文中。",
+                "改为引用文档原文。",
+            )
+
         if row.support_level not in ALLOWED_ROW_SUPPORT_LEVELS:
             _add_issue(
                 issues,
@@ -203,7 +216,10 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
 
         if (
             row.recommended_grade
-            and not _contains_text(row.evidence_quote, row.recommended_grade)
+            and not _contains_text(
+                " ".join([row.evidence_quote, row.grade_evidence_quote]).strip(),
+                row.recommended_grade,
+            )
         ):
             legality_note = "；该等级名称存在于分级定义中" if row.recommended_grade in grade_names else ""
             _add_issue(
