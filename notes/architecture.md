@@ -23,68 +23,67 @@
 
 - 证据：来自原始文档的文本片段，是所有生成内容的依据。
 - 证据 claim：从证据中抽取出的原子事实，必须包含原文短引文、证据强度、证据引用和需要复核时的原因。
-- 概念：从标题、列表、定义句、结构化语句中抽取出的候选术语。
-- 分类维度：文档中说明的分类依据，例如“按照某某分类”中的某某；如果只是推断，必须标记复核。
-- 分类节点：规则树中的节点，名称和层级必须有证据。
-- 分级：文档中定义的等级名称、定义和条件；没有定义就不能默认创建。
-- 规则：用于辅助匹配节点的关键词、短语、上下文或排除条件；只能来自证据。
+- 文档块信号：判断 chunk 是否承载分类明细、分级定义或其他支持性证据。
+- classification_rows：默认链路的主事实表，每行包含 path_levels、推荐等级、说明、证据引用和复核标记。
+- 分级定义：文档中明确提供的等级名称、定义和属性；没有定义就不能默认创建。
+- 派生分类树：从 classification_rows 的 path_levels 确定性投影出来的审阅视图，不是 LLM 直接生成事实。
 - 复核：对低置信度、弱证据、缺失证据或无法判断的内容进行人工确认。
 
 ## 工作流
 
-1. 解析文档：读取 `.md`、`.txt` 和 `.pdf`；PDF 先用文本层抽取，必要时在显式开启 OCR 后用 macOS Vision 对无文本页进行 OCR。
-2. 切分文档：按标题、编号、空行和列表块形成 chunk。
+新版默认链路以 classification_rows 为主事实表。分类树不是 LLM 直接生成结果，而是从每一行的 path_levels 确定性派生。旧的 tree-first steps 保留在仓库中作为 legacy 对照，但默认 pipeline 不再运行。
+
+1. 解析文档：默认 row-first MVP 读取 `.md` 和 `.txt` 输入；PDF/OCR 解析代码仍保留在仓库中，但不属于默认链路。
+2. 切分文档：按标题、编号、空行和列表块形成带 source span 的 chunk。
 3. 构建证据索引：记录 chunk、文档、章节之间的关系。
 4. 抽取 evidence claims：必须调用 LLM，按 chunk 批量抽取文档事实，不生成树。
-5. 归一概念画像：必须调用 LLM，把 claims 组织成概念、定义、包含项、排除项。
-6. 发现分类维度：必须调用 LLM，只判断文档支持的分类依据。
-7. 合成候选分类树：必须调用 LLM，只生成节点与父子关系；如果证据不足，允许输出空候选树并进入复核报告。
-8. 生成节点描述：必须调用 LLM，只基于 claims 写定义和范围。
-9. 分析分级方案：必须调用 LLM，只抽取等级定义和节点映射。
-10. 生成匹配规则：必须调用 LLM，只使用 claims 中的术语、短语和排除关系。
-11. 校验证据：检查节点、描述、等级、规则和维度是否可追溯。
-12. 导出结果：生成 JSON、候选规则树 Markdown、人工复核报告和原始 LLM trace 文件。
+5. 判断文档块信号：必须调用 LLM，识别哪些块承载分类明细、分级定义或其他支持性证据。
+6. 抽取 classification_rows：必须调用 LLM，只从证据块中抽取路径、推荐等级、说明和证据引用。
+7. 抽取分级定义：必须调用 LLM，只抽取文档明确提供的等级名称、定义和属性。
+8. 归一 classification_rows：确定性去重、规范空白、标记弱证据，不新增文档外分类。
+9. 校验行级证据：检查每行路径、说明、等级和引用是否可追溯。
+10. 派生分类树：从每行 `path_levels` 确定性生成树视图。
+11. 导出结果：生成候选表、派生规则树、人工复核报告和原始 LLM trace 文件。
 
 ## 模块职责
 
-- `src/core/agent_state.py`：定义文档、证据、概念、维度、节点、等级、规则、校验问题和整体状态。
-- `src/io/document_parser.py`：只负责普通文本解析入口与 chunk 切分，不解释业务含义。
-- `src/io/pdf_document_parser.py`：只负责 PDF 文本层抽取、按需调用 macOS Vision OCR，并生成带页码和来源方式的原文转写。
+- `src/core/agent_state.py`：定义文档、证据、文档块信号、classification_rows、分级定义、派生节点、校验问题和整体状态。
+- `src/io/document_parser.py`：负责默认 row-first 的 txt/md 解析入口与 chunk 切分，不解释业务含义。
+- `src/io/pdf_document_parser.py`：legacy/non-default PDF 文本层抽取、按需调用 macOS Vision OCR，并生成带页码和来源方式的原文转写。
 - `src/io/evidence_store.py`：创建证据引用，提供简单本地关键词搜索。
 - `src/io/evidence_index.py`：建立 chunk 与文档、章节的索引。
 - `src/steps/evidence_claim_extractor.py`：LLM claim 抽取步骤，只产生证据事实。
-- `src/steps/concept_normalizer.py`：LLM 概念画像步骤。
-- `src/steps/dimension_analyzer.py`：LLM 分类维度分析步骤。
-- `src/steps/taxonomy_synthesizer.py`：LLM 候选分类树合成步骤。
-- `src/steps/node_describer.py`：LLM 节点描述生成步骤。
-- `src/steps/grading_analyzer.py`：LLM 分级方案与节点分级分析步骤。
-- `src/steps/rule_synthesizer.py`：LLM 匹配规则生成步骤。
-- `src/validation/grounding_validator.py`：严格检查所有生成内容是否有证据。
+- `src/steps/block_classifier.py`：LLM 文档块信号识别步骤。
+- `src/steps/classification_row_extractor.py`：LLM 分类分级明细行抽取步骤。
+- `src/steps/grade_definition_extractor.py`：LLM 分级定义抽取步骤。
+- `src/steps/classification_row_normalizer.py`：classification_rows 确定性归一与去重步骤。
+- `src/steps/tree_projector.py`：从 classification_rows 的 path_levels 确定性派生分类树。
+- `src/steps/concept_normalizer.py`、`src/steps/dimension_analyzer.py`、`src/steps/taxonomy_synthesizer.py`、`src/steps/node_describer.py`、`src/steps/grading_analyzer.py`、`src/steps/rule_synthesizer.py`：legacy tree-first 对照步骤，默认 pipeline 不运行。
+- `src/validation/grounding_validator.py`：严格检查行级分类、分级和派生树是否有证据。
 - `src/llm/client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
 - `src/llm/task_utils.py`：加载 prompt 文件，统一 LLM JSON 调用、顶层 schema 校验和一次重试。
-- `src/output/exporter.py`：导出结构化结果、候选树、复核报告和原始 LLM trace。
+- `src/output/exporter.py`：导出候选表、派生树、复核报告和原始 LLM trace。
 - `src/pipeline/agent_executor.py`：串联整个 MVP 流水线。
 - `src/agent_demo.py`：命令行演示入口。
 
 ## 数据结构
 
-系统状态将内容分为九类：
+系统状态将内容分为主要事实表和派生视图：
 
 - Evidence
-- Concepts
-- Classification dimensions
-- Tree nodes
-- Grading scheme
-- Node descriptions
-- Matching rules
+- Block signals
+- Classification rows
+- Grade definitions
+- Derived tree nodes
 - Validation issues
 - Human review status
 
-这种分离可以防止把生成内容误当成事实，也方便审计每个候选结论的来源。
+`classification_rows` 是默认链路的主事实表；树节点只是从行路径派生出来的审阅视图。这种分离可以防止把生成内容误当成事实，也方便审计每个候选结论的来源。
 
 ## MVP 边界
 
-- 支持 Markdown、纯文本和 PDF；OCR 必须显式开启，当前 OCR 后端依赖 macOS Vision，且 OCR 证据默认需要人工复核。
+- 默认 row-first MVP 只支持 Markdown 和纯文本输入。
+- PDF/OCR 代码保留为 legacy/non-default 能力；OCR 必须显式开启，当前 OCR 后端依赖 macOS Vision，且 OCR 证据默认需要人工复核。
 - 只使用本地规则、关键词和轻量模糊匹配。
 - 必须接入 OpenAI-compatible LLM，LLM 调用失败即任务失败。
 - 运行时 prompt 来自 `prompts/`，每个 LLM 阶段只允许处理当前阶段职责。
