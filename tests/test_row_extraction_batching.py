@@ -3,10 +3,17 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from src.core.agent_state import AgentState, DocumentChunk
-from src.steps.classification_row_extractor import extract_classification_rows_with_llm
+from src.io.table_segmenter import TableSegment
+from src.steps.classification_row_extractor import (
+    _build_segment_batches,
+    _load_checkpoint_records,
+    _segment_signature,
+    extract_classification_rows_with_llm,
+)
 
 
 class FakeResponse:
@@ -107,6 +114,65 @@ class RowExtractionBatchingTests(unittest.TestCase):
                 second_state.step_traces[-1].input_summary["cached_batches"],
                 first_state.step_traces[-1].input_summary["batches"],
             )
+
+    def test_checkpoint_signature_changes_when_prompt_changes(self):
+        segment = TableSegment(
+            segment_id="doc_1_chunk_1_seg_1",
+            source_chunk_id="doc_1_chunk_1",
+            doc_name="sample.txt",
+            section_title="附录B",
+            text="001项目A 示例A 原始数据 个人 严重危害 一般数据3级",
+            position=1,
+            page_number=None,
+            line_start=1,
+            line_end=1,
+            source_method="text",
+            source_warning="",
+            block_signal="table_like",
+            header_text="类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别",
+        )
+
+        self.assertNotEqual(
+            _segment_signature([segment], prompt_text="prompt v1"),
+            _segment_signature([segment], prompt_text="prompt v2"),
+        )
+
+    def test_corrupt_checkpoint_records_are_skipped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = f"{tmp}/classification_row_batches.jsonl"
+            signature = "sig"
+            with open(path, "w", encoding="utf-8") as file:
+                file.write(json.dumps({"signature": signature, "batch_index": "bad"}) + "\n")
+                file.write(json.dumps({"signature": signature, "batch_index": 1, "segment_ids": "not-list"}) + "\n")
+                file.write(json.dumps({"signature": signature, "batch_index": 2, "segment_ids": ["s2"]}) + "\n")
+
+            records = _load_checkpoint_records(Path(path), signature)
+
+            self.assertEqual(sorted(records), [2])
+
+    def test_segment_batches_use_serialized_payload_size(self):
+        segments = [
+            TableSegment(
+                segment_id=f"s{index}",
+                source_chunk_id=f"c{index}",
+                doc_name="sample.txt",
+                section_title="附录B",
+                text="短文本",
+                position=index,
+                page_number=None,
+                line_start=index,
+                line_end=index,
+                source_method="text",
+                source_warning="",
+                block_signal="table_like",
+                header_text="H" * 120,
+            )
+            for index in range(1, 3)
+        ]
+
+        batches = _build_segment_batches(segments, max_chars=250)
+
+        self.assertEqual(len(batches), 2)
 
 
 if __name__ == "__main__":

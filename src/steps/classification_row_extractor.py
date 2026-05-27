@@ -15,6 +15,7 @@ from ..llm.task_utils import (
     call_llm_json,
     clamp_confidence,
     env_int,
+    load_prompt,
     parse_bool,
     refs_from_chunk_ids,
     stable_id,
@@ -27,6 +28,8 @@ ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient"}
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 SUPPORT_RANK = {"weak": 0, "structural": 1, "explicit": 2}
 DESCRIPTION_SOURCE_RANK = {"insufficient": 0, "summarized": 1, "quoted": 2}
+ROW_CHECKPOINT_SCHEMA_VERSION = "classification_rows_v2"
+ROW_PROMPT_FILE = "extract_classification_rows_prompt.md"
 
 
 def _load_dotenv_if_available() -> None:
@@ -48,12 +51,22 @@ def _checkpoint_path(output_dir: str) -> Path:
     return Path(output_dir).expanduser().resolve() / "checkpoints" / "classification_row_batches.jsonl"
 
 
-def _segment_signature(segments: list[TableSegment]) -> str:
+def _segment_signature(
+    segments: list[TableSegment],
+    prompt_text: str,
+    cache_schema_version: str = ROW_CHECKPOINT_SCHEMA_VERSION,
+) -> str:
     digest = hashlib.sha1()
+    digest.update(cache_schema_version.encode("utf-8"))
+    digest.update(b"\0")
+    digest.update(prompt_text.encode("utf-8"))
+    digest.update(b"\0")
     for segment in segments:
         digest.update(segment.segment_id.encode("utf-8"))
         digest.update(b"\0")
         digest.update(segment.source_chunk_id.encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(segment.header_text.encode("utf-8"))
         digest.update(b"\0")
         digest.update(segment.text.encode("utf-8"))
         digest.update(b"\0")
@@ -93,7 +106,12 @@ def _load_checkpoint_records(path: Path, signature: str) -> dict[int, dict[str, 
             continue
         if record.get("signature") != signature:
             continue
-        batch_index = int(record.get("batch_index") or 0)
+        if not isinstance(record.get("segment_ids"), list):
+            continue
+        try:
+            batch_index = int(record.get("batch_index") or 0)
+        except (TypeError, ValueError):
+            continue
         if batch_index > 0:
             records[batch_index] = record
     return records
@@ -112,7 +130,7 @@ def _build_segment_batches(segments: list[TableSegment], max_chars: int) -> list
     current_chars = 0
 
     for segment in segments:
-        chars = len(segment.text or "")
+        chars = _segment_payload_chars(segment)
         if current and current_chars + chars > max_chars:
             batches.append(current)
             current = []
@@ -123,6 +141,10 @@ def _build_segment_batches(segments: list[TableSegment], max_chars: int) -> list
     if current:
         batches.append(current)
     return batches
+
+
+def _segment_payload_chars(segment: TableSegment) -> int:
+    return len(json.dumps(_segment_payload([segment]), ensure_ascii=False))
 
 
 def _segment_payload(segments: list[TableSegment]) -> list[dict[str, Any]]:
@@ -309,7 +331,8 @@ def extract_classification_rows_with_llm(
         max_chars=max_chars,
     )
     batches = _build_segment_batches(segments, batch_max_chars)
-    signature = _segment_signature(segments)
+    prompt_text = load_prompt(ROW_PROMPT_FILE)
+    signature = _segment_signature(segments, prompt_text=prompt_text)
     cached_records = (
         _load_checkpoint_records(checkpoint_path, signature)
         if checkpoint_enabled and resume_enabled
@@ -336,7 +359,7 @@ def extract_classification_rows_with_llm(
     cached_batch_count = 0
     for batch_index, batch_segments in enumerate(batches, start=1):
         segment_ids = [segment.segment_id for segment in batch_segments]
-        batch_chars = sum(len(segment.text or "") for segment in batch_segments)
+        batch_chars = sum(_segment_payload_chars(segment) for segment in batch_segments)
         cached = cached_records.get(batch_index)
         if cached and cached.get("segment_ids") == segment_ids:
             cached_batch_count += 1
@@ -355,7 +378,7 @@ def extract_classification_rows_with_llm(
             data, raw_response = call_llm_json(
                 llm_client=llm_client,
                 task_name=f"抽取 classification rows batch {batch_index}/{len(batches)}",
-                prompt_file="extract_classification_rows_prompt.md",
+                prompt_file=ROW_PROMPT_FILE,
                 payload={
                     **_payload(batch_segments),
                     "batch_index": batch_index,
@@ -374,6 +397,7 @@ def extract_classification_rows_with_llm(
                     checkpoint_path,
                     {
                         "signature": signature,
+                        "cache_schema_version": ROW_CHECKPOINT_SCHEMA_VERSION,
                         "batch_index": batch_index,
                         "batch_count": len(batches),
                         "segment_ids": segment_ids,
