@@ -1,0 +1,113 @@
+from __future__ import annotations
+
+import json
+import tempfile
+import unittest
+from unittest.mock import patch
+
+from src.core.agent_state import AgentState, DocumentChunk
+from src.steps.classification_row_extractor import extract_classification_rows_with_llm
+
+
+class FakeResponse:
+    def __init__(self, content: str):
+        self.content = content
+
+
+class FakeRowLLM:
+    def __init__(self):
+        self.calls = 0
+
+    def chat(self, messages, max_tokens=None, temperature=None, disable_thinking=False):
+        self.calls += 1
+        content = messages[-1]["content"]
+        payload = json.loads(content)["input_payload"]
+        segment = payload["table_segments"][0]
+        name = f"项目{self.calls}"
+        return FakeResponse(
+            json.dumps(
+                {
+                    "classification_rows": [
+                        {
+                            "path_levels": ["资源", "类别", name],
+                            "recommended_grade": "一般数据3级",
+                            "description": f"{name}说明",
+                            "description_source": "quoted",
+                            "description_evidence_quote": f"{name}说明",
+                            "data_range_examples": [f"{name}说明"],
+                            "processing_degree": "原始数据",
+                            "impact_object": "个人",
+                            "impact_degree": "严重危害",
+                            "grade_evidence_quote": "原始数据 个人 严重危害 一般数据3级",
+                            "evidence_quote": segment["text"],
+                            "evidence_chunk_ids": [segment["source_chunk_id"]],
+                            "support_level": "explicit",
+                            "confidence": 0.9,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        }
+                    ]
+                },
+                ensure_ascii=False,
+            )
+        )
+
+
+class RowExtractionBatchingTests(unittest.TestCase):
+    def _state(self) -> AgentState:
+        lines = ["类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"]
+        for index in range(1, 12):
+            lines.append(f"001项目{index} 项目{index}说明 原始数据 个人 严重危害 一般数据3级")
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_1",
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            section_title="附录B",
+            text="\n".join(lines),
+            position=1,
+            line_start=1,
+            line_end=len(lines),
+        )
+        state = AgentState(task="test")
+        state.chunks = [chunk]
+        state.block_signals = {"doc_1_chunk_1": {"block_signal": "table_like"}}
+        return state
+
+    def test_row_extraction_batches_table_segments(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            state = self._state()
+            llm = FakeRowLLM()
+
+            with patch.dict("os.environ", {"ROW_BATCH_MAX_CHARS": "180"}):
+                extract_classification_rows_with_llm(state, llm, output_dir=tmp, segment_max_chars=180)
+
+            self.assertGreater(llm.calls, 1)
+            self.assertEqual(len(state.classification_rows), llm.calls)
+            trace = state.step_traces[-1]
+            self.assertEqual(trace.step_name, "extract_classification_rows_with_llm")
+            self.assertGreater(trace.input_summary["segments"], 1)
+            self.assertGreater(trace.input_summary["batches"], 1)
+
+    def test_row_extraction_resumes_from_checkpoint(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            first_state = self._state()
+            first_llm = FakeRowLLM()
+            with patch.dict("os.environ", {"ROW_BATCH_MAX_CHARS": "180"}):
+                extract_classification_rows_with_llm(first_state, first_llm, output_dir=tmp, segment_max_chars=180)
+
+            second_state = self._state()
+            second_llm = FakeRowLLM()
+            with patch.dict("os.environ", {"ROW_BATCH_MAX_CHARS": "180"}):
+                extract_classification_rows_with_llm(second_state, second_llm, output_dir=tmp, segment_max_chars=180)
+
+            self.assertEqual(second_llm.calls, 0)
+            self.assertEqual(len(second_state.classification_rows), len(first_state.classification_rows))
+            self.assertEqual(
+                second_state.step_traces[-1].input_summary["cached_batches"],
+                first_state.step_traces[-1].input_summary["batches"],
+            )
+
+
+if __name__ == "__main__":
+    unittest.main()
