@@ -292,6 +292,42 @@ class RowGroundingValidatorTests(unittest.TestCase):
         self.assertTrue(quote_issues)
         self.assertEqual(quote_issues[0].severity, "high")
 
+    def test_grade_evidence_quote_cannot_be_stitched_across_refs(self) -> None:
+        text = "姓名 原始数据 个人 严重危害 一般数据3级"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=text,
+            pages=[DocumentPage(page_number=None, text=text)],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["姓名"],
+            recommended_grade="一般数据3级",
+            description="姓名",
+            description_source="quoted",
+            evidence_quote="姓名 一般数据3级",
+            grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+            evidence_refs=[
+                _evidence_ref("姓名 原始数据 个人"),
+                _evidence_ref("严重危害 一般数据3级"),
+            ],
+            support_level="explicit",
+            needs_review=False,
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        quote_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "grade_evidence_quote" in issue.problem
+        ]
+        self.assertTrue(quote_issues)
+
 
 if __name__ == "__main__":
     unittest.main()

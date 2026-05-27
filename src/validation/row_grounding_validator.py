@@ -57,6 +57,12 @@ def _contains_evidence_quote(container: str, quote: str) -> bool:
     return _contains_text(container, quote)
 
 
+def _quote_in_any_ref(row, quote: str) -> bool:
+    if not quote:
+        return True
+    return any(_contains_evidence_quote(ref.text, quote) for ref in row.evidence_refs)
+
+
 def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     corpus = _corpus_text(state)
@@ -140,10 +146,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "删除该行或改为引用原文片段。",
             )
 
-        if row.grade_evidence_quote and not _contains_evidence_quote(
-            evidence_text,
-            row.grade_evidence_quote,
-        ):
+        if row.grade_evidence_quote and not _quote_in_any_ref(row, row.grade_evidence_quote):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
