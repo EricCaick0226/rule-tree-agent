@@ -256,6 +256,17 @@ class TableSegmenterTests(unittest.TestCase):
 
         self.assertEqual(segments, [])
 
+    def test_whitespace_only_small_normal_chunk_does_not_create_segments(self):
+        chunk = self._chunk("   ")
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={},
+            max_chars=10,
+        )
+
+        self.assertEqual(segments, [])
+
 
 if __name__ == "__main__":
     unittest.main()

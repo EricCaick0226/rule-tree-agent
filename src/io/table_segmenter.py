@@ -169,6 +169,8 @@ def segment_table_chunks_for_row_extraction(
         signal = block_signals.get(chunk.chunk_id, {})
         block_signal = str(signal.get("block_signal") or "normal")
         text_len = len(chunk.text or "")
+        if not (chunk.text or "").strip():
+            continue
         should_split = block_signal in {"table_like", "hierarchy_like"} or text_len > max_chars
         if should_split:
             segments.extend(_split_chunk(chunk, block_signal, max_chars))
