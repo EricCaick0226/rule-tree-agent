@@ -97,6 +97,26 @@ class RowFirstPipelineTests(unittest.TestCase):
 
         extract_rows.assert_called_once_with(state, llm_client, output_dir="custom_outputs")
 
+    def test_run_step_passes_output_dir_to_block_classifier(self) -> None:
+        state = AgentState(task="test")
+        llm_client = object()
+
+        with patch(
+            "src.pipeline.agent_executor.classify_document_blocks_with_llm",
+            return_value=state,
+        ) as classify_blocks:
+            self.assertIs(
+                _run_step(
+                    "classify_document_blocks_with_llm",
+                    state,
+                    "custom_outputs",
+                    llm_client,
+                ),
+                state,
+            )
+
+        classify_blocks.assert_called_once_with(state, llm_client, output_dir="custom_outputs")
+
     def test_llm_used_stays_false_when_llm_steps_short_circuit_without_raw_response(self) -> None:
         state = AgentState(task="test", task_type="generate_rule_tree_from_docs", input_files=[])
 
