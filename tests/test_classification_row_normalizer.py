@@ -316,6 +316,157 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
         self.assertTrue(row.needs_review)
         self.assertIn("无法从当前文档确定分级高低顺序", row.review_reason)
 
+    def test_suffix_row_with_grade_merges_into_longer_ungraded_path(self) -> None:
+        long_ref = EvidenceRef(
+            evidence_id="ev_long",
+            chunk_id="doc_1_chunk_52",
+            doc_name="sample.txt",
+            section_title="附录A",
+            text="A、基础资源 1服务范围与对象 01患者 001患者信息",
+            used_for="classification_row",
+            relevance_score=0.9,
+        )
+        short_ref = EvidenceRef(
+            evidence_id="ev_short",
+            chunk_id="doc_1_chunk_52",
+            doc_name="sample.txt",
+            section_title="附录A",
+            text="001患者信息 患者姓名 原始数据 个人 严重危害 一般数据3级",
+            used_for="classification_row",
+            relevance_score=0.9,
+        )
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="long",
+                    path_levels=["A、基础资源", "1服务范围与对象", "01患者", "001患者信息"],
+                    recommended_grade=None,
+                    description="患者信息",
+                    description_source="quoted",
+                    evidence_quote="A、基础资源 1服务范围与对象 01患者 001患者信息",
+                    evidence_refs=[long_ref],
+                    support_level="structural",
+                    needs_review=True,
+                    review_reason="缺少行级分级。",
+                ),
+                ClassificationRow(
+                    row_id="short",
+                    path_levels=["1服务范围与对象", "01患者", "001患者信息"],
+                    recommended_grade="一般数据3级",
+                    description="患者姓名",
+                    description_source="quoted",
+                    description_evidence_quote="患者姓名",
+                    evidence_quote="001患者信息 患者姓名 原始数据 个人 严重危害 一般数据3级",
+                    grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                    data_range_examples=["患者姓名"],
+                    processing_degree="原始数据",
+                    impact_object="个人",
+                    impact_degree="严重危害",
+                    evidence_refs=[short_ref],
+                    support_level="explicit",
+                    needs_review=False,
+                ),
+            ],
+        )
+
+        normalize_classification_rows(state)
+
+        self.assertEqual(len(state.classification_rows), 1)
+        row = state.classification_rows[0]
+        self.assertEqual(row.path_levels, ["A、基础资源", "1服务范围与对象", "01患者", "001患者信息"])
+        self.assertEqual(row.recommended_grade, "一般数据3级")
+        self.assertEqual(row.grade_evidence_quote, "原始数据 个人 严重危害 一般数据3级")
+        self.assertEqual(row.data_range_examples, ["患者姓名"])
+        self.assertEqual(row.processing_degree, "原始数据")
+        self.assertEqual(row.impact_object, "个人")
+        self.assertEqual(row.impact_degree, "严重危害")
+        self.assertEqual(len(row.evidence_refs), 2)
+        self.assertTrue(row.needs_review)
+        self.assertIn("表格上下文继承合并", row.review_reason)
+
+    def test_suffix_row_with_grade_is_not_merged_when_multiple_long_paths_match(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="long_a",
+                    path_levels=["A、基础资源", "1服务范围与对象", "01患者", "001患者信息"],
+                    evidence_refs=[self._ref()],
+                ),
+                ClassificationRow(
+                    row_id="long_b",
+                    path_levels=["B、业务资源", "1服务范围与对象", "01患者", "001患者信息"],
+                    evidence_refs=[self._ref()],
+                ),
+                ClassificationRow(
+                    row_id="short",
+                    path_levels=["1服务范围与对象", "01患者", "001患者信息"],
+                    recommended_grade="一般数据3级",
+                    grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                    evidence_refs=[self._ref()],
+                    support_level="explicit",
+                ),
+            ],
+        )
+
+        normalize_classification_rows(state)
+
+        self.assertEqual(len(state.classification_rows), 3)
+        self.assertEqual(
+            sum(1 for row in state.classification_rows if row.recommended_grade == "一般数据3级"),
+            1,
+        )
+
+    def test_suffix_row_with_grade_is_not_merged_across_source_chunks(self) -> None:
+        long_ref = EvidenceRef(
+            evidence_id="ev_long",
+            chunk_id="chunk_a",
+            doc_name="sample.txt",
+            section_title="附录A",
+            text="A、基础资源 1服务范围与对象 01患者 001患者信息",
+            used_for="classification_row",
+            relevance_score=0.9,
+        )
+        short_ref = EvidenceRef(
+            evidence_id="ev_short",
+            chunk_id="chunk_b",
+            doc_name="sample.txt",
+            section_title="附录A",
+            text="001患者信息 患者姓名 原始数据 个人 严重危害 一般数据3级",
+            used_for="classification_row",
+            relevance_score=0.9,
+        )
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="long",
+                    path_levels=["A、基础资源", "1服务范围与对象", "01患者", "001患者信息"],
+                    evidence_refs=[long_ref],
+                ),
+                ClassificationRow(
+                    row_id="short",
+                    path_levels=["1服务范围与对象", "01患者", "001患者信息"],
+                    recommended_grade="一般数据3级",
+                    grade_evidence_quote="原始数据 个人 严重危害 一般数据3级",
+                    evidence_refs=[short_ref],
+                    support_level="explicit",
+                ),
+            ],
+        )
+
+        normalize_classification_rows(state)
+
+        self.assertEqual(len(state.classification_rows), 2)
+        self.assertTrue(
+            any(
+                row.path_levels == ["1服务范围与对象", "01患者", "001患者信息"]
+                and row.recommended_grade == "一般数据3级"
+                for row in state.classification_rows
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

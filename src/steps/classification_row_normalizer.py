@@ -11,6 +11,7 @@ DEFAULT_INSUFFICIENT_REVIEW_REASON = "当前文档未提供该分类项的说明
 GRADE_CONFLICT_REVIEW_REASON = "同一分类路径存在不同推荐分级候选，需要人工确认。"
 GRADE_HIGH_REVIEW_REASON = "同一分类路径存在多个分级证据，已按当前文档分级顺序采用就高不就低原则。"
 UNKNOWN_GRADE_ORDER_REVIEW_REASON = "同一分类路径存在多个分级证据，但无法从当前文档确定分级高低顺序，需要人工确认。"
+SUFFIX_CONTEXT_MERGE_REVIEW_REASON = "通过表格上下文继承合并短路径分级候选，需要人工确认。"
 SUPPORT_RANK = {"weak": 0, "structural": 1, "explicit": 2}
 DESCRIPTION_SOURCE_RANK = {"insufficient": 0, "summarized": 1, "quoted": 2}
 
@@ -176,6 +177,86 @@ def _merge_duplicate_rows(
     return selected
 
 
+def _is_suffix_path(short_key: tuple[str, ...], long_key: tuple[str, ...]) -> bool:
+    return len(short_key) < len(long_key) and long_key[-len(short_key) :] == short_key
+
+
+def _evidence_chunk_ids(row: ClassificationRow) -> set[str]:
+    return {
+        str(getattr(ref, "chunk_id", "") or "")
+        for ref in row.evidence_refs
+        if str(getattr(ref, "chunk_id", "") or "")
+    }
+
+
+def _has_shared_source_chunk(left: ClassificationRow, right: ClassificationRow) -> bool:
+    left_chunks = _evidence_chunk_ids(left)
+    right_chunks = _evidence_chunk_ids(right)
+    return bool(left_chunks and right_chunks and left_chunks.intersection(right_chunks))
+
+
+def _merge_suffix_grade_context(
+    longer: ClassificationRow,
+    shorter: ClassificationRow,
+) -> ClassificationRow:
+    longer.recommended_grade = shorter.recommended_grade
+    longer.description = _merge_text_values(longer.description, shorter.description)
+    longer.description_evidence_quote = _merge_text_values(
+        longer.description_evidence_quote,
+        shorter.description_evidence_quote,
+    )
+    longer.evidence_quote = _merge_text_values(longer.evidence_quote, shorter.evidence_quote)
+    longer.grade_evidence_quote = _merge_text_values(
+        longer.grade_evidence_quote,
+        shorter.grade_evidence_quote,
+    )
+    longer.data_range_examples = _merge_list_values(
+        longer.data_range_examples,
+        shorter.data_range_examples,
+    )
+    if not longer.processing_degree:
+        longer.processing_degree = shorter.processing_degree
+    if not longer.impact_object:
+        longer.impact_object = shorter.impact_object
+    if not longer.impact_degree:
+        longer.impact_degree = shorter.impact_degree
+    longer.evidence_refs = _merge_evidence_refs(longer.evidence_refs, shorter.evidence_refs)
+    longer.support_level = (
+        shorter.support_level
+        if SUPPORT_RANK.get(shorter.support_level, 0) > SUPPORT_RANK.get(longer.support_level, 0)
+        else longer.support_level
+    )
+    longer.confidence = max(longer.confidence, shorter.confidence)
+    longer.needs_review = True
+    longer.status = "proposed"
+    _append_review_reason(longer, SUFFIX_CONTEXT_MERGE_REVIEW_REASON)
+    return longer
+
+
+def _merge_suffix_rows_with_grade_context(rows: list[ClassificationRow]) -> list[ClassificationRow]:
+    rows_by_key = {_row_key(row): row for row in rows}
+    donor_keys: set[tuple[str, ...]] = set()
+
+    for short_key, short_row in list(rows_by_key.items()):
+        if not short_row.recommended_grade or not short_row.grade_evidence_quote:
+            continue
+
+        candidates = [
+            long_row
+            for long_key, long_row in rows_by_key.items()
+            if _is_suffix_path(short_key, long_key)
+            and not long_row.recommended_grade
+            and _has_shared_source_chunk(long_row, short_row)
+        ]
+        if len(candidates) != 1:
+            continue
+
+        _merge_suffix_grade_context(candidates[0], short_row)
+        donor_keys.add(short_key)
+
+    return [row for row in rows if _row_key(row) not in donor_keys]
+
+
 def normalize_classification_rows(state: AgentState) -> AgentState:
     before_count = len(state.classification_rows)
     deduped: dict[tuple[str, ...], ClassificationRow] = {}
@@ -194,7 +275,7 @@ def normalize_classification_rows(state: AgentState) -> AgentState:
             continue
         deduped[key] = _merge_duplicate_rows(existing, row, state)
 
-    normalized = list(deduped.values())
+    normalized = _merge_suffix_rows_with_grade_context(list(deduped.values()))
     for row in normalized:
         row.row_id = stable_id(
             "row",
