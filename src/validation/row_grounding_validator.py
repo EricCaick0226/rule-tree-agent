@@ -57,10 +57,22 @@ def _contains_evidence_quote(container: str, quote: str) -> bool:
     return _contains_text(container, quote)
 
 
+def _quote_parts(quote: str) -> list[str]:
+    return [part.strip() for part in (quote or "").split("；") if part.strip()]
+
+
+def _contains_all_quote_parts(container: str, quote: str) -> bool:
+    return all(_contains_evidence_quote(container, part) for part in _quote_parts(quote))
+
+
 def _quote_in_any_ref(row, quote: str) -> bool:
     if not quote:
         return True
     return any(_contains_evidence_quote(ref.text, quote) for ref in row.evidence_refs)
+
+
+def _all_quote_parts_in_refs(row, quote: str) -> bool:
+    return all(_quote_in_any_ref(row, part) for part in _quote_parts(quote))
 
 
 def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
@@ -136,7 +148,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "分类行缺少 evidence_quote。",
                 "重新抽取并返回支持该行的短原文。",
             )
-        elif not _contains_evidence_quote(evidence_text, row.evidence_quote):
+        elif not _contains_all_quote_parts(evidence_text, row.evidence_quote):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -146,7 +158,10 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "删除该行或改为引用原文片段。",
             )
 
-        if row.grade_evidence_quote and not _quote_in_any_ref(row, row.grade_evidence_quote):
+        if row.grade_evidence_quote and not _all_quote_parts_in_refs(
+            row,
+            row.grade_evidence_quote,
+        ):
             _add_issue(
                 issues,
                 "hardcoded_or_ungrounded_content",
@@ -204,7 +219,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "补充支持分类说明的原文片段。",
             )
 
-        if row.description_evidence_quote and not _contains_evidence_quote(
+        if row.description_evidence_quote and not _contains_all_quote_parts(
             evidence_text,
             row.description_evidence_quote,
         ):
