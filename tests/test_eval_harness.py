@@ -4,6 +4,7 @@ import unittest
 from pathlib import Path
 
 from src.eval_harness.loader import load_output_dir
+from src.eval_harness.metrics import build_eval_report
 
 
 class EvalHarnessLoaderTests(unittest.TestCase):
@@ -156,6 +157,392 @@ class EvalHarnessLoaderTests(unittest.TestCase):
             self.assertTrue(loaded.debug_files[0].text.startswith("READ_ERROR:"))
             self.assertEqual(len(loaded.trace_files), 1)
             self.assertTrue(loaded.trace_files[0].text.startswith("READ_ERROR:"))
+
+
+class EvalHarnessMetricsTests(unittest.TestCase):
+    def test_builds_quality_checkpoint_risk_and_recommendation_metrics(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps(
+                    {
+                        "classification_rows": [
+                            {
+                                "path_levels": ["A", "B"],
+                                "needs_review": False,
+                                "evidence_quote": "source quote",
+                                "evidence_refs": [{"page": 1}],
+                            },
+                            {
+                                "path_levels": ["A", "B"],
+                                "needs_review": True,
+                                "evidence_quote": "",
+                                "evidence_refs": [{"page": 2}],
+                            },
+                            {
+                                "path_levels": ["项目", "占位"],
+                                "needs_review": True,
+                                "evidence_quote": "header-like fragment",
+                                "evidence_refs": [],
+                            },
+                        ],
+                        "validation_issues": [
+                            {
+                                "severity": "high",
+                                "target": "classification_rows[1]",
+                                "message": "failed validation",
+                            },
+                            {
+                                "severity": "low",
+                                "target": "classification_rows[2]",
+                                "message": "weak evidence",
+                            },
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "batch_index": 1,
+                                "batch_count": 2,
+                                "rows": [{"id": "r1"}],
+                                "elapsed_seconds": 4.0,
+                                "split_retry_debug_paths": [],
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "batch_index": 2,
+                                "batch_count": 2,
+                                "classification_rows": [{"id": "r2"}, {"id": "r3"}],
+                                "elapsed_seconds": 5.0,
+                                "split_retry_debug_paths": ["debug/row_retry.txt"],
+                            }
+                        ),
+                    ]
+                )
+                + "\n{bad json\n",
+                encoding="utf-8",
+            )
+            debug_dir = output_dir / "debug"
+            debug_dir.mkdir()
+            (debug_dir / "row_retry.txt").write_text(
+                "Unterminated string while parsing retry response",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertEqual(report["quality"]["classification_row_count"], 3)
+            self.assertEqual(report["quality"]["unique_path_count"], 2)
+            self.assertEqual(report["quality"]["duplicate_path_count"], 1)
+            self.assertEqual(report["quality"]["needs_review_count"], 2)
+            self.assertEqual(report["quality"]["missing_evidence_quote_count"], 1)
+            self.assertEqual(report["quality"]["missing_evidence_refs_count"], 1)
+            self.assertEqual(report["quality"]["validation_issue_count"], 2)
+            self.assertEqual(
+                report["quality"]["validation_issue_count_by_severity"]["high"],
+                1,
+            )
+            self.assertEqual(
+                report["quality"]["high_severity_targets"],
+                ["classification_rows[1]"],
+            )
+            self.assertEqual(report["row_extraction"]["batch_count"], 2)
+            self.assertEqual(report["row_extraction"]["completed_batch_indices"], [1, 2])
+            self.assertEqual(report["row_extraction"]["rows_per_batch"], {"1": 1, "2": 2})
+            self.assertEqual(
+                report["row_extraction"]["elapsed_seconds_per_batch"],
+                {"1": 4.0, "2": 5.0},
+            )
+            self.assertEqual(
+                report["row_extraction"]["slowest_batches"],
+                [
+                    {"batch_index": 2, "elapsed_seconds": 5.0},
+                    {"batch_index": 1, "elapsed_seconds": 4.0},
+                ],
+            )
+            self.assertEqual(report["row_extraction"]["batches_with_debug_paths"], [2])
+            self.assertTrue(report["row_extraction"]["appears_complete"])
+            self.assertEqual(report["row_extraction"]["total_checkpoint_rows"], 3)
+            self.assertEqual(report["row_extraction"]["total_elapsed_seconds"], 9.0)
+            self.assertEqual(report["row_extraction"]["corrupt_record_count"], 1)
+            self.assertEqual(
+                report["run_completeness"]["checkpoint_corrupt_records"]["row"],
+                1,
+            )
+            self.assertFalse(report["recommendation"]["merge_ready"])
+            self.assertTrue(
+                any(
+                    item["type"] == "debug_json_failure"
+                    and item["severity"] == "review"
+                    for item in report["risk_signals"]
+                )
+            )
+            self.assertTrue(
+                any(
+                    item["type"] == "generic_path_fragment"
+                    and item["severity"] == "review"
+                    and item["path_levels"] == ["项目", "占位"]
+                    for item in report["risk_signals"]
+                )
+            )
+
+    def test_partial_run_without_rule_table_returns_stable_zero_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                json.dumps(
+                    {
+                        "batch_index": 1,
+                        "batch_count": 2,
+                        "rows": [{"id": "r1"}],
+                        "elapsed_seconds": 1.0,
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertFalse(report["inputs"]["rule_table_json"])
+            self.assertEqual(report["quality"]["classification_row_count"], 0)
+            self.assertFalse(report["row_extraction"]["appears_complete"])
+            self.assertFalse(report["recommendation"]["merge_ready"])
+            self.assertIn(
+                "missing final artifact: rule_table.json",
+                report["recommendation"]["reasons"],
+            )
+
+    def test_missing_final_artifacts_are_reported_individually(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                json.dumps({"batch_index": 1, "batch_count": 1, "rows": []}) + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertEqual(
+                report["run_completeness"]["missing_final_artifacts"],
+                ["rule_table.json", "rule_tree.json", "review_report.md"],
+            )
+            self.assertIn(
+                "missing final artifact: rule_table.json",
+                report["recommendation"]["reasons"],
+            )
+            self.assertIn(
+                "missing final artifact: rule_tree.json",
+                report["recommendation"]["reasons"],
+            )
+            self.assertIn(
+                "missing final artifact: review_report.md",
+                report["recommendation"]["reasons"],
+            )
+
+    def test_debug_json_failure_alone_blocks_merge_ready_for_v1(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps(
+                    {
+                        "classification_rows": [
+                            {
+                                "path_levels": ["A", "B"],
+                                "evidence_quote": "quote",
+                                "evidence_refs": [{"page": 1}],
+                            }
+                        ],
+                        "validation_issues": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (output_dir / "rule_tree.json").write_text(
+                json.dumps({"tree": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "review_report.md").write_text(
+                "# Review\n",
+                encoding="utf-8",
+            )
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                json.dumps({"batch_index": 1, "batch_count": 1, "rows": [{}]}) + "\n",
+                encoding="utf-8",
+            )
+            debug_dir = output_dir / "debug"
+            debug_dir.mkdir()
+            (debug_dir / "recovered_retry.txt").write_text(
+                "Unterminated string in recovered retry",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertTrue(
+                any(item["type"] == "debug_json_failure" for item in report["risk_signals"])
+            )
+            self.assertTrue(
+                any(
+                    item["type"] == "debug_json_failure"
+                    and item["path"] == "debug/recovered_retry.txt"
+                    for item in report["risk_signals"]
+                )
+            )
+            self.assertFalse(report["recommendation"]["merge_ready"])
+            self.assertIn(
+                "row extraction debug failures found",
+                report["recommendation"]["reasons"],
+            )
+
+    def test_non_rule_table_final_artifact_read_error_blocks_merge_ready(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps({"classification_rows": [], "validation_issues": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "rule_tree.json").write_bytes(b"\xff")
+            (output_dir / "review_report.md").write_text(
+                "# Review\n",
+                encoding="utf-8",
+            )
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                json.dumps({"batch_index": 1, "batch_count": 1, "rows": []}) + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertIn("rule_tree_json", report["run_completeness"]["file_errors"])
+            self.assertFalse(report["recommendation"]["merge_ready"])
+            self.assertTrue(
+                any(
+                    reason.startswith("rule_tree.json read error:")
+                    for reason in report["recommendation"]["reasons"]
+                )
+            )
+
+    def test_review_report_read_error_blocks_merge_ready(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps({"classification_rows": [], "validation_issues": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "rule_tree.json").write_text(
+                json.dumps({"tree": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "review_report.md").write_bytes(b"\xff")
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                json.dumps({"batch_index": 1, "batch_count": 1, "rows": []}) + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertFalse(report["recommendation"]["merge_ready"])
+            self.assertTrue(
+                any(
+                    reason.startswith("review_report.md read error:")
+                    for reason in report["recommendation"]["reasons"]
+                )
+            )
+
+    def test_absent_row_checkpoint_does_not_add_incomplete_checkpoint_reason(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps({"classification_rows": [], "validation_issues": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "rule_tree.json").write_text(
+                json.dumps({"tree": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "review_report.md").write_text(
+                "# Review\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertFalse(report["inputs"]["row_checkpoint"])
+            self.assertFalse(report["row_extraction"]["appears_complete"])
+            self.assertNotIn(
+                "row checkpoint does not appear complete",
+                report["recommendation"]["reasons"],
+            )
+
+    def test_non_finite_elapsed_seconds_is_zero_and_json_safe(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps({"classification_rows": [], "validation_issues": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "rule_tree.json").write_text(
+                json.dumps({"tree": []}),
+                encoding="utf-8",
+            )
+            (output_dir / "review_report.md").write_text(
+                "# Review\n",
+                encoding="utf-8",
+            )
+            checkpoints_dir = output_dir / "checkpoints"
+            checkpoints_dir.mkdir()
+            (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "batch_index": 1,
+                                "batch_count": 2,
+                                "rows": [],
+                                "elapsed_seconds": "NaN",
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "batch_index": 2,
+                                "batch_count": 2,
+                                "rows": [],
+                                "elapsed_seconds": "Infinity",
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertEqual(
+                report["row_extraction"]["elapsed_seconds_per_batch"],
+                {"1": 0.0, "2": 0.0},
+            )
+            self.assertEqual(report["row_extraction"]["total_elapsed_seconds"], 0.0)
+            json.dumps(report, allow_nan=False)
 
 
 if __name__ == "__main__":
