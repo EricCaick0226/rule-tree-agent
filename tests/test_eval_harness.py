@@ -5,6 +5,7 @@ from pathlib import Path
 
 from src.eval_harness.loader import load_output_dir
 from src.eval_harness.metrics import build_eval_report
+from src.eval_harness.report import render_json_report, render_markdown_report
 
 
 class EvalHarnessLoaderTests(unittest.TestCase):
@@ -543,6 +544,115 @@ class EvalHarnessMetricsTests(unittest.TestCase):
             )
             self.assertEqual(report["row_extraction"]["total_elapsed_seconds"], 0.0)
             json.dumps(report, allow_nan=False)
+
+
+class EvalHarnessReportTests(unittest.TestCase):
+    def test_render_json_report_returns_stable_machine_readable_text(self):
+        report = {
+            "quality": {"classification_row_count": 3},
+            "recommendation": {"merge_ready": True, "reasons": []},
+        }
+
+        text = render_json_report(report)
+
+        self.assertTrue(text.endswith("\n"))
+        parsed = json.loads(text)
+        self.assertEqual(parsed["quality"]["classification_row_count"], 3)
+        self.assertIn('"merge_ready": true', text)
+
+    def test_render_json_report_rejects_nan_values(self):
+        report = {"quality": {"total_elapsed_seconds": float("nan")}}
+
+        with self.assertRaises(ValueError):
+            render_json_report(report)
+
+    def test_render_markdown_report_returns_required_sections_and_verdict(self):
+        report = {
+            "inputs": {
+                "rule_table_json": True,
+                "rule_tree_json": False,
+                "review_report_md": True,
+                "row_checkpoint": True,
+                "debug_file_count": 1,
+            },
+            "row_extraction": {
+                "batch_count": 2,
+                "completed_batch_indices": [1],
+                "appears_complete": False,
+                "total_checkpoint_rows": 10,
+                "total_elapsed_seconds": 12.5,
+                "slowest_batches": [
+                    {"batch_index": 1, "elapsed_seconds": 12.5},
+                ],
+            },
+            "quality": {
+                "classification_row_count": 10,
+                "unique_path_count": 9,
+                "duplicate_path_count": 1,
+                "needs_review_count": 2,
+                "missing_evidence_quote_count": 1,
+                "missing_evidence_refs_count": 1,
+                "validation_issue_count": 1,
+                "validation_issue_count_by_severity": {"high": 1},
+                "high_severity_targets": ["classification_rows[3]"],
+            },
+            "risk_signals": [
+                {
+                    "type": "debug_json_failure",
+                    "severity": "review",
+                    "message": "Debug file contains JSON parsing failure text.",
+                },
+                "legacy string risk",
+            ],
+            "recommendation": {
+                "merge_ready": False,
+                "reasons": ["high severity validation issues present"],
+                "note": "Advisory-only diagnostics.",
+            },
+        }
+
+        text = render_markdown_report(report)
+
+        self.assertTrue(text.endswith("\n"))
+        for section in (
+            "# Eval Report",
+            "## Verdict",
+            "## Inputs",
+            "## Runtime Summary",
+            "## Quality Summary",
+            "## Slowest Batches",
+            "## Validation Issues",
+            "## Risk Signals",
+            "## Recommended Next Action",
+        ):
+            self.assertIn(section, text)
+        self.assertIn("merge_ready: false", text)
+
+    def test_render_markdown_report_bounds_multiline_risk_signal_detail(self):
+        long_detail = "first line\n" + ("x" * 180) + "\ntail-token"
+        report = {
+            "risk_signals": [
+                long_detail,
+                {
+                    "type": "debug_json_failure",
+                    "severity": "review",
+                    "message": long_detail,
+                },
+            ],
+            "recommendation": {"merge_ready": False, "reasons": []},
+        }
+
+        text = render_markdown_report(report)
+        risk_section = text.split("## Risk Signals\n", 1)[1].split(
+            "\n## Recommended Next Action",
+            1,
+        )[0]
+
+        self.assertNotIn("tail-token", risk_section)
+        for line in risk_section.splitlines():
+            if line:
+                self.assertTrue(line.startswith("- "))
+                self.assertLessEqual(len(line), 140)
 
 
 if __name__ == "__main__":
