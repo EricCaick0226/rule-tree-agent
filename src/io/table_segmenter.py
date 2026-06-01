@@ -8,6 +8,7 @@ from ..core.agent_state import DocumentChunk
 
 TABLE_HEADER_PATTERNS = [
     re.compile(r"类\s+项\s+目\s+数据范围及示例\s+数据加工程度\s+影响对象\s+影响程度\s+数据级别"),
+    re.compile(r"类(?:（[^）]+）|\([^)]*\))?\s+项(?:（[^）]+）|\([^)]*\))?\s+目(?:（[^）]+）|\([^)]*\))?"),
     re.compile(r"资源属性\s+类.*项.*目"),
 ]
 

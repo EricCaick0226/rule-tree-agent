@@ -548,6 +548,55 @@ class EvalHarnessMetricsTests(unittest.TestCase):
             self.assertEqual(report["row_extraction"]["total_elapsed_seconds"], 0.0)
             json.dumps(report, allow_nan=False)
 
+    def test_reports_structure_risks_from_rows_and_evidence_refs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps(
+                    {
+                        "classification_rows": [
+                            {
+                                "path_levels": ["项", "06 血液管理", "目", "001 献血服务"],
+                                "evidence_quote": "06 血液管理 001 献血服务",
+                                "evidence_refs": [
+                                    {
+                                        "section_title": "6 多重标识符",
+                                        "text": "同一资源可以有多个标识符。\n附 录 B\n表B.1 （续）\n类（1 位数字） 项（2 位数字） 目（3 位数字）\n06 血液管理 001 献血服务",
+                                    }
+                                ],
+                            },
+                            {
+                                "path_levels": ["业务资源", "1 公共卫生", "01 疾病控制"],
+                                "evidence_quote": "1 公共卫生 01 疾病控制",
+                                "evidence_refs": [
+                                    {
+                                        "section_title": "附录 B / 业务资源分类 / 表B.1 业务资源分类目录（示例）",
+                                        "text": "附 录 B\n表B.1 业务资源分类目录（示例）\n1 公共卫生 01 疾病控制",
+                                    }
+                                ],
+                            },
+                        ],
+                        "validation_issues": [],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            self.assertEqual(report["structure"]["header_as_path_count"], 1)
+            self.assertEqual(report["structure"]["generic_column_path_count"], 1)
+            self.assertEqual(report["structure"]["stale_section_title_count"], 1)
+            self.assertEqual(report["structure"]["appendix_table_detected_count"], 2)
+            self.assertEqual(report["structure"]["continued_table_count"], 1)
+            self.assertTrue(
+                any(item["type"] == "header_as_path" for item in report["risk_signals"])
+            )
+            self.assertTrue(
+                any(item["type"] == "stale_section_title" for item in report["risk_signals"])
+            )
+
 
 class EvalHarnessReportTests(unittest.TestCase):
     def test_render_json_report_returns_stable_machine_readable_text(self):
@@ -599,6 +648,13 @@ class EvalHarnessReportTests(unittest.TestCase):
                 "validation_issue_count_by_severity": {"high": 1},
                 "high_severity_targets": ["classification_rows[3]"],
             },
+            "structure": {
+                "header_as_path_count": 2,
+                "generic_column_path_count": 3,
+                "stale_section_title_count": 1,
+                "appendix_table_detected_count": 4,
+                "continued_table_count": 2,
+            },
             "risk_signals": [
                 {
                     "type": "debug_json_failure",
@@ -624,12 +680,15 @@ class EvalHarnessReportTests(unittest.TestCase):
             "## Runtime Summary",
             "## Quality Summary",
             "## Slowest Batches",
+            "## Structure Risks",
             "## Validation Issues",
             "## Risk Signals",
             "## Recommended Next Action",
         ):
             self.assertIn(section, text)
         self.assertIn("merge_ready: false", text)
+        self.assertIn("header_as_path_count: 2", text)
+        self.assertIn("stale_section_title_count: 1", text)
 
     def test_render_markdown_report_bounds_multiline_risk_signal_detail(self):
         long_detail = "first line\n" + ("x" * 180) + "\ntail-token"

@@ -245,6 +245,21 @@ class TableSegmenterTests(unittest.TestCase):
         self.assertNotIn(header, segments[0].text)
         self.assertIn("001项目A", segments[0].text)
 
+    def test_wst_class_item_object_header_is_not_path_text(self):
+        header = "类（1 位数字） 项（2 位数字） 目（3 位数字）"
+        chunk = self._chunk("\n".join([header, "1 服务范围与对象 01 患者", " 02 健康人"]))
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        self.assertEqual(len(segments), 1)
+        self.assertEqual(segments[0].header_text, header)
+        self.assertNotIn(header, segments[0].text)
+        self.assertIn("1 服务范围与对象", segments[0].text)
+
     def test_whitespace_only_long_line_does_not_create_segments(self):
         chunk = self._chunk(" " * 25)
 

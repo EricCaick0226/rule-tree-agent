@@ -16,6 +16,7 @@ def render_markdown_report(report: dict[str, Any]) -> str:
     inputs = _dict(report.get("inputs"))
     row_extraction = _dict(report.get("row_extraction"))
     quality = _dict(report.get("quality"))
+    structure = _dict(report.get("structure"))
     risk_signals = _list(report.get("risk_signals"))
 
     lines = [
@@ -76,6 +77,13 @@ def render_markdown_report(report: dict[str, Any]) -> str:
     high_targets = _list(quality.get("high_severity_targets"))
     lines.extend(
         [
+            "",
+            "## Structure Risks",
+            f"- header_as_path_count: {_int_text(structure.get('header_as_path_count'))}",
+            f"- generic_column_path_count: {_int_text(structure.get('generic_column_path_count'))}",
+            f"- stale_section_title_count: {_int_text(structure.get('stale_section_title_count'))}",
+            f"- appendix_table_detected_count: {_int_text(structure.get('appendix_table_detected_count'))}",
+            f"- continued_table_count: {_int_text(structure.get('continued_table_count'))}",
             "",
             "## Validation Issues",
             f"- validation_issue_count: {_int_text(quality.get('validation_issue_count'))}",

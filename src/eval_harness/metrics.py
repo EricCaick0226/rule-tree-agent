@@ -7,14 +7,19 @@ from typing import Any
 from src.eval_harness.loader import EvalInputs, LoadedJsonl
 
 
+HEADER_PATH_LEVELS = {"类", "项", "目"}
+GENERIC_COLUMN_PATH_LEVELS = {"类", "项", "目", "编码", "标识符", "数据元", "项目", "占位"}
+
+
 def build_eval_report(inputs: EvalInputs) -> dict[str, Any]:
     rule_table = inputs.files["rule_table_json"]
     rows = _classification_rows(rule_table.data if rule_table.exists else None)
     validation_issues = _validation_issues(rule_table.data if rule_table.exists else None)
     quality = _quality_metrics(rows, validation_issues)
+    structure = _structure_metrics(rows)
     row_extraction = _row_checkpoint_metrics(inputs.row_checkpoint)
     run_completeness = _run_completeness(inputs, row_extraction)
-    risk_signals = _risk_signals(rows, inputs, quality)
+    risk_signals = _risk_signals(rows, inputs, quality, structure)
     recommendation = _recommendation(inputs, quality, run_completeness, risk_signals)
 
     return {
@@ -35,6 +40,7 @@ def build_eval_report(inputs: EvalInputs) -> dict[str, Any]:
         "run_completeness": run_completeness,
         "row_extraction": row_extraction,
         "quality": quality,
+        "structure": structure,
         "risk_signals": risk_signals,
         "recommendation": recommendation,
     }
@@ -136,6 +142,16 @@ def _row_checkpoint_metrics(checkpoint: LoadedJsonl) -> dict[str, Any]:
     }
 
 
+def _structure_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "header_as_path_count": sum(1 for row in rows if _has_header_as_path(row)),
+        "generic_column_path_count": sum(1 for row in rows if _has_generic_path_fragment(row)),
+        "stale_section_title_count": sum(1 for row in rows if _has_stale_section_title(row)),
+        "appendix_table_detected_count": sum(1 for row in rows if _has_appendix_table_evidence(row)),
+        "continued_table_count": sum(1 for row in rows if _has_continued_table_evidence(row)),
+    }
+
+
 def _run_completeness(
     inputs: EvalInputs,
     row_extraction: dict[str, Any],
@@ -175,6 +191,7 @@ def _risk_signals(
     rows: list[dict[str, Any]],
     inputs: EvalInputs,
     quality: dict[str, Any],
+    structure: dict[str, Any],
 ) -> list[dict[str, Any]]:
     signals: list[dict[str, Any]] = []
     for debug_file in inputs.debug_files:
@@ -200,6 +217,28 @@ def _risk_signals(
                 "severity": "review",
                 "message": "Path levels look like table headers or placeholder fragments.",
                 "path_levels": list(_path_key(generic_fragment)),
+            }
+        )
+    header_fragment = next((row for row in rows if _has_header_as_path(row)), None)
+    if header_fragment is not None:
+        signals.append(
+            {
+                "type": "header_as_path",
+                "severity": "review",
+                "message": "Path levels contain hierarchy column headers such as 类/项/目.",
+                "path_levels": list(_path_key(header_fragment)),
+                "count": structure["header_as_path_count"],
+            }
+        )
+    stale_section = next((row for row in rows if _has_stale_section_title(row)), None)
+    if stale_section is not None:
+        signals.append(
+            {
+                "type": "stale_section_title",
+                "severity": "review",
+                "message": "Evidence text contains appendix/table markers while refs keep an unrelated section title.",
+                "path_levels": list(_path_key(stale_section)),
+                "count": structure["stale_section_title_count"],
             }
         )
     if quality["duplicate_path_count"]:
@@ -263,6 +302,10 @@ def _path_key(row: dict[str, Any]) -> tuple[str, ...]:
     return ()
 
 
+def _has_header_as_path(row: dict[str, Any]) -> bool:
+    return any(level in HEADER_PATH_LEVELS for level in _path_key(row))
+
+
 def _display_final_artifact_name(file_key: str) -> str:
     return {
         "rule_table_json": "rule_table.json",
@@ -276,6 +319,43 @@ def _relative_path(path: Any, root: Any) -> str:
         return str(path.relative_to(root))
     except ValueError:
         return str(path)
+
+
+def _evidence_refs(row: dict[str, Any]) -> list[dict[str, Any]]:
+    refs = row.get("evidence_refs")
+    if not isinstance(refs, list):
+        return []
+    return [ref for ref in refs if isinstance(ref, dict)]
+
+
+def _evidence_ref_text(row: dict[str, Any]) -> str:
+    parts: list[str] = []
+    for ref in _evidence_refs(row):
+        parts.append(str(ref.get("section_title") or ""))
+        parts.append(str(ref.get("text") or ""))
+    return "\n".join(part for part in parts if part)
+
+
+def _has_appendix_table_evidence(row: dict[str, Any]) -> bool:
+    text = _evidence_ref_text(row)
+    return bool(("附 录" in text or "附录" in text) and "表" in text)
+
+
+def _has_continued_table_evidence(row: dict[str, Any]) -> bool:
+    return "（续）" in _evidence_ref_text(row)
+
+
+def _has_stale_section_title(row: dict[str, Any]) -> bool:
+    for ref in _evidence_refs(row):
+        section_title = str(ref.get("section_title") or "")
+        text = str(ref.get("text") or "")
+        if not section_title or not text:
+            continue
+        has_table_context = ("附 录" in text or "附录" in text) and "表" in text
+        section_mentions_table = ("附 录" in section_title or "附录" in section_title) and "表" in section_title
+        if has_table_context and not section_mentions_table:
+            return True
+    return False
 
 
 def _needs_review(row: dict[str, Any]) -> bool:
@@ -330,17 +410,12 @@ def _has_generic_path_fragment(row: dict[str, Any]) -> bool:
     if not levels:
         return False
     generic_tokens = {
-        "项",
-        "目",
-        "项目",
-        "占位",
         "名称",
         "代码",
-        "编码",
         "类别",
         "序号",
         "说明",
-    }
+    } | GENERIC_COLUMN_PATH_LEVELS
     short_fragment_count = sum(
         1 for level in levels if len(level) <= 1 and not level.isascii()
     )

@@ -27,6 +27,29 @@ class DocumentParserLineTests(unittest.TestCase):
         self.assertEqual(table_chunk.line_end, 3)
         self.assertEqual(table_chunk.source_method, "text")
 
+    def test_appendix_and_table_titles_update_section_context(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "standard.txt"
+            path.write_text(
+                "6 多重标识符\n"
+                "同一资源可以有多个标识符。\n"
+                "附 录 A\n"
+                "（规范性）\n"
+                "基础资源分类\n"
+                "基础资源分类见表A.1。\n"
+                "表A.1 基础资源分类目录（示例）\n"
+                "类（1 位数字） 项（2 位数字） 目（3 位数字）\n"
+                "1 服务范围与对象 01 患者\n",
+                encoding="utf-8",
+            )
+            chunks = chunk_documents(parse_documents([str(path)]))
+
+        table_chunk = next(chunk for chunk in chunks if "1 服务范围与对象" in chunk.text)
+        self.assertIn("附录 A", table_chunk.section_title)
+        self.assertIn("基础资源分类", table_chunk.section_title)
+        self.assertIn("表A.1 基础资源分类目录", table_chunk.section_title)
+        self.assertNotIn("多重标识符", table_chunk.section_title)
+
 
 if __name__ == "__main__":
     unittest.main()

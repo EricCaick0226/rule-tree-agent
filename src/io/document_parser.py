@@ -8,6 +8,9 @@ from .pdf_document_parser import parse_pdf_document
 
 
 SUPPORTED_SUFFIXES = {".md", ".txt", ".pdf"}
+APPENDIX_HEADING_RE = re.compile(r"^附\s*录\s*([A-ZＡ-Ｚ])\s*$", re.IGNORECASE)
+TABLE_TITLE_RE = re.compile(r"^表\s*([A-ZＡ-Ｚ])\s*\.?\s*(\d+)\s+.+")
+CLASSIFICATION_TITLE_RE = re.compile(r"^[\u4e00-\u9fff]{2,20}分类\s*$")
 
 
 def parse_documents(file_paths: list[str], enable_ocr: bool = False) -> list[SourceDocument]:
@@ -41,15 +44,42 @@ def _is_heading(line: str) -> bool:
         re.match(r"^#{1,6}\s+\S+", stripped)
         or re.match(r"^[一二三四五六七八九十]+[、.．]\s*\S+", stripped)
         or re.match(r"^\d+(?:\.\d+)*[、.．]\s*\S+", stripped)
+        or APPENDIX_HEADING_RE.match(stripped)
+        or TABLE_TITLE_RE.match(stripped)
+        or CLASSIFICATION_TITLE_RE.match(stripped)
     )
 
 
 def _heading_title(line: str) -> str:
     stripped = line.strip()
+    appendix_match = APPENDIX_HEADING_RE.match(stripped)
+    if appendix_match:
+        return f"附录 {appendix_match.group(1).upper()}"
     stripped = re.sub(r"^#{1,6}\s+", "", stripped)
     stripped = re.sub(r"^[一二三四五六七八九十]+[、.．]\s*", "", stripped)
     stripped = re.sub(r"^\d+(?:\.\d+)*[、.．]\s*", "", stripped)
     return stripped.strip()
+
+
+def _heading_level(line: str) -> int:
+    stripped = line.strip()
+    if APPENDIX_HEADING_RE.match(stripped):
+        return 1
+    if CLASSIFICATION_TITLE_RE.match(stripped):
+        return 2
+    if TABLE_TITLE_RE.match(stripped):
+        return 3
+    return 1
+
+
+def _section_title(section_stack: list[tuple[int, str]]) -> str:
+    return " / ".join(title for _, title in section_stack if title) or "未命名章节"
+
+
+def _update_section_stack(section_stack: list[tuple[int, str]], level: int, title: str) -> list[tuple[int, str]]:
+    return [(item_level, item_title) for item_level, item_title in section_stack if item_level < level] + [
+        (level, title)
+    ]
 
 
 def _is_list_line(line: str) -> bool:
@@ -94,7 +124,7 @@ def _flush_block(
 def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
     chunks: list[DocumentChunk] = []
     for doc in documents:
-        section_title = "未命名章节"
+        section_stack: list[tuple[int, str]] = []
         position = 0
         pages = doc.pages or [DocumentPage(page_number=None, text=doc.raw_text, source_method="text")]
 
@@ -112,7 +142,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                     position = _flush_block(
                         chunks,
                         doc,
-                        section_title,
+                        _section_title(section_stack),
                         block,
                         position,
                         page.page_number,
@@ -120,14 +150,19 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                         source_warning,
                     )
                     block = []
-                    section_title = _heading_title(line)
+                    heading_title = _heading_title(line)
+                    section_stack = _update_section_stack(
+                        section_stack,
+                        _heading_level(line),
+                        heading_title,
+                    )
                     position += 1
                     chunks.append(
                         DocumentChunk(
                             chunk_id=f"{doc.doc_id}_chunk_{position}",
                             doc_id=doc.doc_id,
                             doc_name=doc.doc_name,
-                            section_title=section_title,
+                            section_title=_section_title(section_stack),
                             text=stripped,
                             position=position,
                             page_number=page.page_number,
@@ -144,7 +179,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                     position = _flush_block(
                         chunks,
                         doc,
-                        section_title,
+                        _section_title(section_stack),
                         block,
                         position,
                         page.page_number,
@@ -160,7 +195,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                     position = _flush_block(
                         chunks,
                         doc,
-                        section_title,
+                        _section_title(section_stack),
                         block,
                         position,
                         page.page_number,
@@ -175,7 +210,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
             position = _flush_block(
                 chunks,
                 doc,
-                section_title,
+                _section_title(section_stack),
                 block,
                 position,
                 page.page_number,
