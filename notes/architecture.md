@@ -31,7 +31,7 @@
 
 ## 工作流
 
-新版默认链路以 classification_rows 为主事实表。分类树不是 LLM 直接生成结果，而是从每一行的 path_levels 确定性派生。旧的 tree-first steps 保留在仓库中作为 legacy 对照，但默认 pipeline 不再运行。
+新版默认链路以 classification_rows 为主事实表。分类树不是 LLM 直接生成结果，而是从每一行的 path_levels 确定性派生。旧的 tree-first steps 已删除，仓库只保留默认 row-first 链路。
 
 1. 解析文档：默认 row-first MVP 读取 `.md` 和 `.txt` 输入；PDF/OCR 解析代码仍保留在仓库中，但不属于默认链路。
 2. 切分文档：按标题、编号、空行和列表块形成带 source span 的 chunk。
@@ -58,9 +58,7 @@
 - `src/steps/grade_definition_extractor.py`：LLM 分级定义抽取步骤。
 - `src/steps/classification_row_normalizer.py`：classification_rows 确定性归一与去重步骤。
 - `src/steps/tree_projector.py`：从 classification_rows 的 path_levels 确定性派生分类树。
-- `src/steps/concept_normalizer.py`、`src/steps/dimension_analyzer.py`、`src/steps/taxonomy_synthesizer.py`、`src/steps/node_describer.py`、`src/steps/grading_analyzer.py`、`src/steps/rule_synthesizer.py`：legacy tree-first 对照步骤，默认 pipeline 不运行。
 - `src/validation/row_grounding_validator.py`：默认 row-first 校验器，严格检查分类分级明细行、分级和派生树是否有证据。
-- `src/validation/grounding_validator.py`：legacy tree-first 对照校验器，默认 pipeline 不运行。
 - `src/llm/client.py`：OpenAI-compatible LLM 客户端，默认模型为 `your-model-name`。
 - `src/llm/task_utils.py`：加载 prompt 文件，统一 LLM JSON 调用、顶层 schema 校验和一次重试。
 - `src/output/exporter.py`：导出候选表、派生树、复核报告和原始 LLM trace。

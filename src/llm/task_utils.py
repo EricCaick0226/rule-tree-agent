@@ -384,7 +384,7 @@ def common_system_prompt(task_name: str) -> str:
     return f"""你是企业文档证据驱动规则树生成 Agent 的一个受控步骤：{task_name}。
 
 硬性规则：
-- 只能使用本次输入里的 document_chunks、evidence_claims、concept_profiles 或已有候选结果。
+- 只能使用本次输入里的 document_chunks、evidence_claims 或已有候选结果。
 - 不得使用行业常识、默认分类、默认等级、默认风险规则或文档外示例。
 - 所有业务名称、等级名称、描述、规则词、层级关系都必须能追溯到输入证据。
 - 如果证据不足，必须输出 needs_review=true 或 insufficient_evidence，不得补全。

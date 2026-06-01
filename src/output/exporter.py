@@ -97,14 +97,6 @@ def _node_lines(nodes: list[TreeNode]) -> list[str]:
         lines.append(f"{indent}- {node.name}{grade}{review}")
         if node.description:
             lines.append(f"{indent}  - description: {node.description}")
-        if node.rules:
-            for rule in node.rules:
-                if rule.conditions:
-                    lines.append(f"{indent}  - rule: {', '.join(rule.conditions)}")
-                if rule.negative_conditions:
-                    lines.append(f"{indent}  - negative: {', '.join(rule.negative_conditions)}")
-                if not rule.conditions and not rule.negative_conditions:
-                    lines.append(f"{indent}  - rule: insufficient evidence")
         for child in sorted(children_by_parent.get(node.node_id, []), key=lambda item: item.path):
             render(child)
 
@@ -141,12 +133,6 @@ def _review_report(state: AgentState) -> str:
     missing_grading = [
         issue for issue in state.validation_issues if issue.issue_type == "missing_grade_scheme"
     ]
-    selected_dimension = (
-        state.selected_dimension.name
-        if state.selected_dimension
-        else "cannot determine from current documents"
-    )
-
     lines = [
         "# Human Review Report",
         "",
@@ -160,9 +146,6 @@ def _review_report(state: AgentState) -> str:
         f"- Source chunks by method: {source_counts if source_counts else 'none'}",
         f"- Evidence claims: {len(state.evidence_claims)}",
         f"- Evidence claims by support level: {claim_support_counts if claim_support_counts else 'none'}",
-        f"- Concept profiles: {len(state.concept_profiles)}",
-        f"- Classification dimension found: {'yes' if state.selected_dimension else 'no'}",
-        f"- Selected dimension: {selected_dimension}",
         f"- Grade scheme found: {'yes' if state.grade_scheme else 'no'}",
         f"- Number of nodes: {len(state.nodes)}",
         f"- Nodes with evidence: {nodes_with_evidence}",
@@ -318,11 +301,6 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     if state.llm_error:
         tree_lines.append(f"- LLM error: {state.llm_error}")
     tree_lines.append(f"- Evidence claims: {len(state.evidence_claims)}")
-    tree_lines.append(f"- Concept profiles: {len(state.concept_profiles)}")
-    if state.selected_dimension:
-        tree_lines.append(f"- Selected dimension: {state.selected_dimension.name}")
-    else:
-        tree_lines.append("- Selected dimension: insufficient evidence")
     tree_lines.append(f"- Grade scheme: {'found' if state.grade_scheme else 'insufficient evidence'}")
     tree_lines.extend(["", "## Tree", ""])
     if state.nodes:

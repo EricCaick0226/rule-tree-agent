@@ -69,47 +69,6 @@ class EvidenceClaim:
 
 
 @dataclass
-class ConceptProfile:
-    concept_id: str
-    name: str
-    aliases: list[str] = field(default_factory=list)
-    definitions: list[str] = field(default_factory=list)
-    included_items: list[str] = field(default_factory=list)
-    excluded_items: list[str] = field(default_factory=list)
-    related_claim_ids: list[str] = field(default_factory=list)
-    evidence_refs: list[EvidenceRef] = field(default_factory=list)
-    confidence: float = 0.0
-    needs_review: bool = True
-    status: str = "proposed"
-
-
-@dataclass
-class ClassificationDimension:
-    dimension_id: str
-    name: str
-    description: str
-    evidence_refs: list[EvidenceRef] = field(default_factory=list)
-    evidence_claim_ids: list[str] = field(default_factory=list)
-    reason: str = ""
-    confidence: float = 0.0
-    needs_review: bool = True
-
-
-@dataclass
-class MatchingRule:
-    rule_id: str
-    target_node_id: str
-    rule_type: str
-    conditions: list[str] = field(default_factory=list)
-    negative_conditions: list[str] = field(default_factory=list)
-    evidence_refs: list[EvidenceRef] = field(default_factory=list)
-    evidence_claim_ids: list[str] = field(default_factory=list)
-    confidence: float = 0.0
-    needs_review: bool = True
-    status: str = "proposed"
-
-
-@dataclass
 class TreeNode:
     node_id: str
     name: str
@@ -121,7 +80,6 @@ class TreeNode:
     grade: Optional[str] = None
     grade_evidence_refs: list[EvidenceRef] = field(default_factory=list)
     grade_reason: str = ""
-    rules: list[MatchingRule] = field(default_factory=list)
     confidence: float = 0.0
     needs_review: bool = True
     status: str = "proposed"
@@ -208,9 +166,6 @@ class AgentState:
     chunks: list[DocumentChunk] = field(default_factory=list)
     evidence_index: dict[str, Any] = field(default_factory=dict)
     evidence_claims: list[EvidenceClaim] = field(default_factory=list)
-    concept_profiles: list[ConceptProfile] = field(default_factory=list)
-    classification_dimensions: list[ClassificationDimension] = field(default_factory=list)
-    selected_dimension: Optional[ClassificationDimension] = None
     grade_scheme: list[GradeDefinition] = field(default_factory=list)
     block_signals: dict[str, dict[str, Any]] = field(default_factory=dict)
     classification_schema: Optional[ClassificationSchema] = None
