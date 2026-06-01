@@ -1,7 +1,10 @@
+import io
 import json
 import tempfile
 import unittest
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
+from unittest import mock
 
 from src.eval_harness.loader import load_output_dir
 from src.eval_harness.metrics import build_eval_report
@@ -653,6 +656,116 @@ class EvalHarnessReportTests(unittest.TestCase):
             if line:
                 self.assertTrue(line.startswith("- "))
                 self.assertLessEqual(len(line), 140)
+
+
+class EvalHarnessCliTests(unittest.TestCase):
+    def _build_complete_output_dir(self, output_dir):
+        (output_dir / "rule_table.json").write_text(
+            json.dumps(
+                {
+                    "classification_rows": [
+                        {
+                            "path_levels": ["root"],
+                            "evidence_quote": "quoted evidence",
+                            "evidence_refs": ["doc:1"],
+                        }
+                    ],
+                    "validation_issues": [],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (output_dir / "rule_tree.json").write_text(
+            json.dumps({"tree": []}),
+            encoding="utf-8",
+        )
+        (output_dir / "review_report.md").write_text(
+            "# Review\n",
+            encoding="utf-8",
+        )
+        checkpoints_dir = output_dir / "checkpoints"
+        checkpoints_dir.mkdir()
+        (checkpoints_dir / "classification_row_batches.jsonl").write_text(
+            json.dumps(
+                {
+                    "batch_index": 0,
+                    "batch_count": 1,
+                    "rows": [{"row_id": "R1"}],
+                    "elapsed_seconds": 1.5,
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+    def test_diagnose_writes_json_and_markdown_reports(self):
+        from src.eval_harness.__main__ import main
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            self._build_complete_output_dir(output_dir)
+            top_level_before = {path.name for path in output_dir.iterdir()}
+
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                exit_code = main(["diagnose", str(output_dir)])
+
+            json_report_path = output_dir / "eval_report.json"
+            markdown_report_path = output_dir / "eval_report.md"
+            top_level_after = {path.name for path in output_dir.iterdir()}
+            self.assertEqual(exit_code, 0)
+            self.assertEqual(
+                top_level_after - top_level_before,
+                {"eval_report.json", "eval_report.md"},
+            )
+            self.assertTrue(json_report_path.exists())
+            self.assertTrue(markdown_report_path.exists())
+            self.assertIn(str(json_report_path), stdout.getvalue())
+            self.assertIn(str(markdown_report_path), stdout.getvalue())
+            self.assertEqual(stderr.getvalue(), "")
+            report = json.loads(json_report_path.read_text(encoding="utf-8"))
+            self.assertIn("quality", report)
+            self.assertIn(
+                "# Eval Report",
+                markdown_report_path.read_text(encoding="utf-8"),
+            )
+
+    def test_diagnose_returns_2_for_missing_output_dir(self):
+        from src.eval_harness.__main__ import main
+
+        with tempfile.TemporaryDirectory() as tmp:
+            missing_dir = Path(tmp) / "missing"
+
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+            with redirect_stdout(stdout), redirect_stderr(stderr):
+                exit_code = main(["diagnose", str(missing_dir)])
+
+            self.assertEqual(exit_code, 2)
+            self.assertEqual(stdout.getvalue(), "")
+            self.assertIn("output_dir is not a directory", stderr.getvalue())
+
+    def test_diagnose_returns_1_when_report_write_fails(self):
+        from src.eval_harness.__main__ import main
+
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            self._build_complete_output_dir(output_dir)
+
+            stdout = io.StringIO()
+            stderr = io.StringIO()
+            with mock.patch(
+                "src.eval_harness.__main__.Path.write_text",
+                side_effect=OSError("disk full"),
+            ):
+                with redirect_stdout(stdout), redirect_stderr(stderr):
+                    exit_code = main(["diagnose", str(output_dir)])
+
+            self.assertEqual(exit_code, 1)
+            self.assertEqual(stdout.getvalue(), "")
+            self.assertIn("failed to write eval reports", stderr.getvalue())
+            self.assertIn("disk full", stderr.getvalue())
 
 
 if __name__ == "__main__":
