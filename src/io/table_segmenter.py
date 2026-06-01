@@ -1,16 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-import re
+from dataclasses import dataclass, field
+from typing import Any
 
 from ..core.agent_state import DocumentChunk
-
-
-TABLE_HEADER_PATTERNS = [
-    re.compile(r"类\s+项\s+目\s+数据范围及示例\s+数据加工程度\s+影响对象\s+影响程度\s+数据级别"),
-    re.compile(r"类(?:（[^）]+）|\([^)]*\))?\s+项(?:（[^）]+）|\([^)]*\))?\s+目(?:（[^）]+）|\([^)]*\))?"),
-    re.compile(r"资源属性\s+类.*项.*目"),
-]
+from .document_structure import build_structure_context, detect_structure_signal
 
 
 @dataclass(frozen=True)
@@ -28,11 +22,31 @@ class TableSegment:
     source_warning: str
     block_signal: str
     header_text: str = ""
+    structure_context: dict[str, Any] = field(default_factory=dict)
+
+    def __post_init__(self) -> None:
+        if (
+            self.structure_context
+            and self.structure_context.get("section_title") == self.section_title
+            and self.structure_context.get("hierarchy_header") == self.header_text
+        ):
+            return
+        object.__setattr__(
+            self,
+            "structure_context",
+            build_structure_context(
+                section_title=self.section_title,
+                header_text=self.header_text,
+                page_number=self.page_number,
+                line_start=self.line_start,
+                line_end=self.line_end,
+            ),
+        )
 
 
 def _is_table_header(line: str) -> bool:
-    compact = re.sub(r"\s+", " ", line.strip())
-    return any(pattern.search(compact) for pattern in TABLE_HEADER_PATTERNS)
+    signal = detect_structure_signal(line)
+    return bool(signal and signal.kind == "hierarchy_header")
 
 
 def _line_number(chunk: DocumentChunk, offset: int) -> int | None:
@@ -50,6 +64,8 @@ def _make_segment(
     first_offset: int,
     last_offset: int,
 ) -> TableSegment:
+    line_start = _line_number(chunk, first_offset)
+    line_end = _line_number(chunk, last_offset)
     return TableSegment(
         segment_id=f"{chunk.chunk_id}_seg_{segment_index}",
         source_chunk_id=chunk.chunk_id,
@@ -58,12 +74,19 @@ def _make_segment(
         text=text,
         position=chunk.position,
         page_number=chunk.page_number,
-        line_start=_line_number(chunk, first_offset),
-        line_end=_line_number(chunk, last_offset),
+        line_start=line_start,
+        line_end=line_end,
         source_method=chunk.source_method,
         source_warning=chunk.source_warning,
         block_signal=block_signal,
         header_text=header_text,
+        structure_context=build_structure_context(
+            section_title=chunk.section_title,
+            header_text=header_text,
+            page_number=chunk.page_number,
+            line_start=line_start,
+            line_end=line_end,
+        ),
     )
 
 

@@ -18,10 +18,13 @@
 - 输出字段名和枚举值保持英文，不要翻译 JSON key。
 - 必须抽取本批次所有可识别的分类分级明细行；不要只抽取示例、代表行或摘要行。
 - 如果一个 segment 是续表，分类路径中的上级 `类`、`项`、`目` 可以从本 segment 的相邻结构、上一行或表格上下文继承；继承属于 structural support，必须保留证据并在必要时 `needs_review=true`。
+- 每个 segment 可能包含 `structure_context`。这是版式上下文，不是业务答案；只能用于理解附录、分类标题、表题、续表、层级表头、页码和行号。
+- `structure_context.table_title`、`structure_context.classification_title`、`structure_context.appendix_heading` 可以帮助恢复续表或拆分 segment 缺失的上级路径；如果仅依赖这些字段，`support_level` 应为 `structural` 且通常需要 `needs_review=true`。
+- `structure_context.hierarchy_header` 和 `header_text` 只表示表格列头，不得把 `类`、`项`、`目`、`数据范围及示例`、`数据级别` 等列名当作 `path_levels`。
 - 当表格中出现 `数据范围及示例`、`数据加工程度`、`影响对象`、`影响程度`、`数据级别` 等列时，分别填入 `data_range_examples`、`processing_degree`、`impact_object`、`impact_degree`、`recommended_grade`。
 - `grade_evidence_quote` 必须覆盖推荐分级及其相邻分级因素，例如“原始数据 个人 严重危害 一般数据3级”。
 - 同一分类路径下如果出现多条数据范围或多个分级，不要丢弃；可以输出多条候选行，后续 normalization 会合并。
-- 如果本批次文本中只有下级项目，缺少上级路径，必须尽量从 segment 的 `header_text`、`section_title` 或相邻行恢复；无法恢复时输出可证据支持的部分路径并 `needs_review=true`。
+- 如果本批次文本中只有下级项目，缺少上级路径，必须尽量从 segment 的 `structure_context`、`header_text`、`section_title` 或相邻行恢复；无法恢复时输出可证据支持的部分路径并 `needs_review=true`。
 
 # 输出格式
 

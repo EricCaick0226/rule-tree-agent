@@ -69,6 +69,8 @@ def _segment_signature(
         digest.update(b"\0")
         digest.update(segment.header_text.encode("utf-8"))
         digest.update(b"\0")
+        digest.update(json.dumps(segment.structure_context, ensure_ascii=False, sort_keys=True).encode("utf-8"))
+        digest.update(b"\0")
         digest.update(segment.text.encode("utf-8"))
         digest.update(b"\0")
     return digest.hexdigest()
@@ -163,6 +165,7 @@ def _segment_payload(segments: list[TableSegment]) -> list[dict[str, Any]]:
             "source_warning": segment.source_warning,
             "block_signal": segment.block_signal,
             "header_text": segment.header_text,
+            "structure_context": segment.structure_context,
             "text": segment.text,
         }
         for segment in segments

@@ -12,6 +12,7 @@ from src.llm.task_utils import LLMJSONValidationError
 from src.steps.classification_row_extractor import (
     _build_segment_batches,
     _load_checkpoint_records,
+    _segment_payload,
     _segment_signature,
     extract_classification_rows_with_llm,
 )
@@ -136,6 +137,61 @@ class RowExtractionBatchingTests(unittest.TestCase):
         self.assertNotEqual(
             _segment_signature([segment], prompt_text="prompt v1"),
             _segment_signature([segment], prompt_text="prompt v2"),
+        )
+
+    def test_segment_payload_includes_structure_context(self):
+        segment = TableSegment(
+            segment_id="doc_1_chunk_1_seg_1",
+            source_chunk_id="doc_1_chunk_1",
+            doc_name="sample.txt",
+            section_title="附录 A / 基础资源分类 / 续表A.1 基础资源分类目录",
+            text="002 急救事件管理 院前急救 一般数据3级",
+            position=1,
+            page_number=2,
+            line_start=45,
+            line_end=45,
+            source_method="text",
+            source_warning="",
+            block_signal="table_like",
+            header_text="类（1 位数字） 项（2 位数字） 目（3 位数字）",
+        )
+
+        payload = _segment_payload([segment])[0]
+
+        self.assertIn("structure_context", payload)
+        self.assertEqual(payload["structure_context"]["section_title"], segment.section_title)
+        self.assertEqual(payload["structure_context"]["table_title"], "续表A.1 基础资源分类目录")
+        self.assertEqual(payload["structure_context"]["classification_title"], "基础资源分类")
+        self.assertEqual(payload["structure_context"]["appendix_heading"], "附录 A")
+        self.assertEqual(payload["structure_context"]["hierarchy_header"], segment.header_text)
+        self.assertEqual(payload["structure_context"]["line_span"], {"start": 45, "end": 45})
+
+    def test_checkpoint_signature_changes_when_structure_context_changes(self):
+        base = TableSegment(
+            segment_id="doc_1_chunk_1_seg_1",
+            source_chunk_id="doc_1_chunk_1",
+            doc_name="sample.txt",
+            section_title="附录 A / 基础资源分类 / 表A.1 基础资源分类目录",
+            text="002 急救事件管理 院前急救 一般数据3级",
+            position=1,
+            page_number=2,
+            line_start=45,
+            line_end=45,
+            source_method="text",
+            source_warning="",
+            block_signal="table_like",
+            header_text="类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别",
+        )
+        continued = TableSegment(
+            **{
+                **base.__dict__,
+                "section_title": "附录 A / 基础资源分类 / 续表A.1 基础资源分类目录",
+            }
+        )
+
+        self.assertNotEqual(
+            _segment_signature([base], prompt_text="prompt"),
+            _segment_signature([continued], prompt_text="prompt"),
         )
 
     def test_corrupt_checkpoint_records_are_skipped(self):

@@ -4,13 +4,17 @@ import re
 from pathlib import Path
 
 from ..core.agent_state import DocumentChunk, DocumentPage, SourceDocument
+from .document_structure import StructureSignal, detect_structure_signal
 from .pdf_document_parser import parse_pdf_document
 
 
 SUPPORTED_SUFFIXES = {".md", ".txt", ".pdf"}
-APPENDIX_HEADING_RE = re.compile(r"^附\s*录\s*([A-ZＡ-Ｚ])\s*$", re.IGNORECASE)
-TABLE_TITLE_RE = re.compile(r"^表\s*([A-ZＡ-Ｚ])\s*\.?\s*(\d+)\s+.+")
-CLASSIFICATION_TITLE_RE = re.compile(r"^[\u4e00-\u9fff]{2,20}分类\s*$")
+STRUCTURE_HEADING_KINDS = {
+    "appendix_heading",
+    "classification_title",
+    "table_title",
+    "continued_table_title",
+}
 
 
 def parse_documents(file_paths: list[str], enable_ocr: bool = False) -> list[SourceDocument]:
@@ -40,34 +44,34 @@ def parse_documents(file_paths: list[str], enable_ocr: bool = False) -> list[Sou
 
 def _is_heading(line: str) -> bool:
     stripped = line.strip()
+    structure_signal = detect_structure_signal(stripped)
     return bool(
-        re.match(r"^#{1,6}\s+\S+", stripped)
+        (structure_signal and structure_signal.kind in STRUCTURE_HEADING_KINDS)
+        or re.match(r"^#{1,6}\s+\S+", stripped)
         or re.match(r"^[一二三四五六七八九十]+[、.．]\s*\S+", stripped)
         or re.match(r"^\d+(?:\.\d+)*[、.．]\s*\S+", stripped)
-        or APPENDIX_HEADING_RE.match(stripped)
-        or TABLE_TITLE_RE.match(stripped)
-        or CLASSIFICATION_TITLE_RE.match(stripped)
     )
 
 
 def _heading_title(line: str) -> str:
     stripped = line.strip()
-    appendix_match = APPENDIX_HEADING_RE.match(stripped)
-    if appendix_match:
-        return f"附录 {appendix_match.group(1).upper()}"
+    structure_signal = detect_structure_signal(stripped)
+    if structure_signal and structure_signal.kind in STRUCTURE_HEADING_KINDS:
+        return structure_signal.title
     stripped = re.sub(r"^#{1,6}\s+", "", stripped)
     stripped = re.sub(r"^[一二三四五六七八九十]+[、.．]\s*", "", stripped)
     stripped = re.sub(r"^\d+(?:\.\d+)*[、.．]\s*", "", stripped)
     return stripped.strip()
 
 
-def _heading_level(line: str) -> int:
-    stripped = line.strip()
-    if APPENDIX_HEADING_RE.match(stripped):
+def _heading_level(signal: StructureSignal | None) -> int:
+    if signal is None:
         return 1
-    if CLASSIFICATION_TITLE_RE.match(stripped):
+    if signal.kind == "appendix_heading":
+        return 1
+    if signal.kind == "classification_title":
         return 2
-    if TABLE_TITLE_RE.match(stripped):
+    if signal.kind in {"table_title", "continued_table_title"}:
         return 3
     return 1
 
@@ -139,6 +143,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                 stripped = line.strip()
 
                 if _is_heading(line):
+                    structure_signal = detect_structure_signal(line, line_number=line_number)
                     position = _flush_block(
                         chunks,
                         doc,
@@ -153,7 +158,7 @@ def chunk_documents(documents: list[SourceDocument]) -> list[DocumentChunk]:
                     heading_title = _heading_title(line)
                     section_stack = _update_section_stack(
                         section_stack,
-                        _heading_level(line),
+                        _heading_level(structure_signal),
                         heading_title,
                     )
                     position += 1

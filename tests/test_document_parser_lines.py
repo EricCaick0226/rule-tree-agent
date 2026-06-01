@@ -50,6 +50,26 @@ class DocumentParserLineTests(unittest.TestCase):
         self.assertIn("表A.1 基础资源分类目录", table_chunk.section_title)
         self.assertNotIn("多重标识符", table_chunk.section_title)
 
+    def test_continued_table_title_updates_section_context(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "standard.txt"
+            path.write_text(
+                "附 录 A\n"
+                "基础资源分类\n"
+                "表A.1 基础资源分类目录\n"
+                "1 服务范围与对象 01 患者\n"
+                "续表A.1 基础资源分类目录\n"
+                "2 基础支撑 01 机构\n",
+                encoding="utf-8",
+            )
+            chunks = chunk_documents(parse_documents([str(path)]))
+
+        continued_chunk = next(chunk for chunk in chunks if "2 基础支撑" in chunk.text)
+        self.assertIn("附录 A", continued_chunk.section_title)
+        self.assertIn("基础资源分类", continued_chunk.section_title)
+        self.assertIn("续表A.1 基础资源分类目录", continued_chunk.section_title)
+        self.assertNotIn("表A.1 基础资源分类目录 / 表A.1", continued_chunk.section_title)
+
 
 if __name__ == "__main__":
     unittest.main()
