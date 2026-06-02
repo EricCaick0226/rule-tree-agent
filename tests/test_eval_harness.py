@@ -597,6 +597,67 @@ class EvalHarnessMetricsTests(unittest.TestCase):
                 any(item["type"] == "stale_section_title" for item in report["risk_signals"])
             )
 
+    def test_reports_local_metrics_by_section(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            (output_dir / "rule_table.json").write_text(
+                json.dumps(
+                    {
+                        "classification_rows": [
+                            {
+                                "path_levels": ["业务资源", "公共卫生"],
+                                "needs_review": False,
+                                "evidence_quote": "1 公共卫生",
+                                "evidence_refs": [
+                                    {
+                                        "section_title": "附录 B / 业务资源分类 / 表B.1 业务资源分类目录（示例）",
+                                        "text": "附 录 B\n表B.1 业务资源分类目录（示例）\n1 公共卫生",
+                                    }
+                                ],
+                            },
+                            {
+                                "path_levels": ["项", "06 血液管理"],
+                                "needs_review": True,
+                                "evidence_quote": "06 血液管理",
+                                "evidence_refs": [
+                                    {
+                                        "section_title": "6 多重标识符",
+                                        "text": "附 录 B\n表B.1 （续）\n06 血液管理",
+                                    }
+                                ],
+                            },
+                            {
+                                "path_levels": ["业务资源", "卫生监督"],
+                                "needs_review": False,
+                                "evidence_quote": "2 卫生监督",
+                                "evidence_refs": [
+                                    {
+                                        "section_title": "附录 B / 业务资源分类 / 表B.1 业务资源分类目录（示例）",
+                                        "text": "2 卫生监督",
+                                    }
+                                ],
+                            },
+                        ],
+                        "validation_issues": [],
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            report = build_eval_report(load_output_dir(output_dir))
+
+            by_section = report["local_metrics"]["by_section"]
+            self.assertEqual(len(by_section), 2)
+            self.assertEqual(by_section[0]["section_title"], "附录 B / 业务资源分类 / 表B.1 业务资源分类目录（示例）")
+            self.assertEqual(by_section[0]["row_count"], 2)
+            self.assertEqual(by_section[0]["generic_column_path_count"], 0)
+            self.assertEqual(by_section[1]["section_title"], "6 多重标识符")
+            self.assertEqual(by_section[1]["row_count"], 1)
+            self.assertEqual(by_section[1]["generic_column_path_count"], 1)
+            self.assertEqual(by_section[1]["stale_section_title_count"], 1)
+            self.assertEqual(by_section[1]["continued_table_count"], 1)
+
 
 class EvalHarnessReportTests(unittest.TestCase):
     def test_render_json_report_returns_stable_machine_readable_text(self):
@@ -655,6 +716,24 @@ class EvalHarnessReportTests(unittest.TestCase):
                 "appendix_table_detected_count": 4,
                 "continued_table_count": 2,
             },
+            "local_metrics": {
+                "by_section": [
+                    {
+                        "section_title": "附录 B / 业务资源分类",
+                        "row_count": 8,
+                        "header_as_path_count": 0,
+                        "generic_column_path_count": 0,
+                        "stale_section_title_count": 0,
+                    },
+                    {
+                        "section_title": "6 多重标识符",
+                        "row_count": 2,
+                        "header_as_path_count": 1,
+                        "generic_column_path_count": 1,
+                        "stale_section_title_count": 1,
+                    },
+                ]
+            },
             "risk_signals": [
                 {
                     "type": "debug_json_failure",
@@ -681,6 +760,7 @@ class EvalHarnessReportTests(unittest.TestCase):
             "## Quality Summary",
             "## Slowest Batches",
             "## Structure Risks",
+            "## Local Metrics",
             "## Validation Issues",
             "## Risk Signals",
             "## Recommended Next Action",
@@ -689,6 +769,7 @@ class EvalHarnessReportTests(unittest.TestCase):
         self.assertIn("merge_ready: false", text)
         self.assertIn("header_as_path_count: 2", text)
         self.assertIn("stale_section_title_count: 1", text)
+        self.assertIn("6 多重标识符", text)
 
     def test_render_markdown_report_bounds_multiline_risk_signal_detail(self):
         long_detail = "first line\n" + ("x" * 180) + "\ntail-token"

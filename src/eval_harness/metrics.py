@@ -17,6 +17,7 @@ def build_eval_report(inputs: EvalInputs) -> dict[str, Any]:
     validation_issues = _validation_issues(rule_table.data if rule_table.exists else None)
     quality = _quality_metrics(rows, validation_issues)
     structure = _structure_metrics(rows)
+    local_metrics = _local_metrics(rows)
     row_extraction = _row_checkpoint_metrics(inputs.row_checkpoint)
     run_completeness = _run_completeness(inputs, row_extraction)
     risk_signals = _risk_signals(rows, inputs, quality, structure)
@@ -41,6 +42,7 @@ def build_eval_report(inputs: EvalInputs) -> dict[str, Any]:
         "row_extraction": row_extraction,
         "quality": quality,
         "structure": structure,
+        "local_metrics": local_metrics,
         "risk_signals": risk_signals,
         "recommendation": recommendation,
     }
@@ -150,6 +152,27 @@ def _structure_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "appendix_table_detected_count": sum(1 for row in rows if _has_appendix_table_evidence(row)),
         "continued_table_count": sum(1 for row in rows if _has_continued_table_evidence(row)),
     }
+
+
+def _local_metrics(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    grouped_rows: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        grouped_rows.setdefault(_row_section_title(row), []).append(row)
+
+    by_section = []
+    for section_title, section_rows in grouped_rows.items():
+        structure = _structure_metrics(section_rows)
+        by_section.append(
+            {
+                "section_title": section_title,
+                "row_count": len(section_rows),
+                "needs_review_count": sum(1 for row in section_rows if _needs_review(row)),
+                **structure,
+            }
+        )
+
+    by_section.sort(key=lambda item: (-int(item["row_count"]), str(item["section_title"])))
+    return {"by_section": by_section}
 
 
 def _run_completeness(
@@ -326,6 +349,14 @@ def _evidence_refs(row: dict[str, Any]) -> list[dict[str, Any]]:
     if not isinstance(refs, list):
         return []
     return [ref for ref in refs if isinstance(ref, dict)]
+
+
+def _row_section_title(row: dict[str, Any]) -> str:
+    for ref in _evidence_refs(row):
+        section_title = str(ref.get("section_title") or "").strip()
+        if section_title:
+            return section_title
+    return "unknown"
 
 
 def _evidence_ref_text(row: dict[str, Any]) -> str:

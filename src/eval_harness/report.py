@@ -17,6 +17,7 @@ def render_markdown_report(report: dict[str, Any]) -> str:
     row_extraction = _dict(report.get("row_extraction"))
     quality = _dict(report.get("quality"))
     structure = _dict(report.get("structure"))
+    local_metrics = _dict(report.get("local_metrics"))
     risk_signals = _list(report.get("risk_signals"))
 
     lines = [
@@ -84,6 +85,28 @@ def render_markdown_report(report: dict[str, Any]) -> str:
             f"- stale_section_title_count: {_int_text(structure.get('stale_section_title_count'))}",
             f"- appendix_table_detected_count: {_int_text(structure.get('appendix_table_detected_count'))}",
             f"- continued_table_count: {_int_text(structure.get('continued_table_count'))}",
+            "",
+            "## Local Metrics",
+        ]
+    )
+    local_sections = _list(local_metrics.get("by_section"))
+    if local_sections:
+        for section in local_sections[:3]:
+            section_data = _dict(section)
+            lines.append(
+                "- "
+                f"{_bounded_text(section_data.get('section_title'), 'unknown', limit=48)}: "
+                f"rows={_int_text(section_data.get('row_count'))}, "
+                f"header_as_path={_int_text(section_data.get('header_as_path_count'))}, "
+                f"generic_path={_int_text(section_data.get('generic_column_path_count'))}, "
+                f"stale_section={_int_text(section_data.get('stale_section_title_count'))}"
+            )
+        if len(local_sections) > 3:
+            lines.append(f"- ... {len(local_sections) - 3} more")
+    else:
+        lines.append("- none")
+    lines.extend(
+        [
             "",
             "## Validation Issues",
             f"- validation_issue_count: {_int_text(quality.get('validation_issue_count'))}",
