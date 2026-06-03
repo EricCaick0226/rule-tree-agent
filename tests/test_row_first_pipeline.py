@@ -34,6 +34,7 @@ class RowFirstPipelineTests(unittest.TestCase):
                 "extract_classification_rows_with_llm",
                 "extract_grade_definitions_with_llm",
                 "normalize_classification_rows",
+                "enhance_descriptions_with_context",
                 "validate_row_grounding",
                 "project_tree_from_rows",
                 "export_outputs",
@@ -68,6 +69,11 @@ class RowFirstPipelineTests(unittest.TestCase):
         with patch("src.pipeline.agent_executor.normalize_classification_rows", return_value=state) as normalize:
             self.assertIs(_run_step("normalize_classification_rows", state, "outputs", object()), state)
         normalize.assert_called_once_with(state)
+
+        llm_client = object()
+        with patch("src.pipeline.agent_executor.enhance_descriptions_with_context", return_value=state) as enhance:
+            self.assertIs(_run_step("enhance_descriptions_with_context", state, "outputs", llm_client), state)
+        enhance.assert_called_once_with(state, llm_client, output_dir="outputs")
 
         with patch("src.pipeline.agent_executor.validate_row_grounding", return_value=[]) as validate:
             self.assertIs(_run_step("validate_row_grounding", state, "outputs", object()), state)

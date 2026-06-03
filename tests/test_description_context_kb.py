@@ -1,10 +1,12 @@
 import unittest
 from unittest.mock import patch
 
+from src.core.agent_state import AgentState, ClassificationRow, SourceDocument
 from src.llm.task_utils import load_prompt
 from src.steps.description_context_kb import (
     build_context_units,
     build_row_query_terms,
+    enhance_descriptions_with_context,
     flag_description_quality,
     generate_description_candidates,
     retrieve_contexts,
@@ -148,6 +150,84 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("不要写推荐分级", prompt)
         self.assertIn("不要写“定级为几级”", prompt)
         self.assertIn("分类说明只解释分类项是什么", prompt)
+
+    def test_enhancement_step_is_disabled_by_default(self) -> None:
+        state = AgentState(
+            task="test",
+            documents=[SourceDocument("doc_1", "source.txt", "source.txt", "患者信息 患者姓名")],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["患者信息"],
+                    description="患者信息",
+                    data_range_examples=["患者姓名"],
+                )
+            ],
+        )
+
+        with patch("src.steps.description_context_kb.generate_description_candidates") as generate:
+            result = enhance_descriptions_with_context(state, object(), output_dir="outputs")
+
+        generate.assert_not_called()
+        self.assertIs(result, state)
+        self.assertEqual(state.classification_rows[0].description, "患者信息")
+        self.assertEqual(state.step_traces[-1].status, "skipped")
+
+    def test_enhancement_step_updates_weak_descriptions_with_context_candidate(self) -> None:
+        state = AgentState(
+            task="test",
+            documents=[
+                SourceDocument(
+                    "doc_1",
+                    "source.txt",
+                    "source.txt",
+                    "001患者信息 患者姓名，生日，性别，民族 原始数据 个人 严重危害 一般数据3级",
+                )
+            ],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["1服务范围与对象", "01患者", "001患者信息"],
+                    description="患者姓名，生日，性别，民族",
+                    description_source="quoted",
+                    data_range_examples=["患者姓名，生日，性别，民族"],
+                    evidence_quote="001患者信息 患者姓名，生日，性别，民族 原始数据 个人 严重危害 一般数据3级",
+                )
+            ],
+        )
+
+        def fake_generate(_llm_client, rows):
+            self.assertEqual(rows[0]["row_id"], "row_1")
+            self.assertTrue(rows[0]["retrieved_contexts"])
+            return (
+                [
+                    {
+                        "row_id": "row_1",
+                        "proposed_description": "面向患者群体的基础人口统计学信息。",
+                        "description_source": "summarized",
+                        "description_evidence_quote": "001患者信息 患者姓名，生日，性别，民族 原始数据 个人 严重危害 一般数据3级",
+                        "needs_review": True,
+                        "review_reason": "基于检索上下文总结生成，需要人工确认。",
+                    }
+                ],
+                "raw",
+            )
+
+        with patch.dict("os.environ", {"DESCRIPTION_CONTEXT_ENABLED": "true", "DESCRIPTION_CONTEXT_LIMIT": "5"}):
+            with patch("src.steps.description_context_kb.generate_description_candidates", side_effect=fake_generate):
+                result = enhance_descriptions_with_context(state, object(), output_dir="outputs")
+
+        row = result.classification_rows[0]
+        self.assertEqual(row.description, "面向患者群体的基础人口统计学信息。")
+        self.assertEqual(row.description_source, "summarized")
+        self.assertEqual(
+            row.description_evidence_quote,
+            "001患者信息 患者姓名，生日，性别，民族 原始数据 个人 严重危害 一般数据3级",
+        )
+        self.assertTrue(row.needs_review)
+        self.assertTrue(row.evidence_refs)
+        self.assertIn("基于检索上下文总结生成", row.review_reason)
+        self.assertEqual(state.step_traces[-1].status, "success")
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ from ..output.exporter import export_outputs
 from ..steps.block_classifier import classify_document_blocks_with_llm
 from ..steps.classification_row_extractor import extract_classification_rows_with_llm
 from ..steps.classification_row_normalizer import normalize_classification_rows
+from ..steps.description_context_kb import enhance_descriptions_with_context
 from ..steps.evidence_claim_extractor import extract_evidence_claims_with_llm
 from ..steps.grade_definition_extractor import extract_grade_definitions_with_llm
 from ..steps.tree_projector import project_tree_from_rows
@@ -51,6 +52,7 @@ def create_plan(task_type: str) -> list[dict]:
             {"tool": "extract_classification_rows_with_llm", "label": "Extract classification rows with LLM"},
             {"tool": "extract_grade_definitions_with_llm", "label": "Extract grade definitions with LLM"},
             {"tool": "normalize_classification_rows", "label": "Normalize classification rows"},
+            {"tool": "enhance_descriptions_with_context", "label": "Enhance descriptions with context"},
             {"tool": "validate_row_grounding", "label": "Validate row grounding"},
             {"tool": "project_tree_from_rows", "label": "Project tree from rows"},
             {"tool": "export_outputs", "label": "Export outputs"},
@@ -75,6 +77,8 @@ def _run_step(tool_name: str, state: AgentState, output_dir: str, llm_client) ->
         state = extract_grade_definitions_with_llm(state, llm_client)
     elif tool_name == "normalize_classification_rows":
         state = normalize_classification_rows(state)
+    elif tool_name == "enhance_descriptions_with_context":
+        state = enhance_descriptions_with_context(state, llm_client, output_dir=output_dir)
     elif tool_name == "validate_row_grounding":
         state.validation_issues = validate_row_grounding(state)
     elif tool_name == "project_tree_from_rows":

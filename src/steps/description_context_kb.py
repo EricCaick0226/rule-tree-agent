@@ -1,14 +1,35 @@
 from __future__ import annotations
 
+import json
+import os
 import re
+from pathlib import Path
 from typing import Any
 
-from ..llm.task_utils import call_llm_json
+from ..core.agent_state import AgentState, EvidenceRef
+from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
 
 
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 ALLOWED_GENERATED_DESCRIPTION_SOURCES = {"summarized", "insufficient"}
 DESCRIPTION_GENERATION_PROMPT = "generate_classification_descriptions_prompt.md"
+DESCRIPTION_CONTEXT_REPORT = "description_context_report.json"
+
+
+def _load_dotenv_if_available() -> None:
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        return
+    load_dotenv()
+
+
+def _env_bool(name: str, default: bool = False) -> bool:
+    _load_dotenv_if_available()
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
 
 def _clean_text(value: object) -> str:
@@ -238,3 +259,230 @@ def generate_description_candidates(
         if isinstance(item, dict)
     ]
     return candidates, raw_response
+
+
+def _state_text(state: AgentState) -> str:
+    parts: list[str] = []
+    for document in state.documents:
+        if document.raw_text:
+            parts.append(document.raw_text)
+        for page in document.pages:
+            if page.text:
+                parts.append(page.text)
+    if not parts:
+        parts.extend(chunk.text for chunk in state.chunks if chunk.text)
+    return "\n".join(parts)
+
+
+def _row_to_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | None:
+    flags = flag_description_quality(
+        {
+            "path_levels": row.path_levels,
+            "description": row.description,
+            "data_range_examples": row.data_range_examples,
+        }
+    )
+    if not flags:
+        return None
+    row_dict = {
+        "path_levels": row.path_levels,
+        "data_range_examples": row.data_range_examples,
+        "processing_degree": row.processing_degree,
+        "impact_object": row.impact_object,
+        "impact_degree": row.impact_degree,
+        "recommended_grade": row.recommended_grade,
+    }
+    query_terms = build_row_query_terms(row_dict)
+    return {
+        "row_id": row.row_id,
+        "path": " / ".join(row.path_levels),
+        "current_description": row.description,
+        "description_quality_flags": flags,
+        "query_terms": query_terms,
+        "retrieved_contexts": retrieve_contexts(units, query_terms, top_k=5),
+    }
+
+
+def _row_priority(row) -> tuple[int, int, int]:
+    return (
+        1 if row.recommended_grade else 0,
+        1 if row.data_range_examples else 0,
+        len(row.path_levels),
+    )
+
+
+def _append_review_reason(row, reason: str) -> None:
+    reasons = [item for item in [row.review_reason, reason] if item]
+    row.review_reason = "；".join(dict.fromkeys(reasons))
+
+
+def _context_ref_for_candidate(
+    state: AgentState,
+    row_id: str,
+    quote: str,
+    report_row: dict[str, Any],
+) -> EvidenceRef | None:
+    quote = str(quote or "").strip()
+    if not quote:
+        return None
+    contexts = report_row.get("retrieved_contexts") or []
+    matching_context = next(
+        (
+            context
+            for context in contexts
+            if quote in str(context.get("text") or "")
+            or _clean_text(quote) in _clean_text(context.get("text") or "")
+        ),
+        contexts[0] if contexts else None,
+    )
+    if not matching_context:
+        return None
+    doc = state.documents[0] if state.documents else None
+    return EvidenceRef(
+        evidence_id=stable_id("evidence", row_id + "|" + quote),
+        chunk_id=str(matching_context.get("unit_id") or "description_context"),
+        doc_name=doc.doc_name if doc else "",
+        section_title="description_context",
+        text=str(matching_context.get("text") or quote),
+        used_for="classification_description",
+        relevance_score=0.85,
+        page_number=None,
+        source_method="text",
+        source_warning="generated from description context retrieval",
+    )
+
+
+def _write_description_context_report(output_dir: str, report: dict[str, Any]) -> str:
+    path = Path(output_dir).expanduser().resolve() / DESCRIPTION_CONTEXT_REPORT
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    return str(path)
+
+
+def enhance_descriptions_with_context(
+    state: AgentState,
+    llm_client: Any,
+    output_dir: str = "outputs",
+) -> AgentState:
+    _load_dotenv_if_available()
+    enabled = _env_bool("DESCRIPTION_CONTEXT_ENABLED", False)
+    limit = env_int("DESCRIPTION_CONTEXT_LIMIT", 20)
+
+    if not enabled:
+        append_step_trace(
+            state.step_traces,
+            "enhance_descriptions_with_context",
+            "skipped",
+            "Description context enhancement is disabled.",
+            {"enabled": False},
+            {"enhanced_rows": 0},
+        )
+        return state
+
+    units = build_context_units(_state_text(state), window_lines=3)
+    candidates: list[tuple[tuple[int, int, int], Any, dict[str, Any]]] = []
+    for row in state.classification_rows:
+        report_row = _row_to_report_row(row, units)
+        if report_row is not None:
+            candidates.append((_row_priority(row), row, report_row))
+
+    candidates.sort(key=lambda item: item[0], reverse=True)
+    selected = candidates[: max(0, limit)]
+    report_rows = [report_row for _priority, _row, report_row in selected]
+    report: dict[str, Any] = {
+        "enabled": True,
+        "total_row_count": len(state.classification_rows),
+        "context_unit_count": len(units),
+        "sampled_row_count": len(report_rows),
+        "generation": {"status": "not_requested", "candidate_count": 0},
+        "rows": report_rows,
+    }
+
+    if not report_rows:
+        report_path = _write_description_context_report(output_dir, report)
+        append_step_trace(
+            state.step_traces,
+            "enhance_descriptions_with_context",
+            "success",
+            "No weak descriptions found.",
+            {"enabled": True, "limit": limit, "context_units": len(units)},
+            {"enhanced_rows": 0, "report_path": report_path},
+        )
+        return state
+
+    try:
+        generated_candidates, raw_response = generate_description_candidates(llm_client, report_rows)
+    except Exception as exc:
+        report["generation"] = {
+            "status": "failed",
+            "error": str(exc),
+            "candidate_count": 0,
+            "raw_response_excerpt": "",
+        }
+        report_path = _write_description_context_report(output_dir, report)
+        append_step_trace(
+            state.step_traces,
+            "enhance_descriptions_with_context",
+            "error",
+            str(exc),
+            {"enabled": True, "limit": limit, "context_units": len(units), "sampled_rows": len(report_rows)},
+            {"enhanced_rows": 0, "report_path": report_path},
+        )
+        return state
+
+    generated_by_row_id = {
+        candidate.get("row_id", ""): candidate
+        for candidate in generated_candidates
+        if candidate.get("row_id")
+    }
+    report_by_row_id = {
+        report_row.get("row_id", ""): report_row
+        for report_row in report_rows
+    }
+    enhanced_rows = 0
+    for _priority, row, _report_row in selected:
+        candidate = generated_by_row_id.get(row.row_id)
+        if not candidate or candidate.get("description_source") != "summarized":
+            continue
+        proposed_description = str(candidate.get("proposed_description") or "").strip()
+        if not proposed_description or proposed_description == INSUFFICIENT_DESCRIPTION:
+            continue
+
+        row.description = proposed_description
+        row.description_source = "summarized"
+        row.description_evidence_quote = str(candidate.get("description_evidence_quote") or "").strip()
+        row.needs_review = True
+        _append_review_reason(
+            row,
+            str(candidate.get("review_reason") or "基于检索上下文总结生成，需要人工确认。"),
+        )
+        context_ref = _context_ref_for_candidate(
+            state,
+            row.row_id,
+            row.description_evidence_quote,
+            report_by_row_id.get(row.row_id, {}),
+        )
+        if context_ref is not None:
+            existing_keys = {(ref.evidence_id, ref.text) for ref in row.evidence_refs}
+            if (context_ref.evidence_id, context_ref.text) not in existing_keys:
+                row.evidence_refs.append(context_ref)
+        enhanced_rows += 1
+
+    for report_row in report_rows:
+        report_row["generated_description"] = generated_by_row_id.get(report_row.get("row_id", ""), {})
+
+    report["generation"] = {
+        "status": "success",
+        "candidate_count": len(generated_candidates),
+        "raw_response_excerpt": raw_response[:2000],
+    }
+    report_path = _write_description_context_report(output_dir, report)
+    append_step_trace(
+        state.step_traces,
+        "enhance_descriptions_with_context",
+        "success",
+        "",
+        {"enabled": True, "limit": limit, "context_units": len(units), "sampled_rows": len(report_rows)},
+        {"enhanced_rows": enhanced_rows, "report_path": report_path},
+    )
+    return state
