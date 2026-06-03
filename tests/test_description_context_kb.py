@@ -9,6 +9,7 @@ from src.steps.description_context_kb import (
     enhance_descriptions_with_context,
     flag_description_quality,
     generate_description_candidates,
+    generate_description_candidates_batched,
     retrieve_contexts,
 )
 
@@ -144,12 +145,53 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertEqual(candidates[0]["description_source"], "summarized")
         self.assertTrue(candidates[0]["needs_review"])
 
+    def test_batches_description_candidate_generation(self) -> None:
+        rows = [
+            {
+                "row_id": f"row_{index}",
+                "path": f"业务资源 / 项目{index}",
+                "current_description": f"项目{index}",
+                "description_quality_flags": ["description_equals_leaf"],
+                "query_terms": [f"项目{index}"],
+                "retrieved_contexts": [{"text": f"项目{index}相关数据。"}],
+            }
+            for index in range(5)
+        ]
+        batch_lengths: list[int] = []
+
+        def fake_generate(_llm_client, batch):
+            batch_lengths.append(len(batch))
+            return (
+                [
+                    {
+                        "row_id": row["row_id"],
+                        "proposed_description": f"{row['path']}相关业务数据。",
+                        "description_source": "summarized",
+                        "description_evidence_quote": row["retrieved_contexts"][0]["text"],
+                        "needs_review": True,
+                        "review_reason": "基于检索上下文总结生成，需要人工确认。",
+                    }
+                    for row in batch
+                ],
+                f"raw_{len(batch_lengths)}",
+            )
+
+        with patch("src.steps.description_context_kb.generate_description_candidates", side_effect=fake_generate):
+            candidates, raw_response = generate_description_candidates_batched(object(), rows, batch_size=2)
+
+        self.assertEqual(batch_lengths, [2, 2, 1])
+        self.assertEqual(len(candidates), 5)
+        self.assertIn("raw_1", raw_response)
+        self.assertIn("raw_3", raw_response)
+
     def test_description_generation_prompt_excludes_grade_conclusions(self) -> None:
         prompt = load_prompt("generate_classification_descriptions_prompt.md")
 
         self.assertIn("不要写推荐分级", prompt)
         self.assertIn("不要写“定级为几级”", prompt)
         self.assertIn("分类说明只解释分类项是什么", prompt)
+        self.assertIn("不要写影响程度", prompt)
+        self.assertIn("不要写危害后果", prompt)
 
     def test_enhancement_step_is_disabled_by_default(self) -> None:
         state = AgentState(
@@ -196,7 +238,8 @@ class DescriptionContextKBTests(unittest.TestCase):
             ],
         )
 
-        def fake_generate(_llm_client, rows):
+        def fake_generate(_llm_client, rows, batch_size=20):
+            self.assertEqual(batch_size, 2)
             self.assertEqual(rows[0]["row_id"], "row_1")
             self.assertTrue(rows[0]["retrieved_contexts"])
             return (
@@ -213,8 +256,15 @@ class DescriptionContextKBTests(unittest.TestCase):
                 "raw",
             )
 
-        with patch.dict("os.environ", {"DESCRIPTION_CONTEXT_ENABLED": "true", "DESCRIPTION_CONTEXT_LIMIT": "5"}):
-            with patch("src.steps.description_context_kb.generate_description_candidates", side_effect=fake_generate):
+        with patch.dict(
+            "os.environ",
+            {
+                "DESCRIPTION_CONTEXT_ENABLED": "true",
+                "DESCRIPTION_CONTEXT_LIMIT": "5",
+                "DESCRIPTION_CONTEXT_BATCH_SIZE": "2",
+            },
+        ):
+            with patch("src.steps.description_context_kb.generate_description_candidates_batched", side_effect=fake_generate):
                 result = enhance_descriptions_with_context(state, object(), output_dir="outputs")
 
         row = result.classification_rows[0]

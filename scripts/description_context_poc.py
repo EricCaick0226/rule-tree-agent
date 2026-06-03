@@ -14,7 +14,7 @@ from src.steps.description_context_kb import (
     build_context_units,
     build_row_query_terms,
     flag_description_quality,
-    generate_description_candidates,
+    generate_description_candidates_batched,
     retrieve_contexts,
 )
 from src.llm.client import OpenAICompatibleLLMClient
@@ -32,6 +32,7 @@ def build_description_context_report(
     limit: int,
     generate: bool = False,
     llm_client: Any | None = None,
+    generation_batch_size: int = 20,
 ) -> dict[str, Any]:
     text = txt_path.read_text(encoding="utf-8")
     rows = _load_rule_rows(rule_table_path)
@@ -68,12 +69,18 @@ def build_description_context_report(
         if llm_client is None:
             raise ValueError("llm_client is required when generate=True")
         try:
-            generated_candidates, raw_response = generate_description_candidates(llm_client, sampled)
+            generated_candidates, raw_response = generate_description_candidates_batched(
+                llm_client,
+                sampled,
+                batch_size=generation_batch_size,
+            )
         except Exception as exc:
             generation = {
                 "status": "failed",
                 "error": str(exc),
                 "candidate_count": 0,
+                "batch_size": max(1, generation_batch_size),
+                "batch_count": 0,
                 "raw_response_excerpt": "",
             }
         else:
@@ -87,6 +94,8 @@ def build_description_context_report(
             generation = {
                 "status": "success",
                 "candidate_count": len(generated_candidates),
+                "batch_size": max(1, generation_batch_size),
+                "batch_count": (len(sampled) + max(1, generation_batch_size) - 1) // max(1, generation_batch_size),
                 "raw_response_excerpt": raw_response[:2000],
             }
 
@@ -110,6 +119,7 @@ def main() -> int:
     parser.add_argument("--out", required=True, help="Output JSON report path.")
     parser.add_argument("--limit", type=int, default=20, help="Maximum weak-description rows to include.")
     parser.add_argument("--generate", action="store_true", help="Call the LLM to generate candidate descriptions.")
+    parser.add_argument("--generate-batch-size", type=int, default=20, help="Rows per LLM call when generating.")
     parser.add_argument("--llm-base-url", default=None, help="OpenAI-compatible base URL.")
     parser.add_argument("--llm-model", default=None, help="LLM model name.")
     args = parser.parse_args()
@@ -126,6 +136,7 @@ def main() -> int:
         limit=max(0, args.limit),
         generate=args.generate,
         llm_client=llm_client,
+        generation_batch_size=max(1, args.generate_batch_size),
     )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

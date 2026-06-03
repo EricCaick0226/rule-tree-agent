@@ -261,6 +261,27 @@ def generate_description_candidates(
     return candidates, raw_response
 
 
+def generate_description_candidates_batched(
+    llm_client: Any,
+    rows: list[dict[str, Any]],
+    batch_size: int = 20,
+) -> tuple[list[dict[str, Any]], str]:
+    if not rows:
+        return [], ""
+
+    size = max(1, int(batch_size or 1))
+    all_candidates: list[dict[str, Any]] = []
+    raw_responses: list[str] = []
+    for start in range(0, len(rows), size):
+        batch = rows[start : start + size]
+        candidates, raw_response = generate_description_candidates(llm_client, batch)
+        all_candidates.extend(candidates)
+        if raw_response:
+            batch_number = start // size + 1
+            raw_responses.append(f"--- batch {batch_number} ---\n{raw_response}")
+    return all_candidates, "\n\n".join(raw_responses)
+
+
 def _state_text(state: AgentState) -> str:
     parts: list[str] = []
     for document in state.documents:
@@ -367,6 +388,7 @@ def enhance_descriptions_with_context(
     _load_dotenv_if_available()
     enabled = _env_bool("DESCRIPTION_CONTEXT_ENABLED", False)
     limit = env_int("DESCRIPTION_CONTEXT_LIMIT", 20)
+    batch_size = env_int("DESCRIPTION_CONTEXT_BATCH_SIZE", 20)
 
     if not enabled:
         append_step_trace(
@@ -411,7 +433,11 @@ def enhance_descriptions_with_context(
         return state
 
     try:
-        generated_candidates, raw_response = generate_description_candidates(llm_client, report_rows)
+        generated_candidates, raw_response = generate_description_candidates_batched(
+            llm_client,
+            report_rows,
+            batch_size=batch_size,
+        )
     except Exception as exc:
         report["generation"] = {
             "status": "failed",
@@ -425,7 +451,13 @@ def enhance_descriptions_with_context(
             "enhance_descriptions_with_context",
             "error",
             str(exc),
-            {"enabled": True, "limit": limit, "context_units": len(units), "sampled_rows": len(report_rows)},
+            {
+                "enabled": True,
+                "limit": limit,
+                "batch_size": batch_size,
+                "context_units": len(units),
+                "sampled_rows": len(report_rows),
+            },
             {"enhanced_rows": 0, "report_path": report_path},
         )
         return state
@@ -474,6 +506,8 @@ def enhance_descriptions_with_context(
     report["generation"] = {
         "status": "success",
         "candidate_count": len(generated_candidates),
+        "batch_size": batch_size,
+        "batch_count": (len(report_rows) + max(1, batch_size) - 1) // max(1, batch_size),
         "raw_response_excerpt": raw_response[:2000],
     }
     report_path = _write_description_context_report(output_dir, report)
@@ -482,7 +516,13 @@ def enhance_descriptions_with_context(
         "enhance_descriptions_with_context",
         "success",
         "",
-        {"enabled": True, "limit": limit, "context_units": len(units), "sampled_rows": len(report_rows)},
+        {
+            "enabled": True,
+            "limit": limit,
+            "batch_size": batch_size,
+            "context_units": len(units),
+            "sampled_rows": len(report_rows),
+        },
         {"enhanced_rows": enhanced_rows, "report_path": report_path},
     )
     return state
