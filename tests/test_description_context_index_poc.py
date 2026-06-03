@@ -4,6 +4,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+from scripts.description_context_index_poc import build_description_context_index_report
 
 
 class DescriptionContextIndexPOCTests(unittest.TestCase):
@@ -77,6 +80,83 @@ class DescriptionContextIndexPOCTests(unittest.TestCase):
             self.assertEqual(report["rows"][0]["row_id"], "row_1")
             self.assertTrue(report["rows"][0]["context_pack"]["primary_contexts"])
             self.assertTrue(report["rows"][0]["context_pack"]["excluded_contexts"])
+
+    def test_report_can_generate_candidates_from_v2_context_pack(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            txt_path = tmp_path / "source.txt"
+            rule_table_path = tmp_path / "rule_table.json"
+            txt_path.write_text(
+                "\n".join(
+                    [
+                        "业务资源类数据：在具体业务处理过程中产生、使用和存储的数据。",
+                        "表B.1 业务资源数据分类分级表",
+                        "1公共卫生",
+                        "01疾病控制",
+                        "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+                        "002疾病监测 发病报告，病例信息 原始数据 个人 严重危害 一般数据3级",
+                        "影响程度：严重危害是指数据泄露后可能影响个人权益。",
+                    ]
+                ),
+                encoding="utf-8",
+            )
+            rule_table_path.write_text(
+                json.dumps(
+                    {
+                        "classification_rows": [
+                            {
+                                "row_id": "row_1",
+                                "path_levels": ["1公共卫生", "01疾病控制", "001传染病动态监测"],
+                                "description": "疫源地消毒情况，机构消毒情况",
+                                "data_range_examples": ["疫源地消毒情况，机构消毒情况"],
+                                "recommended_grade": "一般数据3级",
+                            }
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                encoding="utf-8",
+            )
+
+            def fake_generate(_llm_client, rows, batch_size=20):
+                self.assertEqual(batch_size, 2)
+                self.assertEqual(rows[0]["row_id"], "row_1")
+                self.assertTrue(rows[0]["context_pack"]["primary_contexts"])
+                self.assertTrue(rows[0]["retrieved_contexts"])
+                self.assertIn("传染病动态监测", rows[0]["retrieved_contexts"][0]["text"])
+                self.assertNotIn("影响程度", rows[0]["retrieved_contexts"][0]["text"])
+                return (
+                    [
+                        {
+                            "row_id": "row_1",
+                            "proposed_description": "公共卫生领域用于传染病动态监测相关业务的数据分类项。",
+                            "description_source": "summarized",
+                            "description_evidence_quote": "001传染病动态监测",
+                            "needs_review": True,
+                            "review_reason": "基于检索上下文总结生成，需要人工确认。",
+                        }
+                    ],
+                    "raw",
+                )
+
+            with patch(
+                "scripts.description_context_index_poc.generate_description_candidates_batched",
+                side_effect=fake_generate,
+            ):
+                report = build_description_context_index_report(
+                    txt_path=txt_path,
+                    rule_table_path=rule_table_path,
+                    limit=1,
+                    generate=True,
+                    llm_client=object(),
+                    generation_batch_size=2,
+                )
+
+            self.assertEqual(report["generation"]["status"], "success")
+            self.assertEqual(report["generation"]["candidate_count"], 1)
+            self.assertEqual(report["generation"]["batch_size"], 2)
+            self.assertEqual(report["rows"][0]["generated_description"]["description_source"], "summarized")
+            self.assertEqual(report["generation_quality_summary"]["source_counts"]["summarized"], 1)
 
 
 if __name__ == "__main__":
