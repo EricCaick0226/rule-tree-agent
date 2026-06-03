@@ -19,6 +19,8 @@ GRADE_OR_RISK_PATTERNS = [
 DEFINITION_RE = re.compile(r"^(?:[a-z]\)\s*)?[^\s：:]{2,30}(?:类数据|数据|分类)[：:].+", re.IGNORECASE)
 PARENT_HEADING_RE = re.compile(r"^\s*\d{1,2}\S{1,30}\s*$")
 CHILD_HEADING_RE = re.compile(r"^\s*\d{2}\S{1,30}\s*$")
+ITEM_CODE_RE = re.compile(r"(?:^|\s)(\d{3,4})(?=[^\d\-—－])")
+RESOURCE_TYPE_TERMS = ["基础资源", "业务资源", "主题资源"]
 
 
 def _string_list(value: object) -> list[str]:
@@ -36,7 +38,7 @@ def _contains_description_signal(text: str) -> bool:
 
 
 def _looks_like_table_item_row(line: str) -> bool:
-    return bool(re.match(r"^\s*\d{3}(?!\d)\S+", str(line or "").strip()))
+    return _find_item_code_match(line) is not None
 
 
 def _context_unit(
@@ -63,8 +65,63 @@ def _context_unit(
 
 
 def _row_code(line: str) -> str:
-    match = re.match(r"^\s*(\d{3})", line)
+    match = _find_item_code_match(line)
     return match.group(1) if match else ""
+
+
+def _find_item_code_match(line: str) -> re.Match[str] | None:
+    text = str(line or "").strip()
+    for match in ITEM_CODE_RE.finditer(text):
+        code = match.group(1)
+        if code.startswith(("19", "20")):
+            continue
+        return match
+    return None
+
+
+def _split_code_and_name(value: str) -> tuple[str, str]:
+    match = re.match(r"^\s*(\d{3,4})(?=[^\d\-—－])(.+)$", str(value or "").strip())
+    if not match:
+        return "", str(value or "").strip()
+    return match.group(1), match.group(2).strip(" “\"")
+
+
+def _inline_path_and_row_text(line: str, parent_path: list[str]) -> tuple[list[str], str]:
+    match = _find_item_code_match(line)
+    if not match:
+        return parent_path, line
+    prefix = line[: match.start()].strip()
+    row_text = line[match.start() :].strip()
+    if not prefix:
+        return parent_path, row_text
+
+    parts = prefix.split()
+    if len(parts) >= 2 and PARENT_HEADING_RE.match(parts[-2]) and CHILD_HEADING_RE.match(parts[-1]):
+        return [parts[-2], parts[-1]], row_text
+    if len(parts) == 1 and CHILD_HEADING_RE.match(parts[0]) and parent_path:
+        return [*parent_path[:1], parts[0]], row_text
+    if len(parts) == 1 and PARENT_HEADING_RE.match(parts[0]):
+        return [parts[0]], row_text
+    return parent_path, row_text
+
+
+def _resource_type_terms(row: dict[str, Any]) -> list[str]:
+    values = [
+        row.get("resource_type"),
+        row.get("_context_table_title"),
+        row.get("table_title"),
+    ]
+    values.extend(_string_list(row.get("path_levels")))
+    joined = " ".join(str(value or "") for value in values)
+    return [term for term in RESOURCE_TYPE_TERMS if term in joined]
+
+
+def _is_process_definition(text: str) -> bool:
+    return bool(re.search(r"实施数据分类|开展数据分类工作|按照第\d+章", text))
+
+
+def _is_resource_type_definition(text: str) -> bool:
+    return any(f"{term}类数据" in text for term in RESOURCE_TYPE_TERMS)
 
 
 def build_description_context_index(text: str) -> list[dict[str, Any]]:
@@ -111,15 +168,9 @@ def build_description_context_index(text: str) -> list[dict[str, Any]]:
             flush_sibling_group()
             units.append(_context_unit("definition_unit", line, line_number, line_number, table_title=table_title))
             continue
-        if re.match(r"^\s*\d{1,2}\S+", line) and not _looks_like_table_item_row(line):
-            flush_sibling_group()
-            if PARENT_HEADING_RE.match(line):
-                parent_path = [line]
-            elif CHILD_HEADING_RE.match(line):
-                parent_path = [*parent_path[:1], line]
-            continue
         if _looks_like_table_item_row(line):
-            row_lines = [line]
+            parent_path, row_start = _inline_path_and_row_text(line, parent_path)
+            row_lines = [row_start]
             line_end = line_number
             while index < len(lines):
                 next_line = lines[index].strip()
@@ -128,7 +179,8 @@ def build_description_context_index(text: str) -> list[dict[str, Any]]:
                     or next_line.startswith("表")
                     or DEFINITION_RE.match(next_line)
                     or _looks_like_table_item_row(next_line)
-                    or re.match(r"^\s*\d{1,2}\S+", next_line)
+                    or PARENT_HEADING_RE.match(next_line)
+                    or CHILD_HEADING_RE.match(next_line)
                     or _contains_grade_or_risk(next_line) and next_line.startswith("影响程度")
                 ):
                     break
@@ -136,7 +188,7 @@ def build_description_context_index(text: str) -> list[dict[str, Any]]:
                 line_end = index + 1
                 index += 1
             row_text = "\n".join(row_lines)
-            path_hint = [*parent_path, line.split()[0]]
+            path_hint = [*parent_path, row_start.split()[0]]
             units.append(
                 _context_unit(
                     "table_row_unit",
@@ -148,6 +200,13 @@ def build_description_context_index(text: str) -> list[dict[str, Any]]:
                 )
             )
             row_buffer.append((line_number, row_text, path_hint))
+            continue
+        if re.match(r"^\s*\d{1,2}\S+", line):
+            flush_sibling_group()
+            if CHILD_HEADING_RE.match(line) and parent_path:
+                parent_path = [*parent_path[:1], line]
+            elif PARENT_HEADING_RE.match(line):
+                parent_path = [line]
             continue
         if _contains_grade_or_risk(line):
             flush_sibling_group()
@@ -180,8 +239,13 @@ def _score_unit(unit: dict[str, Any], row: dict[str, Any]) -> int:
     score = 0
     path_levels = _string_list(row.get("path_levels"))
     leaf = path_levels[-1] if path_levels else ""
-    if leaf and (_clean_text(leaf) in compact_text or _row_code(leaf) in compact_text):
-        score += 20
+    leaf_code, leaf_name = _split_code_and_name(leaf)
+    if leaf and _clean_text(leaf) in compact_text:
+        score += 80
+    if leaf_name and _clean_text(leaf_name) in compact_text:
+        score += 60
+    if leaf_code and leaf_code == _row_code(text):
+        score += 10
     for term in _query_terms(row):
         compact_term = _clean_text(term)
         if compact_term and compact_term in compact_text:
@@ -190,6 +254,13 @@ def _score_unit(unit: dict[str, Any], row: dict[str, Any]) -> int:
         score += 6
     elif unit.get("kind") == "definition_unit":
         score += 3
+        if _is_resource_type_definition(text):
+            score += 8
+        if _is_process_definition(text):
+            score -= 20
+        for term in _resource_type_terms(row):
+            if f"{term}类数据" in text or term in text:
+                score += 40
     elif unit.get("kind") == "sibling_group_unit":
         score += 4
     return score
@@ -220,7 +291,10 @@ def retrieve_description_context_pack(
         if unit.get("kind") == "negative_unit"
     ]
     primary = [unit for unit in _ranked_units(units, row) if unit.get("kind") == "table_row_unit"]
-    definitions = _ranked_units(units, row, kind="definition_unit")
+    definition_row = dict(row)
+    if primary:
+        definition_row["_context_table_title"] = primary[0].get("table_title", "")
+    definitions = _ranked_units(units, definition_row, kind="definition_unit")
     siblings = _ranked_units(units, row, kind="sibling_group_unit")
     warnings = []
     if excluded:

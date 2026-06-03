@@ -104,6 +104,75 @@ class DescriptionContextIndexTests(unittest.TestCase):
         self.assertNotIn("02健康人", table_rows[1]["text"])
         self.assertIn("001个人信息", table_rows[2]["text"])
 
+    def test_primary_ranking_prefers_leaf_name_over_code_only_match(self) -> None:
+        text = "\n".join(
+            [
+                "表B.1 分类分级表",
+                "3法律法规",
+                "01法律法规",
+                "001地方性法规 地方性法规文本 原始数据 无 无 一般数据1级",
+                "02标准规范 001地方标准",
+                "为满足地方自然条件、风俗习惯等特殊技术要求，可以制定地方标准",
+                "原始数据 无 无 一般数据1级",
+            ]
+        )
+        row = {
+            "path_levels": ["3法律法规", "02标准规范", "001地方标准"],
+        }
+
+        pack = retrieve_description_context_pack(row, build_description_context_index(text), top_k=5)
+
+        self.assertTrue(pack["primary_contexts"])
+        self.assertIn("001地方标准", pack["primary_contexts"][0]["text"])
+        self.assertNotIn("001地方性法规", pack["primary_contexts"][0]["text"])
+        self.assertEqual(pack["primary_contexts"][0]["path_hint"], ["3法律法规", "02标准规范", "001地方标准"])
+
+    def test_primary_ranking_handles_four_digit_leaf_codes_from_txt(self) -> None:
+        text = "\n".join(
+            [
+                "表B.2 业务资源数据分类分级表",
+                "1公共卫生",
+                "02医疗服务",
+                "014电生理信息管理 医生信息，用户信息 原始数据 组织 严重危害 一般数据3级",
+                "03妇幼保健",
+                "0145岁以下儿童死亡报告",
+                "5岁以下儿童死亡报告卡，死亡调查记录 原始数据 个人 特别严重危害 一般数据4级",
+            ]
+        )
+        row = {
+            "path_levels": ["1公共卫生", "03妇幼保健", "0145岁以下儿童死亡报告"],
+        }
+
+        pack = retrieve_description_context_pack(row, build_description_context_index(text), top_k=5)
+
+        self.assertTrue(pack["primary_contexts"])
+        self.assertIn("0145岁以下儿童死亡报告", pack["primary_contexts"][0]["text"])
+        self.assertNotIn("014电生理信息管理", pack["primary_contexts"][0]["text"])
+
+    def test_definition_ranking_prefers_resource_type_definition_over_process_sentence(self) -> None:
+        text = "\n".join(
+            [
+                "c) 实施数据分类：按照第6章开展数据分类工作；",
+                "a) 基础资源类数据：信息资源中最基础的数据。",
+                "b) 业务资源类数据：在具体业务处理过程中产生、使用和存储的数据。",
+                "c) 主题资源类数据：围绕特定主题形成的数据。",
+                "表B.1 业务资源数据分类分级表",
+                "1公共卫生",
+                "01疾病控制",
+                "001传染病动态监测 疫源地消毒情况 原始数据 组织 严重危害 一般数据3级",
+            ]
+        )
+        row = {
+            "path_levels": ["1公共卫生", "01疾病控制", "001传染病动态监测"],
+            "resource_type": "业务资源",
+        }
+
+        pack = retrieve_description_context_pack(row, build_description_context_index(text), top_k=5)
+
+        self.assertTrue(pack["definition_contexts"])
+        self.assertIn("业务资源类数据", pack["definition_contexts"][0]["text"])
+        self.assertNotIn("实施数据分类", pack["definition_contexts"][0]["text"])
+
 
 if __name__ == "__main__":
     unittest.main()
