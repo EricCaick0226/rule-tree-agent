@@ -192,6 +192,8 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("分类说明只解释分类项是什么", prompt)
         self.assertIn("不要写影响程度", prompt)
         self.assertIn("不要写危害后果", prompt)
+        self.assertIn("优先改写原文中的分类名和数据范围", prompt)
+        self.assertIn("不要把“原始数据/统计数据”等表字段作为说明主体", prompt)
 
     def test_enhancement_step_is_disabled_by_default(self) -> None:
         state = AgentState(
