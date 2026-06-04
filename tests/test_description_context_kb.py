@@ -1,4 +1,7 @@
+import json
+import tempfile
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from src.core.agent_state import AgentState, ClassificationRow, SourceDocument
@@ -280,6 +283,80 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertTrue(row.evidence_refs)
         self.assertIn("基于检索上下文总结生成", row.review_reason)
         self.assertEqual(state.step_traces[-1].status, "success")
+
+    def test_enhancement_step_can_use_v2_context_pack(self) -> None:
+        source_text = "\n".join(
+            [
+                "业务资源类数据：围绕卫生健康业务活动产生和使用的数据。",
+                "表B.1 业务资源数据分类分级表",
+                "1公共卫生",
+                "01疾病控制",
+                "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+                "影响程度：泄露后可能造成严重危害。",
+            ]
+        )
+        state = AgentState(
+            task="test",
+            documents=[SourceDocument("doc_1", "source.txt", "source.txt", source_text)],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["1公共卫生", "01疾病控制", "001传染病动态监测"],
+                    description="疫源地消毒情况，机构消毒情况",
+                    data_range_examples=["疫源地消毒情况，机构消毒情况"],
+                    processing_degree="统计数据",
+                    impact_object="组织",
+                    impact_degree="严重危害",
+                    recommended_grade="一般数据3级",
+                )
+            ],
+        )
+
+        def fake_generate(_llm_client, rows, batch_size=20):
+            self.assertEqual(batch_size, 2)
+            self.assertEqual(rows[0]["row_id"], "row_1")
+            self.assertIn("context_pack", rows[0])
+            self.assertTrue(rows[0]["retrieved_contexts"])
+            self.assertIn("001传染病动态监测", rows[0]["retrieved_contexts"][0]["text"])
+            self.assertTrue(rows[0]["context_pack"]["excluded_contexts"])
+            retrieved_text = "\n".join(context["text"] for context in rows[0]["retrieved_contexts"])
+            self.assertNotIn("泄露后可能造成严重危害", retrieved_text)
+            return (
+                [
+                    {
+                        "row_id": "row_1",
+                        "proposed_description": "疾病控制中传染病动态监测相关消毒情况的数据分类项。",
+                        "description_source": "summarized",
+                        "description_evidence_quote": "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+                        "needs_review": True,
+                        "review_reason": "基于检索上下文总结生成，需要人工确认。",
+                    }
+                ],
+                "raw",
+            )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch.dict(
+                "os.environ",
+                {
+                    "DESCRIPTION_CONTEXT_ENABLED": "true",
+                    "DESCRIPTION_CONTEXT_MODE": "v2",
+                    "DESCRIPTION_CONTEXT_LIMIT": "5",
+                    "DESCRIPTION_CONTEXT_BATCH_SIZE": "2",
+                },
+            ):
+                with patch(
+                    "src.steps.description_context_kb.generate_description_candidates_batched",
+                    side_effect=fake_generate,
+                ):
+                    result = enhance_descriptions_with_context(state, object(), output_dir=tmpdir)
+
+            report = json.loads((Path(tmpdir) / "description_context_report.json").read_text(encoding="utf-8"))
+
+        self.assertEqual(result.classification_rows[0].description_source, "summarized")
+        self.assertEqual(report["context_mode"], "v2")
+        self.assertEqual(report["rows"][0]["context_pack"]["retrieval_warnings"], ["excluded_grade_or_risk_context"])
+        self.assertEqual(state.step_traces[-1].input_summary["context_mode"], "v2")
 
 
 if __name__ == "__main__":

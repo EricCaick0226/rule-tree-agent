@@ -8,6 +8,7 @@ from typing import Any
 
 from ..core.agent_state import AgentState, EvidenceRef
 from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
+from .description_context_index import build_description_context_index, retrieve_description_context_pack
 
 
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
@@ -30,6 +31,12 @@ def _env_bool(name: str, default: bool = False) -> bool:
     if value is None:
         return default
     return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _env_context_mode() -> str:
+    _load_dotenv_if_available()
+    mode = os.getenv("DESCRIPTION_CONTEXT_MODE", "v1").strip().lower()
+    return mode if mode in {"v1", "v2"} else "v1"
 
 
 def _clean_text(value: object) -> str:
@@ -181,6 +188,27 @@ def retrieve_contexts(
     return scored[: max(0, int(top_k or 0))]
 
 
+def _flatten_context_pack(context_pack: dict[str, Any]) -> list[dict[str, Any]]:
+    contexts: list[dict[str, Any]] = []
+    for group in ["primary_contexts", "definition_contexts", "sibling_contexts"]:
+        for context in context_pack.get(group) or []:
+            if not isinstance(context, dict):
+                continue
+            contexts.append(
+                {
+                    "unit_id": context.get("unit_id", ""),
+                    "kind": context.get("kind", ""),
+                    "context_group": group,
+                    "line_start": context.get("line_start"),
+                    "line_end": context.get("line_end"),
+                    "score": context.get("score", 0),
+                    "matched_terms": context.get("matched_terms", []),
+                    "text": context.get("text", ""),
+                }
+            )
+    return contexts
+
+
 def _generation_payload(rows: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "task": "基于检索上下文为弱分类说明生成候选说明。",
@@ -324,6 +352,37 @@ def _row_to_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | Non
     }
 
 
+def _row_to_v2_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | None:
+    flags = flag_description_quality(
+        {
+            "path_levels": row.path_levels,
+            "description": row.description,
+            "data_range_examples": row.data_range_examples,
+        }
+    )
+    if not flags:
+        return None
+    row_dict = {
+        "path_levels": row.path_levels,
+        "data_range_examples": row.data_range_examples,
+        "processing_degree": row.processing_degree,
+        "impact_object": row.impact_object,
+        "impact_degree": row.impact_degree,
+        "recommended_grade": row.recommended_grade,
+    }
+    context_pack = retrieve_description_context_pack(row_dict, units, top_k=5)
+    return {
+        "row_id": row.row_id,
+        "path": " / ".join(row.path_levels),
+        "current_description": row.description,
+        "data_range_examples": row.data_range_examples,
+        "description_quality_flags": flags,
+        "query_terms": build_row_query_terms(row_dict),
+        "context_pack": context_pack,
+        "retrieved_contexts": _flatten_context_pack(context_pack),
+    }
+
+
 def _row_priority(row) -> tuple[int, int, int]:
     return (
         1 if row.recommended_grade else 0,
@@ -387,6 +446,7 @@ def enhance_descriptions_with_context(
 ) -> AgentState:
     _load_dotenv_if_available()
     enabled = _env_bool("DESCRIPTION_CONTEXT_ENABLED", False)
+    context_mode = _env_context_mode()
     limit = env_int("DESCRIPTION_CONTEXT_LIMIT", 20)
     batch_size = env_int("DESCRIPTION_CONTEXT_BATCH_SIZE", 20)
 
@@ -396,15 +456,20 @@ def enhance_descriptions_with_context(
             "enhance_descriptions_with_context",
             "skipped",
             "Description context enhancement is disabled.",
-            {"enabled": False},
+            {"enabled": False, "context_mode": context_mode},
             {"enhanced_rows": 0},
         )
         return state
 
-    units = build_context_units(_state_text(state), window_lines=3)
+    source_text = _state_text(state)
+    units = (
+        build_description_context_index(source_text)
+        if context_mode == "v2"
+        else build_context_units(source_text, window_lines=3)
+    )
     candidates: list[tuple[tuple[int, int, int], Any, dict[str, Any]]] = []
     for row in state.classification_rows:
-        report_row = _row_to_report_row(row, units)
+        report_row = _row_to_v2_report_row(row, units) if context_mode == "v2" else _row_to_report_row(row, units)
         if report_row is not None:
             candidates.append((_row_priority(row), row, report_row))
 
@@ -413,6 +478,7 @@ def enhance_descriptions_with_context(
     report_rows = [report_row for _priority, _row, report_row in selected]
     report: dict[str, Any] = {
         "enabled": True,
+        "context_mode": context_mode,
         "total_row_count": len(state.classification_rows),
         "context_unit_count": len(units),
         "sampled_row_count": len(report_rows),
@@ -427,7 +493,7 @@ def enhance_descriptions_with_context(
             "enhance_descriptions_with_context",
             "success",
             "No weak descriptions found.",
-            {"enabled": True, "limit": limit, "context_units": len(units)},
+            {"enabled": True, "context_mode": context_mode, "limit": limit, "context_units": len(units)},
             {"enhanced_rows": 0, "report_path": report_path},
         )
         return state
@@ -453,6 +519,7 @@ def enhance_descriptions_with_context(
             str(exc),
             {
                 "enabled": True,
+                "context_mode": context_mode,
                 "limit": limit,
                 "batch_size": batch_size,
                 "context_units": len(units),
@@ -518,6 +585,7 @@ def enhance_descriptions_with_context(
         "",
         {
             "enabled": True,
+            "context_mode": context_mode,
             "limit": limit,
             "batch_size": batch_size,
             "context_units": len(units),

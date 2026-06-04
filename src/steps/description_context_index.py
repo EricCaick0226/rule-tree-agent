@@ -3,8 +3,6 @@ from __future__ import annotations
 import re
 from typing import Any
 
-from .description_context_kb import _clean_text
-
 
 GRADE_OR_RISK_PATTERNS = [
     re.compile(r"影响程度"),
@@ -21,6 +19,10 @@ PARENT_HEADING_RE = re.compile(r"^\s*\d{1,2}\S{1,30}\s*$")
 CHILD_HEADING_RE = re.compile(r"^\s*\d{2}\S{1,30}\s*$")
 ITEM_CODE_RE = re.compile(r"(?:^|\s)(\d{3,4})(?=[^\d\-—－])")
 RESOURCE_TYPE_TERMS = ["基础资源", "业务资源", "主题资源"]
+
+
+def _clean_text(value: object) -> str:
+    return re.sub(r"\s+", "", str(value or "").strip())
 
 
 def _string_list(value: object) -> list[str]:
