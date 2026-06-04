@@ -65,6 +65,39 @@ class DescriptionContextIndexTests(unittest.TestCase):
         self.assertIn("影响程度", pack["excluded_contexts"][0]["text"])
         self.assertIn("excluded_grade_or_risk_context", pack["retrieval_warnings"])
 
+    def test_context_pack_includes_row_evidence_pack_with_clean_sources(self) -> None:
+        text = "\n".join(
+            [
+                "业务资源类数据：在具体业务处理过程中产生、使用和存储的数据。",
+                "表B.1 业务资源数据分类分级表",
+                "1公共卫生",
+                "01疾病控制",
+                "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+            ]
+        )
+        row = {
+            "path_levels": ["1公共卫生", "01疾病控制", "001传染病动态监测"],
+            "data_range_examples": ["疫源地消毒情况，机构消毒情况"],
+            "processing_degree": "统计数据",
+            "impact_object": "组织",
+            "impact_degree": "严重危害",
+            "recommended_grade": "一般数据3级",
+        }
+
+        pack = retrieve_description_context_pack(row, build_description_context_index(text), top_k=5)
+        evidence_pack = pack["row_evidence_pack"]
+
+        description_text = "\n".join(source["text"] for source in evidence_pack["description_sources"])
+        grading_text = "\n".join(source["text"] for source in evidence_pack["grading_sources"])
+        excluded_text = "\n".join(source["text"] for source in evidence_pack["excluded_sources"])
+
+        self.assertIn("001传染病动态监测", description_text)
+        self.assertIn("疫源地消毒情况，机构消毒情况", description_text)
+        self.assertNotIn("一般数据3级", description_text)
+        self.assertIn("统计数据", grading_text)
+        self.assertIn("严重危害", grading_text)
+        self.assertIn("一般数据3级", excluded_text)
+
     def test_ignores_dates_as_table_rows_and_detects_bulleted_definitions(self) -> None:
         text = "\n".join(
             [

@@ -3,17 +3,12 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from ..io.data_classification_profile import (
+    build_description_query_terms,
+    build_row_evidence_pack,
+    contains_grade_or_risk,
+)
 
-GRADE_OR_RISK_PATTERNS = [
-    re.compile(r"影响程度"),
-    re.compile(r"数据级别"),
-    re.compile(r"一般数据\d级"),
-    re.compile(r"重要数据"),
-    re.compile(r"核心数据"),
-    re.compile(r"严重危害"),
-    re.compile(r"特别严重危害"),
-    re.compile(r"泄露后"),
-]
 DEFINITION_RE = re.compile(r"^(?:[a-z]\)\s*)?[^\s：:]{2,30}(?:类数据|数据|分类)[：:].+", re.IGNORECASE)
 PARENT_HEADING_RE = re.compile(r"^\s*\d{1,2}\S{1,30}\s*$")
 CHILD_HEADING_RE = re.compile(r"^\s*\d{2}\S{1,30}\s*$")
@@ -32,7 +27,7 @@ def _string_list(value: object) -> list[str]:
 
 
 def _contains_grade_or_risk(text: str) -> bool:
-    return any(pattern.search(text) for pattern in GRADE_OR_RISK_PATTERNS)
+    return contains_grade_or_risk(text)
 
 
 def _contains_description_signal(text: str) -> bool:
@@ -219,20 +214,7 @@ def build_description_context_index(text: str) -> list[dict[str, Any]]:
 
 
 def _query_terms(row: dict[str, Any]) -> list[str]:
-    terms: list[str] = []
-
-    def add(value: object) -> None:
-        text = str(value or "").strip()
-        if text and text not in terms:
-            terms.append(text)
-
-    for level in _string_list(row.get("path_levels")):
-        add(level)
-    for example in _string_list(row.get("data_range_examples")):
-        add(example)
-    add(row.get("processing_degree"))
-    add(row.get("impact_object"))
-    return terms
+    return build_description_query_terms(row)
 
 
 def _score_unit(unit: dict[str, Any], row: dict[str, Any]) -> int:
@@ -304,10 +286,12 @@ def retrieve_description_context_pack(
     if not primary:
         warnings.append("missing_primary_table_row")
 
-    return {
+    context_pack = {
         "primary_contexts": primary[:top_k],
         "definition_contexts": definitions[:2],
         "sibling_contexts": siblings[:2],
         "excluded_contexts": excluded[:top_k],
         "retrieval_warnings": warnings,
     }
+    context_pack["row_evidence_pack"] = build_row_evidence_pack(row, context_pack)
+    return context_pack
