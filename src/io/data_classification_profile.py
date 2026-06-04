@@ -123,3 +123,151 @@ def build_description_query_terms(row: dict[str, Any]) -> list[str]:
     for example in string_list(row.get("data_range_examples")):
         add(example)
     return terms
+
+
+def _context_source(context: dict[str, Any], role: str, reason: str) -> dict[str, Any]:
+    return EvidenceSource(
+        source_type=str(context.get("kind") or "context"),
+        text=str(context.get("text") or "").strip(),
+        role=role,
+        unit_id=str(context.get("unit_id") or ""),
+        line_start=context.get("line_start"),
+        line_end=context.get("line_end"),
+        score=int(context.get("score") or 0),
+        reason=reason,
+        metadata={
+            "context_group": context.get("context_group", ""),
+            "table_title": context.get("table_title", ""),
+            "path_hint": context.get("path_hint", []),
+        },
+    ).to_dict()
+
+
+def _row_source(source_type: str, value: object, role: str, reason: str) -> dict[str, Any] | None:
+    text = str(value or "").strip()
+    if not text:
+        return None
+    return EvidenceSource(source_type=source_type, text=text, role=role, reason=reason).to_dict()
+
+
+def _append_if_present(target: list[dict[str, Any]], source: dict[str, Any] | None) -> None:
+    if source and source.get("text"):
+        target.append(source)
+
+
+def _dedupe_sources(sources: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    seen: set[tuple[str, str, str]] = set()
+    for source in sources:
+        key = (
+            str(source.get("source_type") or ""),
+            clean_text(source.get("text")),
+            str(source.get("role") or ""),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(source)
+    return result
+
+
+def build_row_evidence_pack(row: dict[str, Any], context_pack: dict[str, Any]) -> dict[str, Any]:
+    description_sources: list[dict[str, Any]] = []
+    grading_sources: list[dict[str, Any]] = []
+    excluded_sources: list[dict[str, Any]] = []
+
+    for level in string_list(row.get("path_levels")):
+        _append_if_present(
+            description_sources,
+            _row_source("row_field", level, ROLE_CLASSIFICATION_PATH, "classification path level"),
+        )
+    for example in string_list(row.get("data_range_examples")):
+        _append_if_present(
+            description_sources,
+            _row_source("row_field", example, ROLE_DESCRIPTION_EVIDENCE, "data range/example"),
+        )
+
+    for field_name in ["processing_degree", "impact_object", "impact_degree"]:
+        _append_if_present(
+            grading_sources,
+            _row_source("row_field", row.get(field_name), ROLE_GRADING_FACTOR, field_name),
+        )
+    _append_if_present(
+        grading_sources,
+        _row_source("row_field", row.get("recommended_grade"), ROLE_GRADE_RESULT, "recommended grade"),
+    )
+
+    for context in context_pack.get("primary_contexts") or []:
+        text = str(context.get("text") or "")
+        if contains_grade_or_risk(text):
+            compact_text = clean_text(text)
+            path_hits = [
+                level
+                for level in string_list(row.get("path_levels"))
+                if clean_text(level) and clean_text(level) in compact_text
+            ]
+            example_hits = [
+                example
+                for example in string_list(row.get("data_range_examples"))
+                if clean_text(example) and clean_text(example) in compact_text
+            ]
+            for item in path_hits:
+                _append_if_present(
+                    description_sources,
+                    _row_source("context_excerpt", item, ROLE_CLASSIFICATION_PATH, "path excerpt from primary row"),
+                )
+            for item in example_hits:
+                _append_if_present(
+                    description_sources,
+                    _row_source("context_excerpt", item, ROLE_DESCRIPTION_EVIDENCE, "example excerpt from primary row"),
+                )
+            _append_if_present(
+                excluded_sources,
+                _context_source(context, ROLE_METADATA_OR_UNKNOWN, "primary row contains grading or risk text"),
+            )
+            continue
+        _append_if_present(
+            description_sources,
+            _context_source(context, ROLE_DESCRIPTION_EVIDENCE, "primary row context"),
+        )
+
+    for context in context_pack.get("definition_contexts") or []:
+        if contains_grade_or_risk(str(context.get("text") or "")):
+            _append_if_present(
+                excluded_sources,
+                _context_source(context, ROLE_METADATA_OR_UNKNOWN, "definition context contains risk text"),
+            )
+            continue
+        _append_if_present(
+            description_sources,
+            _context_source(context, ROLE_DESCRIPTION_EVIDENCE, "definition context"),
+        )
+
+    for context in context_pack.get("sibling_contexts") or []:
+        if contains_grade_or_risk(str(context.get("text") or "")):
+            _append_if_present(
+                excluded_sources,
+                _context_source(context, ROLE_METADATA_OR_UNKNOWN, "sibling context contains grading or risk text"),
+            )
+            continue
+        _append_if_present(
+            description_sources,
+            _context_source(context, ROLE_DESCRIPTION_EVIDENCE, "sibling context"),
+        )
+
+    for context in context_pack.get("excluded_contexts") or []:
+        _append_if_present(
+            excluded_sources,
+            _context_source(context, ROLE_METADATA_OR_UNKNOWN, "excluded by retrieval"),
+        )
+
+    warnings = list(context_pack.get("retrieval_warnings") or [])
+    if not description_sources:
+        warnings.append("missing_description_sources")
+
+    return {
+        "description_sources": _dedupe_sources(description_sources),
+        "grading_sources": _dedupe_sources(grading_sources),
+        "excluded_sources": _dedupe_sources(excluded_sources),
+        "warnings": list(dict.fromkeys(warnings)),
+    }
