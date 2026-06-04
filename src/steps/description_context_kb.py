@@ -193,23 +193,53 @@ def _flatten_context_pack(context_pack: dict[str, Any]) -> list[dict[str, Any]]:
     evidence_pack = context_pack.get("row_evidence_pack") or {}
     description_sources = evidence_pack.get("description_sources") or []
     if description_sources:
-        contexts: list[dict[str, Any]] = []
-        for source in description_sources:
-            if not isinstance(source, dict):
-                continue
-            contexts.append(
-                {
-                    "unit_id": source.get("unit_id", ""),
-                    "kind": source.get("source_type", ""),
-                    "context_group": "description_sources",
-                    "line_start": source.get("line_start"),
-                    "line_end": source.get("line_end"),
-                    "score": source.get("score", 0),
-                    "matched_terms": [],
-                    "text": source.get("text", ""),
-                }
-            )
-        return contexts[:5]
+        sources = [source for source in description_sources if isinstance(source, dict)]
+
+        def to_context(source: dict[str, Any]) -> dict[str, Any]:
+            return {
+                "unit_id": source.get("unit_id", ""),
+                "kind": source.get("source_type", ""),
+                "context_group": "description_sources",
+                "line_start": source.get("line_start"),
+                "line_end": source.get("line_end"),
+                "score": source.get("score", 0),
+                "matched_terms": [],
+                "text": source.get("text", ""),
+            }
+
+        def add_source(target: list[dict[str, Any]], source: dict[str, Any] | None) -> None:
+            if not source or not source.get("text"):
+                return
+            text_key = _clean_text(source.get("text"))
+            if any(_clean_text(item.get("text")) == text_key for item in target):
+                return
+            target.append(to_context(source))
+
+        row_paths = [
+            source
+            for source in sources
+            if source.get("source_type") == "row_field" and source.get("role") == "classification_path"
+        ]
+        row_descriptions = [
+            source
+            for source in sources
+            if source.get("source_type") == "row_field" and source.get("role") == "description_evidence"
+        ]
+        definitions = [source for source in sources if source.get("source_type") == "definition_unit"]
+        selected: list[dict[str, Any]] = []
+
+        if row_paths:
+            add_source(selected, row_paths[0])
+            add_source(selected, row_paths[-1])
+        if row_descriptions:
+            add_source(selected, row_descriptions[0])
+        if definitions:
+            add_source(selected, definitions[0])
+        for source in sources:
+            if len(selected) >= 5:
+                break
+            add_source(selected, source)
+        return selected[:5]
 
     contexts = []
     for group in ["primary_contexts", "definition_contexts", "sibling_contexts"]:

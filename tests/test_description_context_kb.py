@@ -229,6 +229,7 @@ class DescriptionContextKBTests(unittest.TestCase):
         prompt_text = "\n".join(context["text"] for context in report_row["retrieved_contexts"])
         self.assertIn("001传染病动态监测", prompt_text)
         self.assertIn("疫源地消毒情况，机构消毒情况", prompt_text)
+        self.assertIn("业务资源类数据", prompt_text)
         self.assertNotIn("一般数据3级", prompt_text)
         self.assertNotIn("影响程度：严重危害", prompt_text)
         self.assertIn("row_evidence_pack", report_row["context_pack"])
