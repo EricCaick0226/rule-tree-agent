@@ -198,6 +198,42 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("优先改写原文中的分类名和数据范围", prompt)
         self.assertIn("不要把“原始数据/统计数据”等表字段作为说明主体", prompt)
 
+    def test_v2_report_row_uses_description_sources_for_retrieved_contexts(self) -> None:
+        from types import SimpleNamespace
+
+        from src.steps.description_context_index import build_description_context_index
+        from src.steps.description_context_kb import _row_to_v2_report_row
+
+        row = SimpleNamespace(
+            row_id="row_1",
+            path_levels=["1公共卫生", "01疾病控制", "001传染病动态监测"],
+            description="001传染病动态监测",
+            data_range_examples=["疫源地消毒情况，机构消毒情况"],
+            processing_degree="统计数据",
+            impact_object="组织",
+            impact_degree="严重危害",
+            recommended_grade="一般数据3级",
+        )
+        text = "\n".join(
+            [
+                "业务资源类数据：在具体业务处理过程中产生、使用和存储的数据。",
+                "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+                "影响程度：严重危害是指数据泄露后可能影响个人权益。",
+            ]
+        )
+
+        report_row = _row_to_v2_report_row(row, build_description_context_index(text))
+
+        self.assertIsNotNone(report_row)
+        assert report_row is not None
+        prompt_text = "\n".join(context["text"] for context in report_row["retrieved_contexts"])
+        self.assertIn("001传染病动态监测", prompt_text)
+        self.assertIn("疫源地消毒情况，机构消毒情况", prompt_text)
+        self.assertNotIn("一般数据3级", prompt_text)
+        self.assertNotIn("影响程度：严重危害", prompt_text)
+        self.assertIn("row_evidence_pack", report_row["context_pack"])
+        self.assertIn("一般数据3级", str(report_row["context_pack"]["row_evidence_pack"]["excluded_sources"]))
+
     def test_enhancement_step_is_disabled_by_default(self) -> None:
         state = AgentState(
             task="test",
@@ -317,9 +353,11 @@ class DescriptionContextKBTests(unittest.TestCase):
             self.assertEqual(rows[0]["row_id"], "row_1")
             self.assertIn("context_pack", rows[0])
             self.assertTrue(rows[0]["retrieved_contexts"])
-            self.assertIn("001传染病动态监测", rows[0]["retrieved_contexts"][0]["text"])
             self.assertTrue(rows[0]["context_pack"]["excluded_contexts"])
             retrieved_text = "\n".join(context["text"] for context in rows[0]["retrieved_contexts"])
+            self.assertIn("001传染病动态监测", retrieved_text)
+            self.assertIn("疫源地消毒情况，机构消毒情况", retrieved_text)
+            self.assertNotIn("一般数据3级", retrieved_text)
             self.assertNotIn("泄露后可能造成严重危害", retrieved_text)
             return (
                 [
@@ -327,7 +365,7 @@ class DescriptionContextKBTests(unittest.TestCase):
                         "row_id": "row_1",
                         "proposed_description": "疾病控制中传染病动态监测相关消毒情况的数据分类项。",
                         "description_source": "summarized",
-                        "description_evidence_quote": "001传染病动态监测 疫源地消毒情况，机构消毒情况 统计数据 组织 严重危害 一般数据3级",
+                        "description_evidence_quote": "疫源地消毒情况，机构消毒情况",
                         "needs_review": True,
                         "review_reason": "基于检索上下文总结生成，需要人工确认。",
                     }

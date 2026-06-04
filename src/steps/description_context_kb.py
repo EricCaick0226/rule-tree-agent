@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 from ..core.agent_state import AgentState, EvidenceRef
+from ..io.data_classification_profile import build_description_query_terms
 from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
 from .description_context_index import build_description_context_index, retrieve_description_context_pack
 
@@ -189,7 +190,28 @@ def retrieve_contexts(
 
 
 def _flatten_context_pack(context_pack: dict[str, Any]) -> list[dict[str, Any]]:
-    contexts: list[dict[str, Any]] = []
+    evidence_pack = context_pack.get("row_evidence_pack") or {}
+    description_sources = evidence_pack.get("description_sources") or []
+    if description_sources:
+        contexts: list[dict[str, Any]] = []
+        for source in description_sources:
+            if not isinstance(source, dict):
+                continue
+            contexts.append(
+                {
+                    "unit_id": source.get("unit_id", ""),
+                    "kind": source.get("source_type", ""),
+                    "context_group": "description_sources",
+                    "line_start": source.get("line_start"),
+                    "line_end": source.get("line_end"),
+                    "score": source.get("score", 0),
+                    "matched_terms": [],
+                    "text": source.get("text", ""),
+                }
+            )
+        return contexts[:5]
+
+    contexts = []
     for group in ["primary_contexts", "definition_contexts", "sibling_contexts"]:
         for context in context_pack.get(group) or []:
             if not isinstance(context, dict):
@@ -377,7 +399,7 @@ def _row_to_v2_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | 
         "current_description": row.description,
         "data_range_examples": row.data_range_examples,
         "description_quality_flags": flags,
-        "query_terms": build_row_query_terms(row_dict),
+        "query_terms": build_description_query_terms(row_dict),
         "context_pack": context_pack,
         "retrieved_contexts": _flatten_context_pack(context_pack),
     }
