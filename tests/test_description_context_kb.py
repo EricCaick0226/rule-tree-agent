@@ -197,6 +197,8 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("不要写危害后果", prompt)
         self.assertIn("优先改写原文中的分类名和数据范围", prompt)
         self.assertIn("不要把“原始数据/统计数据”等表字段作为说明主体", prompt)
+        self.assertIn("不要求必须存在完整定义句", prompt)
+        self.assertIn("只有当分类路径和数据范围都不足以判断", prompt)
 
     def test_v2_report_row_uses_description_sources_for_retrieved_contexts(self) -> None:
         from types import SimpleNamespace
