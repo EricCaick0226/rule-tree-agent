@@ -142,6 +142,41 @@ class RowGroundingValidatorTests(unittest.TestCase):
         issue = next(issue for issue in issues if issue.issue_type == "duplicated_path")
         self.assertEqual(issue.severity, "medium")
 
+    def test_path_level_match_allows_heading_punctuation_variants(self) -> None:
+        doc_text = "C、主题资源\n5其他数据库\n002住院记录摘要"
+        doc = SourceDocument(
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            file_path="sample.txt",
+            raw_text=doc_text,
+            pages=[DocumentPage(page_number=None, text=doc_text)],
+        )
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["C主题资源", "5其他数据库", "002住院记录摘要"],
+            evidence_quote="C、主题资源；5其他数据库；002住院记录摘要",
+            evidence_refs=[
+                _evidence_ref("C、主题资源"),
+                _evidence_ref("5其他数据库"),
+                _evidence_ref("002住院记录摘要"),
+            ],
+            description="证据不足，无法从当前文档确定",
+            description_source="insufficient",
+            support_level="explicit",
+            needs_review=True,
+        )
+        state = AgentState(task="test", documents=[doc], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        path_issues = [
+            issue
+            for issue in issues
+            if issue.issue_type == "hardcoded_or_ungrounded_content"
+            and "分类层级未出现在输入文档中" in issue.problem
+        ]
+        self.assertEqual(path_issues, [])
+
     def test_flags_grade_in_ref_text_but_missing_from_row_quote(self) -> None:
         doc = SourceDocument(
             doc_id="doc_1",

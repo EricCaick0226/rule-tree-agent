@@ -9,6 +9,7 @@ from ..core.agent_state import AgentState, ValidationIssue
 ALLOWED_ROW_SUPPORT_LEVELS = {"explicit", "structural", "weak"}
 ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient"}
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
+LABEL_MATCH_PUNCTUATION = str.maketrans("", "", "、,，.．:：;；-—－_()（）[]【】")
 
 
 def _issue_id(*parts: str) -> str:
@@ -47,10 +48,23 @@ def _normalize_for_match(text: str) -> str:
     return re.sub(r"\s+", "", text or "")
 
 
+def _normalize_label_for_match(text: str) -> str:
+    normalized = _normalize_for_match(text)
+    return normalized.translate(LABEL_MATCH_PUNCTUATION)
+
+
 def _contains_text(container: str, text: str) -> bool:
     if not text:
         return True
     return text in container or _normalize_for_match(text) in _normalize_for_match(container)
+
+
+def _contains_path_level(container: str, level: str) -> bool:
+    if _contains_text(container, level):
+        return True
+    normalized_level = _normalize_label_for_match(level)
+    normalized_container = _normalize_label_for_match(container)
+    return bool(normalized_level and normalized_level in normalized_container)
 
 
 def _contains_evidence_quote(container: str, quote: str) -> bool:
@@ -119,7 +133,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
         seen_paths.add(path)
 
         for level in row.path_levels:
-            if not _contains_text(corpus, level):
+            if not _contains_path_level(corpus, level):
                 _add_issue(
                     issues,
                     "hardcoded_or_ungrounded_content",
