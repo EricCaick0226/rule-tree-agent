@@ -460,7 +460,7 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertEqual(row.description, "证据不足，无法从当前文档确定")
         self.assertEqual(row.description_source, "insufficient")
         self.assertEqual(row.description_evidence_quote, "")
-        self.assertIn("999其他且数据范围为空", row.review_reason)
+        self.assertIn("兜底类目且数据范围为空", row.review_reason)
         self.assertEqual(generated["description_source"], "insufficient")
         self.assertEqual(generated["proposed_description"], "证据不足，无法从当前文档确定")
 

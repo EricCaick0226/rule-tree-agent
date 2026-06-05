@@ -8,6 +8,9 @@ from typing import Any
 
 from ..core.agent_state import AgentState, EvidenceRef
 from ..io.data_classification_profile import build_description_query_terms
+from ..io.description_evidence_policy import (
+    should_force_insufficient_description,
+)
 from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
 from .description_context_index import build_description_context_index, retrieve_description_context_pack
 
@@ -16,7 +19,6 @@ INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 ALLOWED_GENERATED_DESCRIPTION_SOURCES = {"summarized", "insufficient"}
 DESCRIPTION_GENERATION_PROMPT = "generate_classification_descriptions_prompt.md"
 DESCRIPTION_CONTEXT_REPORT = "description_context_report.json"
-EMPTY_DATA_RANGE_MARKERS = {"", "-", "—", "－", "一"}
 
 
 def _load_dotenv_if_available() -> None:
@@ -49,18 +51,6 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item or "").strip()]
-
-
-def _has_specific_data_range(row: Any) -> bool:
-    return any(_clean_text(item) not in EMPTY_DATA_RANGE_MARKERS for item in _string_list(row.data_range_examples))
-
-
-def _is_other_item_without_data_range(row: Any) -> bool:
-    path_levels = _string_list(row.path_levels)
-    if not path_levels:
-        return False
-    leaf = _clean_text(path_levels[-1]).strip("“\"'")
-    return bool(re.fullmatch(r"\d{3,4}其他", leaf)) and not _has_specific_data_range(row)
 
 
 def _insufficient_description_candidate(row_id: str, reason: str) -> dict[str, Any]:
@@ -610,11 +600,14 @@ def enhance_descriptions_with_context(
         for candidate in generated_candidates
         if candidate.get("row_id")
     }
+    forced_insufficient_by_row_id = {}
     for _priority, row, _report_row in selected:
-        if _is_other_item_without_data_range(row):
+        decision = should_force_insufficient_description(row)
+        if decision.force:
+            forced_insufficient_by_row_id[row.row_id] = decision
             generated_by_row_id[row.row_id] = _insufficient_description_candidate(
                 row.row_id,
-                "999其他且数据范围为空，缺少可支撑分类说明的行级证据。",
+                decision.reason,
             )
     report_by_row_id = {
         report_row.get("row_id", ""): report_row
@@ -625,7 +618,7 @@ def enhance_descriptions_with_context(
         candidate = generated_by_row_id.get(row.row_id)
         if not candidate:
             continue
-        if candidate.get("description_source") == "insufficient" and _is_other_item_without_data_range(row):
+        if candidate.get("description_source") == "insufficient" and row.row_id in forced_insufficient_by_row_id:
             row.description = INSUFFICIENT_DESCRIPTION
             row.description_source = "insufficient"
             row.description_evidence_quote = ""
