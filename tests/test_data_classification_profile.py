@@ -131,6 +131,19 @@ class DataClassificationProfileTests(unittest.TestCase):
         self.assertIn("影响程度", excluded_text)
         self.assertIn("excluded_grade_or_risk_context", evidence_pack["warnings"])
 
+    def test_resource_type_terms_use_standard_defaults(self) -> None:
+        from src.io.data_classification_profile import (
+            DEFAULT_RESOURCE_TYPE_TERMS,
+            resource_type_terms_for_row,
+        )
+
+        self.assertEqual(DEFAULT_RESOURCE_TYPE_TERMS, ["基础资源", "业务资源", "主题资源"])
+        row = {
+            "path_levels": ["B、业务资源", "1公共卫生"],
+            "table_title": "分类目录",
+        }
+        self.assertEqual(resource_type_terms_for_row(row), ["业务资源"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -43,6 +43,8 @@ GRADE_OR_RISK_PATTERNS = [
     re.compile(r"泄露后"),
 ]
 
+DEFAULT_RESOURCE_TYPE_TERMS = ["基础资源", "业务资源", "主题资源"]
+
 
 @dataclass(frozen=True)
 class EvidenceSource:
@@ -123,6 +125,21 @@ def build_description_query_terms(row: dict[str, Any]) -> list[str]:
     for example in string_list(row.get("data_range_examples")):
         add(example)
     return terms
+
+
+def resource_type_terms_for_row(row: dict[str, Any]) -> list[str]:
+    values = [
+        row.get("resource_type"),
+        row.get("_context_table_title"),
+        row.get("table_title"),
+    ]
+    values.extend(string_list(row.get("path_levels")))
+    joined = " ".join(str(value or "") for value in values)
+    return [term for term in DEFAULT_RESOURCE_TYPE_TERMS if term in joined]
+
+
+def is_resource_type_definition(text: str) -> bool:
+    return any(f"{term}类数据" in str(text or "") for term in DEFAULT_RESOURCE_TYPE_TERMS)
 
 
 def _context_source(context: dict[str, Any], role: str, reason: str) -> dict[str, Any]:

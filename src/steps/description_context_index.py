@@ -7,13 +7,14 @@ from ..io.data_classification_profile import (
     build_description_query_terms,
     build_row_evidence_pack,
     contains_grade_or_risk,
+    is_resource_type_definition,
+    resource_type_terms_for_row,
 )
 
 DEFINITION_RE = re.compile(r"^(?:[a-z]\)\s*)?[^\s：:]{2,30}(?:类数据|数据|分类)[：:].+", re.IGNORECASE)
 PARENT_HEADING_RE = re.compile(r"^\s*\d{1,2}\S{1,30}\s*$")
 CHILD_HEADING_RE = re.compile(r"^\s*\d{2}\S{1,30}\s*$")
 ITEM_CODE_RE = re.compile(r"(?:^|\s)(\d{3,4})(?=[^\d\-—－])")
-RESOURCE_TYPE_TERMS = ["基础资源", "业务资源", "主题资源"]
 
 
 def _clean_text(value: object) -> str:
@@ -103,14 +104,7 @@ def _inline_path_and_row_text(line: str, parent_path: list[str]) -> tuple[list[s
 
 
 def _resource_type_terms(row: dict[str, Any]) -> list[str]:
-    values = [
-        row.get("resource_type"),
-        row.get("_context_table_title"),
-        row.get("table_title"),
-    ]
-    values.extend(_string_list(row.get("path_levels")))
-    joined = " ".join(str(value or "") for value in values)
-    return [term for term in RESOURCE_TYPE_TERMS if term in joined]
+    return resource_type_terms_for_row(row)
 
 
 def _is_process_definition(text: str) -> bool:
@@ -118,7 +112,7 @@ def _is_process_definition(text: str) -> bool:
 
 
 def _is_resource_type_definition(text: str) -> bool:
-    return any(f"{term}类数据" in text for term in RESOURCE_TYPE_TERMS)
+    return is_resource_type_definition(text)
 
 
 def build_description_context_index(text: str) -> list[dict[str, Any]]:
