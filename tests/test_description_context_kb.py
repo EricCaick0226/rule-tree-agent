@@ -199,6 +199,8 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("不要把“原始数据/统计数据”等表字段作为说明主体", prompt)
         self.assertIn("不要求必须存在完整定义句", prompt)
         self.assertIn("只有当分类路径和数据范围都不足以判断", prompt)
+        self.assertIn("优先引用最具体的数据范围、示例或叶子分类对应行", prompt)
+        self.assertIn("不要只引用泛化定义", prompt)
 
     def test_v2_report_row_uses_description_sources_for_retrieved_contexts(self) -> None:
         from types import SimpleNamespace

@@ -13,6 +13,7 @@
 - 只有当分类路径和数据范围都不足以判断分类对象、业务场景或数据内容时，才返回 `证据不足，无法从当前文档确定`。
 - `description_source` 只能是 `summarized` 或 `insufficient`。
 - `description_evidence_quote` 必须来自 `retrieved_contexts[].text` 的原文片段；如果证据不足则为空字符串。
+- `description_evidence_quote` 优先引用最具体的数据范围、示例或叶子分类对应行；如果说明主要基于数据范围改写，就引用该数据范围片段。定义类上下文只能作为辅助证据，不要只引用泛化定义，除非没有更具体的行证据。
 - 生成的说明属于候选结果，`needs_review` 必须为 `true`。
 - 输出字段名和枚举值保持英文，不要翻译 JSON key。
 
