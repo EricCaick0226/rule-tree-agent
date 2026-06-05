@@ -401,6 +401,69 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertEqual(report["rows"][0]["context_pack"]["retrieval_warnings"], ["excluded_grade_or_risk_context"])
         self.assertEqual(state.step_traces[-1].input_summary["context_mode"], "v2")
 
+    def test_enhancement_does_not_summarize_other_item_without_data_range(self) -> None:
+        state = AgentState(
+            task="test",
+            documents=[
+                SourceDocument(
+                    "doc_1",
+                    "source.txt",
+                    "source.txt",
+                    "a) 基础资源类数据：信息资源中最基础的数据。\n"
+                    "999其他 — 原始数据 组织 一般危害 一般数据2级",
+                )
+            ],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_999",
+                    path_levels=["7人力资源", "01人力资源规划", "999其他"],
+                    description="—",
+                    data_range_examples=["—"],
+                )
+            ],
+        )
+
+        def fake_generate(_llm_client, _rows, batch_size=20):
+            return (
+                [
+                    {
+                        "row_id": "row_999",
+                        "proposed_description": "记录人力资源规划业务中未明确归类至其他子项的相关数据。",
+                        "description_source": "summarized",
+                        "description_evidence_quote": "—",
+                        "needs_review": True,
+                        "review_reason": "基于检索上下文总结生成，需要人工确认。",
+                    }
+                ],
+                "raw",
+            )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch.dict(
+                "os.environ",
+                {
+                    "DESCRIPTION_CONTEXT_ENABLED": "true",
+                    "DESCRIPTION_CONTEXT_MODE": "v2",
+                    "DESCRIPTION_CONTEXT_LIMIT": "5",
+                },
+            ):
+                with patch(
+                    "src.steps.description_context_kb.generate_description_candidates_batched",
+                    side_effect=fake_generate,
+                ):
+                    result = enhance_descriptions_with_context(state, object(), output_dir=tmpdir)
+
+            report = json.loads((Path(tmpdir) / "description_context_report.json").read_text(encoding="utf-8"))
+
+        row = result.classification_rows[0]
+        generated = report["rows"][0]["generated_description"]
+        self.assertEqual(row.description, "证据不足，无法从当前文档确定")
+        self.assertEqual(row.description_source, "insufficient")
+        self.assertEqual(row.description_evidence_quote, "")
+        self.assertIn("999其他且数据范围为空", row.review_reason)
+        self.assertEqual(generated["description_source"], "insufficient")
+        self.assertEqual(generated["proposed_description"], "证据不足，无法从当前文档确定")
+
 
 if __name__ == "__main__":
     unittest.main()

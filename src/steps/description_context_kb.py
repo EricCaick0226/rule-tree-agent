@@ -16,6 +16,7 @@ INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 ALLOWED_GENERATED_DESCRIPTION_SOURCES = {"summarized", "insufficient"}
 DESCRIPTION_GENERATION_PROMPT = "generate_classification_descriptions_prompt.md"
 DESCRIPTION_CONTEXT_REPORT = "description_context_report.json"
+EMPTY_DATA_RANGE_MARKERS = {"", "-", "—", "－", "一"}
 
 
 def _load_dotenv_if_available() -> None:
@@ -48,6 +49,29 @@ def _string_list(value: object) -> list[str]:
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item or "").strip()]
+
+
+def _has_specific_data_range(row: Any) -> bool:
+    return any(_clean_text(item) not in EMPTY_DATA_RANGE_MARKERS for item in _string_list(row.data_range_examples))
+
+
+def _is_other_item_without_data_range(row: Any) -> bool:
+    path_levels = _string_list(row.path_levels)
+    if not path_levels:
+        return False
+    leaf = _clean_text(path_levels[-1]).strip("“\"'")
+    return bool(re.fullmatch(r"\d{3,4}其他", leaf)) and not _has_specific_data_range(row)
+
+
+def _insufficient_description_candidate(row_id: str, reason: str) -> dict[str, Any]:
+    return {
+        "row_id": row_id,
+        "proposed_description": INSUFFICIENT_DESCRIPTION,
+        "description_source": "insufficient",
+        "description_evidence_quote": "",
+        "needs_review": True,
+        "review_reason": reason,
+    }
 
 
 def _looks_like_table_row_start(line: str) -> bool:
@@ -586,6 +610,12 @@ def enhance_descriptions_with_context(
         for candidate in generated_candidates
         if candidate.get("row_id")
     }
+    for _priority, row, _report_row in selected:
+        if _is_other_item_without_data_range(row):
+            generated_by_row_id[row.row_id] = _insufficient_description_candidate(
+                row.row_id,
+                "999其他且数据范围为空，缺少可支撑分类说明的行级证据。",
+            )
     report_by_row_id = {
         report_row.get("row_id", ""): report_row
         for report_row in report_rows
@@ -593,7 +623,19 @@ def enhance_descriptions_with_context(
     enhanced_rows = 0
     for _priority, row, _report_row in selected:
         candidate = generated_by_row_id.get(row.row_id)
-        if not candidate or candidate.get("description_source") != "summarized":
+        if not candidate:
+            continue
+        if candidate.get("description_source") == "insufficient" and _is_other_item_without_data_range(row):
+            row.description = INSUFFICIENT_DESCRIPTION
+            row.description_source = "insufficient"
+            row.description_evidence_quote = ""
+            row.needs_review = True
+            _append_review_reason(
+                row,
+                str(candidate.get("review_reason") or "缺少可支撑分类说明的行级证据。"),
+            )
+            continue
+        if candidate.get("description_source") != "summarized":
             continue
         proposed_description = str(candidate.get("proposed_description") or "").strip()
         if not proposed_description or proposed_description == INSUFFICIENT_DESCRIPTION:

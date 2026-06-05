@@ -25,6 +25,7 @@ from src.core.agent_state import (  # noqa: E402
 from src.llm.client import DEFAULT_BASE_URL, DEFAULT_MODEL, OpenAICompatibleLLMClient  # noqa: E402
 from src.output.exporter import export_outputs  # noqa: E402
 from src.steps.description_context_kb import enhance_descriptions_with_context  # noqa: E402
+from src.validation.row_grounding_validator import validate_row_grounding  # noqa: E402
 
 
 DESCRIPTION_CONTEXT_ENV = {
@@ -157,6 +158,7 @@ def rerun_description_context(
 
     with _description_context_env(mode, limit, batch_size):
         state = enhance_descriptions_with_context(state, llm_client, output_dir=str(output_dir))
+    state.validation_issues = validate_row_grounding(state)
     return export_outputs(state, str(output_dir))
 
 
