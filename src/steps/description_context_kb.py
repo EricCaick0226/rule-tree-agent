@@ -10,6 +10,7 @@ from ..core.agent_state import AgentState, EvidenceRef
 from ..io.data_classification_profile import build_description_query_terms
 from ..io.description_evidence_policy import (
     should_force_insufficient_description,
+    should_reject_summarized_description,
 )
 from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
 from .description_context_index import build_description_context_index, retrieve_description_context_pack
@@ -62,6 +63,14 @@ def _insufficient_description_candidate(row_id: str, reason: str) -> dict[str, A
         "needs_review": True,
         "review_reason": reason,
     }
+
+
+def _apply_insufficient_description(row: ClassificationRow, reason: str) -> None:
+    row.description = INSUFFICIENT_DESCRIPTION
+    row.description_source = "insufficient"
+    row.description_evidence_quote = ""
+    row.needs_review = True
+    _append_review_reason(row, reason or "缺少可支撑分类说明的行级证据。")
 
 
 def _looks_like_table_row_start(line: str) -> bool:
@@ -600,11 +609,9 @@ def enhance_descriptions_with_context(
         for candidate in generated_candidates
         if candidate.get("row_id")
     }
-    forced_insufficient_by_row_id = {}
     for _priority, row, _report_row in selected:
         decision = should_force_insufficient_description(row)
         if decision.force:
-            forced_insufficient_by_row_id[row.row_id] = decision
             generated_by_row_id[row.row_id] = _insufficient_description_candidate(
                 row.row_id,
                 decision.reason,
@@ -618,12 +625,8 @@ def enhance_descriptions_with_context(
         candidate = generated_by_row_id.get(row.row_id)
         if not candidate:
             continue
-        if candidate.get("description_source") == "insufficient" and row.row_id in forced_insufficient_by_row_id:
-            row.description = INSUFFICIENT_DESCRIPTION
-            row.description_source = "insufficient"
-            row.description_evidence_quote = ""
-            row.needs_review = True
-            _append_review_reason(
+        if candidate.get("description_source") == "insufficient":
+            _apply_insufficient_description(
                 row,
                 str(candidate.get("review_reason") or "缺少可支撑分类说明的行级证据。"),
             )
@@ -633,10 +636,23 @@ def enhance_descriptions_with_context(
         proposed_description = str(candidate.get("proposed_description") or "").strip()
         if not proposed_description or proposed_description == INSUFFICIENT_DESCRIPTION:
             continue
+        description_evidence_quote = str(candidate.get("description_evidence_quote") or "").strip()
+        rejection = should_reject_summarized_description(
+            row,
+            proposed_description,
+            description_evidence_quote,
+        )
+        if rejection.force:
+            generated_by_row_id[row.row_id] = _insufficient_description_candidate(
+                row.row_id,
+                rejection.reason,
+            )
+            _apply_insufficient_description(row, rejection.reason)
+            continue
 
         row.description = proposed_description
         row.description_source = "summarized"
-        row.description_evidence_quote = str(candidate.get("description_evidence_quote") or "").strip()
+        row.description_evidence_quote = description_evidence_quote
         row.needs_review = True
         _append_review_reason(
             row,
