@@ -21,6 +21,9 @@
 - 每个 segment 可能包含 `structure_context`。这是版式上下文，不是业务答案；只能用于理解附录、分类标题、表题、续表、层级表头、页码和行号。
 - `structure_context.table_title`、`structure_context.classification_title`、`structure_context.appendix_heading` 可以帮助恢复续表或拆分 segment 缺失的上级路径；如果仅依赖这些字段，`support_level` 应为 `structural` 且通常需要 `needs_review=true`。
 - `structure_context.hierarchy_header` 和 `header_text` 只表示表格列头，不得把 `类`、`项`、`目`、`数据范围及示例`、`数据级别` 等列名当作 `path_levels`。
+- 每个 segment 可能包含 `flattened_row_hints`。这是版式提示，不是业务答案；只能用于理解同一行里是否有多个层级编号。
+- 如果 `flattened_row_hints` 显示同一原文行中有多个层级编号，例如 `2.5 ... 2.5.7 ...`，不要把整行直接放进一个 `path_levels` 元素；应优先按原文编号结构拆成多级路径。
+- 如果依赖 `flattened_row_hints` 拆分路径，`support_level` 应为 `structural`，并设置 `needs_review=true`。
 - 当表格中出现 `数据范围及示例`、`数据加工程度`、`影响对象`、`影响程度`、`数据级别` 等列时，分别填入 `data_range_examples`、`processing_degree`、`impact_object`、`impact_degree`、`recommended_grade`。
 - `grade_evidence_quote` 必须覆盖推荐分级及其相邻分级因素，例如“原始数据 个人 严重危害 一般数据3级”。
 - 同一分类路径下如果出现多条数据范围或多个分级，不要丢弃；可以输出多条候选行，后续 normalization 会合并。
