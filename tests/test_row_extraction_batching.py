@@ -209,6 +209,45 @@ class RowExtractionBatchingTests(unittest.TestCase):
             _segment_signature([continued], prompt_text="prompt"),
         )
 
+    def test_checkpoint_signature_changes_when_flattened_row_hints_change(self):
+        base = TableSegment(
+            segment_id="doc_1_chunk_1_seg_1",
+            source_chunk_id="doc_1_chunk_1",
+            doc_name="sample.txt",
+            section_title="附录 A / 基础资源分类 / 表A.1 基础资源分类目录",
+            text="002 急救事件管理 院前急救 一般数据3级",
+            position=1,
+            page_number=2,
+            line_start=45,
+            line_end=45,
+            source_method="text",
+            source_warning="",
+            block_signal="table_like",
+            header_text="类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别",
+            flattened_row_hints=[
+                {
+                    "line_text": "2.5 药品供应 2.5.7 供应管理",
+                    "detected_codes": ["2.5", "2.5.7"],
+                }
+            ],
+        )
+        continued = TableSegment(
+            **{
+                **base.__dict__,
+                "flattened_row_hints": [
+                    {
+                        "line_text": "2.5 药品供应 2.5.8 库存管理",
+                        "detected_codes": ["2.5", "2.5.8"],
+                    }
+                ],
+            }
+        )
+
+        self.assertNotEqual(
+            _segment_signature([base], prompt_text="prompt"),
+            _segment_signature([continued], prompt_text="prompt"),
+        )
+
     def test_corrupt_checkpoint_records_are_skipped(self):
         with tempfile.TemporaryDirectory() as tmp:
             path = f"{tmp}/classification_row_batches.jsonl"

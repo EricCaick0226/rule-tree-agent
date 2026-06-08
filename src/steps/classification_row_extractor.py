@@ -71,6 +71,8 @@ def _segment_signature(
         digest.update(b"\0")
         digest.update(json.dumps(segment.structure_context, ensure_ascii=False, sort_keys=True).encode("utf-8"))
         digest.update(b"\0")
+        digest.update(json.dumps(segment.flattened_row_hints, ensure_ascii=False, sort_keys=True).encode("utf-8"))
+        digest.update(b"\0")
         digest.update(segment.text.encode("utf-8"))
         digest.update(b"\0")
     return digest.hexdigest()
