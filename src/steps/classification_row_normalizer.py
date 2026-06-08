@@ -3,6 +3,7 @@ from __future__ import annotations
 import re
 
 from ..core.agent_state import AgentState, ClassificationRow, ClassificationSchema
+from ..io.description_evidence_policy import should_reject_label_only_description
 from ..llm.task_utils import append_step_trace, stable_id
 
 
@@ -107,6 +108,16 @@ def _normalize_row(row: ClassificationRow) -> ClassificationRow | None:
         row.needs_review = True
         if not row.review_reason:
             row.review_reason = DEFAULT_INSUFFICIENT_REVIEW_REASON
+    else:
+        description_quote = row.description_evidence_quote or row.evidence_quote
+        decision = should_reject_label_only_description(row, row.description, description_quote)
+        if decision.force:
+            row.description = INSUFFICIENT_DESCRIPTION
+            row.description_source = "insufficient"
+            row.description_evidence_quote = ""
+            row.needs_review = True
+            row.status = "proposed"
+            _append_review_reason(row, decision.reason)
 
     row.row_id = stable_id(
         "row",

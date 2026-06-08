@@ -9,6 +9,7 @@ from src.io.description_evidence_policy import (
     has_specific_description_evidence,
     is_empty_data_range,
     is_fallback_leaf,
+    should_reject_label_only_description,
     should_force_insufficient_description,
 )
 
@@ -56,6 +57,27 @@ class DescriptionEvidencePolicyTests(unittest.TestCase):
         decision = should_force_insufficient_description(row)
         self.assertFalse(decision.force)
         self.assertEqual(decision.reason, "")
+
+    def test_label_only_description_is_rejected_without_rejecting_explanatory_quote(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["卫生健康数据", "基础资源类数据"],
+        )
+
+        label_only = should_reject_label_only_description(
+            row,
+            proposed_description="基础资源类数据",
+            evidence_quote="基础资源类数据",
+        )
+        self.assertTrue(label_only.force)
+
+        explanatory = should_reject_label_only_description(
+            row,
+            proposed_description="信息资源中最基础的数据，包括服务范围与对象、法律法规等。",
+            evidence_quote="基础资源类数据：信息资源中最基础的数据，包括但不限于服务范围与对象、法律法规。",
+        )
+        self.assertFalse(explanatory.force)
+        self.assertEqual(explanatory.reason, "")
 
 
 if __name__ == "__main__":

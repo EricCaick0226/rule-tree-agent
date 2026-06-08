@@ -111,6 +111,47 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
             self.assertTrue(row.needs_review)
             self.assertTrue(row.review_reason)
 
+    def test_label_only_quoted_description_is_forced_to_insufficient(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["卫生健康数据", "基础资源类数据"],
+                    description="基础资源类数据",
+                    description_source="quoted",
+                    description_evidence_quote="基础资源类数据",
+                    needs_review=False,
+                    review_reason="",
+                ),
+                ClassificationRow(
+                    row_id="row_2",
+                    path_levels=["卫生健康数据", "业务资源类数据"],
+                    description="在具体的业务处理过程中产生、使用和存储的数据。",
+                    description_source="quoted",
+                    description_evidence_quote=(
+                        "业务资源类数据：在具体的业务处理过程中产生、使用和存储的数据。"
+                    ),
+                    needs_review=False,
+                    review_reason="",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        by_leaf = {row.path_levels[-1]: row for row in result.classification_rows}
+        label_only = by_leaf["基础资源类数据"]
+        self.assertEqual(label_only.description, "证据不足，无法从当前文档确定")
+        self.assertEqual(label_only.description_source, "insufficient")
+        self.assertTrue(label_only.needs_review)
+        self.assertIn("分类标题", label_only.review_reason)
+
+        explanatory = by_leaf["业务资源类数据"]
+        self.assertEqual(explanatory.description, "在具体的业务处理过程中产生、使用和存储的数据。")
+        self.assertEqual(explanatory.description_source, "quoted")
+        self.assertFalse(explanatory.needs_review)
+
     def test_duplicate_prefers_refs_and_explicit_support_over_quoted_no_refs(self) -> None:
         state = AgentState(
             task="test",

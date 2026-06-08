@@ -159,6 +159,39 @@ class RowFirstExporterTests(unittest.TestCase):
             self.assertIn("数据范围及示例", markdown)
             self.assertIn("影响程度", markdown)
 
+    def test_review_report_includes_structure_quality_metrics(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="r1",
+                    path_levels=["3.2 电子病历数据库 3.2.2 临床诊疗"],
+                ),
+                ClassificationRow(
+                    row_id="r2",
+                    path_levels=["2", "2", "1", "临床服务"],
+                ),
+                ClassificationRow(
+                    row_id="r3",
+                    path_levels=["2.5 药品供应", "2.5.7 供应管理"],
+                ),
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            result = export_outputs(state, tmp)
+            report = Path(result.output_paths["review_report_md"]).read_text(encoding="utf-8")
+
+        self.assertIn("## Structure Quality Notes", report)
+        self.assertIn("- Classification rows: 3", report)
+        self.assertIn("- Path levels containing multiple hierarchical codes: 1", report)
+        self.assertIn("- Rows with numeric-only path levels: 1", report)
+        self.assertIn("- Numeric-only path levels: 3", report)
+        self.assertIn(
+            "- Review rows where one path level contains multiple hierarchical codes.",
+            report,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

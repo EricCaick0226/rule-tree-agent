@@ -386,6 +386,53 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("仅包含分类标题", row.review_reason)
         self.assertEqual(report["rows"][0]["generated_description"]["description_source"], "insufficient")
 
+    def test_enhancement_step_cleans_existing_label_only_quoted_description(self) -> None:
+        state = AgentState(
+            task="test",
+            documents=[
+                SourceDocument(
+                    "doc_1",
+                    "source.txt",
+                    "source.txt",
+                    "3.4.1 医学研究基础信息",
+                )
+            ],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["3.4.1 医学研究基础信息"],
+                    description="医学研究基础信息",
+                    description_source="quoted",
+                    description_evidence_quote="3.4.1 医学研究基础信息",
+                    evidence_quote="3.4.1 医学研究基础信息",
+                )
+            ],
+        )
+
+        def fake_generate(_llm_client, _rows, batch_size=20):
+            return ([], "raw")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch.dict(
+                "os.environ",
+                {
+                    "DESCRIPTION_CONTEXT_ENABLED": "true",
+                    "DESCRIPTION_CONTEXT_MODE": "v2",
+                    "DESCRIPTION_CONTEXT_LIMIT": "5",
+                },
+            ):
+                with patch(
+                    "src.steps.description_context_kb.generate_description_candidates_batched",
+                    side_effect=fake_generate,
+                ):
+                    result = enhance_descriptions_with_context(state, object(), output_dir=tmpdir)
+
+        row = result.classification_rows[0]
+        self.assertEqual(row.description, "证据不足，无法从当前文档确定")
+        self.assertEqual(row.description_source, "insufficient")
+        self.assertEqual(row.description_evidence_quote, "")
+        self.assertIn("分类标题", row.review_reason)
+
     def test_enhancement_step_rejects_summary_from_label_or_grade_only_evidence(self) -> None:
         state = AgentState(
             task="test",

@@ -9,6 +9,8 @@ from ..core.agent_state import AgentState, TreeNode
 
 
 LEVEL_NAMES = "一二三四五六七八九十"
+HIERARCHICAL_CODE_RE = re.compile(r"(?<!\d)\d+(?:\s*[.．]\s*\d+)+(?!\d)")
+NUMERIC_LEVEL_RE = re.compile(r"^\d+(?:\s*[.．]\s*\d+)*$")
 
 
 def _level_column(index: int) -> str:
@@ -105,6 +107,60 @@ def _node_lines(nodes: list[TreeNode]) -> list[str]:
     return lines
 
 
+def _normalized_level(value: object) -> str:
+    return re.sub(r"\s+", "", str(value or "").strip()).replace("．", ".")
+
+
+def _structure_quality_metrics(state: AgentState) -> dict[str, int]:
+    rows_with_numeric_only = 0
+    numeric_only_levels = 0
+    multi_code_levels = 0
+
+    for row in state.classification_rows:
+        row_has_numeric_only = False
+        for level in row.path_levels:
+            text = str(level or "")
+            if len(HIERARCHICAL_CODE_RE.findall(text)) >= 2:
+                multi_code_levels += 1
+            if NUMERIC_LEVEL_RE.fullmatch(_normalized_level(text)):
+                numeric_only_levels += 1
+                row_has_numeric_only = True
+        if row_has_numeric_only:
+            rows_with_numeric_only += 1
+
+    return {
+        "classification_rows": len(state.classification_rows),
+        "multi_code_path_levels": multi_code_levels,
+        "rows_with_numeric_only_path_levels": rows_with_numeric_only,
+        "numeric_only_path_levels": numeric_only_levels,
+    }
+
+
+def _structure_quality_lines(state: AgentState) -> list[str]:
+    metrics = _structure_quality_metrics(state)
+    lines = [
+        "",
+        "## Structure Quality Notes",
+        f"- Classification rows: {metrics['classification_rows']}",
+        (
+            "- Path levels containing multiple hierarchical codes: "
+            f"{metrics['multi_code_path_levels']}"
+        ),
+        (
+            "- Rows with numeric-only path levels: "
+            f"{metrics['rows_with_numeric_only_path_levels']}"
+        ),
+        f"- Numeric-only path levels: {metrics['numeric_only_path_levels']}",
+    ]
+    if metrics["multi_code_path_levels"]:
+        lines.append("- Review rows where one path level contains multiple hierarchical codes.")
+    if metrics["numeric_only_path_levels"]:
+        lines.append("- Review rows where codes were separated from labels into standalone path levels.")
+    if not metrics["multi_code_path_levels"] and not metrics["numeric_only_path_levels"]:
+        lines.append("- No obvious path-structure fragmentation detected.")
+    return lines
+
+
 def _review_report(state: AgentState) -> str:
     nodes_with_evidence = sum(1 for node in state.nodes if node.evidence_refs)
     review_nodes = sum(1 for node in state.nodes if node.needs_review)
@@ -191,6 +247,8 @@ def _review_report(state: AgentState) -> str:
             lines.append(f"- ... {len(review_claims) - 30} more review reasons omitted from this summary.")
     else:
         lines.append("- None recorded.")
+
+    lines.extend(_structure_quality_lines(state))
 
     lines.extend(["", "## Low Confidence Nodes"])
     if low_confidence:

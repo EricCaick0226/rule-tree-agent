@@ -10,6 +10,7 @@ from ..core.agent_state import AgentState, EvidenceRef
 from ..io.data_classification_profile import build_description_query_terms
 from ..io.description_evidence_policy import (
     should_force_insufficient_description,
+    should_reject_label_only_description,
     should_reject_summarized_description,
 )
 from ..llm.task_utils import append_step_trace, call_llm_json, env_int, stable_id
@@ -71,6 +72,20 @@ def _apply_insufficient_description(row: ClassificationRow, reason: str) -> None
     row.description_evidence_quote = ""
     row.needs_review = True
     _append_review_reason(row, reason or "缺少可支撑分类说明的行级证据。")
+
+
+def _apply_label_only_description_policy(state: AgentState) -> int:
+    changed = 0
+    for row in state.classification_rows:
+        if row.description_source == "insufficient" or not str(row.description or "").strip():
+            continue
+        description_quote = row.description_evidence_quote or row.evidence_quote
+        decision = should_reject_label_only_description(row, row.description, description_quote)
+        if not decision.force:
+            continue
+        _apply_insufficient_description(row, decision.reason)
+        changed += 1
+    return changed
 
 
 def _looks_like_table_row_start(line: str) -> bool:
@@ -562,6 +577,7 @@ def enhance_descriptions_with_context(
     }
 
     if not report_rows:
+        label_only_rejections = _apply_label_only_description_policy(state)
         report_path = _write_description_context_report(output_dir, report)
         append_step_trace(
             state.step_traces,
@@ -569,7 +585,11 @@ def enhance_descriptions_with_context(
             "success",
             "No weak descriptions found.",
             {"enabled": True, "context_mode": context_mode, "limit": limit, "context_units": len(units)},
-            {"enhanced_rows": 0, "report_path": report_path},
+            {
+                "enhanced_rows": 0,
+                "label_only_rejections": label_only_rejections,
+                "report_path": report_path,
+            },
         )
         return state
 
@@ -580,6 +600,7 @@ def enhance_descriptions_with_context(
             batch_size=batch_size,
         )
     except Exception as exc:
+        label_only_rejections = _apply_label_only_description_policy(state)
         report["generation"] = {
             "status": "failed",
             "error": str(exc),
@@ -600,7 +621,11 @@ def enhance_descriptions_with_context(
                 "context_units": len(units),
                 "sampled_rows": len(report_rows),
             },
-            {"enhanced_rows": 0, "report_path": report_path},
+            {
+                "enhanced_rows": 0,
+                "label_only_rejections": label_only_rejections,
+                "report_path": report_path,
+            },
         )
         return state
 
@@ -670,6 +695,8 @@ def enhance_descriptions_with_context(
                 row.evidence_refs.append(context_ref)
         enhanced_rows += 1
 
+    label_only_rejections = _apply_label_only_description_policy(state)
+
     for report_row in report_rows:
         report_row["generated_description"] = generated_by_row_id.get(report_row.get("row_id", ""), {})
 
@@ -694,6 +721,10 @@ def enhance_descriptions_with_context(
             "context_units": len(units),
             "sampled_rows": len(report_rows),
         },
-        {"enhanced_rows": enhanced_rows, "report_path": report_path},
+        {
+            "enhanced_rows": enhanced_rows,
+            "label_only_rejections": label_only_rejections,
+            "report_path": report_path,
+        },
     )
     return state
