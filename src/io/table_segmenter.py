@@ -64,6 +64,20 @@ def _normalize_code(value: str) -> str:
     return re.sub(r"\s+", "", value).replace("．", ".")
 
 
+def _is_parent_code(parent: str, child: str) -> bool:
+    parent_parts = parent.split(".")
+    child_parts = child.split(".")
+    return len(parent_parts) < len(child_parts) and child_parts[: len(parent_parts)] == parent_parts
+
+
+def _has_parent_child_code_pair(codes: list[str]) -> bool:
+    for index, code in enumerate(codes):
+        for other in codes[index + 1 :]:
+            if _is_parent_code(code, other) or _is_parent_code(other, code):
+                return True
+    return False
+
+
 def _flattened_row_hints(text: str) -> list[dict[str, Any]]:
     hints: list[dict[str, Any]] = []
     for line in (text or "").splitlines():
@@ -75,7 +89,7 @@ def _flattened_row_hints(text: str) -> list[dict[str, Any]]:
                 continue
             seen_codes.add(code)
             detected_codes.append(code)
-        if len(detected_codes) >= 2:
+        if len(detected_codes) >= 2 and _has_parent_child_code_pair(detected_codes):
             hints.append({"line_text": line.strip(), "detected_codes": detected_codes})
     return hints
 

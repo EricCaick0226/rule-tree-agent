@@ -293,6 +293,23 @@ class TableSegmenterTests(unittest.TestCase):
             },
         )
 
+    def test_unrelated_sibling_codes_do_not_create_flattened_hints(self):
+        text = "\n".join(
+            [
+                "数据一级类别 数据二级类别 数据三级类别",
+                "2.5 药品供应 3.2 电子病历数据库",
+            ]
+        )
+        chunk = self._chunk(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        self.assertEqual(segments[0].flattened_row_hints, [])
+
     def test_single_code_rows_do_not_create_flattened_hints(self):
         text = "\n".join(
             [
