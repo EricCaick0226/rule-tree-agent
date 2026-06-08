@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
 from ..core.agent_state import DocumentChunk
 from .document_structure import build_structure_context, detect_structure_signal
+
+
+HIERARCHICAL_CODE_RE = re.compile(r"(?<!\d)(\d+(?:\s*[.．]\s*\d+)+)(?!\d)")
 
 
 @dataclass(frozen=True)
@@ -23,6 +27,7 @@ class TableSegment:
     block_signal: str
     header_text: str = ""
     structure_context: dict[str, Any] = field(default_factory=dict)
+    flattened_row_hints: list[dict[str, Any]] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         if (
@@ -53,6 +58,26 @@ def _line_number(chunk: DocumentChunk, offset: int) -> int | None:
     if chunk.line_start is None:
         return None
     return chunk.line_start + offset
+
+
+def _normalize_code(value: str) -> str:
+    return re.sub(r"\s+", "", value).replace("．", ".")
+
+
+def _flattened_row_hints(text: str) -> list[dict[str, Any]]:
+    hints: list[dict[str, Any]] = []
+    for line in (text or "").splitlines():
+        detected_codes: list[str] = []
+        seen_codes: set[str] = set()
+        for match in HIERARCHICAL_CODE_RE.finditer(line):
+            code = _normalize_code(match.group(1))
+            if code in seen_codes:
+                continue
+            seen_codes.add(code)
+            detected_codes.append(code)
+        if len(detected_codes) >= 2:
+            hints.append({"line_text": line.strip(), "detected_codes": detected_codes})
+    return hints
 
 
 def _make_segment(
@@ -87,6 +112,7 @@ def _make_segment(
             line_start=line_start,
             line_end=line_end,
         ),
+        flattened_row_hints=_flattened_row_hints(text),
     )
 
 

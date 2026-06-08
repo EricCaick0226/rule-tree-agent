@@ -260,6 +260,57 @@ class TableSegmenterTests(unittest.TestCase):
         self.assertNotIn(header, segments[0].text)
         self.assertIn("1 服务范围与对象", segments[0].text)
 
+    def test_detects_flattened_parent_child_codes(self):
+        text = "\n".join(
+            [
+                "数据一级类别 数据二级类别 数据三级类别",
+                "2.5 药品供应 2.5.7 供应管理",
+                "3.2 电子病历数据库 3.2.2 临床诊疗",
+            ]
+        )
+        chunk = self._chunk(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        hints = segments[0].flattened_row_hints
+        self.assertEqual(len(hints), 2)
+        self.assertEqual(
+            hints[0],
+            {
+                "line_text": "2.5 药品供应 2.5.7 供应管理",
+                "detected_codes": ["2.5", "2.5.7"],
+            },
+        )
+        self.assertEqual(
+            hints[1],
+            {
+                "line_text": "3.2 电子病历数据库 3.2.2 临床诊疗",
+                "detected_codes": ["3.2", "3.2.2"],
+            },
+        )
+
+    def test_single_code_rows_do_not_create_flattened_hints(self):
+        text = "\n".join(
+            [
+                "数据一级类别 数据二级类别 数据三级类别",
+                "2.5.10 公示公告",
+                "2.5.11 统计查询",
+            ]
+        )
+        chunk = self._chunk(text)
+
+        segments = segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_9": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+        self.assertEqual(segments[0].flattened_row_hints, [])
+
     def test_whitespace_only_long_line_does_not_create_segments(self):
         chunk = self._chunk(" " * 25)
 
