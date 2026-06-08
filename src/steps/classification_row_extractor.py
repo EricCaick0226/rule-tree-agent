@@ -166,6 +166,7 @@ def _segment_payload(segments: list[TableSegment]) -> list[dict[str, Any]]:
             "block_signal": segment.block_signal,
             "header_text": segment.header_text,
             "structure_context": segment.structure_context,
+            "flattened_row_hints": segment.flattened_row_hints,
             "text": segment.text,
         }
         for segment in segments

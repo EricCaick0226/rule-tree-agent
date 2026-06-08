@@ -154,6 +154,12 @@ class RowExtractionBatchingTests(unittest.TestCase):
             source_warning="",
             block_signal="table_like",
             header_text="类（1 位数字） 项（2 位数字） 目（3 位数字）",
+            flattened_row_hints=[
+                {
+                    "line_text": "2.5 药品供应 2.5.7 供应管理",
+                    "detected_codes": ["2.5", "2.5.7"],
+                }
+            ],
         )
 
         payload = _segment_payload([segment])[0]
@@ -165,6 +171,15 @@ class RowExtractionBatchingTests(unittest.TestCase):
         self.assertEqual(payload["structure_context"]["appendix_heading"], "附录 A")
         self.assertEqual(payload["structure_context"]["hierarchy_header"], segment.header_text)
         self.assertEqual(payload["structure_context"]["line_span"], {"start": 45, "end": 45})
+        self.assertEqual(
+            payload["flattened_row_hints"],
+            [
+                {
+                    "line_text": "2.5 药品供应 2.5.7 供应管理",
+                    "detected_codes": ["2.5", "2.5.7"],
+                }
+            ],
+        )
 
     def test_checkpoint_signature_changes_when_structure_context_changes(self):
         base = TableSegment(
