@@ -7,7 +7,7 @@ from .data_classification_profile import classify_content_type, classify_field_r
 from .table_segmenter import TableSegment
 
 
-@dataclass
+@dataclass(frozen=True)
 class TableStructureItem:
     segment_id: str
     source_chunk_id: str
@@ -22,7 +22,7 @@ class TableStructureItem:
     review_notes: list[str]
 
 
-@dataclass
+@dataclass(frozen=True)
 class TableStructureReport:
     total_segments: int
     items: list[TableStructureItem]
@@ -59,12 +59,19 @@ def _review_notes(
     return notes
 
 
+def _structure_context(segment: TableSegment) -> dict[str, object]:
+    context = segment.structure_context
+    if isinstance(context, dict):
+        return context
+    return {}
+
+
 def _table_title(segment: TableSegment) -> str:
-    return str(segment.structure_context.get("table_title") or "")
+    return str(_structure_context(segment).get("table_title") or "")
 
 
 def _hierarchy_header(segment: TableSegment) -> str:
-    return str(segment.structure_context.get("hierarchy_header") or segment.header_text or "")
+    return str(_structure_context(segment).get("hierarchy_header") or segment.header_text or "")
 
 
 def build_table_structure_report(segments: list[TableSegment]) -> TableStructureReport:
@@ -126,8 +133,12 @@ def render_table_structure_markdown(report: TableStructureReport) -> str:
         )
         for field_role in item.field_roles:
             lines.append(f"  - {field_role['field']} -> {field_role['role']}")
+        if not item.field_roles:
+            lines.append("  - (none)")
         lines.append(f"- flattened_row_hints: {item.flattened_row_hints_count}")
         lines.append("- review_notes:")
         for note in item.review_notes:
             lines.append(f"  - {note}")
+        if not item.review_notes:
+            lines.append("  - (none)")
     return "\n".join(lines) + "\n"
