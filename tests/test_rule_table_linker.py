@@ -162,7 +162,7 @@ class RuleTableLinkerTests(unittest.TestCase):
             ),
             RuleTableReference(
                 name="上海地标",
-                source_type="existing_rule_table",
+                source_type="industry_standard",
                 path="outputs_shanghai/rule_table.json",
                 rows=[
                     {
@@ -187,15 +187,13 @@ class RuleTableLinkerTests(unittest.TestCase):
         self.assertEqual(len(links[0].matches), 2)
         matches_by_row_id = {match.reference_row_id: match for match in links[0].matches}
         self.assertEqual(matches_by_row_id["ref_233"].reference_name, "233国标")
+        self.assertEqual(matches_by_row_id["ref_233"].reference_type, "existing_rule_table")
         self.assertEqual(matches_by_row_id["ref_233"].reference_file, "outputs_233/rule_table.json")
         self.assertEqual(matches_by_row_id["ref_shanghai"].reference_name, "上海地标")
+        self.assertEqual(matches_by_row_id["ref_shanghai"].reference_type, "industry_standard")
         self.assertEqual(
             matches_by_row_id["ref_shanghai"].reference_file,
             "outputs_shanghai/rule_table.json",
-        )
-        self.assertEqual(
-            {match.reference_type for match in links[0].matches},
-            {"existing_rule_table"},
         )
 
     def test_links_to_dicts_includes_reference_metadata_and_legacy_fields(self) -> None:
@@ -231,11 +229,17 @@ class RuleTableLinkerTests(unittest.TestCase):
 
         link_dict = links_to_dicts(links)[0]
         match_dict = link_dict["matches"][0]
+        self.assertEqual(link_dict["current_row_id"], "cur_1")
+        self.assertEqual(link_dict["current_path"], ["个人信息", "身份证号"])
+        self.assertEqual(link_dict["current_description_source"], "insufficient")
         self.assertEqual(match_dict["reference_name"], "233国标")
         self.assertEqual(match_dict["reference_type"], "existing_rule_table")
         self.assertEqual(match_dict["reference_file"], "outputs_233/rule_table.json")
         self.assertEqual(match_dict["reference_row_id"], "ref_1")
         self.assertEqual(match_dict["reference_path"], ["个人敏感信息", "身份证号"])
+        self.assertGreaterEqual(match_dict["score"], 0.2)
+        self.assertIn("身份证号", match_dict["shared_terms"])
+        self.assertEqual(match_dict["reference_description_source"], "insufficient")
 
 
 if __name__ == "__main__":
