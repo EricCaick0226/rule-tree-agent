@@ -112,7 +112,10 @@ class RuleTableLinkerTests(unittest.TestCase):
 
         markdown = render_rule_table_link_markdown(links)
 
-        self.assertIn("review hints only", markdown)
+        self.assertIn(
+            "Reference matches are review hints only; they are not current-document evidence.",
+            markdown,
+        )
         self.assertIn("reference=个人信息常识", markdown)
         self.assertIn("type=common_knowledge", markdown)
         self.assertIn("file=references/common_personal_info.json", markdown)
