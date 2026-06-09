@@ -95,31 +95,33 @@ class TableStructureReportTests(unittest.TestCase):
         with self.assertRaises(FrozenInstanceError):
             report.total_segments = 2
 
-    def test_malformed_structure_context_falls_back_to_header_text(self):
+    def test_malformed_structure_context_variants_fall_back_to_header_text(self):
         header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
-        segment = TableSegment(
-            segment_id="doc_1_chunk_1_seg_1",
-            source_chunk_id="doc_1_chunk_1",
-            doc_name="sample.txt",
-            section_title="正文",
-            text="业务 数据 个人信息 身份证号 原始数据 个人 严重危害 一般数据3级",
-            position=1,
-            page_number=None,
-            line_start=11,
-            line_end=11,
-            source_method="text",
-            source_warning="",
-            block_signal="table_like",
-            header_text=header,
-        )
-        object.__setattr__(segment, "structure_context", None)
+        for context in [None, {}, "bad-context"]:
+            with self.subTest(context=context):
+                segment = TableSegment(
+                    segment_id="doc_1_chunk_1_seg_1",
+                    source_chunk_id="doc_1_chunk_1",
+                    doc_name="sample.txt",
+                    section_title="正文",
+                    text="业务 数据 个人信息 身份证号 原始数据 个人 严重危害 一般数据3级",
+                    position=1,
+                    page_number=None,
+                    line_start=11,
+                    line_end=11,
+                    source_method="text",
+                    source_warning="",
+                    block_signal="table_like",
+                    header_text=header,
+                )
+                object.__setattr__(segment, "structure_context", context)
 
-        report = build_table_structure_report([segment])
-        markdown = render_table_structure_markdown(report)
+                report = build_table_structure_report([segment])
+                markdown = render_table_structure_markdown(report)
 
-        self.assertEqual(report.items[0].hierarchy_header, header)
-        self.assertIn("类 -> classification_path", markdown)
-        self.assertIn("数据级别 -> grade_result", markdown)
+                self.assertEqual(report.items[0].hierarchy_header, header)
+                self.assertIn("类 -> classification_path", markdown)
+                self.assertIn("数据级别 -> grade_result", markdown)
 
     def test_report_outputs_are_reviewable(self):
         header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
