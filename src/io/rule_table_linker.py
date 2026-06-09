@@ -22,7 +22,18 @@ STOP_TERMS = {
 
 
 @dataclass(frozen=True)
+class RuleTableReference:
+    name: str
+    source_type: str
+    path: str
+    rows: list[dict[str, Any]]
+
+
+@dataclass(frozen=True)
 class RuleTableMatch:
+    reference_name: str
+    reference_type: str
+    reference_file: str
     reference_row_id: str
     reference_path: list[str]
     score: float
@@ -114,7 +125,33 @@ def build_rule_table_links(
     min_score: float = 0.5,
     max_links: int | None = None,
 ) -> list[RuleTableLink]:
-    reference_index = [(row, _row_terms(row)) for row in reference_rows]
+    reference = RuleTableReference(
+        name="reference",
+        source_type="existing_rule_table",
+        path="",
+        rows=reference_rows,
+    )
+    return build_rule_table_links_from_references(
+        current_rows=current_rows,
+        references=[reference],
+        top_k=top_k,
+        min_score=min_score,
+        max_links=max_links,
+    )
+
+
+def build_rule_table_links_from_references(
+    current_rows: list[dict[str, Any]],
+    references: list[RuleTableReference],
+    top_k: int = 3,
+    min_score: float = 0.5,
+    max_links: int | None = None,
+) -> list[RuleTableLink]:
+    reference_index = [
+        (reference, row, _row_terms(row))
+        for reference in references
+        for row in reference.rows
+    ]
     links: list[RuleTableLink] = []
 
     for current in current_rows:
@@ -122,17 +159,20 @@ def build_rule_table_links(
         if not current_terms:
             continue
         matches: list[RuleTableMatch] = []
-        for reference, reference_terms in reference_index:
+        for reference, reference_row, reference_terms in reference_index:
             score, shared_terms = _score_terms(current_terms, reference_terms)
             if score < min_score:
                 continue
             matches.append(
                 RuleTableMatch(
-                    reference_row_id=str(reference.get("row_id") or ""),
-                    reference_path=_path_levels(reference),
+                    reference_name=reference.name,
+                    reference_type=reference.source_type,
+                    reference_file=reference.path,
+                    reference_row_id=str(reference_row.get("row_id") or ""),
+                    reference_path=_path_levels(reference_row),
                     score=score,
                     shared_terms=shared_terms,
-                    reference_description_source=str(reference.get("description_source") or ""),
+                    reference_description_source=str(reference_row.get("description_source") or ""),
                 )
             )
         matches.sort(key=lambda item: item.score, reverse=True)

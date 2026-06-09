@@ -3,7 +3,9 @@ from __future__ import annotations
 import unittest
 
 from src.io.rule_table_linker import (
+    RuleTableReference,
     build_rule_table_links,
+    build_rule_table_links_from_references,
     render_rule_table_link_markdown,
 )
 
@@ -75,6 +77,62 @@ class RuleTableLinkerTests(unittest.TestCase):
         self.assertIn("业务资源类数据 / 医疗服务", markdown)
         self.assertIn("医疗服务 / 诊疗信息", markdown)
         self.assertIn("shared:", markdown)
+
+    def test_links_include_reference_metadata(self) -> None:
+        current_rows = [
+            {
+                "row_id": "cur_1",
+                "path_levels": ["个人信息", "身份证号"],
+                "description": "证据不足，无法从当前文档确定",
+                "description_source": "insufficient",
+                "data_range_examples": ["身份证号"],
+            }
+        ]
+        references = [
+            RuleTableReference(
+                name="233国标",
+                source_type="existing_rule_table",
+                path="outputs_233/rule_table.json",
+                rows=[
+                    {
+                        "row_id": "ref_1",
+                        "path_levels": ["个人敏感信息", "身份证号"],
+                        "description": "证据不足，无法从当前文档确定",
+                        "description_source": "insufficient",
+                        "data_range_examples": ["身份证号"],
+                    }
+                ],
+            ),
+            RuleTableReference(
+                name="上海地标",
+                source_type="existing_rule_table",
+                path="outputs_shanghai/rule_table.json",
+                rows=[
+                    {
+                        "row_id": "ref_2",
+                        "path_levels": ["设备信息", "硬件"],
+                        "description": "硬件设备信息。",
+                        "description_source": "quoted",
+                        "data_range_examples": ["CPU型号"],
+                    }
+                ],
+            ),
+        ]
+
+        links = build_rule_table_links_from_references(
+            current_rows,
+            references,
+            top_k=3,
+            min_score=0.2,
+        )
+
+        self.assertEqual(len(links), 1)
+        match = links[0].matches[0]
+        self.assertEqual(match.reference_name, "233国标")
+        self.assertEqual(match.reference_type, "existing_rule_table")
+        self.assertEqual(match.reference_file, "outputs_233/rule_table.json")
+        self.assertEqual(match.reference_row_id, "ref_1")
+        self.assertIn("身份证号", match.shared_terms)
 
 
 if __name__ == "__main__":
