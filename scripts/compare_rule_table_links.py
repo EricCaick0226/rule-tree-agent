@@ -19,7 +19,7 @@ from src.io.rule_table_linker import (  # noqa: E402
 
 
 def parse_reference_spec(value: str) -> RuleTableReference:
-    parts = value.split(":", 2)
+    parts = value.rsplit(":", 2)
     if len(parts) != 3 or any(not part.strip() for part in parts):
         raise ValueError("reference must use PATH:TYPE:NAME format")
     path, source_type, name = (part.strip() for part in parts)

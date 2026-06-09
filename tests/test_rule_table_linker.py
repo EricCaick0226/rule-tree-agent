@@ -120,6 +120,34 @@ class RuleTableLinkerTests(unittest.TestCase):
         self.assertIn("type=common_knowledge", markdown)
         self.assertIn("file=references/common_personal_info.json", markdown)
 
+    def test_markdown_report_renders_empty_reference_file_placeholder(self) -> None:
+        links = build_rule_table_links(
+            [
+                {
+                    "row_id": "cur_1",
+                    "path_levels": ["个人信息", "身份证号"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": ["身份证号"],
+                }
+            ],
+            [
+                {
+                    "row_id": "ref_1",
+                    "path_levels": ["个人敏感信息", "身份证号"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": ["身份证号"],
+                }
+            ],
+            top_k=1,
+            min_score=0.2,
+        )
+
+        markdown = render_rule_table_link_markdown(links)
+
+        self.assertIn("file=(none)", markdown)
+
     def test_links_include_reference_metadata(self) -> None:
         current_rows = [
             {

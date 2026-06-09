@@ -207,11 +207,12 @@ def render_rule_table_link_markdown(links: list[RuleTableLink]) -> str:
         lines.append(f"- current_description_source: `{link.current_description_source}`")
         for match in link.matches:
             shared = ", ".join(match.shared_terms)
+            reference_file = match.reference_file or "(none)"
             lines.append(
                 "- match: "
                 f"{' / '.join(match.reference_path)} "
                 f"(score={match.score}, reference={match.reference_name}, "
-                f"type={match.reference_type}, file={match.reference_file}, "
+                f"type={match.reference_type}, file={reference_file}, "
                 f"source={match.reference_description_source}, shared: {shared})"
             )
         lines.append("")
