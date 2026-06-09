@@ -79,6 +79,44 @@ class RuleTableLinkerTests(unittest.TestCase):
         self.assertIn("医疗服务 / 诊疗信息", markdown)
         self.assertIn("shared:", markdown)
 
+    def test_markdown_report_renders_reference_metadata_and_boundary(self) -> None:
+        links = build_rule_table_links_from_references(
+            [
+                {
+                    "row_id": "cur_1",
+                    "path_levels": ["个人信息", "身份证号"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": ["身份证号"],
+                }
+            ],
+            [
+                RuleTableReference(
+                    name="个人信息常识",
+                    source_type="common_knowledge",
+                    path="references/common_personal_info.json",
+                    rows=[
+                        {
+                            "row_id": "ref_1",
+                            "path_levels": ["个人敏感信息", "身份证号"],
+                            "description": "证据不足，无法从当前文档确定",
+                            "description_source": "insufficient",
+                            "data_range_examples": ["身份证号"],
+                        }
+                    ],
+                )
+            ],
+            top_k=1,
+            min_score=0.2,
+        )
+
+        markdown = render_rule_table_link_markdown(links)
+
+        self.assertIn("review hints only", markdown)
+        self.assertIn("reference=个人信息常识", markdown)
+        self.assertIn("type=common_knowledge", markdown)
+        self.assertIn("file=references/common_personal_info.json", markdown)
+
     def test_links_include_reference_metadata(self) -> None:
         current_rows = [
             {

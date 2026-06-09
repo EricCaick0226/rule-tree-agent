@@ -198,6 +198,7 @@ def render_rule_table_link_markdown(links: list[RuleTableLink]) -> str:
         "",
         f"- Linked current rows: {len(links)}",
         "- This is a read-only similarity report. It does not modify generated rule tables.",
+        "- Reference matches are review hints only; they are not current-document evidence.",
         "",
     ]
     for index, link in enumerate(links, start=1):
@@ -209,7 +210,9 @@ def render_rule_table_link_markdown(links: list[RuleTableLink]) -> str:
             lines.append(
                 "- match: "
                 f"{' / '.join(match.reference_path)} "
-                f"(score={match.score}, source={match.reference_description_source}, shared: {shared})"
+                f"(score={match.score}, reference={match.reference_name}, "
+                f"type={match.reference_type}, file={match.reference_file}, "
+                f"source={match.reference_description_source}, shared: {shared})"
             )
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
