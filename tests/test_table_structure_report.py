@@ -1,0 +1,98 @@
+import unittest
+
+from src.core.agent_state import DocumentChunk
+from src.io.table_segmenter import segment_table_chunks_for_row_extraction
+from src.io.table_structure_report import (
+    build_table_structure_report,
+    render_table_structure_markdown,
+    report_to_dict,
+)
+
+
+class TableStructureReportTests(unittest.TestCase):
+    def _segments(self, text: str, section_title: str = "附录 A / 表 A.1 数据分类分级表"):
+        chunk = DocumentChunk(
+            chunk_id="doc_1_chunk_1",
+            doc_id="doc_1",
+            doc_name="sample.txt",
+            section_title=section_title,
+            text=text,
+            position=1,
+            line_start=10,
+            line_end=10 + len(text.splitlines()) - 1,
+        )
+        return segment_table_chunks_for_row_extraction(
+            [chunk],
+            block_signals={"doc_1_chunk_1": {"block_signal": "table_like"}},
+            max_chars=1000,
+        )
+
+    def test_builds_classification_grading_table_report_item(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        segments = self._segments(
+            "\n".join(
+                [
+                    header,
+                    "业务 数据 个人信息 身份证号 原始数据 个人 严重危害 一般数据3级",
+                ]
+            )
+        )
+
+        report = build_table_structure_report(segments)
+
+        self.assertEqual(report.total_segments, 1)
+        item = report.items[0]
+        self.assertEqual(item.segment_id, "doc_1_chunk_1_seg_1")
+        self.assertEqual(item.section_title, "附录 A / 表 A.1 数据分类分级表")
+        self.assertEqual(item.table_title, "表 A.1 数据分类分级表")
+        self.assertEqual(item.hierarchy_header, header)
+        self.assertEqual(item.content_type, "classification_grading_table")
+        self.assertEqual(item.line_span, {"start": 11, "end": 11})
+        self.assertEqual(item.field_roles["类"], "classification_path")
+        self.assertEqual(item.field_roles["数据范围及示例"], "description_evidence")
+        self.assertEqual(item.field_roles["影响程度"], "grading_factor")
+        self.assertEqual(item.field_roles["数据级别"], "grade_result")
+        self.assertIn("detected table title", item.review_notes)
+        self.assertIn("detected hierarchy header", item.review_notes)
+
+    def test_reports_flattened_row_hints_and_review_notes(self):
+        segments = self._segments(
+            "2.5 药品供应 2.5.7 供应管理",
+            section_title="正文",
+        )
+
+        report = build_table_structure_report(segments)
+
+        self.assertEqual(report.total_segments, 1)
+        item = report.items[0]
+        self.assertEqual(item.content_type, "unknown")
+        self.assertEqual(item.flattened_row_hints_count, 1)
+        self.assertIn("has flattened parent-child code lines", item.review_notes)
+        self.assertIn("missing header text", item.review_notes)
+        self.assertIn("unknown content type", item.review_notes)
+
+    def test_report_outputs_are_reviewable(self):
+        header = "类 项 目 数据范围及示例 数据加工程度 影响对象 影响程度 数据级别"
+        report = build_table_structure_report(
+            self._segments(
+                "\n".join(
+                    [
+                        header,
+                        "业务 数据 个人信息 身份证号 原始数据 个人 严重危害 一般数据3级",
+                    ]
+                )
+            )
+        )
+
+        report_dict = report_to_dict(report)
+        markdown = render_table_structure_markdown(report)
+
+        self.assertEqual(report_dict["total_segments"], 1)
+        self.assertIn("# Table Structure Report", markdown)
+        self.assertIn("field_roles:", markdown)
+        self.assertIn("类 -> classification_path", markdown)
+        self.assertIn("数据级别 -> grade_result", markdown)
+
+
+if __name__ == "__main__":
+    unittest.main()
