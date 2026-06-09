@@ -48,10 +48,10 @@ class TableStructureReportTests(unittest.TestCase):
         self.assertEqual(item.hierarchy_header, header)
         self.assertEqual(item.content_type, "classification_grading_table")
         self.assertEqual(item.line_span, {"start": 11, "end": 11})
-        self.assertEqual(item.field_roles["类"], "classification_path")
-        self.assertEqual(item.field_roles["数据范围及示例"], "description_evidence")
-        self.assertEqual(item.field_roles["影响程度"], "grading_factor")
-        self.assertEqual(item.field_roles["数据级别"], "grade_result")
+        self.assertIn({"field": "类", "role": "classification_path"}, item.field_roles)
+        self.assertIn({"field": "数据范围及示例", "role": "description_evidence"}, item.field_roles)
+        self.assertIn({"field": "影响程度", "role": "grading_factor"}, item.field_roles)
+        self.assertIn({"field": "数据级别", "role": "grade_result"}, item.field_roles)
         self.assertIn("detected table title", item.review_notes)
         self.assertIn("detected hierarchy header", item.review_notes)
 
@@ -88,6 +88,14 @@ class TableStructureReportTests(unittest.TestCase):
         markdown = render_table_structure_markdown(report)
 
         self.assertEqual(report_dict["total_segments"], 1)
+        self.assertIn(
+            {"field": "类", "role": "classification_path"},
+            report_dict["items"][0]["field_roles"],
+        )
+        self.assertIn(
+            {"field": "数据级别", "role": "grade_result"},
+            report_dict["items"][0]["field_roles"],
+        )
         self.assertIn("# Table Structure Report", markdown)
         self.assertIn("field_roles:", markdown)
         self.assertIn("类 -> classification_path", markdown)

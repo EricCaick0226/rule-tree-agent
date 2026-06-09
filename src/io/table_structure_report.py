@@ -17,7 +17,7 @@ class TableStructureItem:
     hierarchy_header: str
     content_type: str
     line_span: dict[str, int | None]
-    field_roles: dict[str, str]
+    field_roles: list[dict[str, str]]
     flattened_row_hints_count: int
     review_notes: list[str]
 
@@ -32,8 +32,11 @@ def _split_header_fields(header_text: str) -> list[str]:
     return [field for field in str(header_text or "").split() if field]
 
 
-def _field_roles(header_text: str) -> dict[str, str]:
-    return {field: classify_field_role(field) for field in _split_header_fields(header_text)}
+def _field_roles(header_text: str) -> list[dict[str, str]]:
+    return [
+        {"field": field, "role": classify_field_role(field)}
+        for field in _split_header_fields(header_text)
+    ]
 
 
 def _review_notes(
@@ -121,8 +124,8 @@ def render_table_structure_markdown(report: TableStructureReport) -> str:
                 "- field_roles:",
             ]
         )
-        for field, role in item.field_roles.items():
-            lines.append(f"  - {field} -> {role}")
+        for field_role in item.field_roles:
+            lines.append(f"  - {field_role['field']} -> {field_role['role']}")
         lines.append(f"- flattened_row_hints: {item.flattened_row_hints_count}")
         lines.append("- review_notes:")
         for note in item.review_notes:
