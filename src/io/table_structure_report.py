@@ -139,6 +139,45 @@ def filtered_report_to_dict(report: TableStructureReport) -> dict[str, Any]:
     }
 
 
+def _append_item_markdown(
+    lines: list[str],
+    item: TableStructureItem,
+    include_table: bool = False,
+    include_field_roles: bool = False,
+    placeholder_empty_header: bool = False,
+) -> None:
+    header = item.hierarchy_header or "-" if placeholder_empty_header else item.hierarchy_header
+    lines.extend(
+        [
+            "",
+            f"## {item.segment_id}",
+            f"- segment_id: {item.segment_id}",
+            f"- section: {item.section_title}",
+        ]
+    )
+    if include_table:
+        lines.append(f"- table: {item.table_title or '-'}")
+    lines.extend(
+        [
+            f"- content_type: {item.content_type}",
+            f"- line_span: {item.line_span['start']}-{item.line_span['end']}",
+            f"- header: {header}",
+        ]
+    )
+    if include_field_roles:
+        lines.append("- field_roles:")
+        for field_role in item.field_roles:
+            lines.append(f"  - {field_role['field']} -> {field_role['role']}")
+        if not item.field_roles:
+            lines.append("  - (none)")
+    lines.append(f"- flattened_row_hints: {item.flattened_row_hints_count}")
+    lines.append("- review_notes:")
+    for note in item.review_notes:
+        lines.append(f"  - {note}")
+    if not item.review_notes:
+        lines.append("  - (none)")
+
+
 def render_table_structure_markdown(report: TableStructureReport) -> str:
     lines = [
         "# Table Structure Report",
@@ -147,28 +186,7 @@ def render_table_structure_markdown(report: TableStructureReport) -> str:
         "- This is a read-only diagnostic report. It does not modify row extraction or generated outputs.",
     ]
     for item in report.items:
-        lines.extend(
-            [
-                "",
-                f"## {item.segment_id}",
-                f"- segment_id: {item.segment_id}",
-                f"- section: {item.section_title}",
-                f"- content_type: {item.content_type}",
-                f"- line_span: {item.line_span['start']}-{item.line_span['end']}",
-                f"- header: {item.hierarchy_header}",
-                "- field_roles:",
-            ]
-        )
-        for field_role in item.field_roles:
-            lines.append(f"  - {field_role['field']} -> {field_role['role']}")
-        if not item.field_roles:
-            lines.append("  - (none)")
-        lines.append(f"- flattened_row_hints: {item.flattened_row_hints_count}")
-        lines.append("- review_notes:")
-        for note in item.review_notes:
-            lines.append(f"  - {note}")
-        if not item.review_notes:
-            lines.append("  - (none)")
+        _append_item_markdown(lines, item, include_field_roles=True)
     return "\n".join(lines) + "\n"
 
 
@@ -183,22 +201,5 @@ def render_filtered_table_structure_markdown(report: TableStructureReport) -> st
         "- This is a read-only diagnostic report. It does not modify row extraction or generated outputs.",
     ]
     for item in items:
-        lines.extend(
-            [
-                "",
-                f"## {item.segment_id}",
-                f"- segment_id: {item.segment_id}",
-                f"- section: {item.section_title}",
-                f"- table: {item.table_title or '-'}",
-                f"- content_type: {item.content_type}",
-                f"- line_span: {item.line_span['start']}-{item.line_span['end']}",
-                f"- header: {item.hierarchy_header or '-'}",
-                f"- flattened_row_hints: {item.flattened_row_hints_count}",
-                "- review_notes:",
-            ]
-        )
-        for note in item.review_notes:
-            lines.append(f"  - {note}")
-        if not item.review_notes:
-            lines.append("  - (none)")
+        _append_item_markdown(lines, item, include_table=True, placeholder_empty_header=True)
     return "\n".join(lines) + "\n"

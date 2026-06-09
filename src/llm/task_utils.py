@@ -4,11 +4,10 @@ import hashlib
 import json
 import os
 import re
-from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from ..core.agent_state import DocumentChunk, EvidenceClaim, EvidenceRef, StepTrace
+from ..core.agent_state import DocumentChunk, EvidenceRef, StepTrace
 from ..io.evidence_store import create_evidence_ref, dedupe_evidence_refs
 
 
@@ -21,10 +20,6 @@ class LLMJSONValidationError(ValueError):
 def stable_id(prefix: str, value: str) -> str:
     digest = hashlib.sha1(value.encode("utf-8")).hexdigest()[:12]
     return f"{prefix}_{digest}"
-
-
-def normalize_text(text: str) -> str:
-    return re.sub(r"\s+", "", str(text or "").strip().lower())
 
 
 def extract_json_object(text: str) -> dict[str, Any]:
@@ -243,106 +238,6 @@ def chunk_payload(chunks: list[DocumentChunk]) -> list[dict[str, Any]]:
     ]
 
 
-STAGE_CLAIM_TYPES = {
-    "concept": {
-        "definition",
-        "inclusion",
-        "exclusion",
-        "hierarchy",
-        "classification_principle",
-        "grade_definition",
-        "grade_mapping",
-        "rule_phrase",
-    },
-    "dimension": {"classification_principle", "definition", "hierarchy", "inclusion"},
-    "taxonomy": {"classification_principle", "definition", "hierarchy", "inclusion"},
-    "description": {"classification_principle", "definition", "hierarchy", "inclusion", "exclusion"},
-    "grading": {"grade_definition", "grade_mapping", "definition", "hierarchy"},
-    "rules": {"rule_phrase", "definition", "inclusion", "exclusion", "hierarchy"},
-}
-
-SUPPORT_PRIORITY = {
-    "explicit": 0,
-    "structural": 1,
-    "inferred": 2,
-    "weak": 3,
-    "ocr": 4,
-}
-
-
-def filter_claims_for_stage(
-    claims: list[EvidenceClaim],
-    stage: str,
-    max_claims: int | None = None,
-) -> list[EvidenceClaim]:
-    allowed_types = STAGE_CLAIM_TYPES.get(stage)
-    candidates = [
-        claim
-        for claim in claims
-        if claim.claim_type != "insufficient_evidence"
-        and (allowed_types is None or claim.claim_type in allowed_types)
-    ]
-    if not candidates and allowed_types is not None:
-        candidates = [claim for claim in claims if claim.claim_type != "insufficient_evidence"]
-
-    candidates.sort(
-        key=lambda claim: (
-            SUPPORT_PRIORITY.get(claim.support_level, 9),
-            claim.needs_review,
-            -claim.confidence,
-            claim.claim_type,
-            claim.subject,
-            claim.object,
-        )
-    )
-    if max_claims is not None and max_claims > 0:
-        return candidates[:max_claims]
-    return candidates
-
-
-def count_claim_types(claims: list[EvidenceClaim]) -> dict[str, int]:
-    return dict(Counter(claim.claim_type for claim in claims))
-
-
-def _truncate_text(text: str, max_chars: int) -> str:
-    text = str(text or "").strip()
-    if max_chars <= 0 or len(text) <= max_chars:
-        return text
-    return text[: max_chars - 3].rstrip() + "..."
-
-
-def claim_payload(
-    claims: list[EvidenceClaim],
-    include_evidence_texts: bool = False,
-    max_quote_chars: int = 500,
-) -> list[dict[str, Any]]:
-    payload: list[dict[str, Any]] = []
-    for claim in claims:
-        item = {
-            "claim_id": claim.claim_id,
-            "claim_type": claim.claim_type,
-            "subject": claim.subject,
-            "predicate": claim.predicate,
-            "object": claim.object,
-            "value": claim.value,
-            "evidence_quote": _truncate_text(claim.evidence_quote, max_quote_chars),
-            "support_level": claim.support_level,
-            "confidence": claim.confidence,
-            "needs_review": claim.needs_review,
-            "review_reason": claim.review_reason,
-            "evidence_ids": [ref.evidence_id for ref in claim.evidence_refs],
-            "evidence_page_numbers": [ref.page_number for ref in claim.evidence_refs],
-            "evidence_source_methods": [ref.source_method for ref in claim.evidence_refs],
-        }
-        if include_evidence_texts:
-            item["evidence_texts"] = [
-                _truncate_text(ref.text, max_quote_chars)
-                for ref in claim.evidence_refs[:2]
-            ]
-        payload.append(item)
-    return payload
-
-
 def refs_from_chunk_ids(
     chunk_by_id: dict[str, DocumentChunk],
     chunk_ids: list[Any],
@@ -357,27 +252,6 @@ def refs_from_chunk_ids(
         ref_score = min(score, 0.68) if chunk.source_method == "ocr" else score
         refs.append(create_evidence_ref(chunk, used_for, ref_score))
     return dedupe_evidence_refs(refs)
-
-
-def refs_from_claim_ids(
-    claim_by_id: dict[str, EvidenceClaim],
-    claim_ids: list[Any],
-) -> list[EvidenceRef]:
-    refs: list[EvidenceRef] = []
-    for raw_id in claim_ids or []:
-        claim = claim_by_id.get(str(raw_id))
-        if claim is None:
-            continue
-        refs.extend(claim.evidence_refs)
-    return dedupe_evidence_refs(refs)
-
-
-def valid_claim_ids(claim_by_id: dict[str, EvidenceClaim], claim_ids: list[Any]) -> list[str]:
-    return [str(claim_id) for claim_id in claim_ids or [] if str(claim_id) in claim_by_id]
-
-
-def merge_unique(existing: list[str], additions: list[str]) -> list[str]:
-    return list(dict.fromkeys([*existing, *additions]))
 
 
 def common_system_prompt(task_name: str) -> str:
