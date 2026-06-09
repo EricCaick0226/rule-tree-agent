@@ -29,6 +29,9 @@ class TableStructureReport:
     segmentation_mode: str = "all_nonempty_chunks_as_table_candidates"
 
 
+FILTER_MODE_REVIEWABLE_STRUCTURE_SIGNALS = "reviewable_structure_signals"
+
+
 def _split_header_fields(header_text: str) -> list[str]:
     return [field for field in str(header_text or "").split() if field]
 
@@ -113,6 +116,29 @@ def report_to_dict(report: TableStructureReport) -> dict[str, Any]:
     return asdict(report)
 
 
+def filter_reviewable_table_structure_items(
+    report: TableStructureReport,
+) -> list[TableStructureItem]:
+    return [
+        item
+        for item in report.items
+        if item.content_type in {"classification_catalog", "classification_grading_table"}
+        or bool(item.hierarchy_header)
+        or item.flattened_row_hints_count > 0
+    ]
+
+
+def filtered_report_to_dict(report: TableStructureReport) -> dict[str, Any]:
+    items = filter_reviewable_table_structure_items(report)
+    return {
+        "total_segments": report.total_segments,
+        "filtered_segments": len(items),
+        "segmentation_mode": report.segmentation_mode,
+        "filter_mode": FILTER_MODE_REVIEWABLE_STRUCTURE_SIGNALS,
+        "items": [asdict(item) for item in items],
+    }
+
+
 def render_table_structure_markdown(report: TableStructureReport) -> str:
     lines = [
         "# Table Structure Report",
@@ -139,6 +165,38 @@ def render_table_structure_markdown(report: TableStructureReport) -> str:
             lines.append("  - (none)")
         lines.append(f"- flattened_row_hints: {item.flattened_row_hints_count}")
         lines.append("- review_notes:")
+        for note in item.review_notes:
+            lines.append(f"  - {note}")
+        if not item.review_notes:
+            lines.append("  - (none)")
+    return "\n".join(lines) + "\n"
+
+
+def render_filtered_table_structure_markdown(report: TableStructureReport) -> str:
+    items = filter_reviewable_table_structure_items(report)
+    lines = [
+        "# Filtered Table Structure Report",
+        f"- Total segments: {report.total_segments}",
+        f"- Filtered segments: {len(items)}",
+        f"- Segmentation mode: {report.segmentation_mode}",
+        f"- Filter mode: {FILTER_MODE_REVIEWABLE_STRUCTURE_SIGNALS}",
+        "- This is a read-only diagnostic report. It does not modify row extraction or generated outputs.",
+    ]
+    for item in items:
+        lines.extend(
+            [
+                "",
+                f"## {item.segment_id}",
+                f"- segment_id: {item.segment_id}",
+                f"- section: {item.section_title}",
+                f"- table: {item.table_title or '-'}",
+                f"- content_type: {item.content_type}",
+                f"- line_span: {item.line_span['start']}-{item.line_span['end']}",
+                f"- header: {item.hierarchy_header or '-'}",
+                f"- flattened_row_hints: {item.flattened_row_hints_count}",
+                "- review_notes:",
+            ]
+        )
         for note in item.review_notes:
             lines.append(f"  - {note}")
         if not item.review_notes:

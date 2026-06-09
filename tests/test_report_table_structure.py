@@ -33,17 +33,27 @@ class ReportTableStructureScriptTest(unittest.TestCase):
 
             json_path = out_dir / "table_structure_report.json"
             markdown_path = out_dir / "table_structure_report.md"
+            filtered_json_path = out_dir / "table_structure_filtered_report.json"
+            filtered_markdown_path = out_dir / "table_structure_filtered_report.md"
             self.assertTrue(json_path.exists())
             self.assertTrue(markdown_path.exists())
+            self.assertTrue(filtered_json_path.exists())
+            self.assertTrue(filtered_markdown_path.exists())
 
             data = json.loads(json_path.read_text(encoding="utf-8"))
             self.assertGreaterEqual(data["total_segments"], 1)
             self.assertEqual(data["segmentation_mode"], "all_nonempty_chunks_as_table_candidates")
+            filtered_data = json.loads(filtered_json_path.read_text(encoding="utf-8"))
+            self.assertEqual(filtered_data["filter_mode"], "reviewable_structure_signals")
+            self.assertLessEqual(filtered_data["filtered_segments"], filtered_data["total_segments"])
 
             markdown = markdown_path.read_text(encoding="utf-8")
             self.assertIn("Table Structure Report", markdown)
             self.assertIn("- Segmentation mode: all_nonempty_chunks_as_table_candidates", markdown)
             self.assertIn("classification_grading_table", markdown)
+            filtered_markdown = filtered_markdown_path.read_text(encoding="utf-8")
+            self.assertIn("Filtered Table Structure Report", filtered_markdown)
+            self.assertIn("- Filter mode: reviewable_structure_signals", filtered_markdown)
 
     def test_main_returns_1_for_missing_txt_path(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -87,6 +97,8 @@ class ReportTableStructureScriptTest(unittest.TestCase):
             self.assertEqual(result, 0)
             self.assertTrue((out_dir / "table_structure_report.json").exists())
             self.assertTrue((out_dir / "table_structure_report.md").exists())
+            self.assertTrue((out_dir / "table_structure_filtered_report.json").exists())
+            self.assertTrue((out_dir / "table_structure_filtered_report.md").exists())
 
 
 if __name__ == "__main__":

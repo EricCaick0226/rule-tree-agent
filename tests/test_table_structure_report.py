@@ -7,6 +7,7 @@ from src.io.table_structure_report import (
     TableStructureItem,
     TableStructureReport,
     build_table_structure_report,
+    filter_reviewable_table_structure_items,
     render_table_structure_markdown,
     report_to_dict,
 )
@@ -175,6 +176,55 @@ class TableStructureReportTests(unittest.TestCase):
 
         self.assertIn("field_roles:\n  - (none)", markdown)
         self.assertIn("review_notes:\n  - (none)", markdown)
+
+    def test_filtered_items_exclude_title_only_unknown_segments(self):
+        title_only_unknown = TableStructureItem(
+            segment_id="title_only",
+            source_chunk_id="chunk_1",
+            doc_name="sample.txt",
+            section_title="附录 A / 表A.1 数据分类目录(续)",
+            table_title="表A.1 数据分类目录(续)",
+            hierarchy_header="",
+            content_type="unknown",
+            line_span={"start": 1, "end": 1},
+            field_roles=[],
+            flattened_row_hints_count=0,
+            review_notes=["detected table title", "missing header text", "unknown content type"],
+        )
+        catalog = TableStructureItem(
+            segment_id="catalog",
+            source_chunk_id="chunk_2",
+            doc_name="sample.txt",
+            section_title="附录 A / 表A.1 数据分类目录",
+            table_title="表A.1 数据分类目录",
+            hierarchy_header="资源属性 类 项 目",
+            content_type="classification_catalog",
+            line_span={"start": 2, "end": 10},
+            field_roles=[],
+            flattened_row_hints_count=0,
+            review_notes=["detected hierarchy header"],
+        )
+        flattened = TableStructureItem(
+            segment_id="flattened",
+            source_chunk_id="chunk_3",
+            doc_name="sample.txt",
+            section_title="正文",
+            table_title="",
+            hierarchy_header="",
+            content_type="unknown",
+            line_span={"start": 11, "end": 11},
+            field_roles=[],
+            flattened_row_hints_count=1,
+            review_notes=["has flattened parent-child code lines"],
+        )
+        report = TableStructureReport(
+            total_segments=3,
+            items=[title_only_unknown, catalog, flattened],
+        )
+
+        filtered = filter_reviewable_table_structure_items(report)
+
+        self.assertEqual([item.segment_id for item in filtered], ["catalog", "flattened"])
 
 
 if __name__ == "__main__":

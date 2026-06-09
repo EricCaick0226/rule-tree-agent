@@ -13,6 +13,8 @@ from src.io.document_parser import chunk_documents, parse_documents
 from src.io.table_segmenter import segment_table_chunks_for_row_extraction
 from src.io.table_structure_report import (
     build_table_structure_report,
+    filtered_report_to_dict,
+    render_filtered_table_structure_markdown,
     render_table_structure_markdown,
     report_to_dict,
 )
@@ -42,6 +44,14 @@ def write_table_structure_report(txt_path: Path, out_dir: Path) -> None:
         render_table_structure_markdown(report),
         encoding="utf-8",
     )
+    (out_dir / "table_structure_filtered_report.json").write_text(
+        json.dumps(filtered_report_to_dict(report), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    (out_dir / "table_structure_filtered_report.md").write_text(
+        render_filtered_table_structure_markdown(report),
+        encoding="utf-8",
+    )
 
 
 def main() -> int:
@@ -57,6 +67,8 @@ def main() -> int:
         return 1
     print(f"Wrote {args.out}/table_structure_report.json")
     print(f"Wrote {args.out}/table_structure_report.md")
+    print(f"Wrote {args.out}/table_structure_filtered_report.json")
+    print(f"Wrote {args.out}/table_structure_filtered_report.md")
     return 0
 
 
