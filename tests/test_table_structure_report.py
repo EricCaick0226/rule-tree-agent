@@ -44,6 +44,7 @@ class TableStructureReportTests(unittest.TestCase):
         report = build_table_structure_report(segments)
 
         self.assertEqual(report.total_segments, 1)
+        self.assertEqual(report.segmentation_mode, "all_nonempty_chunks_as_table_candidates")
         item = report.items[0]
         self.assertEqual(item.segment_id, "doc_1_chunk_1_seg_1")
         self.assertEqual(item.section_title, "附录 A / 表 A.1 数据分类分级表")
@@ -140,6 +141,7 @@ class TableStructureReportTests(unittest.TestCase):
         markdown = render_table_structure_markdown(report)
 
         self.assertEqual(report_dict["total_segments"], 1)
+        self.assertEqual(report_dict["segmentation_mode"], "all_nonempty_chunks_as_table_candidates")
         self.assertIn(
             {"field": "类", "role": "classification_path"},
             report_dict["items"][0]["field_roles"],
@@ -149,6 +151,7 @@ class TableStructureReportTests(unittest.TestCase):
             report_dict["items"][0]["field_roles"],
         )
         self.assertIn("# Table Structure Report", markdown)
+        self.assertIn("- Segmentation mode: all_nonempty_chunks_as_table_candidates", markdown)
         self.assertIn("field_roles:", markdown)
         self.assertIn("类 -> classification_path", markdown)
         self.assertIn("数据级别 -> grade_result", markdown)

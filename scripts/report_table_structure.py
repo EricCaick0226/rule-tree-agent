@@ -50,7 +50,11 @@ def main() -> int:
     parser.add_argument("--out", required=True, type=Path)
     args = parser.parse_args()
 
-    write_table_structure_report(args.txt, args.out)
+    try:
+        write_table_structure_report(args.txt, args.out)
+    except (OSError, ValueError) as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
     print(f"Wrote {args.out}/table_structure_report.json")
     print(f"Wrote {args.out}/table_structure_report.md")
     return 0

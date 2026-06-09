@@ -26,6 +26,7 @@ class TableStructureItem:
 class TableStructureReport:
     total_segments: int
     items: list[TableStructureItem]
+    segmentation_mode: str = "all_nonempty_chunks_as_table_candidates"
 
 
 def _split_header_fields(header_text: str) -> list[str]:
@@ -116,6 +117,7 @@ def render_table_structure_markdown(report: TableStructureReport) -> str:
     lines = [
         "# Table Structure Report",
         f"- Total segments: {report.total_segments}",
+        f"- Segmentation mode: {report.segmentation_mode}",
         "- This is a read-only diagnostic report. It does not modify row extraction or generated outputs.",
     ]
     for item in report.items:
