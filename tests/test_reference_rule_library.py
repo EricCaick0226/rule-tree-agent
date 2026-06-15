@@ -188,11 +188,189 @@ class ReferenceRuleLibraryTests(unittest.TestCase):
 
         self.assertIn("# Reference Suggestions", markdown)
         self.assertIn("Reference rows are review hints only; they are not current-document evidence.", markdown)
-        self.assertIn("## Matched Current Rows", markdown)
+        self.assertIn("## Strong Matches", markdown)
         self.assertIn("个人信息 / 身份证号", markdown)
-        self.assertIn("## Missing Reference Suggestions", markdown)
+        self.assertIn("## Missing Candidates", markdown)
         self.assertIn("个人敏感信息 / 医保卡号", markdown)
         self.assertIn("needs_review: `true`", markdown)
+
+    def test_report_adds_match_and_missing_tiers_without_removing_raw_fields(self) -> None:
+        current_rows = [
+            {
+                "row_id": "cur_strong",
+                "path_levels": ["单位法人"],
+                "description": "单位法人。",
+                "description_source": "quoted",
+                "data_range_examples": ["单位法人"],
+            },
+            {
+                "row_id": "cur_broad_1",
+                "path_levels": ["医疗服务(基层)", "门诊服务"],
+                "description": "证据不足，无法从当前文档确定",
+                "description_source": "insufficient",
+                "data_range_examples": ["门诊服务"],
+            },
+            {
+                "row_id": "cur_broad_2",
+                "path_levels": ["医疗服务(基层)", "住院服务"],
+                "description": "证据不足，无法从当前文档确定",
+                "description_source": "insufficient",
+                "data_range_examples": ["住院服务"],
+            },
+            {
+                "row_id": "cur_broad_3",
+                "path_levels": ["医疗服务(基层)", "体检服务"],
+                "description": "证据不足，无法从当前文档确定",
+                "description_source": "insufficient",
+                "data_range_examples": ["体检服务"],
+            },
+        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_json(
+                root / "wst787_2021" / "metadata.json",
+                {
+                    "name": "WST 787-2021",
+                    "source_type": "national_standard",
+                    "description": "国家卫生信息资源分类与编码管理规范",
+                },
+            )
+            write_json(
+                root / "wst787_2021" / "rule_table.json",
+                {
+                    "classification_rows": [
+                        {
+                            "row_id": "ref_strong",
+                            "path_levels": ["单位法人"],
+                            "description": "单位法人。",
+                            "description_source": "quoted",
+                            "data_range_examples": ["单位法人"],
+                        },
+                        {
+                            "row_id": "ref_broad",
+                            "path_levels": ["医疗服务(基层)"],
+                            "description": "证据不足，无法从当前文档确定",
+                            "description_source": "insufficient",
+                            "data_range_examples": ["门诊服务", "住院服务", "体检服务"],
+                        },
+                        {
+                            "row_id": "ref_missing_good",
+                            "path_levels": ["药品供应", "供应管理"],
+                            "description": "供应管理。",
+                            "description_source": "quoted",
+                            "data_range_examples": ["供应管理"],
+                        },
+                        {
+                            "row_id": "ref_missing_bad",
+                            "path_levels": ["3.5 16 职业健康管理"],
+                            "description": "证据不足，无法从当前文档确定",
+                            "description_source": "insufficient",
+                            "data_range_examples": [],
+                        },
+                    ]
+                },
+            )
+            references, warnings = load_reference_library(root)
+
+        report = build_reference_suggestion_report(
+            current_path="outputs_current/rule_table.json",
+            current_rows=current_rows,
+            references=references,
+            warnings=warnings,
+            top_k=1,
+            min_score=0.2,
+        )
+
+        self.assertIn("matched_current_rows", report)
+        self.assertIn("missing_reference_suggestions", report)
+        self.assertEqual(len(report["strong_matches"]), 1)
+        self.assertEqual(report["strong_matches"][0]["current_row_id"], "cur_strong")
+        self.assertEqual(len(report["broad_matches"]), 3)
+        self.assertEqual(
+            {item["current_row_id"] for item in report["broad_matches"]},
+            {"cur_broad_1", "cur_broad_2", "cur_broad_3"},
+        )
+        self.assertEqual(len(report["missing_candidates"]), 1)
+        self.assertEqual(report["missing_candidates"][0]["reference_row_id"], "ref_missing_good")
+        self.assertEqual(len(report["low_quality_reference_rows"]), 1)
+        self.assertEqual(report["low_quality_reference_rows"][0]["reference_row_id"], "ref_missing_bad")
+
+    def test_markdown_renders_tiered_sections(self) -> None:
+        report = {
+            "current": "outputs_current/rule_table.json",
+            "references": [],
+            "warnings": [],
+            "matched_current_rows": [],
+            "missing_reference_suggestions": [],
+            "strong_matches": [
+                {
+                    "current_row_id": "cur_1",
+                    "current_path": ["单位法人"],
+                    "current_description_source": "quoted",
+                    "matches": [
+                        {
+                            "reference_name": "WST 787-2021",
+                            "reference_type": "national_standard",
+                            "reference_row_id": "ref_1",
+                            "reference_path": ["单位法人"],
+                            "score": 1.0,
+                            "shared_terms": ["单位法人"],
+                        }
+                    ],
+                }
+            ],
+            "broad_matches": [
+                {
+                    "current_row_id": "cur_2",
+                    "current_path": ["医疗服务(基层)", "门诊服务"],
+                    "current_description_source": "insufficient",
+                    "matches": [
+                        {
+                            "reference_name": "WST 787-2021",
+                            "reference_type": "national_standard",
+                            "reference_row_id": "ref_2",
+                            "reference_path": ["医疗服务(基层)"],
+                            "score": 0.8,
+                            "shared_terms": ["医疗服务(基层)"],
+                        }
+                    ],
+                }
+            ],
+            "missing_candidates": [
+                {
+                    "reference_name": "WST 787-2021",
+                    "reference_type": "national_standard",
+                    "reference_row_id": "ref_3",
+                    "reference_path": ["药品供应", "供应管理"],
+                    "reference_description": "供应管理。",
+                    "reference_grade": None,
+                    "needs_review": True,
+                    "review_reason": REVIEW_ONLY_REASON,
+                }
+            ],
+            "low_quality_reference_rows": [
+                {
+                    "reference_name": "WST 787-2021",
+                    "reference_type": "national_standard",
+                    "reference_row_id": "ref_4",
+                    "reference_path": ["3.5 16 职业健康管理"],
+                    "reference_description": "证据不足，无法从当前文档确定",
+                    "reference_grade": None,
+                    "needs_review": True,
+                    "review_reason": REVIEW_ONLY_REASON,
+                }
+            ],
+        }
+
+        markdown = render_reference_suggestions_markdown(report)
+
+        self.assertIn("## Strong Matches", markdown)
+        self.assertIn("## Broad Matches", markdown)
+        self.assertIn("## Missing Candidates", markdown)
+        self.assertIn("## Low Quality Reference Rows", markdown)
+        self.assertIn("单位法人", markdown)
+        self.assertIn("药品供应 / 供应管理", markdown)
+        self.assertIn("3.5 16 职业健康管理", markdown)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+from collections import Counter
 import json
 from pathlib import Path
+import re
 from typing import Any
 
 from .rule_table_linker import (
@@ -14,6 +16,10 @@ from .rule_table_linker import (
 
 REVIEW_ONLY_REASON = "当前输出未找到高相似匹配；该项仅来自参考库，需人工确认当前地方文档是否应补充。"
 MATCH_REASON = "当前输出未找到高相似匹配。"
+STRONG_MATCH_SCORE = 0.85
+BROAD_REFERENCE_REUSE_THRESHOLD = 3
+GENERIC_SINGLE_LEVEL_TERMS = {"预案", "方案", "资源管理服务"}
+SUSPICIOUS_REFERENCE_TERMS = {"技资管理"}
 
 
 def _string_list(value: object) -> list[str]:
@@ -123,6 +129,68 @@ def _missing_reference_suggestions(
     return suggestions
 
 
+def _top_match(link: dict[str, Any]) -> dict[str, Any] | None:
+    matches = link.get("matches") or []
+    if not matches or not isinstance(matches[0], dict):
+        return None
+    return matches[0]
+
+
+def _top_reference_key(link: dict[str, Any]) -> tuple[str, str]:
+    match = _top_match(link)
+    if not match:
+        return "", ""
+    return str(match.get("reference_file") or ""), str(match.get("reference_row_id") or "")
+
+
+def _split_match_tiers(
+    matched_current_rows: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    reuse_counts = Counter(_top_reference_key(link) for link in matched_current_rows)
+    strong_matches: list[dict[str, Any]] = []
+    broad_matches: list[dict[str, Any]] = []
+    for link in matched_current_rows:
+        match = _top_match(link)
+        score = float(match.get("score") or 0.0) if match else 0.0
+        reused = reuse_counts[_top_reference_key(link)] >= BROAD_REFERENCE_REUSE_THRESHOLD
+        if score >= STRONG_MATCH_SCORE and not reused:
+            strong_matches.append(link)
+        else:
+            broad_matches.append(link)
+    return strong_matches, broad_matches
+
+
+def _compact_path_text(path: object) -> str:
+    return re.sub(r"\s+", "", _path_text(path))
+
+
+def _is_low_quality_reference_suggestion(suggestion: dict[str, Any]) -> bool:
+    levels = _string_list(suggestion.get("reference_path"))
+    if not levels:
+        return True
+    compact = _compact_path_text(levels)
+    if len(levels) == 1 and compact in GENERIC_SINGLE_LEVEL_TERMS:
+        return True
+    if any(term in compact for term in SUSPICIOUS_REFERENCE_TERMS):
+        return True
+    if re.search(r"\d+(?:\.\d+)?\s+\d+", _path_text(levels)):
+        return True
+    return False
+
+
+def _split_missing_tiers(
+    missing_reference_suggestions: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    missing_candidates: list[dict[str, Any]] = []
+    low_quality_rows: list[dict[str, Any]] = []
+    for suggestion in missing_reference_suggestions:
+        if _is_low_quality_reference_suggestion(suggestion):
+            low_quality_rows.append(suggestion)
+        else:
+            missing_candidates.append(suggestion)
+    return missing_candidates, low_quality_rows
+
+
 def build_reference_suggestion_report(
     current_path: str,
     current_rows: list[dict[str, Any]],
@@ -139,6 +207,9 @@ def build_reference_suggestion_report(
     )
     matched_current_rows = links_to_dicts(links)
     matched_keys = _matched_reference_keys(matched_current_rows)
+    missing_reference_suggestions = _missing_reference_suggestions(references, matched_keys)
+    strong_matches, broad_matches = _split_match_tiers(matched_current_rows)
+    missing_candidates, low_quality_reference_rows = _split_missing_tiers(missing_reference_suggestions)
     return {
         "current": current_path,
         "references": [
@@ -152,7 +223,11 @@ def build_reference_suggestion_report(
         ],
         "warnings": list(warnings or []),
         "matched_current_rows": matched_current_rows,
-        "missing_reference_suggestions": _missing_reference_suggestions(references, matched_keys),
+        "missing_reference_suggestions": missing_reference_suggestions,
+        "strong_matches": strong_matches,
+        "broad_matches": broad_matches,
+        "missing_candidates": missing_candidates,
+        "low_quality_reference_rows": low_quality_reference_rows,
     }
 
 
@@ -165,36 +240,14 @@ def _bool_text(value: object) -> str:
     return "true" if bool(value) else "false"
 
 
-def render_reference_suggestions_markdown(report: dict[str, Any]) -> str:
-    matched_rows = [item for item in report.get("matched_current_rows") or [] if isinstance(item, dict)]
-    missing_rows = [
-        item for item in report.get("missing_reference_suggestions") or [] if isinstance(item, dict)
-    ]
-    lines = [
-        "# Reference Suggestions",
-        "",
-        f"- Current: `{report.get('current', '')}`",
-        f"- References: {len(report.get('references') or [])}",
-        f"- Matched current rows: {len(matched_rows)}",
-        f"- Missing reference suggestions: {len(missing_rows)}",
-        "- Reference rows are review hints only; they are not current-document evidence.",
-        "- Missing suggestions are not merged into rule_table.json or rule_tree.json.",
-        "",
-    ]
-
-    warnings = [str(item) for item in report.get("warnings") or [] if str(item).strip()]
-    if warnings:
-        lines.append("## Warnings")
-        for warning in warnings:
-            lines.append(f"- {warning}")
-        lines.append("")
-
-    lines.append("## Matched Current Rows")
-    if not matched_rows:
+def _append_match_section(lines: list[str], title: str, rows: list[dict[str, Any]]) -> None:
+    lines.append(title)
+    if not rows:
         lines.append("")
         lines.append("(none)")
         lines.append("")
-    for index, link in enumerate(matched_rows, start=1):
+        return
+    for index, link in enumerate(rows, start=1):
         lines.append("")
         lines.append(f"### {index}. {_path_text(link.get('current_path'))}")
         lines.append(f"- current_row_id: `{link.get('current_row_id', '')}`")
@@ -208,14 +261,17 @@ def render_reference_suggestions_markdown(report: dict[str, Any]) -> str:
                 f"type={match.get('reference_type')}, row_id={match.get('reference_row_id')}, "
                 f"shared: {shared})"
             )
-
     lines.append("")
-    lines.append("## Missing Reference Suggestions")
-    if not missing_rows:
+
+
+def _append_suggestion_section(lines: list[str], title: str, rows: list[dict[str, Any]]) -> None:
+    lines.append(title)
+    if not rows:
         lines.append("")
         lines.append("(none)")
         lines.append("")
-    for index, suggestion in enumerate(missing_rows, start=1):
+        return
+    for index, suggestion in enumerate(rows, start=1):
         lines.append("")
         lines.append(f"### {index}. {_path_text(suggestion.get('reference_path'))}")
         lines.append(f"- reference: `{suggestion.get('reference_name', '')}`")
@@ -227,5 +283,50 @@ def render_reference_suggestions_markdown(report: dict[str, Any]) -> str:
         description = str(suggestion.get("reference_description") or "").strip()
         if description:
             lines.append(f"- reference_description: {description}")
+    lines.append("")
+
+
+def render_reference_suggestions_markdown(report: dict[str, Any]) -> str:
+    matched_rows = [item for item in report.get("matched_current_rows") or [] if isinstance(item, dict)]
+    missing_rows = [
+        item for item in report.get("missing_reference_suggestions") or [] if isinstance(item, dict)
+    ]
+    strong_matches = [item for item in report.get("strong_matches") or [] if isinstance(item, dict)]
+    broad_matches = [item for item in report.get("broad_matches") or [] if isinstance(item, dict)]
+    if not strong_matches and not broad_matches and matched_rows:
+        strong_matches, broad_matches = _split_match_tiers(matched_rows)
+    missing_candidates = [item for item in report.get("missing_candidates") or [] if isinstance(item, dict)]
+    low_quality_rows = [
+        item for item in report.get("low_quality_reference_rows") or [] if isinstance(item, dict)
+    ]
+    if not missing_candidates and not low_quality_rows and missing_rows:
+        missing_candidates, low_quality_rows = _split_missing_tiers(missing_rows)
+    lines = [
+        "# Reference Suggestions",
+        "",
+        f"- Current: `{report.get('current', '')}`",
+        f"- References: {len(report.get('references') or [])}",
+        f"- Matched current rows: {len(matched_rows)}",
+        f"- Missing reference suggestions: {len(missing_rows)}",
+        f"- Strong matches: {len(strong_matches)}",
+        f"- Broad matches: {len(broad_matches)}",
+        f"- Missing candidates: {len(missing_candidates)}",
+        f"- Low quality reference rows: {len(low_quality_rows)}",
+        "- Reference rows are review hints only; they are not current-document evidence.",
+        "- Missing suggestions are not merged into rule_table.json or rule_tree.json.",
+        "",
+    ]
+
+    warnings = [str(item) for item in report.get("warnings") or [] if str(item).strip()]
+    if warnings:
+        lines.append("## Warnings")
+        for warning in warnings:
+            lines.append(f"- {warning}")
+        lines.append("")
+
+    _append_match_section(lines, "## Strong Matches", strong_matches)
+    _append_match_section(lines, "## Broad Matches", broad_matches)
+    _append_suggestion_section(lines, "## Missing Candidates", missing_candidates)
+    _append_suggestion_section(lines, "## Low Quality Reference Rows", low_quality_rows)
 
     return "\n".join(lines).rstrip() + "\n"
