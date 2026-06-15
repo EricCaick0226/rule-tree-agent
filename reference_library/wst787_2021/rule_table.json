@@ -1,0 +1,3970 @@
+{
+  "classification_schema": {
+    "max_depth": 5,
+    "source": "inferred_from_rows",
+    "evidence_quote": "患者；服务范围与对象 / 健康人；医务人员",
+    "evidence_refs": [],
+    "confidence": 0.7,
+    "needs_review": true,
+    "review_reason": "未找到明确层级表头，按抽取出的路径最大深度推断。"
+  },
+  "grade_scheme": [
+    {
+      "grade_id": "grade_5e8e403d1115",
+      "grade_name": "重要数据",
+      "definition": "特定领域、特定群体、特定区域或达到一定精度和规模的数据，一旦被泄露或篡改、损毁，可能直接危害国家安全、经济运行、社会稳定、公共健康和安全。仅影响组织自身或公民个体的数据，一般不作为重要数据。",
+      "criteria": [
+        "涉及 100 万人及以上个人信息或 10 万人及以上敏感个人信息",
+        "全国性的业务数据，如涉及 10 万人的群体健康生理状况数据;涉及 万人的族群生物特征数据、医疗资源数据;涉及 10 人的诊疗数据、医疗救援保障数据、特定药品实验数据等",
+        "经评估的其他数据"
+      ],
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_abffd6049dc7",
+          "chunk_id": "doc_1_chunk_1",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "未命名章节",
+          "text": "国家卫生健康委员会办公厅\n国家中医药管理局综合司\n国家疾病预防控制局综合司\n国卫办规划函 (2023J233\n关于印发卫生健康行业数据分类分级\n指南(试行)的通知\n(信息公开形式:不予公开)\n卫生健康行业数据分类分级指南(试行)\n第一章总则\n第一条 按照国家数据安全工作协调机制(以下简称协调机\n制)的统一部署，为做好卫生健康行业数据分类分级工作，根据《中\n华人民共和国数据安全法>><<中华人民共和国网络安全法>><<中华人\n民共和国个人信息保护法》等法律法规要求，结合行业特点，制定\n本指南。\n第二条 卫生健康行业数据是指在疾病防治、健康管理、医学\n相关教学研究、医疗管理等过程中产生的数据。数据是指任何以\n电子或其他方式对所处理信息的记录。\n第三条 数据处理者是指开展数据处理活动的组织、个人。\n数据处理包括数据的收集、存储、使用、加工、传输、提供、公\n开等。\n第四条 卫生健康行业数据处理活动中，对非涉密数据开展\n的分类分级工作，适用本指南。涉及国家秘密的数据按照国家有\n关规定执行。\n第五条 卫生健康行业数据分为核心数据、重要数据、一般数\n据三个级别，本指南主要用于识别认定重要数据和核心数据。\n第二章职责分工\n第六条 按\"谁管业务，谁管数据，谁管数据安全\"的原则开展\n卫生健康行业数据分类分级工作。数据处理者负责对本单位数据\n情况进行梳理和识别。\n第七条 国家卫生健康委、国家中医药局、国家疾控局负责统\n筹、指导医疗卫生机构数据分类分级工作。本指南界定的卫生健\n康行业数据分类分级的一般原则、维度和方法，适用于卫生健康主\n管部门(含中医药和疾控部门，下同)和医疗卫生机构管辖范围内\n的数据。\n第八条 国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局牵头，会同其他司局审核汇总行业数据的梳理识别情况。\n第九条 省级卫生健康主管部门负责本地区卫生健康行业数\n据分类分级工作，审核汇总本地区数据处理者梳理识别的数据\n情况。\n第十条 国家卫生健康委会同国家中医药局、国家疾控局提\n出卫生健康行业核心数据目录建议，确定重要数据目录。\n第三章分类分级\n第十一条 卫生健康行业数据参照 <<WS/T 787 - 2021 国家\n卫生信息资源分类与编码管理规范》分为基础资源类 (1 服务范围\n与对象、 地理特征、 法律法规、 单位法人、 编制体制、 方案\n预案、 人力资源、 财务资源、 设备资源、 10 卫生健康信息化)、\n-\n业务资源类 (1 公共卫生、 医疗服务一医院、 医疗服务一基层、\n医疗保障、 药品供应、 计划生育、 综合管理)、主题资源类。全\n员人口数据库、 电子病历数据库、 电子健康档案数据库、 医学\n研究数据库、 其他数据库)共 大类 22 小类，并在此基础上细化\n业务类别(见附件 1)\n第十二条 重要数据是指特定领域、特定群体、特定区域或达\n到一定精度和规模的数据，一旦被泄露或篡改、损毁，可能直接危\n害国家安全、经济运行、社会稳定、公共健康和安全。仅影响组织\n自身或公民个体的数据，一般不作为重要数据。卫生健康行业满\n足下列条件之一，原则上应纳入重要数据的建议范围:\n(一)涉及 100 万人及以上个人信息或 10 万人及以上敏感个\n人信息;\n(二)全国性的业务数据，如涉及 10 万人的群体健康生理状况\n数据;涉及 万人的族群生物特征数据、医疗资源数据;涉及 10\n人的诊疗数据、医疗救援保障数据、特定药品实验数据等;\n(三)经评估的其他数据。\n第十三条 核心数据是指对领域、群体、区域具有较高覆盖度\n或达到较高精度、较大规模、一定深度的重要数据，一旦被非法使\n用或共享，可能直接影响政治安全。卫生健康行业满足以下条件\n之一的重要数据，原则上应纳入核心数据的建议范围:\n(一 )1000 万人及以上个人信息或 100 万人及以上敏感个人\n信息;\n-\n(二)覆盖某一重要特定群体全部个体的数据，特定时期特定\n区域的群体数据;\n(三)涉及 1000 万人及以上，经过计算加工生成的，对数据描\n述对象有较深刻画程度，且影响国家安全的衍生数据;\n(四)经评估的其他数据。\n第十四条 一般数据是指核心数据、重要数据之外的其他\n数据。\n第十五条 数据级别确定后，出现下列情形之一的，应对数据\n级别及时变更:\n(一)数据内容发生较大变化;\n(二)数据内容未发生变化，但数据规模、数据时效性、数据应\n用场景、数据加工处理方式等发生较大变化;\n(三)因国家有关要求，导致原定的数据级别不再适用;\n(四)需要对数据级别进行变更的其他情形。\n第十六条 数据经过脱敏、标签、统计、汇聚融合等加工活动\n而产生的衍生数据，应在原始数据定级的基础上，综合考虑数据加\n工处理后对数据规模、精度、深度的影响，重新评估确定数据级别。\n第四章 分类分级工作流程\n第十七条 数据处理者应对所掌握的数据进行全面梳理，如\n涉及网络运行的，还应梳理网络安全等级保护和关键信息基础设\n施安全保护情况。\n-\n第十八条 数据处理者对数据资产进行梳理，确定数据类别，\n并识别数据级别，将数据基本情况、责任主体情况、数据处理情况、\n数据安全情况填报《重要数据梳理识别情况汇总表))(见附件 2)\n并按照业务管理层级和权限，逐级上报。省级卫生健康主管部门\n审核汇总后报国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局。委局各司局及直属单位梳理本单位的数据资产，开展\n分类分级工作，将本单位《重要数据梳理识别情况汇总表》报送国\n家卫生健康委、国家中医药局、国家疾控局信息化主管司局。\n第十九条 国家卫生健康委、国家中医药局、国家疾控局分别\n汇总各单位上报情况，组织专家评审，确定卫生健康行业的重要数\n据目录，并提出卫生健康行业核心数据目录建议，经协调机制审核\n后确定核心数据目录。\n第二十条 重要数据目录和核心数据目录由国家卫生健康\n委、国家中医药局、国家疾控局信息化主管司局反馈至相关单位。\n第二十一条 核心数据在重要数据基础上实行更加严格的管\n理制度，除国家机关依法履职外，核心数据跨主体流动要经国家卫\n生健康委、国家中医药局、国家疾控局信息化主管司局分别报协调\n机制组织风险评估、安全审查。\n第二十二条 卫生健康行业的重要数据目录和核心数据目录\n实施动态更新机制。需变更重要数据和核心数据基本情况的，应\n在发生变化后的 30 日内重新实施分类分级流程。需变更重要数\n据和核心数据基本情况之外信息的，应在发生变化后的 60 日内逐\n-\n级上报至国家卫生健康委、国家中医药局、国家疾控局信息化主管\n司局备案。\n第五章附则\n第二十三条 本指南自印发之日起施行。\n附件:1.卫生健康行业数据分类参考表",
+          "used_for": "grade_definition:重要数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "evidence_claim_ids": [],
+      "confidence": 0.95,
+      "needs_review": false,
+      "review_reason": "",
+      "status": "evidence_supported"
+    },
+    {
+      "grade_id": "grade_01b2cec0f67a",
+      "grade_name": "核心数据",
+      "definition": "对领域、群体、区域具有较高覆盖度或达到较高精度、较大规模、一定深度的重要数据，一旦被非法使用或共享，可能直接影响政治安全。",
+      "criteria": [
+        "1000 万人及以上个人信息或 100 万人及以上敏感个人信息",
+        "覆盖某一重要特定群体全部个体的数据，特定时期特定区域的群体数据",
+        "涉及 1000 万人及以上，经过计算加工生成的，对数据描述对象有较深刻画程度，且影响国家安全的衍生数据",
+        "经评估的其他数据"
+      ],
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8581e7a82458",
+          "chunk_id": "doc_1_chunk_1",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "未命名章节",
+          "text": "国家卫生健康委员会办公厅\n国家中医药管理局综合司\n国家疾病预防控制局综合司\n国卫办规划函 (2023J233\n关于印发卫生健康行业数据分类分级\n指南(试行)的通知\n(信息公开形式:不予公开)\n卫生健康行业数据分类分级指南(试行)\n第一章总则\n第一条 按照国家数据安全工作协调机制(以下简称协调机\n制)的统一部署，为做好卫生健康行业数据分类分级工作，根据《中\n华人民共和国数据安全法>><<中华人民共和国网络安全法>><<中华人\n民共和国个人信息保护法》等法律法规要求，结合行业特点，制定\n本指南。\n第二条 卫生健康行业数据是指在疾病防治、健康管理、医学\n相关教学研究、医疗管理等过程中产生的数据。数据是指任何以\n电子或其他方式对所处理信息的记录。\n第三条 数据处理者是指开展数据处理活动的组织、个人。\n数据处理包括数据的收集、存储、使用、加工、传输、提供、公\n开等。\n第四条 卫生健康行业数据处理活动中，对非涉密数据开展\n的分类分级工作，适用本指南。涉及国家秘密的数据按照国家有\n关规定执行。\n第五条 卫生健康行业数据分为核心数据、重要数据、一般数\n据三个级别，本指南主要用于识别认定重要数据和核心数据。\n第二章职责分工\n第六条 按\"谁管业务，谁管数据，谁管数据安全\"的原则开展\n卫生健康行业数据分类分级工作。数据处理者负责对本单位数据\n情况进行梳理和识别。\n第七条 国家卫生健康委、国家中医药局、国家疾控局负责统\n筹、指导医疗卫生机构数据分类分级工作。本指南界定的卫生健\n康行业数据分类分级的一般原则、维度和方法，适用于卫生健康主\n管部门(含中医药和疾控部门，下同)和医疗卫生机构管辖范围内\n的数据。\n第八条 国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局牵头，会同其他司局审核汇总行业数据的梳理识别情况。\n第九条 省级卫生健康主管部门负责本地区卫生健康行业数\n据分类分级工作，审核汇总本地区数据处理者梳理识别的数据\n情况。\n第十条 国家卫生健康委会同国家中医药局、国家疾控局提\n出卫生健康行业核心数据目录建议，确定重要数据目录。\n第三章分类分级\n第十一条 卫生健康行业数据参照 <<WS/T 787 - 2021 国家\n卫生信息资源分类与编码管理规范》分为基础资源类 (1 服务范围\n与对象、 地理特征、 法律法规、 单位法人、 编制体制、 方案\n预案、 人力资源、 财务资源、 设备资源、 10 卫生健康信息化)、\n-\n业务资源类 (1 公共卫生、 医疗服务一医院、 医疗服务一基层、\n医疗保障、 药品供应、 计划生育、 综合管理)、主题资源类。全\n员人口数据库、 电子病历数据库、 电子健康档案数据库、 医学\n研究数据库、 其他数据库)共 大类 22 小类，并在此基础上细化\n业务类别(见附件 1)\n第十二条 重要数据是指特定领域、特定群体、特定区域或达\n到一定精度和规模的数据，一旦被泄露或篡改、损毁，可能直接危\n害国家安全、经济运行、社会稳定、公共健康和安全。仅影响组织\n自身或公民个体的数据，一般不作为重要数据。卫生健康行业满\n足下列条件之一，原则上应纳入重要数据的建议范围:\n(一)涉及 100 万人及以上个人信息或 10 万人及以上敏感个\n人信息;\n(二)全国性的业务数据，如涉及 10 万人的群体健康生理状况\n数据;涉及 万人的族群生物特征数据、医疗资源数据;涉及 10\n人的诊疗数据、医疗救援保障数据、特定药品实验数据等;\n(三)经评估的其他数据。\n第十三条 核心数据是指对领域、群体、区域具有较高覆盖度\n或达到较高精度、较大规模、一定深度的重要数据，一旦被非法使\n用或共享，可能直接影响政治安全。卫生健康行业满足以下条件\n之一的重要数据，原则上应纳入核心数据的建议范围:\n(一 )1000 万人及以上个人信息或 100 万人及以上敏感个人\n信息;\n-\n(二)覆盖某一重要特定群体全部个体的数据，特定时期特定\n区域的群体数据;\n(三)涉及 1000 万人及以上，经过计算加工生成的，对数据描\n述对象有较深刻画程度，且影响国家安全的衍生数据;\n(四)经评估的其他数据。\n第十四条 一般数据是指核心数据、重要数据之外的其他\n数据。\n第十五条 数据级别确定后，出现下列情形之一的，应对数据\n级别及时变更:\n(一)数据内容发生较大变化;\n(二)数据内容未发生变化，但数据规模、数据时效性、数据应\n用场景、数据加工处理方式等发生较大变化;\n(三)因国家有关要求，导致原定的数据级别不再适用;\n(四)需要对数据级别进行变更的其他情形。\n第十六条 数据经过脱敏、标签、统计、汇聚融合等加工活动\n而产生的衍生数据，应在原始数据定级的基础上，综合考虑数据加\n工处理后对数据规模、精度、深度的影响，重新评估确定数据级别。\n第四章 分类分级工作流程\n第十七条 数据处理者应对所掌握的数据进行全面梳理，如\n涉及网络运行的，还应梳理网络安全等级保护和关键信息基础设\n施安全保护情况。\n-\n第十八条 数据处理者对数据资产进行梳理，确定数据类别，\n并识别数据级别，将数据基本情况、责任主体情况、数据处理情况、\n数据安全情况填报《重要数据梳理识别情况汇总表))(见附件 2)\n并按照业务管理层级和权限，逐级上报。省级卫生健康主管部门\n审核汇总后报国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局。委局各司局及直属单位梳理本单位的数据资产，开展\n分类分级工作，将本单位《重要数据梳理识别情况汇总表》报送国\n家卫生健康委、国家中医药局、国家疾控局信息化主管司局。\n第十九条 国家卫生健康委、国家中医药局、国家疾控局分别\n汇总各单位上报情况，组织专家评审，确定卫生健康行业的重要数\n据目录，并提出卫生健康行业核心数据目录建议，经协调机制审核\n后确定核心数据目录。\n第二十条 重要数据目录和核心数据目录由国家卫生健康\n委、国家中医药局、国家疾控局信息化主管司局反馈至相关单位。\n第二十一条 核心数据在重要数据基础上实行更加严格的管\n理制度，除国家机关依法履职外，核心数据跨主体流动要经国家卫\n生健康委、国家中医药局、国家疾控局信息化主管司局分别报协调\n机制组织风险评估、安全审查。\n第二十二条 卫生健康行业的重要数据目录和核心数据目录\n实施动态更新机制。需变更重要数据和核心数据基本情况的，应\n在发生变化后的 30 日内重新实施分类分级流程。需变更重要数\n据和核心数据基本情况之外信息的，应在发生变化后的 60 日内逐\n-\n级上报至国家卫生健康委、国家中医药局、国家疾控局信息化主管\n司局备案。\n第五章附则\n第二十三条 本指南自印发之日起施行。\n附件:1.卫生健康行业数据分类参考表",
+          "used_for": "grade_definition:核心数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "evidence_claim_ids": [],
+      "confidence": 0.95,
+      "needs_review": false,
+      "review_reason": "",
+      "status": "evidence_supported"
+    },
+    {
+      "grade_id": "grade_77c8bc123494",
+      "grade_name": "一般数据",
+      "definition": "核心数据、重要数据之外的其他数据。",
+      "criteria": [],
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_a453f7a8e20f",
+          "chunk_id": "doc_1_chunk_1",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "未命名章节",
+          "text": "国家卫生健康委员会办公厅\n国家中医药管理局综合司\n国家疾病预防控制局综合司\n国卫办规划函 (2023J233\n关于印发卫生健康行业数据分类分级\n指南(试行)的通知\n(信息公开形式:不予公开)\n卫生健康行业数据分类分级指南(试行)\n第一章总则\n第一条 按照国家数据安全工作协调机制(以下简称协调机\n制)的统一部署，为做好卫生健康行业数据分类分级工作，根据《中\n华人民共和国数据安全法>><<中华人民共和国网络安全法>><<中华人\n民共和国个人信息保护法》等法律法规要求，结合行业特点，制定\n本指南。\n第二条 卫生健康行业数据是指在疾病防治、健康管理、医学\n相关教学研究、医疗管理等过程中产生的数据。数据是指任何以\n电子或其他方式对所处理信息的记录。\n第三条 数据处理者是指开展数据处理活动的组织、个人。\n数据处理包括数据的收集、存储、使用、加工、传输、提供、公\n开等。\n第四条 卫生健康行业数据处理活动中，对非涉密数据开展\n的分类分级工作，适用本指南。涉及国家秘密的数据按照国家有\n关规定执行。\n第五条 卫生健康行业数据分为核心数据、重要数据、一般数\n据三个级别，本指南主要用于识别认定重要数据和核心数据。\n第二章职责分工\n第六条 按\"谁管业务，谁管数据，谁管数据安全\"的原则开展\n卫生健康行业数据分类分级工作。数据处理者负责对本单位数据\n情况进行梳理和识别。\n第七条 国家卫生健康委、国家中医药局、国家疾控局负责统\n筹、指导医疗卫生机构数据分类分级工作。本指南界定的卫生健\n康行业数据分类分级的一般原则、维度和方法，适用于卫生健康主\n管部门(含中医药和疾控部门，下同)和医疗卫生机构管辖范围内\n的数据。\n第八条 国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局牵头，会同其他司局审核汇总行业数据的梳理识别情况。\n第九条 省级卫生健康主管部门负责本地区卫生健康行业数\n据分类分级工作，审核汇总本地区数据处理者梳理识别的数据\n情况。\n第十条 国家卫生健康委会同国家中医药局、国家疾控局提\n出卫生健康行业核心数据目录建议，确定重要数据目录。\n第三章分类分级\n第十一条 卫生健康行业数据参照 <<WS/T 787 - 2021 国家\n卫生信息资源分类与编码管理规范》分为基础资源类 (1 服务范围\n与对象、 地理特征、 法律法规、 单位法人、 编制体制、 方案\n预案、 人力资源、 财务资源、 设备资源、 10 卫生健康信息化)、\n-\n业务资源类 (1 公共卫生、 医疗服务一医院、 医疗服务一基层、\n医疗保障、 药品供应、 计划生育、 综合管理)、主题资源类。全\n员人口数据库、 电子病历数据库、 电子健康档案数据库、 医学\n研究数据库、 其他数据库)共 大类 22 小类，并在此基础上细化\n业务类别(见附件 1)\n第十二条 重要数据是指特定领域、特定群体、特定区域或达\n到一定精度和规模的数据，一旦被泄露或篡改、损毁，可能直接危\n害国家安全、经济运行、社会稳定、公共健康和安全。仅影响组织\n自身或公民个体的数据，一般不作为重要数据。卫生健康行业满\n足下列条件之一，原则上应纳入重要数据的建议范围:\n(一)涉及 100 万人及以上个人信息或 10 万人及以上敏感个\n人信息;\n(二)全国性的业务数据，如涉及 10 万人的群体健康生理状况\n数据;涉及 万人的族群生物特征数据、医疗资源数据;涉及 10\n人的诊疗数据、医疗救援保障数据、特定药品实验数据等;\n(三)经评估的其他数据。\n第十三条 核心数据是指对领域、群体、区域具有较高覆盖度\n或达到较高精度、较大规模、一定深度的重要数据，一旦被非法使\n用或共享，可能直接影响政治安全。卫生健康行业满足以下条件\n之一的重要数据，原则上应纳入核心数据的建议范围:\n(一 )1000 万人及以上个人信息或 100 万人及以上敏感个人\n信息;\n-\n(二)覆盖某一重要特定群体全部个体的数据，特定时期特定\n区域的群体数据;\n(三)涉及 1000 万人及以上，经过计算加工生成的，对数据描\n述对象有较深刻画程度，且影响国家安全的衍生数据;\n(四)经评估的其他数据。\n第十四条 一般数据是指核心数据、重要数据之外的其他\n数据。\n第十五条 数据级别确定后，出现下列情形之一的，应对数据\n级别及时变更:\n(一)数据内容发生较大变化;\n(二)数据内容未发生变化，但数据规模、数据时效性、数据应\n用场景、数据加工处理方式等发生较大变化;\n(三)因国家有关要求，导致原定的数据级别不再适用;\n(四)需要对数据级别进行变更的其他情形。\n第十六条 数据经过脱敏、标签、统计、汇聚融合等加工活动\n而产生的衍生数据，应在原始数据定级的基础上，综合考虑数据加\n工处理后对数据规模、精度、深度的影响，重新评估确定数据级别。\n第四章 分类分级工作流程\n第十七条 数据处理者应对所掌握的数据进行全面梳理，如\n涉及网络运行的，还应梳理网络安全等级保护和关键信息基础设\n施安全保护情况。\n-\n第十八条 数据处理者对数据资产进行梳理，确定数据类别，\n并识别数据级别，将数据基本情况、责任主体情况、数据处理情况、\n数据安全情况填报《重要数据梳理识别情况汇总表))(见附件 2)\n并按照业务管理层级和权限，逐级上报。省级卫生健康主管部门\n审核汇总后报国家卫生健康委、国家中医药局、国家疾控局信息化\n主管司局。委局各司局及直属单位梳理本单位的数据资产，开展\n分类分级工作，将本单位《重要数据梳理识别情况汇总表》报送国\n家卫生健康委、国家中医药局、国家疾控局信息化主管司局。\n第十九条 国家卫生健康委、国家中医药局、国家疾控局分别\n汇总各单位上报情况，组织专家评审，确定卫生健康行业的重要数\n据目录，并提出卫生健康行业核心数据目录建议，经协调机制审核\n后确定核心数据目录。\n第二十条 重要数据目录和核心数据目录由国家卫生健康\n委、国家中医药局、国家疾控局信息化主管司局反馈至相关单位。\n第二十一条 核心数据在重要数据基础上实行更加严格的管\n理制度，除国家机关依法履职外，核心数据跨主体流动要经国家卫\n生健康委、国家中医药局、国家疾控局信息化主管司局分别报协调\n机制组织风险评估、安全审查。\n第二十二条 卫生健康行业的重要数据目录和核心数据目录\n实施动态更新机制。需变更重要数据和核心数据基本情况的，应\n在发生变化后的 30 日内重新实施分类分级流程。需变更重要数\n据和核心数据基本情况之外信息的，应在发生变化后的 60 日内逐\n-\n级上报至国家卫生健康委、国家中医药局、国家疾控局信息化主管\n司局备案。\n第五章附则\n第二十三条 本指南自印发之日起施行。\n附件:1.卫生健康行业数据分类参考表",
+          "used_for": "grade_definition:一般数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "evidence_claim_ids": [],
+      "confidence": 0.95,
+      "needs_review": false,
+      "review_reason": "",
+      "status": "evidence_supported"
+    }
+  ],
+  "classification_rows": [
+    {
+      "row_id": "row_b96c15c23f6c",
+      "path_levels": [
+        "患者"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 1. 患者",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_ac92f6ce5b0e",
+          "chunk_id": "doc_1_chunk_4",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 患者",
+          "text": "1. 1. 患者",
+          "used_for": "classification_row:患者",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅提取到分类名称，缺乏完整表格列数据与分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_9beefc784e86",
+      "path_levels": [
+        "服务范围与对象",
+        "健康人"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 服务范围与对象 1. 1. 健康人",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_dbdbfa46fa9e",
+          "chunk_id": "doc_1_chunk_5",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "服务范围与对象 1. 1. 健康人",
+          "text": "1. 服务范围与对象 1. 1. 健康人",
+          "used_for": "classification_row:服务范围与对象 / 健康人",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅提取到分类名称，缺乏完整表格列数据与分级说明；检索上下文仅包含分类路径名称及通用填报说明，未提供该分类的具体定义、数据范围或业务场景，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_52c7a6a48e1a",
+      "path_levels": [
+        "医务人员"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 1. 医务人员",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_c7a9ba406eb2",
+          "chunk_id": "doc_1_chunk_6",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 医务人员",
+          "text": "1. 1. 医务人员",
+          "used_for": "classification_row:医务人员",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅提取到分类名称，缺乏完整表格列数据与分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_fadd013b3960",
+      "path_levels": [
+        "管理者"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 管理者",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8482f6c66427",
+          "chunk_id": "doc_1_chunk_7",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 管理者",
+          "text": "1. 1. 管理者",
+          "used_for": "classification_row:管理者",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_7a041ad3e9a1",
+      "path_levels": [
+        "地理特征",
+        "自然地理特征"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 地理特征 1. 2. 自然地理特征",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_c09aff5c735c",
+          "chunk_id": "doc_1_chunk_8",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "地理特征 1. 2. 自然地理特征",
+          "text": "1. 地理特征 1. 2. 自然地理特征",
+          "used_for": "classification_row:地理特征 / 自然地理特征",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文仅包含分类路径名称及通用填报说明，未提供该分类的具体定义、数据范围或业务场景，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_4041385622d3",
+      "path_levels": [
+        "人文地理特征"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 2. 人文地理特征",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_62a5113499ac",
+          "chunk_id": "doc_1_chunk_9",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2. 人文地理特征",
+          "text": "1. 2. 人文地理特征",
+          "used_for": "classification_row:人文地理特征",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_64b26bef7757",
+      "path_levels": [
+        "法律法规",
+        "政策法规"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 法律法规 1. 3. 政策法规",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_ddb2a9093295",
+          "chunk_id": "doc_1_chunk_10",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "法律法规 1. 3. 政策法规",
+          "text": "1. 法律法规 1. 3. 政策法规",
+          "used_for": "classification_row:法律法规 / 政策法规",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文仅包含分类路径名称及通用填报说明，未提供该分类的具体定义、数据范围或业务场景，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_52e51953730e",
+      "path_levels": [
+        "标准规范"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 3. 标准规范",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_c1b5167a82bd",
+          "chunk_id": "doc_1_chunk_11",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3. 标准规范",
+          "text": "1. 3. 标准规范",
+          "used_for": "classification_row:标准规范",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_82bc22fafffe",
+      "path_levels": [
+        "单位法人"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 单位法人",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_7f06e8911ab1",
+          "chunk_id": "doc_1_chunk_12",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "单位法人",
+          "text": "1. 单位法人",
+          "used_for": "classification_row:单位法人",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6a2342d4e8db",
+      "path_levels": [
+        "编制体制",
+        "人员编制"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 编制体制 1. 5. 人员编制",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_71950733f17e",
+          "chunk_id": "doc_1_chunk_13",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "编制体制 1. 5. 人员编制",
+          "text": "1. 编制体制 1. 5. 人员编制",
+          "used_for": "classification_row:编制体制 / 人员编制",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文仅包含分类路径名称及通用填报说明，未提供该分类的具体定义、数据范围或业务场景，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_5f000ded502d",
+      "path_levels": [
+        "机构体制"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 5. 机构体制",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_78a7fe3ac2e0",
+          "chunk_id": "doc_1_chunk_14",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5. 机构体制",
+          "text": "1. 5. 机构体制",
+          "used_for": "classification_row:机构体制",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_2d99d958c394",
+      "path_levels": [
+        "方案预案",
+        "方案"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 方案预案 1. 6. 方案",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_1afe6299f144",
+          "chunk_id": "doc_1_chunk_15",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "方案预案 1. 6. 方案",
+          "text": "1. 方案预案 1. 6. 方案",
+          "used_for": "classification_row:方案预案 / 方案",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文仅包含分类路径名称及通用填报说明，未提供该分类的具体定义、数据范围或业务场景，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_408d4d803185",
+      "path_levels": [
+        "预案"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 6. 预案",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_3d7ba14090df",
+          "chunk_id": "doc_1_chunk_16",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6. 预案",
+          "text": "1. 6. 预案",
+          "used_for": "classification_row:预案",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_7e6d71e20d43",
+      "path_levels": [
+        "基础资源类",
+        "人力资源规划"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "基础资源类 1. 7. 人力资源规划",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_2d2d2273a998",
+          "chunk_id": "doc_1_chunk_17",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6. 预案",
+          "text": "基础资源类 1. 7. 人力资源规划",
+          "used_for": "classification_row:基础资源类 / 人力资源规划",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径名称，无明确分级、数据范围或详细说明，依赖结构编号推断。；检索上下文仅重复分类名称及通用填报说明，未提供该分类的业务场景或数据内容定义，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1ccd668fd5cb",
+      "path_levels": [
+        "1",
+        "7.2",
+        "招聘与配置"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 7.2 招聘与配置",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_cb2a18f3203e",
+          "chunk_id": "doc_1_chunk_18",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "7.2 招聘与配置",
+          "text": "1. 7.2 招聘与配置",
+          "used_for": "classification_row:1 / 7.2 / 招聘与配置",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文中未提供该分类的具体业务说明或数据范围，仅包含通用填报说明与定级标准，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_d43603ef51b5",
+      "path_levels": [
+        "1",
+        "人力资源",
+        "1",
+        "7",
+        "培训与开发"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 人力资源 1. 7. 培训与开发",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_7b417763ba20",
+          "chunk_id": "doc_1_chunk_19",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "人力资源 1. 7. 培训与开发",
+          "text": "1. 人力资源 1. 7. 培训与开发",
+          "used_for": "classification_row:1 / 人力资源 / 1 / 7 / 培训与开发",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文仅包含表单填报说明及通用数据分级标准，未提供该分类的具体业务定义或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1afde8ecc991",
+      "path_levels": [
+        "1",
+        "7",
+        "绩效管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 7. 绩效管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_7580fc9b9e1a",
+          "chunk_id": "doc_1_chunk_20",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "7. 绩效管理",
+          "text": "1. 7. 绩效管理",
+          "used_for": "classification_row:1 / 7 / 绩效管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文中未提供该分类的具体业务说明或数据范围，仅包含通用填报说明与定级标准，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_7d1a71249ef5",
+      "path_levels": [
+        "1",
+        "7",
+        "薪酬福利管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 7. 薪酬福利管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_af10ec715040",
+          "chunk_id": "doc_1_chunk_21",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "7. 薪酬福利管理",
+          "text": "1. 7. 薪酬福利管理",
+          "used_for": "classification_row:1 / 7 / 薪酬福利管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文中未提供该分类的具体业务说明或数据范围，仅包含通用填报说明与定级标准，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_940811e09b87",
+      "path_levels": [
+        "1",
+        "7",
+        "劳动关系管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 7. 劳动关系管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_0fda3bfa9a18",
+          "chunk_id": "doc_1_chunk_22",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "7. 劳动关系管理",
+          "text": "1. 7. 劳动关系管理",
+          "used_for": "classification_row:1 / 7 / 劳动关系管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文中未提供该分类的具体业务说明或数据范围，仅包含通用填报说明与定级标准，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_cb359225f287",
+      "path_levels": [
+        "1",
+        "8",
+        "预算管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 预算管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d2d8886eb014",
+          "chunk_id": "doc_1_chunk_23",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 预算管理",
+          "text": "1. 8. 预算管理",
+          "used_for": "classification_row:1 / 8 / 预算管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文中未提供该分类的具体业务说明或数据范围，仅包含通用填报说明与定级标准，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_9ca7e6cde6df",
+      "path_levels": [
+        "1",
+        "8",
+        "资产管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 资产管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_dcfd5f3b11a9",
+          "chunk_id": "doc_1_chunk_24",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 资产管理",
+          "text": "1. 8. 资产管理",
+          "used_for": "classification_row:1 / 8 / 资产管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文未提供该分类的具体数据范围、业务场景或定义说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6b4b6829cfad",
+      "path_levels": [
+        "1",
+        "8",
+        "资金管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 资金管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_dc133658f0ae",
+          "chunk_id": "doc_1_chunk_25",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 资金管理",
+          "text": "1. 8. 资金管理",
+          "used_for": "classification_row:1 / 8 / 资金管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文未提供该分类的具体数据范围、业务场景或定义说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_95da13833c08",
+      "path_levels": [
+        "1",
+        "财务资源",
+        "1",
+        "8",
+        "技资管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 财务资源 1. 8. 技资管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_b43cb915229a",
+          "chunk_id": "doc_1_chunk_26",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "财务资源 1. 8. 技资管理",
+          "text": "1. 财务资源 1. 8. 技资管理",
+          "used_for": "classification_row:1 / 财务资源 / 1 / 8 / 技资管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文仅包含表单填报说明及通用数据分级标准，未提供该分类的具体业务定义或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1817f751f7eb",
+      "path_levels": [
+        "1",
+        "8",
+        "筹资管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 筹资管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e0d51e4bf196",
+          "chunk_id": "doc_1_chunk_27",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 筹资管理",
+          "text": "1. 8. 筹资管理",
+          "used_for": "classification_row:1 / 8 / 筹资管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文未提供该分类的具体数据范围、业务场景或定义说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_fb7b0a47da1a",
+      "path_levels": [
+        "1",
+        "8",
+        "债权债务管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 债权债务管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_ca9b6e2671e4",
+          "chunk_id": "doc_1_chunk_28",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 债权债务管理",
+          "text": "1. 8. 债权债务管理",
+          "used_for": "classification_row:1 / 8 / 债权债务管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.6,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/层级编号，无明确分级、数据范围及影响程度说明，依赖结构推断；检索上下文未提供该分类的具体数据范围、业务场景或定义说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_722329ad996d",
+      "path_levels": [
+        "会计信息管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 8. 会计信息管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_abdfb0099b4f",
+          "chunk_id": "doc_1_chunk_29",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8. 会计信息管理",
+          "text": "1. 8. 会计信息管理",
+          "used_for": "classification_row:会计信息管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_dd58900c79be",
+      "path_levels": [
+        "设备资源",
+        "硬件设备"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 设备资源 1. 9. 硬件设备",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_62dabb9f5a4d",
+          "chunk_id": "doc_1_chunk_30",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "设备资源 1. 9. 硬件设备",
+          "text": "1. 设备资源 1. 9. 硬件设备",
+          "used_for": "classification_row:设备资源 / 硬件设备",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅重复分类名称及通用填报说明，未提供该分类的业务场景或数据内容定义，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_c8e103389f9e",
+      "path_levels": [
+        "软件设备"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 9. 软件设备",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8f5ed0862aea",
+          "chunk_id": "doc_1_chunk_31",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "9. 软件设备",
+          "text": "1. 9. 软件设备",
+          "used_for": "classification_row:软件设备",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_788c500cde48",
+      "path_levels": [
+        "全民健康信息平台"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 10. 全民健康信息平台",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_0b6f0efaa5f9",
+          "chunk_id": "doc_1_chunk_32",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10. 全民健康信息平台",
+          "text": "1. 10. 全民健康信息平台",
+          "used_for": "classification_row:全民健康信息平台",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_8af5b6d3e280",
+      "path_levels": [
+        "卫生健康信息化",
+        "医院信息平台"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 10 卫生健康信息化 1. 10.2 医院信息平台",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4ff07587b67c",
+          "chunk_id": "doc_1_chunk_33",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10 卫生健康信息化 1. 10.2 医院信息平台",
+          "text": "1. 10 卫生健康信息化 1. 10.2 医院信息平台",
+          "used_for": "classification_row:卫生健康信息化 / 医院信息平台",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅重复分类名称及通用填报说明，未提供该分类的业务场景或数据内容定义，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_98b9007dbeba",
+      "path_levels": [
+        "应用系统"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 10.3 应用系统",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e4244acd1f65",
+          "chunk_id": "doc_1_chunk_34",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10.3 应用系统",
+          "text": "1. 10.3 应用系统",
+          "used_for": "classification_row:应用系统",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文未提供该分类的具体定义、数据范围或业务场景说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_971112e29071",
+      "path_levels": [
+        "数据接口"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "1. 10.4 数据接口",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_07ae82fcb8d4",
+          "chunk_id": "doc_1_chunk_35",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10.4 数据接口",
+          "text": "1. 10.4 数据接口",
+          "used_for": "classification_row:数据接口",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅包含通用数据规模阈值及填报说明，未提供该分类的具体业务场景或数据内容，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_f1bc2f225d3a",
+      "path_levels": [
+        "疾病控制"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 疾病控制",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_dcb9440da512",
+          "chunk_id": "doc_1_chunk_36",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 疾病控制",
+          "text": "2. 1. 疾病控制",
+          "used_for": "classification_row:疾病控制",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅包含通用数据规模阈值及填报说明，未提供该分类的具体业务场景或数据内容，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_66bf685f847e",
+      "path_levels": [
+        "卫生监督执法"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 卫生监督执法",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_84217c2994c9",
+          "chunk_id": "doc_1_chunk_37",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 卫生监督执法",
+          "text": "2. 1. 卫生监督执法",
+          "used_for": "classification_row:卫生监督执法",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅包含通用数据规模阈值及填报说明，未提供该分类的具体业务场景或数据内容，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6426a4493496",
+      "path_levels": [
+        "妇幼保健"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 妇幼保健",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_47fa9193caec",
+          "chunk_id": "doc_1_chunk_38",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 妇幼保健",
+          "text": "2. 1. 妇幼保健",
+          "used_for": "classification_row:妇幼保健",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅包含通用数据规模阈值及填报说明，未提供该分类的具体业务场景或数据内容，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6fa81770e671",
+      "path_levels": [
+        "公共卫生",
+        "爱国卫生与健康促进"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 公共卫生 2. 1. 爱国卫生与健康促进",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_7b6ae4b14264",
+          "chunk_id": "doc_1_chunk_39",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "公共卫生 2. 1. 爱国卫生与健康促进",
+          "text": "2. 公共卫生 2. 1. 爱国卫生与健康促进",
+          "used_for": "classification_row:公共卫生 / 爱国卫生与健康促进",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅包含分类层级标题，缺乏数据范围、分级等级及详细说明；检索上下文仅重复分类名称及通用填报说明，未提供该分类的业务场景或数据内容定义，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_c17667a1ce34",
+      "path_levels": [
+        "2",
+        "1",
+        "医疗急救"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 医疗急救",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_37a237feb66d",
+          "chunk_id": "doc_1_chunk_40",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 医疗急救",
+          "text": "2. 1. 医疗急救",
+          "used_for": "classification_row:2 / 1 / 医疗急救",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文未提供该分类的具体数据范围、业务场景或定义说明，无法生成有效分类说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_b61fb6b5ebe0",
+      "path_levels": [
+        "2",
+        "1",
+        "血液管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 血液管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_c9c2e1942820",
+          "chunk_id": "doc_1_chunk_41",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 血液管理",
+          "text": "2. 1. 血液管理",
+          "used_for": "classification_row:2 / 1 / 血液管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅包含分类名称本身及通用填报说明，缺乏对该分类业务场景、数据内容或对象的具体描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_b1fbc6e89024",
+      "path_levels": [
+        "2",
+        "1",
+        "职业健康"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 1. 职业健康",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_302cc7ec2a89",
+          "chunk_id": "doc_1_chunk_42",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1. 职业健康",
+          "text": "2. 1. 职业健康",
+          "used_for": "classification_row:2 / 1 / 职业健康",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅包含分类名称本身及通用填报说明，缺乏对该分类业务场景、数据内容或对象的具体描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_9bdc5f3ff50e",
+      "path_levels": [
+        "2",
+        "2",
+        "1",
+        "临床服务"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.2.1 临床服务",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_15e21ec4d0fd",
+          "chunk_id": "doc_1_chunk_43",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 临床服务",
+          "text": "2.2.1 临床服务",
+          "used_for": "classification_row:2 / 2 / 1 / 临床服务",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅包含表单填报说明及数据规模/敏感度阈值，未提供该分类的具体业务定义或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1b1c6a241e68",
+      "path_levels": [
+        "2",
+        "2",
+        "医疗服务(医院〉"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.2 医疗服务(医院〉 2.2.2 医疗管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_a0325c586c64",
+          "chunk_id": "doc_1_chunk_44",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 医疗服务(医院〉 2.2.2 医疗管理",
+          "text": "2.2 医疗服务(医院〉 2.2.2 医疗管理",
+          "used_for": "classification_row:2 / 2 / 医疗服务(医院〉",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅包含分类名称本身及通用填报说明，缺乏对该分类业务场景、数据内容或对象的具体描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_72068c6fa182",
+      "path_levels": [
+        "2",
+        "2",
+        "2",
+        "医疗管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.2 医疗服务(医院〉 2.2.2 医疗管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_76bcdca0af78",
+          "chunk_id": "doc_1_chunk_44",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 医疗服务(医院〉 2.2.2 医疗管理",
+          "text": "2.2 医疗服务(医院〉 2.2.2 医疗管理",
+          "used_for": "classification_row:2 / 2 / 2 / 医疗管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅包含表单填报说明及数据规模/敏感度阈值，未提供该分类的具体业务定义或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_87bd6ff9ecc8",
+      "path_levels": [
+        "2",
+        "2",
+        "3",
+        "运营管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.2.3 运营管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e5de8f0d4f1f",
+          "chunk_id": "doc_1_chunk_45",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 运营管理",
+          "text": "2.2.3 运营管理",
+          "used_for": "classification_row:2 / 2 / 3 / 运营管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅包含表单填报说明及数据规模/敏感度阈值，未提供该分类的具体业务定义或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_a2fe1a96271a",
+      "path_levels": [
+        "2",
+        "3",
+        "1",
+        "基本医疗服务"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.3.1 基本医疗服务",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_daff3eaaa7cf",
+          "chunk_id": "doc_1_chunk_46",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 基本医疗服务",
+          "text": "2.3.1 基本医疗服务",
+          "used_for": "classification_row:2 / 3 / 1 / 基本医疗服务",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅含分类名称与通用填报指引，无具体业务或数据范围说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_d47178b8d883",
+      "path_levels": [
+        "2",
+        "3",
+        "医疗服务(基层)"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.3 医疗服务(基层) 2.3.2 运营管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4f509b77e1dc",
+          "chunk_id": "doc_1_chunk_47",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 医疗服务(基层) 2.3.2 运营管理",
+          "text": "2.3 医疗服务(基层) 2.3.2 运营管理",
+          "used_for": "classification_row:2 / 3 / 医疗服务(基层)",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅包含分类名称本身及通用填报说明，缺乏对该分类业务场景、数据内容或对象的具体描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_9d7fb4f1a203",
+      "path_levels": [
+        "2",
+        "3",
+        "2",
+        "运营管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.3 医疗服务(基层) 2.3.2 运营管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_1221f858d481",
+          "chunk_id": "doc_1_chunk_47",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 医疗服务(基层) 2.3.2 运营管理",
+          "text": "2.3 医疗服务(基层) 2.3.2 运营管理",
+          "used_for": "classification_row:2 / 3 / 2 / 运营管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅含分类名称与通用填报指引，无具体业务或数据范围说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_76ea8dcf166b",
+      "path_levels": [
+        "2",
+        "3",
+        "3",
+        "监管接口"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.3.3 监管接口",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_5d230d1f501e",
+          "chunk_id": "doc_1_chunk_48",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 监管接口",
+          "text": "2.3.3 监管接口",
+          "used_for": "classification_row:2 / 3 / 3 / 监管接口",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅含分类名称与通用填报指引，无具体业务或数据范围说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_f54f766c076e",
+      "path_levels": [
+        "2",
+        "4",
+        "1",
+        "城镇居民基本医疗保险"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.4.1 城镇居民基本医疗保险",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_2e2ff35bd8fd",
+          "chunk_id": "doc_1_chunk_49",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 城镇居民基本医疗保险",
+          "text": "2.4.1 城镇居民基本医疗保险",
+          "used_for": "classification_row:2 / 4 / 1 / 城镇居民基本医疗保险",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅含分类名称与通用填报指引，无具体业务或数据范围说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_f5129ef4dca0",
+      "path_levels": [
+        "2",
+        "4",
+        "医疗保障"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.4 医疗保障 2.4.2 城镇职工基本医疗保险",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_87ade9db5c8c",
+          "chunk_id": "doc_1_chunk_50",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 医疗保障 2.4.2 城镇职工基本医疗保险",
+          "text": "2.4 医疗保障 2.4.2 城镇职工基本医疗保险",
+          "used_for": "classification_row:2 / 4 / 医疗保障",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅包含分类名称本身及通用填报说明，缺乏对该分类业务场景、数据内容或对象的具体描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_893a9ebf8c7c",
+      "path_levels": [
+        "2",
+        "4",
+        "2",
+        "城镇职工基本医疗保险"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.4 医疗保障 2.4.2 城镇职工基本医疗保险",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4facaf221d4a",
+          "chunk_id": "doc_1_chunk_50",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 医疗保障 2.4.2 城镇职工基本医疗保险",
+          "text": "2.4 医疗保障 2.4.2 城镇职工基本医疗保险",
+          "used_for": "classification_row:2 / 4 / 2 / 城镇职工基本医疗保险",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖版式提示拆分路径，无详细分级说明；检索上下文仅含分类名称与通用填报指引，无具体业务或数据范围说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1e9d780ca512",
+      "path_levels": [
+        "2.4.3 商业医疗保险"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.4.3 商业医疗保险",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4df7082d0b83",
+          "chunk_id": "doc_1_chunk_51",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 商业医疗保险",
+          "text": "2.4.3 商业医疗保险",
+          "used_for": "classification_row:2.4.3 商业医疗保险",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文仅包含通用数据规模阈值及填报说明，未提供该分类的具体业务场景或数据内容，无法生成有效说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_a73f0fc99940",
+      "path_levels": [
+        "2.5.1 基础数据库管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.1 基础数据库管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_24255dd663b2",
+          "chunk_id": "doc_1_chunk_52",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 基础数据库管理",
+          "text": "2.5.1 基础数据库管理",
+          "used_for": "classification_row:2.5.1 基础数据库管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文未提供与该分类路径相关的业务场景或数据范围说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_c4668cdc80b9",
+      "path_levels": [
+        "2.5.2 采购项目管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.2 采购项目管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_437155e5c759",
+          "chunk_id": "doc_1_chunk_53",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 采购项目管理",
+          "text": "2.5.2 采购项目管理",
+          "used_for": "classification_row:2.5.2 采购项目管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文未提供与该分类路径相关的业务场景或数据范围说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_eace7e57aa91",
+      "path_levels": [
+        "业务资源类",
+        "2.5.3 采购目录管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "业务资源类 2.5.3 采购目录管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_f30173dc73b6",
+          "chunk_id": "doc_1_chunk_54",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 采购项目管理",
+          "text": "业务资源类 2.5.3 采购目录管理",
+          "used_for": "classification_row:业务资源类 / 2.5.3 采购目录管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文仅重复分类名称及通用填报说明，未提供该分类的业务场景或数据内容定义，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_31bced2d1286",
+      "path_levels": [
+        "2.5.4 采购计划管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.4 采购计划管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_1acf9ef9d9b5",
+          "chunk_id": "doc_1_chunk_55",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 采购计划管理",
+          "text": "2.5.4 采购计划管理",
+          "used_for": "classification_row:2.5.4 采购计划管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文未提供与该分类路径相关的业务场景或数据范围说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_aa959a46115a",
+      "path_levels": [
+        "2.5.5 分类采购"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.5 分类采购",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_af0fdca05de7",
+          "chunk_id": "doc_1_chunk_56",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 分类采购",
+          "text": "2.5.5 分类采购",
+          "used_for": "classification_row:2.5.5 分类采购",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文未提供与该分类路径相关的业务场景或数据范围说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_367d49a8c383",
+      "path_levels": [
+        "2.5.6 合同管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.6 合同管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_578742642d8d",
+          "chunk_id": "doc_1_chunk_57",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6 合同管理",
+          "text": "2.5.6 合同管理",
+          "used_for": "classification_row:2.5.6 合同管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文未提供与该分类路径相关的业务场景或数据范围说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_21d58ac053e8",
+      "path_levels": [
+        "2.5 药品供应",
+        "2.5.7 供应管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5 药品供应 2.5.7 供应管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_2632d4d54acc",
+          "chunk_id": "doc_1_chunk_58",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 药品供应 2.5.7 供应管理",
+          "text": "2.5 药品供应 2.5.7 供应管理",
+          "used_for": "classification_row:2.5 药品供应 / 2.5.7 供应管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "依赖flattened_row_hints拆分多级路径，无分级及详细说明；检索上下文仅包含分类名称及通用填报说明，缺乏针对该分类的具体业务场景或数据内容描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_8796f99c3c23",
+      "path_levels": [
+        "2.5.8 结算支付"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.8 结算支付",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_3f8db7680c51",
+          "chunk_id": "doc_1_chunk_59",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8 结算支付",
+          "text": "2.5.8 结算支付",
+          "used_for": "classification_row:2.5.8 结算支付",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文仅包含通用分级阈值与填报说明，未提供该分类的具体业务场景或数据内容，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_2bd69294a6d1",
+      "path_levels": [
+        "2.5.9 价格管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.9 价格管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_270951a8190a",
+          "chunk_id": "doc_1_chunk_60",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "9 价格管理",
+          "text": "2.5.9 价格管理",
+          "used_for": "classification_row:2.5.9 价格管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文仅包含通用分级阈值与填报说明，未提供该分类的具体业务场景或数据内容，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_d588d9746741",
+      "path_levels": [
+        "2.5.10 公示公告"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.10 公示公告",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_7c975854e3a3",
+          "chunk_id": "doc_1_chunk_61",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10 公示公告",
+          "text": "2.5.10 公示公告",
+          "used_for": "classification_row:2.5.10 公示公告",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无分级及详细说明；检索上下文仅包含通用分级阈值与填报说明，未提供该分类的具体业务场景或数据内容，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_64e4e3d44a1d",
+      "path_levels": [
+        "2.5.11",
+        "统计查询"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.11 统计查询",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_606654eb9d44",
+          "chunk_id": "doc_1_chunk_62",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "11 统计查询",
+          "text": "2.5.11 统计查询",
+          "used_for": "classification_row:2.5.11 / 统计查询",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，缺乏针对该分类的具体业务场景或数据内容描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_b1c16226347e",
+      "path_levels": [
+        "2.5.12",
+        "综合监管"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.12 综合监管",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_ed66fdc52dde",
+          "chunk_id": "doc_1_chunk_63",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "12 综合监管",
+          "text": "2.5.12 综合监管",
+          "used_for": "classification_row:2.5.12 / 综合监管",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，缺乏针对该分类的具体业务场景或数据内容描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_dd402a8952fb",
+      "path_levels": [
+        "2.5.13",
+        "信息交换共享"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.13 信息交换共享",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_54feaa67ebd0",
+          "chunk_id": "doc_1_chunk_64",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "13 信息交换共享",
+          "text": "2.5.13 信息交换共享",
+          "used_for": "classification_row:2.5.13 / 信息交换共享",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，缺乏针对该分类的具体业务场景或数据内容描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_8b2a9d2c41f5",
+      "path_levels": [
+        "2.5.14",
+        "高值医用耗材采购"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.5.14 高值医用耗材采购",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4fe210491b09",
+          "chunk_id": "doc_1_chunk_65",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "14 高值医用耗材采购",
+          "text": "2.5.14 高值医用耗材采购",
+          "used_for": "classification_row:2.5.14 / 高值医用耗材采购",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，缺乏针对该分类的具体业务场景或数据内容描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_c806d3bf8d6b",
+      "path_levels": [
+        "2.6.1",
+        "全员人口"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.6.1 全员人口",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8996980e5b49",
+          "chunk_id": "doc_1_chunk_66",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 全员人口",
+          "text": "2.6.1 全员人口",
+          "used_for": "classification_row:2.6.1 / 全员人口",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文未提供该分类的具体业务场景或数据内容说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_46ce8e4b6dd2",
+      "path_levels": [
+        "2.6",
+        "计划生育"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.6 计划生育 2.6.2 流动人口",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8f2c208da6db",
+          "chunk_id": "doc_1_chunk_67",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6 计划生育 2.6.2 流动人口",
+          "text": "2.6 计划生育 2.6.2 流动人口",
+          "used_for": "classification_row:2.6 / 计划生育",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖flattened_row_hints拆分，缺乏分级与说明；检索上下文未提供该分类的具体业务场景或数据内容说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_560cad25475a",
+      "path_levels": [
+        "2.6.2",
+        "流动人口"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.6 计划生育 2.6.2 流动人口",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d4d661015810",
+          "chunk_id": "doc_1_chunk_67",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6 计划生育 2.6.2 流动人口",
+          "text": "2.6 计划生育 2.6.2 流动人口",
+          "used_for": "classification_row:2.6.2 / 流动人口",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个层级编号，依赖flattened_row_hints拆分，缺乏分级与说明；检索上下文未提供该分类的具体业务场景或数据内容说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_cb7d6473bde2",
+      "path_levels": [
+        "2.6.3",
+        "精准扶助"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.6.3 精准扶助",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_29161c28e46b",
+          "chunk_id": "doc_1_chunk_68",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 精准扶助",
+          "text": "2.6.3 精准扶助",
+          "used_for": "classification_row:2.6.3 / 精准扶助",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文未提供该分类的具体业务场景或数据内容说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_3348e929bf2c",
+      "path_levels": [
+        "2.6.4",
+        "计生证件"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.6.4 计生证件",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_5ee859d4a8fc",
+          "chunk_id": "doc_1_chunk_69",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 计生证件",
+          "text": "2.6.4 计生证件",
+          "used_for": "classification_row:2.6.4 / 计生证件",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文未提供该分类的具体业务场景或数据内容说明，无法生成有效描述。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_d675ea4cebb5",
+      "path_levels": [
+        "2.7",
+        "业务管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2. 7. 业务管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_cc40873fdd2d",
+          "chunk_id": "doc_1_chunk_70",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "7. 业务管理",
+          "text": "2. 7. 业务管理",
+          "used_for": "classification_row:2.7 / 业务管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_80b566e77336",
+      "path_levels": [
+        "2.7.2",
+        "绩效考核"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_477d2fe94125",
+          "chunk_id": "doc_1_chunk_71",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 绩效考核 2. 综合管理 7.3 行业监管",
+          "text": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+          "used_for": "classification_row:2.7.2 / 绩效考核",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个分类片段，依赖结构拆分，缺乏分级与说明；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_9ab0668dadd3",
+      "path_levels": [
+        "2",
+        "综合管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_782f0fb2404a",
+          "chunk_id": "doc_1_chunk_71",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 绩效考核 2. 综合管理 7.3 行业监管",
+          "text": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+          "used_for": "classification_row:2 / 综合管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个分类片段，依赖结构拆分，缺乏分级与说明；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_1f996859f411",
+      "path_levels": [
+        "7.3",
+        "行业监管"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_3b0174332cca",
+          "chunk_id": "doc_1_chunk_71",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 绩效考核 2. 综合管理 7.3 行业监管",
+          "text": "2.7.2 绩效考核 2. 综合管理 7.3 行业监管",
+          "used_for": "classification_row:7.3 / 行业监管",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同行包含多个分类片段，依赖结构拆分，缺乏分级与说明；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_8fa96b97400e",
+      "path_levels": [
+        "2.7.4",
+        "卫生资源管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.7.4 卫生资源管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_96aefbbb5705",
+          "chunk_id": "doc_1_chunk_72",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 卫生资源管理",
+          "text": "2.7.4 卫生资源管理",
+          "used_for": "classification_row:2.7.4 / 卫生资源管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含分类编号与名称，缺乏数据范围、分级及详细说明，依赖结构推断；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据范围。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_a4066c083166",
+      "path_levels": [
+        "2.7.5 应急指挥决策"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "2.7.5 应急指挥决策",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_53a3b7e45063",
+          "chunk_id": "doc_1_chunk_73",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 应急指挥决策",
+          "text": "2.7.5 应急指挥决策",
+          "used_for": "classification_row:2.7.5 应急指挥决策",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含通用分级阈值与填报说明，未提供该分类的具体业务场景或数据内容，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_dc66cebd8fa1",
+      "path_levels": [
+        "3. 全员人口数据库",
+        "3.1 全员人口信息"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3. 全员人口数据库 3. 1. 全员人口信息",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_a3c59e09a837",
+          "chunk_id": "doc_1_chunk_74",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "全员人口数据库 3. 1. 全员人口信息",
+          "text": "3. 全员人口数据库 3. 1. 全员人口信息",
+          "used_for": "classification_row:3. 全员人口数据库 / 3.1 全员人口信息",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同一行含多级编号，依赖结构拆分，无详细分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_5fb87702db86",
+      "path_levels": [
+        "3.2.1 业务运营"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.2.1 业务运营",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_ceb0ce3b9711",
+          "chunk_id": "doc_1_chunk_75",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 业务运营",
+          "text": "3.2.1 业务运营",
+          "used_for": "classification_row:3.2.1 业务运营",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含通用分级阈值与填报说明，未提供该分类的具体业务场景或数据内容，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_a4911580fc4a",
+      "path_levels": [
+        "3.2 电子病历数据库",
+        "3.2.2 临床诊疗"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.2 电子病历数据库 3.2.2 临床诊疗",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e4c0a133d988",
+          "chunk_id": "doc_1_chunk_76",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "2 电子病历数据库 3.2.2 临床诊疗",
+          "text": "3.2 电子病历数据库 3.2.2 临床诊疗",
+          "used_for": "classification_row:3.2 电子病历数据库 / 3.2.2 临床诊疗",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同一行含多级编号，依赖结构拆分，无详细分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_dbe5e197369a",
+      "path_levels": [
+        "3.2.3 电子病历"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.2.3 电子病历",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_05cf542cfe90",
+          "chunk_id": "doc_1_chunk_77",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 电子病历",
+          "text": "3.2.3 电子病历",
+          "used_for": "classification_row:3.2.3 电子病历",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_82743b0c7ee7",
+      "path_levels": [
+        "3.2.4 基础字典"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.2.4 基础字典",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_c1865452135b",
+          "chunk_id": "doc_1_chunk_78",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 基础字典",
+          "text": "3.2.4 基础字典",
+          "used_for": "classification_row:3.2.4 基础字典",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_913f4c1cffd9",
+      "path_levels": [
+        "3.3.1 健康档案基本数据集"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.3.1 健康档案基本数据集",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_3b667789f998",
+          "chunk_id": "doc_1_chunk_79",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 健康档案基本数据集",
+          "text": "3.3.1 健康档案基本数据集",
+          "used_for": "classification_row:3.3.1 健康档案基本数据集",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_403be865330c",
+      "path_levels": [
+        "3.3 电子健康档案数据",
+        "3.3.2 疾病管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.3 电子健康档案数据 3.3.2 疾病管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_f2a1084451ff",
+          "chunk_id": "doc_1_chunk_80",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 电子健康档案数据 3.3.2 疾病管理",
+          "text": "3.3 电子健康档案数据 3.3.2 疾病管理",
+          "used_for": "classification_row:3.3 电子健康档案数据 / 3.3.2 疾病管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "同一行含多级编号，依赖结构拆分，无详细分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_244291547f2f",
+      "path_levels": [
+        "3.3.3 疾病控制"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.3.3 疾病控制",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4aad088d043e",
+          "chunk_id": "doc_1_chunk_81",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 疾病控制",
+          "text": "3.3.3 疾病控制",
+          "used_for": "classification_row:3.3.3 疾病控制",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_54a5efde1c2e",
+      "path_levels": [
+        "3.3.4 儿童保健"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.3.4 儿童保健",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_f00ad09492bc",
+          "chunk_id": "doc_1_chunk_82",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 儿童保健",
+          "text": "3.3.4 儿童保健",
+          "used_for": "classification_row:3.3.4 儿童保健",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_b41f38796fef",
+      "path_levels": [
+        "3.3.5 妇女保健"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.3.5 妇女保健",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_97adf9d0c8a0",
+          "chunk_id": "doc_1_chunk_83",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 妇女保健",
+          "text": "3.3.5 妇女保健",
+          "used_for": "classification_row:3.3.5 妇女保健",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.5,
+      "needs_review": true,
+      "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文中未提供该分类的具体数据范围或业务定义，仅包含通用填报说明与分级阈值，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_52d38e5e9fc0",
+      "path_levels": [
+        "3.4.1 医学研究基础信息"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.4.1 医学研究基础信息",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_568af19ce5f0",
+          "chunk_id": "doc_1_chunk_84",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "1 医学研究基础信息",
+          "text": "3.4.1 医学研究基础信息",
+          "used_for": "classification_row:3.4.1 医学研究基础信息",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_5ec7b6d091bc",
+      "path_levels": [
+        "3.4 医学研究数据库"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.4 医学研究数据库 3.4.2 医学研究科学数据",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d7345bcddba7",
+          "chunk_id": "doc_1_chunk_85",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 医学研究数据库 3.4.2 医学研究科学数据",
+          "text": "3.4 医学研究数据库 3.4.2 医学研究科学数据",
+          "used_for": "classification_row:3.4 医学研究数据库",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.8,
+      "needs_review": true,
+      "review_reason": "同行包含多个分类编号，依赖版式提示拆分提取，无明确分级；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_14a34878bed4",
+      "path_levels": [
+        "3.4.2 医学研究科学数据"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.4 医学研究数据库 3.4.2 医学研究科学数据",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_b791104e02b9",
+          "chunk_id": "doc_1_chunk_85",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 医学研究数据库 3.4.2 医学研究科学数据",
+          "text": "3.4 医学研究数据库 3.4.2 医学研究科学数据",
+          "used_for": "classification_row:3.4.2 医学研究科学数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.8,
+      "needs_review": true,
+      "review_reason": "同行包含多个分类编号，依赖版式提示拆分提取，无明确分级；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_93fcfc77ef4e",
+      "path_levels": [
+        "3.4.3 医学研究成果数据"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.4.3 医学研究成果数据",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_9c27e3c46349",
+          "chunk_id": "doc_1_chunk_86",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 医学研究成果数据",
+          "text": "3.4.3 医学研究成果数据",
+          "used_for": "classification_row:3.4.3 医学研究成果数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_87359dfc1c5d",
+      "path_levels": [
+        "3.4.4 其他医学研究数据"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.4.4 其他医学研究数据",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4216e7100df8",
+          "chunk_id": "doc_1_chunk_87",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 其他医学研究数据",
+          "text": "3.4.4 其他医学研究数据",
+          "used_for": "classification_row:3.4.4 其他医学研究数据",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_0b1e1afa6870",
+      "path_levels": [
+        "3. 5. 电子病历摘要"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3. 5. 电子病历摘要",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d202a6caca69",
+          "chunk_id": "doc_1_chunk_88",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5. 电子病历摘要",
+          "text": "3. 5. 电子病历摘要",
+          "used_for": "classification_row:3. 5. 电子病历摘要",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_22065eee5c6a",
+      "path_levels": [
+        "3.5.2 电子健康档案摘要"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "主题资源类 3.5.2 电子健康档案摘要",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d53f0522cc4e",
+          "chunk_id": "doc_1_chunk_89",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5. 电子病历摘要",
+          "text": "主题资源类 3.5.2 电子健康档案摘要",
+          "used_for": "classification_row:3.5.2 电子健康档案摘要",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.8,
+      "needs_review": true,
+      "review_reason": "原文含额外前缀'主题资源类'，路径提取需人工核对，无明确分级；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_dcba365c87c0",
+      "path_levels": [
+        "3.5.3 人口基础信息共享"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.3 人口基础信息共享",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_32cf50ceb8df",
+          "chunk_id": "doc_1_chunk_90",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "3 人口基础信息共享",
+          "text": "3.5.3 人口基础信息共享",
+          "used_for": "classification_row:3.5.3 人口基础信息共享",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_496654b84246",
+      "path_levels": [
+        "3.5.4 远程医疗"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.4 远程医疗",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_1a0d4797e682",
+          "chunk_id": "doc_1_chunk_91",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "4 远程医疗",
+          "text": "3.5.4 远程医疗",
+          "used_for": "classification_row:3.5.4 远程医疗",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；检索上下文中未提供该分类的具体数据范围或业务定义，仅包含通用填报说明与分级阈值，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_85b911f01b3a",
+      "path_levels": [
+        "3.5.5 互联网+医疗健康"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.5 互联网+医疗健康",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4826c987c511",
+          "chunk_id": "doc_1_chunk_92",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 互联网+医疗健康",
+          "text": "3.5.5 互联网+医疗健康",
+          "used_for": "classification_row:3.5.5 互联网+医疗健康",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6682e323381a",
+      "path_levels": [
+        "3.5.6 家庭医生签约服务"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.6 家庭医生签约服务",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d19c2cb7c4b5",
+          "chunk_id": "doc_1_chunk_93",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "6 家庭医生签约服务",
+          "text": "3.5.6 家庭医生签约服务",
+          "used_for": "classification_row:3.5.6 家庭医生签约服务",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_48e79217c3b2",
+      "path_levels": [
+        "3. 5. 卫生健康综合管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3. 5. 卫生健康综合管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_059341241105",
+          "chunk_id": "doc_1_chunk_94",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5. 卫生健康综合管理",
+          "text": "3. 5. 卫生健康综合管理",
+          "used_for": "classification_row:3. 5. 卫生健康综合管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "explicit",
+      "confidence": 0.85,
+      "needs_review": true,
+      "review_reason": "仅含分类标题/编号，无明确分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_4fd857ffadfa",
+      "path_levels": [
+        "3.5.8 医疗卫生监督"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.8 医疗卫生监督",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_d6433d168e8d",
+          "chunk_id": "doc_1_chunk_95",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "8 医疗卫生监督",
+          "text": "3.5.8 医疗卫生监督",
+          "used_for": "classification_row:3.5.8 医疗卫生监督",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_a7f9ba443bd3",
+      "path_levels": [
+        "3. 其他数据库 3.5.9 公共卫生监督"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3. 其他数据库 3.5.9 公共卫生监督",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_6c80257eb43b",
+          "chunk_id": "doc_1_chunk_96",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "其他数据库 3.5.9 公共卫生监督",
+          "text": "3. 其他数据库 3.5.9 公共卫生监督",
+          "used_for": "classification_row:3. 其他数据库 3.5.9 公共卫生监督",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；引用证据仅包含分类标题，无法支撑解释性说明。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_66e60b9de83d",
+      "path_levels": [
+        "3.5.10 个人电子疾病档案"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.10 个人电子疾病档案",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_fb3085451520",
+          "chunk_id": "doc_1_chunk_97",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "10 个人电子疾病档案",
+          "text": "3.5.10 个人电子疾病档案",
+          "used_for": "classification_row:3.5.10 个人电子疾病档案",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_b2330902aa26",
+      "path_levels": [
+        "3.5.11 健康危害因素"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.11 健康危害因素",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_8f9558885e99",
+          "chunk_id": "doc_1_chunk_98",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "11 健康危害因素",
+          "text": "3.5.11 健康危害因素",
+          "used_for": "classification_row:3.5.11 健康危害因素",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_eab36d264589",
+      "path_levels": [
+        "3.5.12 疾控综合管理与爱国卫生"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.12 疾控综合管理与爱国卫生",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_1303e2faf9ca",
+          "chunk_id": "doc_1_chunk_99",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "12 疾控综合管理与爱国卫生",
+          "text": "3.5.12 疾控综合管理与爱国卫生",
+          "used_for": "classification_row:3.5.12 疾控综合管理与爱国卫生",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_0377b2397c45",
+      "path_levels": [
+        "资源管理服务"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "资源管理服务",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e416bdfa4552",
+          "chunk_id": "doc_1_chunk_100",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "12 疾控综合管理与爱国卫生",
+          "text": "资源管理服务",
+          "used_for": "classification_row:资源管理服务",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题，无编号及详细说明，需结合上下文确认层级；检索上下文中未提供该分类的具体数据范围或业务定义，仅包含通用填报说明与分级阈值，证据不足。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_6c008f5e2c20",
+      "path_levels": [
+        "3.5.13 疫苗和冷链管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5.13 疫苗和冷链管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_4daa29ca824d",
+          "chunk_id": "doc_1_chunk_101",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "13 疫苗和冷链管理",
+          "text": "3.5.13 疫苗和冷链管理",
+          "used_for": "classification_row:3.5.13 疫苗和冷链管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_2d02a77bfb06",
+      "path_levels": [
+        "3.5. 14 医疗服务质量与绩效评价"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5. 14 医疗服务质量与绩效评价",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_87b2e57446fa",
+          "chunk_id": "doc_1_chunk_102",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "14 医疗服务质量与绩效评价",
+          "text": "3.5. 14 医疗服务质量与绩效评价",
+          "used_for": "classification_row:3.5. 14 医疗服务质量与绩效评价",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_f45ad96f34b5",
+      "path_levels": [
+        "3. 5. 15 托育机构各案信息"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3. 5. 15 托育机构各案信息",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_37941e5d4d0a",
+          "chunk_id": "doc_1_chunk_103",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5. 15 托育机构各案信息",
+          "text": "3. 5. 15 托育机构各案信息",
+          "used_for": "classification_row:3. 5. 15 托育机构各案信息",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    },
+    {
+      "row_id": "row_e54850236d98",
+      "path_levels": [
+        "3.5 16 职业健康管理"
+      ],
+      "recommended_grade": null,
+      "description": "证据不足，无法从当前文档确定",
+      "description_source": "insufficient",
+      "description_evidence_quote": "",
+      "evidence_quote": "3.5 16 职业健康管理",
+      "evidence_refs": [
+        {
+          "evidence_id": "ev_e4861d6ca8ab",
+          "chunk_id": "doc_1_chunk_104",
+          "doc_name": "【国标】国卫办规划函〔2023〕233号卫生健康行业数据分类分级指南.txt",
+          "section_title": "5 16 职业健康管理",
+          "text": "3.5 16 职业健康管理",
+          "used_for": "classification_row:3.5 16 职业健康管理",
+          "relevance_score": 0.9,
+          "page_number": null,
+          "source_method": "text",
+          "source_warning": ""
+        }
+      ],
+      "data_range_examples": [],
+      "processing_degree": "",
+      "impact_object": "",
+      "impact_degree": "",
+      "grade_evidence_quote": "",
+      "support_level": "structural",
+      "confidence": 0.7,
+      "needs_review": true,
+      "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
+      "status": "proposed"
+    }
+  ],
+  "validation_issues": []
+}
