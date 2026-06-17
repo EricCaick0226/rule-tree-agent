@@ -142,6 +142,57 @@ class RowGroundingValidatorTests(unittest.TestCase):
         issue = next(issue for issue in issues if issue.issue_type == "duplicated_path")
         self.assertEqual(issue.severity, "medium")
 
+    def test_reference_only_review_candidate_skips_current_document_grounding(self) -> None:
+        row = ClassificationRow(
+            row_id="row_ref",
+            path_levels=["国标分类", "当前文档没有"],
+            recommended_grade="一般数据 2 级",
+            description="来自参考库的说明。",
+            description_source="reference_library",
+            row_source="reference_library",
+            inclusion_status="review_candidate",
+            evidence_status="reference_only",
+            needs_review=True,
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        issue_types = {issue.issue_type for issue in issues}
+        self.assertNotIn("unsupported_generation", issue_types)
+        self.assertFalse(
+            any(
+                issue.issue_type == "hardcoded_or_ungrounded_content"
+                and "分类层级未出现在输入文档中" in issue.problem
+                for issue in issues
+            )
+        )
+
+    def test_reference_library_description_source_is_allowed(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            recommended_grade="3级",
+            description="参考库说明。",
+            description_source="reference_library",
+            evidence_quote="基础资源 服务范围与对象 患者 3级",
+            evidence_refs=[_evidence_ref()],
+            support_level="explicit",
+            needs_review=False,
+            reference_prefilled_fields=["description"],
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        self.assertFalse(
+            any(
+                issue.issue_type == "schema_contract_violation"
+                and "description_source" in issue.problem
+                for issue in issues
+            )
+        )
+
     def test_path_level_match_allows_heading_punctuation_variants(self) -> None:
         doc_text = "C、主题资源\n5其他数据库\n002住院记录摘要"
         doc = SourceDocument(

@@ -77,6 +77,8 @@ def _apply_insufficient_description(row: ClassificationRow, reason: str) -> None
 def _apply_label_only_description_policy(state: AgentState) -> int:
     changed = 0
     for row in state.classification_rows:
+        if row.description_source == "reference_library":
+            continue
         if row.description_source == "insufficient" or not str(row.description or "").strip():
             continue
         description_quote = row.description_evidence_quote or row.evidence_quote
@@ -86,6 +88,14 @@ def _apply_label_only_description_policy(state: AgentState) -> int:
         _apply_insufficient_description(row, decision.reason)
         changed += 1
     return changed
+
+
+def _should_skip_description_generation(row: Any) -> bool:
+    return bool(
+        getattr(row, "description_source", "") == "reference_library"
+        or getattr(row, "evidence_status", "") == "reference_only"
+        or getattr(row, "inclusion_status", "") == "review_candidate"
+    )
 
 
 def _looks_like_table_row_start(line: str) -> bool:
@@ -414,6 +424,8 @@ def _state_text(state: AgentState) -> str:
 
 
 def _row_to_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if _should_skip_description_generation(row):
+        return None
     flags = flag_description_quality(
         {
             "path_levels": row.path_levels,
@@ -443,6 +455,8 @@ def _row_to_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | Non
 
 
 def _row_to_v2_report_row(row, units: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if _should_skip_description_generation(row):
+        return None
     flags = flag_description_quality(
         {
             "path_levels": row.path_levels,

@@ -1,0 +1,34 @@
+{
+  "standard_family": "WS/T 363—2023",
+  "library_type": "data_element_library",
+  "parts": [
+    {
+      "part": "02",
+      "standard": "WS/T 363.2—2023",
+      "title": "标识",
+      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "output_path": "reference_library/data_elements/wst363/part_02.json",
+      "element_count": 24,
+      "status": "parsed"
+    },
+    {
+      "part": "03",
+      "standard": "WS/T 363.3—2023",
+      "title": "人口学及社会经济学特征",
+      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "output_path": "reference_library/data_elements/wst363/part_03.json",
+      "element_count": 347,
+      "status": "parsed"
+    },
+    {
+      "part": "10",
+      "standard": "WS/T 363.10—2023",
+      "title": "医学诊断",
+      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "output_path": "reference_library/data_elements/wst363/part_10.json",
+      "element_count": 172,
+      "status": "parsed"
+    }
+  ],
+  "total_elements": 543
+}

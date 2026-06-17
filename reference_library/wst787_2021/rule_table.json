@@ -119,7 +119,14 @@
           "source_warning": ""
         }
       ],
-      "data_range_examples": [],
+      "data_range_examples": [
+        "患者姓名",
+        "患者身份证件号码",
+        "居民健康卡号",
+        "出生日期",
+        "性别代码",
+        "年龄"
+      ],
       "processing_degree": "",
       "impact_object": "",
       "impact_degree": "",
@@ -128,7 +135,26 @@
       "confidence": 0.5,
       "needs_review": true,
       "review_reason": "仅提取到分类名称，缺乏完整表格列数据与分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
-      "status": "proposed"
+      "status": "proposed",
+      "data_element_refs": [
+        "WS/T 363.3—2023:DE02.01.039.01",
+        "WS/T 363.3—2023:DE02.01.030.02",
+        "WS/T 363.2—2023:DE01.00.021.00",
+        "WS/T 363.3—2023:DE02.01.005.00",
+        "WS/T 363.3—2023:DE02.01.040.00",
+        "WS/T 363.3—2023:DE02.01.026.00"
+      ],
+      "aliases": [
+        "患者信息",
+        "病人信息",
+        "就诊人信息"
+      ],
+      "reuse_allowed_fields": [
+        "path_levels",
+        "data_range_examples",
+        "data_element_refs"
+      ],
+      "curation_status": "data_elements_poc"
     },
     {
       "row_id": "row_9beefc784e86",
@@ -1528,7 +1554,13 @@
           "source_warning": ""
         }
       ],
-      "data_range_examples": [],
+      "data_range_examples": [
+        "西医疾病诊断代码",
+        "门（急）诊诊断西医疾病代码",
+        "出院诊断西医疾病代码",
+        "出院主要诊断西医疾病代码",
+        "入院诊断西医疾病代码"
+      ],
       "processing_degree": "",
       "impact_object": "",
       "impact_degree": "",
@@ -1537,7 +1569,24 @@
       "confidence": 0.5,
       "needs_review": true,
       "review_reason": "仅含分类路径标题，无详细分级说明及数据范围，依赖结构推断；检索上下文仅包含表单填报说明及数据规模/敏感度阈值，未提供该分类的具体业务定义或数据范围。",
-      "status": "proposed"
+      "status": "proposed",
+      "data_element_refs": [
+        "WS/T 363.10—2023:DE05.01.024.00",
+        "WS/T 363.10—2023:DE05.01.024.01",
+        "WS/T 363.10—2023:DE05.01.024.02",
+        "WS/T 363.10—2023:DE05.01.024.03",
+        "WS/T 363.10—2023:DE05.01.024.10"
+      ],
+      "aliases": [
+        "临床服务信息",
+        "诊疗服务"
+      ],
+      "reuse_allowed_fields": [
+        "path_levels",
+        "data_range_examples",
+        "data_element_refs"
+      ],
+      "curation_status": "data_elements_poc"
     },
     {
       "row_id": "row_1b1c6a241e68",
@@ -2938,7 +2987,13 @@
           "source_warning": ""
         }
       ],
-      "data_range_examples": [],
+      "data_range_examples": [
+        "西医疾病诊断代码",
+        "门（急）诊诊断西医疾病代码",
+        "出院诊断西医疾病代码",
+        "出院主要诊断西医疾病代码",
+        "入院诊断西医疾病代码"
+      ],
       "processing_degree": "",
       "impact_object": "",
       "impact_degree": "",
@@ -2947,7 +3002,24 @@
       "confidence": 0.5,
       "needs_review": true,
       "review_reason": "同一行含多级编号，依赖结构拆分，无详细分级说明；引用证据仅包含分类标题，无法支撑解释性说明。",
-      "status": "proposed"
+      "status": "proposed",
+      "data_element_refs": [
+        "WS/T 363.10—2023:DE05.01.024.00",
+        "WS/T 363.10—2023:DE05.01.024.01",
+        "WS/T 363.10—2023:DE05.01.024.02",
+        "WS/T 363.10—2023:DE05.01.024.03",
+        "WS/T 363.10—2023:DE05.01.024.10"
+      ],
+      "aliases": [
+        "电子病历临床诊疗",
+        "临床诊疗信息"
+      ],
+      "reuse_allowed_fields": [
+        "path_levels",
+        "data_range_examples",
+        "data_element_refs"
+      ],
+      "curation_status": "data_elements_poc"
     },
     {
       "row_id": "row_dbe5e197369a",
@@ -2973,7 +3045,14 @@
           "source_warning": ""
         }
       ],
-      "data_range_examples": [],
+      "data_range_examples": [
+        "病案号",
+        "西医疾病诊断代码",
+        "门（急）诊诊断西医疾病代码",
+        "出院诊断西医疾病代码",
+        "出院主要诊断西医疾病代码",
+        "入院诊断西医疾病代码"
+      ],
       "processing_degree": "",
       "impact_object": "",
       "impact_degree": "",
@@ -2982,7 +3061,25 @@
       "confidence": 0.5,
       "needs_review": true,
       "review_reason": "仅含层级标题，无详细分类分级说明及定级依据；检索上下文仅包含分类名称及通用填报说明，未提供该分类的具体业务场景或数据内容说明。",
-      "status": "proposed"
+      "status": "proposed",
+      "data_element_refs": [
+        "WS/T 363.2—2023:DE01.00.004.00",
+        "WS/T 363.10—2023:DE05.01.024.00",
+        "WS/T 363.10—2023:DE05.01.024.01",
+        "WS/T 363.10—2023:DE05.01.024.02",
+        "WS/T 363.10—2023:DE05.01.024.03",
+        "WS/T 363.10—2023:DE05.01.024.10"
+      ],
+      "aliases": [
+        "电子病历信息",
+        "病历信息"
+      ],
+      "reuse_allowed_fields": [
+        "path_levels",
+        "data_range_examples",
+        "data_element_refs"
+      ],
+      "curation_status": "data_elements_poc"
     },
     {
       "row_id": "row_82743b0c7ee7",

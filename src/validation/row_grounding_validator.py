@@ -7,7 +7,7 @@ from ..core.agent_state import AgentState, ValidationIssue
 
 
 ALLOWED_ROW_SUPPORT_LEVELS = {"explicit", "structural", "weak"}
-ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient"}
+ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient", "reference_library"}
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 LABEL_MATCH_PUNCTUATION = str.maketrans("", "", "、,，.．:：;；-—－_()（）[]【】")
 
@@ -132,7 +132,17 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
             )
         seen_paths.add(path)
 
-        for level in row.path_levels:
+        if row.evidence_status == "reference_only" and row.inclusion_status == "review_candidate":
+            continue
+
+        grounded_path_levels = (
+            row.original_path_levels
+            if row.content_source == "reference_library"
+            and "path_levels" in row.reference_prefilled_fields
+            and row.original_path_levels
+            else row.path_levels
+        )
+        for level in grounded_path_levels:
             if not _contains_path_level(corpus, level):
                 _add_issue(
                     issues,
@@ -221,6 +231,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
         )
         if (
             row.description_source != "insufficient"
+            and row.description_source != "reference_library"
             and not row.description_evidence_quote
             and not description_is_covered
         ):

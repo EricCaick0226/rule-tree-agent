@@ -117,6 +117,7 @@ class ClassificationSchema:
 class ClassificationRow:
     row_id: str
     path_levels: list[str] = field(default_factory=list)
+    original_path_levels: list[str] = field(default_factory=list)
     recommended_grade: Optional[str] = None
     description: str = "证据不足，无法从当前文档确定"
     description_source: str = "insufficient"
@@ -124,6 +125,7 @@ class ClassificationRow:
     evidence_quote: str = ""
     evidence_refs: list[EvidenceRef] = field(default_factory=list)
     data_range_examples: list[str] = field(default_factory=list)
+    data_element_refs: list[str] = field(default_factory=list)
     processing_degree: str = ""
     impact_object: str = ""
     impact_degree: str = ""
@@ -133,6 +135,12 @@ class ClassificationRow:
     needs_review: bool = True
     review_reason: str = ""
     status: str = "proposed"
+    row_source: str = "current_document"
+    content_source: str = "current_document"
+    inclusion_status: str = "accepted"
+    evidence_status: str = "current_document_supported"
+    reference_matches: list[dict[str, Any]] = field(default_factory=list)
+    reference_prefilled_fields: list[str] = field(default_factory=list)
 
 
 @dataclass

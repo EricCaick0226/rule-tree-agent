@@ -63,6 +63,38 @@ class ReferenceRuleLibraryTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "metadata.json must contain non-empty name and source_type"):
                 load_reference_library(root)
 
+    def test_load_reference_library_skips_auxiliary_subdirectories(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            write_json(
+                root / "wst787_2021" / "metadata.json",
+                {
+                    "name": "WST 787-2021",
+                    "source_type": "national_standard",
+                },
+            )
+            write_json(
+                root / "wst787_2021" / "rule_table.json",
+                {
+                    "classification_rows": [
+                        {
+                            "row_id": "ref_1",
+                            "path_levels": ["患者"],
+                        }
+                    ]
+                },
+            )
+            write_json(
+                root / "data_elements" / "wst363" / "part_02.json",
+                {"elements": []},
+            )
+
+            references, warnings = load_reference_library(root)
+
+        self.assertEqual(warnings, [])
+        self.assertEqual(len(references), 1)
+        self.assertEqual(references[0].name, "WST 787-2021")
+
     def test_build_report_separates_matches_and_missing_reference_suggestions(self) -> None:
         current_rows = [
             {

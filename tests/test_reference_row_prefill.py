@@ -1,0 +1,316 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import unittest
+
+from src.core.agent_state import AgentState, ClassificationRow, EvidenceRef
+from src.steps.reference_row_prefill import prefill_rows_from_reference_library
+
+
+def _write_json(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "description": "国家卫生信息资源分类与编码管理规范",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_hardware",
+                    "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                    "recommended_grade": "一般数据 2 级",
+                    "description": "硬件设备相关信息。",
+                    "description_source": "quoted",
+                    "data_range_examples": ["设备名称", "设备编号"],
+                    "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
+                },
+                {
+                    "row_id": "ref_software",
+                    "path_levels": ["基础资源", "设备资源", "软件设备"],
+                    "recommended_grade": "一般数据 2 级",
+                    "description": "软件设备相关信息。",
+                    "description_source": "quoted",
+                    "data_range_examples": ["软件名称"],
+                },
+            ]
+        },
+    )
+    return library
+
+
+def _path_only_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_patient",
+                    "path_levels": ["基础资源类", "服务范围与对象", "患者信息"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": [],
+                }
+            ]
+        },
+    )
+    return library
+
+
+def _generic_suffix_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_patient",
+                    "path_levels": ["患者"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": [],
+                }
+            ]
+        },
+    )
+    return library
+
+
+def _alias_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_patient",
+                    "path_levels": ["患者"],
+                    "aliases": ["患者信息"],
+                    "description": "证据不足，无法从当前文档确定",
+                    "description_source": "insufficient",
+                    "data_range_examples": [],
+                }
+            ]
+        },
+    )
+    return library
+
+
+def _evidence_ref() -> EvidenceRef:
+    return EvidenceRef(
+        evidence_id="ev_1",
+        chunk_id="chunk_1",
+        doc_name="policy.txt",
+        section_title="分类表",
+        text="基础资源 设备资源 硬件设备",
+        used_for="classification_row",
+        relevance_score=0.9,
+    )
+
+
+class ReferenceRowPrefillTests(unittest.TestCase):
+    def test_prefills_complete_reference_row_for_exact_current_row_without_reusing_grade(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["设备资源", "硬件设备"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        evidence_quote="设备资源 硬件设备",
+                        evidence_refs=[_evidence_ref()],
+                        support_level="explicit",
+                        needs_review=False,
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_hardware")
+        self.assertEqual(current.path_levels, ["基础资源", "设备资源", "硬件设备"])
+        self.assertEqual(current.original_path_levels, ["设备资源", "硬件设备"])
+        self.assertEqual(current.description, "硬件设备相关信息。")
+        self.assertEqual(current.description_source, "reference_library")
+        self.assertIsNone(current.recommended_grade)
+        self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
+        self.assertEqual(current.data_element_refs, ["WS/T 363.16—2023:DE08.10.001.00"])
+        self.assertEqual(
+            current.reference_prefilled_fields,
+            ["path_levels", "description", "data_range_examples", "data_element_refs"],
+        )
+        self.assertEqual(current.content_source, "reference_library")
+        self.assertEqual(current.row_source, "current_document")
+        self.assertEqual(current.evidence_status, "current_document_supported")
+        self.assertEqual(current.reference_matches[0]["match_type"], "parent_and_leaf")
+        self.assertEqual(current.reference_matches[0]["usage"], "row_prefill")
+
+    def test_adds_unmatched_reference_rows_as_review_candidates(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["基础资源", "设备资源", "硬件设备"],
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        candidates = [
+            row
+            for row in result.classification_rows
+            if row.row_source == "reference_library" and row.inclusion_status == "review_candidate"
+        ]
+        self.assertEqual(len(candidates), 1)
+        self.assertEqual(candidates[0].path_levels, ["基础资源", "设备资源", "软件设备"])
+        self.assertEqual(candidates[0].evidence_status, "reference_only")
+        self.assertEqual(candidates[0].content_source, "reference_library")
+        self.assertTrue(candidates[0].needs_review)
+
+    def test_path_only_reference_match_is_used_but_not_prefilled_or_duplicated(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _path_only_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient",
+                        path_levels=["服务范围与对象", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        evidence_quote="服务范围与对象 患者信息",
+                        evidence_refs=[_evidence_ref()],
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
+        self.assertEqual(current.description_source, "insufficient")
+        self.assertEqual(current.reference_prefilled_fields, [])
+        self.assertEqual(current.reference_matches[0]["usage"], "row_match")
+        self.assertFalse(
+            any(
+                row.row_source == "reference_library"
+                and row.inclusion_status == "review_candidate"
+                for row in result.classification_rows
+            )
+        )
+
+    def test_generic_information_suffix_does_not_match_without_reviewed_alias(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _generic_suffix_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient",
+                        path_levels=["基础资源类", "服务范围与对象", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        evidence_quote="服务范围与对象 患者信息",
+                        evidence_refs=[_evidence_ref()],
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
+        self.assertEqual(current.reference_prefilled_fields, [])
+        self.assertEqual(current.reference_matches, [])
+        self.assertTrue(
+            any(
+                row.row_source == "reference_library"
+                and row.inclusion_status == "review_candidate"
+                for row in result.classification_rows
+            )
+        )
+
+    def test_reviewed_alias_can_match_path_only_reference_row(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _alias_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient",
+                        path_levels=["基础资源类", "服务范围与对象", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        evidence_quote="服务范围与对象 患者信息",
+                        evidence_refs=[_evidence_ref()],
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
+        self.assertEqual(current.reference_prefilled_fields, [])
+        self.assertEqual(current.reference_matches[0]["usage"], "row_match")
+        self.assertEqual(current.reference_matches[0]["match_type"], "exact_alias")
+        self.assertFalse(
+            any(
+                row.row_source == "reference_library"
+                and row.inclusion_status == "review_candidate"
+                for row in result.classification_rows
+            )
+        )
+
+    def test_skips_when_library_is_not_configured(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[ClassificationRow(row_id="cur", path_levels=["A"])],
+        )
+
+        result = prefill_rows_from_reference_library(state, library_dir="")
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.step_traces[-1].status, "skipped")
+
+
+if __name__ == "__main__":
+    unittest.main()

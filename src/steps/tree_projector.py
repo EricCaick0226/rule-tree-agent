@@ -51,8 +51,9 @@ def _merge_row_into_node(node: TreeNode, row: ClassificationRow) -> None:
 
 def project_tree_from_rows(state: AgentState) -> AgentState:
     nodes_by_path: dict[str, TreeNode] = {}
+    projected_rows = [row for row in state.classification_rows if row.inclusion_status == "accepted"]
 
-    for row in state.classification_rows:
+    for row in projected_rows:
         path_levels = _clean_path_levels(row)
         parent_id: str | None = None
         path_parts: list[str] = []
@@ -111,6 +112,7 @@ def project_tree_from_rows(state: AgentState) -> AgentState:
         "",
         {
             "classification_rows": len(state.classification_rows),
+            "projected_rows": len(projected_rows),
             "row_ids": [row.row_id for row in state.classification_rows],
         },
         {

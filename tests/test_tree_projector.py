@@ -110,6 +110,31 @@ class TreeProjectorTests(unittest.TestCase):
         self.assertEqual(leaf.grade_reason, "证据不足，无法从当前文档确定推荐分级。")
         self.assertTrue(leaf.needs_review)
 
+    def test_review_candidate_rows_are_not_projected_into_tree(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                    inclusion_status="accepted",
+                ),
+                ClassificationRow(
+                    row_id="row_reference",
+                    path_levels=["基础资源", "设备资源", "软件设备"],
+                    row_source="reference_library",
+                    inclusion_status="review_candidate",
+                    evidence_status="reference_only",
+                ),
+            ],
+        )
+
+        result = project_tree_from_rows(state)
+
+        paths = {node.path for node in result.nodes}
+        self.assertIn("基础资源 / 设备资源 / 硬件设备", paths)
+        self.assertNotIn("基础资源 / 设备资源 / 软件设备", paths)
+
     def test_shared_parent_merges_evidence_and_review_conservatively(self) -> None:
         state = AgentState(
             task="test",

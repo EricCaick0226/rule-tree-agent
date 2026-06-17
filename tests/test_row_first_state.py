@@ -23,6 +23,12 @@ class RowFirstStateTests(unittest.TestCase):
         self.assertEqual(row.impact_object, "个人")
         self.assertEqual(row.impact_degree, "严重危害")
         self.assertEqual(row.grade_evidence_quote, "原始数据 个人 严重危害 一般数据3级")
+        self.assertEqual(row.row_source, "current_document")
+        self.assertEqual(row.inclusion_status, "accepted")
+        self.assertEqual(row.evidence_status, "current_document_supported")
+        self.assertEqual(row.content_source, "current_document")
+        self.assertEqual(row.reference_matches, [])
+        self.assertEqual(row.reference_prefilled_fields, [])
 
     def test_state_holds_classification_rows_and_schema(self) -> None:
         row = ClassificationRow(

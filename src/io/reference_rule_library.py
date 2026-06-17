@@ -54,6 +54,8 @@ def load_reference_library(library_dir: Path) -> tuple[list[RuleTableReference],
     for entry in sorted(item for item in root.iterdir() if item.is_dir()):
         metadata_path = entry / "metadata.json"
         rule_table_path = entry / "rule_table.json"
+        if not metadata_path.exists() and not rule_table_path.exists():
+            continue
         if not metadata_path.exists():
             raise FileNotFoundError(f"reference entry missing metadata.json: {entry}")
         if not rule_table_path.exists():

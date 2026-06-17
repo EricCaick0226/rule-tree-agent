@@ -48,6 +48,12 @@ def _rule_table_md(state: AgentState) -> str:
             "影响对象",
             "影响程度",
             "证据强度",
+            "行来源",
+            "内容来源",
+            "纳入状态",
+            "证据状态",
+            "原始路径",
+            "预填字段",
             "需复核",
             "复核原因",
         ]
@@ -78,6 +84,12 @@ def _rule_table_md(state: AgentState) -> str:
                 row.impact_object,
                 row.impact_degree,
                 row.support_level,
+                row.row_source,
+                row.content_source,
+                row.inclusion_status,
+                row.evidence_status,
+                " / ".join(row.original_path_levels),
+                "；".join(row.reference_prefilled_fields),
                 "yes" if row.needs_review else "no",
                 row.review_reason,
             ]
@@ -164,6 +176,14 @@ def _structure_quality_lines(state: AgentState) -> list[str]:
 def _review_report(state: AgentState) -> str:
     nodes_with_evidence = sum(1 for node in state.nodes if node.evidence_refs)
     review_nodes = sum(1 for node in state.nodes if node.needs_review)
+    reference_prefilled_rows = sum(
+        1 for row in state.classification_rows if row.reference_prefilled_fields
+    )
+    reference_candidate_rows = sum(
+        1
+        for row in state.classification_rows
+        if row.row_source == "reference_library" and row.inclusion_status == "review_candidate"
+    )
     source_counts: dict[str, int] = {}
     for chunk in state.chunks:
         source_counts[chunk.source_method] = source_counts.get(chunk.source_method, 0) + 1
@@ -206,6 +226,8 @@ def _review_report(state: AgentState) -> str:
         f"- Number of nodes: {len(state.nodes)}",
         f"- Nodes with evidence: {nodes_with_evidence}",
         f"- Nodes requiring review: {review_nodes}",
+        f"- Reference-prefilled rows: {reference_prefilled_rows}",
+        f"- Reference candidate rows: {reference_candidate_rows}",
         "",
         "## Unsupported Generation Issues",
     ]
