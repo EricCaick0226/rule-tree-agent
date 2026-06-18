@@ -130,6 +130,33 @@ def _alias_reference_library(root: Path) -> Path:
     return library
 
 
+def _complete_alias_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_patient",
+                    "path_levels": ["患者"],
+                    "aliases": ["患者信息"],
+                    "description": "患者相关信息。",
+                    "data_range_examples": ["患者姓名"],
+                    "data_element_refs": ["WS/T 363.3—2023:DE02.01.039.01"],
+                }
+            ]
+        },
+    )
+    return library
+
+
 def _evidence_ref() -> EvidenceRef:
     return EvidenceRef(
         evidence_id="ev_1",
@@ -208,7 +235,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(candidates[0].content_source, "reference_library")
         self.assertTrue(candidates[0].needs_review)
 
-    def test_path_only_reference_match_is_used_but_not_prefilled_or_duplicated(self) -> None:
+    def test_path_only_reference_row_is_ignored_without_match_or_candidate(self) -> None:
         with TemporaryDirectory() as tmp:
             library = _path_only_reference_library(Path(tmp))
             state = AgentState(
@@ -230,7 +257,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
         self.assertEqual(current.description_source, "insufficient")
         self.assertEqual(current.reference_prefilled_fields, [])
-        self.assertEqual(current.reference_matches[0]["usage"], "row_match")
+        self.assertEqual(current.reference_matches, [])
         self.assertFalse(
             any(
                 row.row_source == "reference_library"
@@ -261,7 +288,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
         self.assertEqual(current.reference_prefilled_fields, [])
         self.assertEqual(current.reference_matches, [])
-        self.assertTrue(
+        self.assertFalse(
             any(
                 row.row_source == "reference_library"
                 and row.inclusion_status == "review_candidate"
@@ -269,7 +296,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
             )
         )
 
-    def test_reviewed_alias_can_match_path_only_reference_row(self) -> None:
+    def test_reviewed_alias_without_reusable_content_is_ignored(self) -> None:
         with TemporaryDirectory() as tmp:
             library = _alias_reference_library(Path(tmp))
             state = AgentState(
@@ -290,8 +317,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
 
         current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
         self.assertEqual(current.reference_prefilled_fields, [])
-        self.assertEqual(current.reference_matches[0]["usage"], "row_match")
-        self.assertEqual(current.reference_matches[0]["match_type"], "exact_alias")
+        self.assertEqual(current.reference_matches, [])
         self.assertFalse(
             any(
                 row.row_source == "reference_library"
@@ -299,6 +325,34 @@ class ReferenceRowPrefillTests(unittest.TestCase):
                 for row in result.classification_rows
             )
         )
+
+    def test_reviewed_alias_can_prefill_complete_reference_row(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _complete_alias_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient",
+                        path_levels=["基础资源类", "服务范围与对象", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        evidence_quote="服务范围与对象 患者信息",
+                        evidence_refs=[_evidence_ref()],
+                    )
+                ],
+            )
+
+            result = prefill_rows_from_reference_library(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient")
+        self.assertEqual(
+            current.reference_prefilled_fields,
+            ["path_levels", "description", "data_range_examples", "data_element_refs"],
+        )
+        self.assertEqual(current.reference_matches[0]["usage"], "row_prefill")
+        self.assertEqual(current.reference_matches[0]["match_type"], "exact_alias")
+        self.assertEqual(current.path_levels, ["患者"])
 
     def test_skips_when_library_is_not_configured(self) -> None:
         state = AgentState(

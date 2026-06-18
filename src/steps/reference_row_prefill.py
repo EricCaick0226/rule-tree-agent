@@ -80,14 +80,16 @@ def _reference_description(row: dict[str, Any]) -> str:
 
 def _has_prefillable_content(row: dict[str, Any]) -> bool:
     description = _reference_description(row)
+    allowed = _allowed_prefill_fields(row)
     return bool(
         _path_levels(row)
         and (
-            _string_list(row.get("data_range_examples"))
-            or str(row.get("processing_degree") or "").strip()
-            or str(row.get("impact_object") or "").strip()
-            or str(row.get("impact_degree") or "").strip()
-            or (description and description != INSUFFICIENT_DESCRIPTION)
+            ("data_range_examples" in allowed and _string_list(row.get("data_range_examples")))
+            or ("data_element_refs" in allowed and _string_list(row.get("data_element_refs")))
+            or ("processing_degree" in allowed and str(row.get("processing_degree") or "").strip())
+            or ("impact_object" in allowed and str(row.get("impact_object") or "").strip())
+            or ("impact_degree" in allowed and str(row.get("impact_degree") or "").strip())
+            or ("description" in allowed and description and description != INSUFFICIENT_DESCRIPTION)
         )
     )
 
@@ -267,6 +269,8 @@ def prefill_rows_from_reference_library(
             for reference_row in reference.rows:
                 if not _is_reference_row_candidate(reference_row):
                     continue
+                if not _has_prefillable_content(reference_row):
+                    continue
                 match = _strong_match(row, reference_row)
                 if not match:
                     continue
@@ -277,16 +281,15 @@ def prefill_rows_from_reference_library(
             continue
 
         _score, reference, reference_row, match = best
-        has_prefillable_content = _has_prefillable_content(reference_row)
         row.reference_matches.append(
             _reference_match_payload(
                 reference,
                 reference_row,
                 match,
-                "row_prefill" if has_prefillable_content else "row_match",
+                "row_prefill",
             )
         )
-        prefilled = _prefill_fields(row, reference_row) if has_prefillable_content else []
+        prefilled = _prefill_fields(row, reference_row)
         if prefilled:
             row.reference_prefilled_fields.extend(
                 field for field in prefilled if field not in row.reference_prefilled_fields
@@ -305,6 +308,8 @@ def prefill_rows_from_reference_library(
             if _path_key(reference_row) in current_path_keys:
                 continue
             if not _is_reference_row_candidate(reference_row):
+                continue
+            if not _has_prefillable_content(reference_row):
                 continue
             candidate_rows.append(_candidate_from_reference(reference, reference_row))
 
