@@ -152,7 +152,7 @@ def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) 
     ref_description = _reference_description(reference_row)
     if ref_description and ref_description != INSUFFICIENT_DESCRIPTION:
         row.description = ref_description
-        row.description_source = "reference_library"
+        row.description_source = str(reference_row.get("description_source") or "").strip() or "reference_library"
         row.description_evidence_quote = str(reference_row.get("description_evidence_quote") or "")
         reused.append("description")
 
@@ -189,7 +189,7 @@ def _candidate_from_reference(reference: RuleTableReference, row: dict[str, Any]
     return ClassificationRow(
         row_id=stable_id("row_ref", reference.path + "|" + ref_id),
         path_levels=path_levels,
-        recommended_grade=str(row.get("recommended_grade") or "") or None,
+        recommended_grade=None,
         description=description,
         description_source=description_source,
         data_range_examples=_string_list(row.get("data_range_examples")),

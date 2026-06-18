@@ -325,7 +325,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(current.path_levels, ["基础资源", "设备资源", "硬件设备"])
         self.assertEqual(current.original_path_levels, ["设备资源", "硬件设备"])
         self.assertEqual(current.description, "硬件设备相关信息。")
-        self.assertEqual(current.description_source, "reference_library")
+        self.assertEqual(current.description_source, "quoted")
         self.assertEqual(current.description_evidence_quote, "")
         self.assertEqual(current.recommended_grade, "敏感数据 4 级")
         self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
@@ -485,6 +485,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         ]
         self.assertEqual(len(candidates), 1)
         self.assertEqual(candidates[0].path_levels, ["基础资源", "设备资源", "软件设备"])
+        self.assertIsNone(candidates[0].recommended_grade)
         self.assertEqual(candidates[0].evidence_status, "reference_only")
         self.assertEqual(candidates[0].content_source, "reference_library")
         self.assertTrue(candidates[0].needs_review)
