@@ -14,7 +14,9 @@ from ..llm.task_utils import append_step_trace, stable_id
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 REFERENCE_LIBRARY_ENV = "REFERENCE_LIBRARY_DIR"
 REVIEW_CANDIDATE_REASON = "该行来自参考库，当前文档未找到基本一致的分类行，需人工确认是否应纳入。"
-PREFILL_FIELDS = {
+DIRECT_REUSE_POLICIES = {"direct"}
+DIRECT_REUSE_TRUST_LEVELS = {"authoritative", "trusted"}
+REUSE_FIELDS = {
     "path_levels",
     "description",
     "data_range_examples",
@@ -78,24 +80,28 @@ def _reference_description(row: dict[str, Any]) -> str:
     return str(row.get("description") or "").strip()
 
 
-def _has_prefillable_content(row: dict[str, Any]) -> bool:
+def _is_complete_reference_row(row: dict[str, Any]) -> bool:
     description = _reference_description(row)
     allowed = _allowed_prefill_fields(row)
     return bool(
         _path_levels(row)
-        and (
-            ("data_range_examples" in allowed and _string_list(row.get("data_range_examples")))
-            or ("data_element_refs" in allowed and _string_list(row.get("data_element_refs")))
-            or ("processing_degree" in allowed and str(row.get("processing_degree") or "").strip())
-            or ("impact_object" in allowed and str(row.get("impact_object") or "").strip())
-            or ("impact_degree" in allowed and str(row.get("impact_degree") or "").strip())
-            or ("description" in allowed and description and description != INSUFFICIENT_DESCRIPTION)
-        )
+        and "description" in allowed
+        and description
+        and description != INSUFFICIENT_DESCRIPTION
+        and "data_range_examples" in allowed
+        and _string_list(row.get("data_range_examples"))
     )
 
 
-def _is_reference_row_candidate(row: dict[str, Any]) -> bool:
-    return bool(_path_levels(row))
+def _allows_direct_reuse(reference: RuleTableReference) -> bool:
+    return (
+        reference.reuse_policy in DIRECT_REUSE_POLICIES
+        and reference.reference_trust_level in DIRECT_REUSE_TRUST_LEVELS
+    )
+
+
+def _is_direct_reuse_row(reference: RuleTableReference, row: dict[str, Any]) -> bool:
+    return _allows_direct_reuse(reference) and _is_complete_reference_row(row)
 
 
 def _strong_match(current: ClassificationRow, reference_row: dict[str, Any]) -> dict[str, Any] | None:
@@ -144,52 +150,46 @@ def _reference_match_payload(
 def _allowed_prefill_fields(reference_row: dict[str, Any]) -> set[str]:
     configured = set(_string_list(reference_row.get("reuse_allowed_fields")))
     if configured:
-        return configured & PREFILL_FIELDS
-    return set(PREFILL_FIELDS)
+        return configured & REUSE_FIELDS
+    return set(REUSE_FIELDS)
 
 
-def _prefill_fields(row: ClassificationRow, reference_row: dict[str, Any]) -> list[str]:
+def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) -> list[str]:
     allowed = _allowed_prefill_fields(reference_row)
-    prefilled: list[str] = []
+    reused: list[str] = []
 
     ref_path = _path_levels(reference_row)
     if "path_levels" in allowed and ref_path and row.path_levels != ref_path:
         if not row.original_path_levels:
             row.original_path_levels = list(row.path_levels)
         row.path_levels = ref_path
-        prefilled.append("path_levels")
+        reused.append("path_levels")
 
     ref_description = _reference_description(reference_row)
-    if (
-        "description" in allowed
-        and
-        (not row.description or row.description == INSUFFICIENT_DESCRIPTION or row.description_source == "insufficient")
-        and ref_description
-        and ref_description != INSUFFICIENT_DESCRIPTION
-    ):
+    if "description" in allowed and ref_description and ref_description != INSUFFICIENT_DESCRIPTION:
         row.description = ref_description
         row.description_source = "reference_library"
-        row.description_evidence_quote = ""
-        prefilled.append("description")
+        row.description_evidence_quote = str(reference_row.get("description_evidence_quote") or "")
+        reused.append("description")
 
     ref_examples = _string_list(reference_row.get("data_range_examples"))
-    if "data_range_examples" in allowed and not row.data_range_examples and ref_examples:
+    if "data_range_examples" in allowed and ref_examples:
         row.data_range_examples = ref_examples
-        prefilled.append("data_range_examples")
+        reused.append("data_range_examples")
 
     ref_data_element_refs = _string_list(reference_row.get("data_element_refs"))
-    if "data_element_refs" in allowed and not row.data_element_refs and ref_data_element_refs:
+    if "data_element_refs" in allowed and ref_data_element_refs:
         row.data_element_refs = ref_data_element_refs
-        prefilled.append("data_element_refs")
+        reused.append("data_element_refs")
 
     for field_name in ("processing_degree", "impact_object", "impact_degree"):
-        if field_name in allowed and not getattr(row, field_name) and reference_row.get(field_name):
+        if field_name in allowed and reference_row.get(field_name):
             setattr(row, field_name, str(reference_row.get(field_name)))
-            prefilled.append(field_name)
+            reused.append(field_name)
 
-    if prefilled:
+    if reused:
         row.content_source = "reference_library"
-    return prefilled
+    return reused
 
 
 def _current_row_match_keys(rows: list[ClassificationRow]) -> set[str]:
@@ -240,6 +240,13 @@ def prefill_rows_from_reference_library(
     state: AgentState,
     library_dir: str | None = None,
 ) -> AgentState:
+    return apply_reference_row_reuse(state, library_dir=library_dir)
+
+
+def apply_reference_row_reuse(
+    state: AgentState,
+    library_dir: str | None = None,
+) -> AgentState:
     _load_dotenv_if_available()
     configured_library = (
         os.getenv(REFERENCE_LIBRARY_ENV, "").strip()
@@ -249,27 +256,30 @@ def prefill_rows_from_reference_library(
     if not configured_library:
         append_step_trace(
             state.step_traces,
-            "prefill_rows_from_reference_library",
+            "apply_reference_row_reuse",
             "skipped",
-            "Reference row prefill is disabled.",
+            "Reference row reuse is disabled.",
             {"enabled": False},
-            {"prefilled_rows": 0, "candidate_rows": 0},
+            {
+                "direct_reused_rows": 0,
+                "reused_fields": 0,
+                "candidate_rows": 0,
+                "classification_rows": len(state.classification_rows),
+            },
         )
         return state
 
     references, warnings = load_reference_library(Path(configured_library))
     accepted_rows = [row for row in state.classification_rows if row.inclusion_status == "accepted"]
-    prefilled_rows = 0
-    prefilled_fields = 0
+    direct_reused_rows = 0
+    reused_fields = 0
     matched_reference_keys: set[tuple[str, str]] = set()
 
     for row in accepted_rows:
         best: tuple[float, RuleTableReference, dict[str, Any], dict[str, Any]] | None = None
         for reference in references:
             for reference_row in reference.rows:
-                if not _is_reference_row_candidate(reference_row):
-                    continue
-                if not _has_prefillable_content(reference_row):
+                if not _is_direct_reuse_row(reference, reference_row):
                     continue
                 match = _strong_match(row, reference_row)
                 if not match:
@@ -286,16 +296,16 @@ def prefill_rows_from_reference_library(
                 reference,
                 reference_row,
                 match,
-                "row_prefill",
+                "direct_reuse",
             )
         )
-        prefilled = _prefill_fields(row, reference_row)
-        if prefilled:
+        reused = _direct_reuse_fields(row, reference_row)
+        if reused:
             row.reference_prefilled_fields.extend(
-                field for field in prefilled if field not in row.reference_prefilled_fields
+                field for field in reused if field not in row.reference_prefilled_fields
             )
-            prefilled_rows += 1
-            prefilled_fields += len(prefilled)
+            direct_reused_rows += 1
+            reused_fields += len(reused)
         matched_reference_keys.add((reference.path, str(reference_row.get("row_id") or "")))
 
     current_path_keys = _current_row_match_keys(accepted_rows)
@@ -307,16 +317,14 @@ def prefill_rows_from_reference_library(
                 continue
             if _path_key(reference_row) in current_path_keys:
                 continue
-            if not _is_reference_row_candidate(reference_row):
-                continue
-            if not _has_prefillable_content(reference_row):
+            if not _is_direct_reuse_row(reference, reference_row):
                 continue
             candidate_rows.append(_candidate_from_reference(reference, reference_row))
 
     state.classification_rows.extend(candidate_rows)
     append_step_trace(
         state.step_traces,
-        "prefill_rows_from_reference_library",
+        "apply_reference_row_reuse",
         "success",
         "",
         {
@@ -327,8 +335,8 @@ def prefill_rows_from_reference_library(
             "warnings": warnings,
         },
         {
-            "prefilled_rows": prefilled_rows,
-            "prefilled_fields": prefilled_fields,
+            "direct_reused_rows": direct_reused_rows,
+            "reused_fields": reused_fields,
             "candidate_rows": len(candidate_rows),
             "classification_rows": len(state.classification_rows),
         },

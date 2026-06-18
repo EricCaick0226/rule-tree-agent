@@ -27,6 +27,8 @@ class RuleTableReference:
     source_type: str
     path: str
     rows: list[dict[str, Any]]
+    reuse_policy: str = "assist"
+    reference_trust_level: str = "auxiliary"
 
 
 @dataclass(frozen=True)

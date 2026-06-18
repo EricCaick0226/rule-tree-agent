@@ -72,6 +72,8 @@ def load_reference_library(library_dir: Path) -> tuple[list[RuleTableReference],
                 source_type=str(metadata["source_type"]).strip(),
                 path=str(rule_table_path),
                 rows=rows,
+                reuse_policy=str(metadata.get("reuse_policy") or "assist").strip() or "assist",
+                reference_trust_level=str(metadata.get("reference_trust_level") or "auxiliary").strip() or "auxiliary",
             )
         )
     return references, warnings
