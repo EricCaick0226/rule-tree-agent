@@ -3,5 +3,7 @@
   "source_type": "national_standard",
   "description": "国家卫生信息资源分类与编码管理规范",
   "source_rule_table": "outputs_233_flattened_hints_desc_policy_100/rule_table.json",
-  "curation_status": "reviewed_seed"
+  "curation_status": "reviewed_seed",
+  "reuse_policy": "direct",
+  "reference_trust_level": "authoritative"
 }
