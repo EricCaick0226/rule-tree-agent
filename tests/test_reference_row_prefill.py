@@ -142,6 +142,33 @@ def _mixed_case_direct_reference_library(root: Path) -> Path:
     return library
 
 
+def _complete_without_optional_fields_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "reuse_policy": "direct",
+            "reference_trust_level": "authoritative",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_hardware",
+                    "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                    "description": "硬件设备相关信息。",
+                    "data_range_examples": ["设备名称", "设备编号"],
+                }
+            ]
+        },
+    )
+    return library
+
+
 def _path_only_reference_library(root: Path) -> Path:
     library = root / "reference_library"
     _write_json(
@@ -374,6 +401,35 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(current.description, "硬件设备相关信息。")
         self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
         self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
+
+    def test_direct_reuse_clears_optional_fields_omitted_by_reference(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _complete_without_optional_fields_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["设备资源", "硬件设备"],
+                        description="本地硬件描述。",
+                        description_source="quoted",
+                        data_element_refs=["LOCAL:DE01"],
+                        processing_degree="本地处理程度",
+                        impact_object="本地影响对象",
+                        impact_degree="本地影响程度",
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_hardware")
+        self.assertEqual(current.description, "硬件设备相关信息。")
+        self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
+        self.assertEqual(current.data_element_refs, [])
+        self.assertEqual(current.processing_degree, "")
+        self.assertEqual(current.impact_object, "")
+        self.assertEqual(current.impact_degree, "")
 
     def test_untrusted_complete_reference_row_is_ignored(self) -> None:
         with TemporaryDirectory() as tmp:

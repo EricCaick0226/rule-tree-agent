@@ -162,13 +162,14 @@ def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) 
         reused.append("data_range_examples")
 
     ref_data_element_refs = _string_list(reference_row.get("data_element_refs"))
+    row.data_element_refs = ref_data_element_refs
     if ref_data_element_refs:
-        row.data_element_refs = ref_data_element_refs
         reused.append("data_element_refs")
 
     for field_name in ("processing_degree", "impact_object", "impact_degree"):
-        if reference_row.get(field_name):
-            setattr(row, field_name, str(reference_row.get(field_name)))
+        ref_value = str(reference_row.get(field_name) or "")
+        setattr(row, field_name, ref_value)
+        if ref_value:
             reused.append(field_name)
 
     if reused:
