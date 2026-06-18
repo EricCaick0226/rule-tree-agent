@@ -2,7 +2,7 @@
   "standard": "WS/T 363.10—2023",
   "part": "10",
   "title": "医学诊断",
-  "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+  "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
   "extraction_status": "parsed",
   "element_count": 172,
   "elements": [
@@ -17,7 +17,7 @@
         "WS/T 364.10:CV05.01.039"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -31,7 +31,7 @@
         "WS/T 364.10:CV05.01.028"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -45,7 +45,7 @@
         "WS/T 364.10:CV05.01.010"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -57,7 +57,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -71,7 +71,7 @@
         "WS/T 364.10:CV05.01.009"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -83,7 +83,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -95,7 +95,7 @@
       "allowed_values": "国卫疾控发[2013]48 号《职业病分类和目录》",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -107,7 +107,7 @@
       "allowed_values": "1.Ⅰ期 2.Ⅱ期 3.Ⅲ期",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -121,7 +121,7 @@
         "WS/T 364.10:CV05.01.016"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -135,7 +135,7 @@
         "WS/T 364.10:CV05.01.015"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -149,7 +149,7 @@
         "WS/T 364.10:CV05.01.014"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -163,7 +163,7 @@
         "WS/T 364.10:CV05.01.017"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -175,7 +175,7 @@
       "allowed_values": "1.同卵 2.异卵 9.其他",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -189,7 +189,7 @@
         "WS/T 364.10:CV05.01.033"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -203,7 +203,7 @@
         "WS/T 364.10:CV05.01.034"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -215,7 +215,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -229,7 +229,7 @@
         "WS/T 364.10:CV05.01.021"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -243,7 +243,7 @@
         "WS/T 364.10:CV05.01.019"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -257,7 +257,7 @@
         "WS/T 364.10:CV05.01.031"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -271,7 +271,7 @@
         "WS/T 364.10:CV05.01.038"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -283,7 +283,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -295,7 +295,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -307,7 +307,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -319,7 +319,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -331,7 +331,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -343,7 +343,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -355,7 +355,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -367,7 +367,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -379,7 +379,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -391,7 +391,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -403,7 +403,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -415,7 +415,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -427,7 +427,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -439,7 +439,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -451,7 +451,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -463,7 +463,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -475,7 +475,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -487,7 +487,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -499,7 +499,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -511,7 +511,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -523,7 +523,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -535,7 +535,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -547,7 +547,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -559,7 +559,7 @@
       "allowed_values": "GB/T 14396 疾病分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -571,7 +571,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -583,7 +583,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -595,7 +595,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -607,7 +607,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -619,7 +619,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -631,7 +631,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -643,7 +643,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -655,7 +655,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -667,7 +667,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -679,7 +679,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -691,7 +691,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -703,7 +703,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -715,7 +715,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -727,7 +727,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -739,7 +739,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -751,7 +751,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -763,7 +763,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -775,7 +775,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -787,7 +787,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -799,7 +799,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -811,7 +811,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -823,7 +823,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -835,7 +835,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -849,7 +849,7 @@
         "WS/T 364.10:CV05.01.018"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -861,7 +861,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -873,7 +873,7 @@
       "allowed_values": "1.离心性 2.向心性",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -887,7 +887,7 @@
         "WS/T 364.10:CV05.01.029"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -901,7 +901,7 @@
         "WS/T 364.10:CV05.01.030"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -915,7 +915,7 @@
         "WS/T 364.10:CV05.01.035"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -927,7 +927,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -939,7 +939,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -951,7 +951,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -963,7 +963,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -977,7 +977,7 @@
         "WS/T 364.10:CV05.01.003"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -991,7 +991,7 @@
         "WS/T 364.10:CV05.01.004"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1005,7 +1005,7 @@
         "WS/T 364.10:CV05.01.011"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1019,7 +1019,7 @@
         "WS/T 364.10:CV05.01.025"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1031,7 +1031,7 @@
       "allowed_values": "1.血吸虫虫卵粪便检查 2.血吸虫病抗体检测 9.其他",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1045,7 +1045,7 @@
         "WS/T 364.10:CV05.01.037"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1059,7 +1059,7 @@
         "WS/T 364.10:CV05.01.007"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1073,7 +1073,7 @@
         "WS/T 364.10:CV05.01.008"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1085,7 +1085,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1099,7 +1099,7 @@
         "WS/T 364.10:CV05.01.013"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1113,7 +1113,7 @@
         "WS/T 364.10:CV05.01.012"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1127,7 +1127,7 @@
         "WS/T 364.10:CV05.01.023"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1141,7 +1141,7 @@
         "WS/T 364.10:CV05.01.022"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1153,7 +1153,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1167,7 +1167,7 @@
         "WS/T 364.10:CV05.01.032"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1181,7 +1181,7 @@
         "WS/T 364.10:CV05.01.006"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1193,7 +1193,7 @@
       "allowed_values": "1.轻度 2.中度 3.重度",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1205,7 +1205,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1217,7 +1217,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1231,7 +1231,7 @@
         "WS/T 364.10:CV05.01.020"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1243,7 +1243,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1255,7 +1255,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1269,7 +1269,7 @@
         "WS/T 364.10:CV05.01.002"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1281,7 +1281,7 @@
       "allowed_values": "国卫疾控发[2013]48 号《职业病分类和目录》",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1293,7 +1293,7 @@
       "allowed_values": "GB/T 18201 放射性疾病名单",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1307,7 +1307,7 @@
         "WS/T 364.10:CV05.01.005"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1319,7 +1319,7 @@
       "allowed_values": "ICD-O-3 国际疾病分类肿瘤学专辑（第三版）",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1333,7 +1333,7 @@
         "WS/T 364.10:CV05.01.026"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1345,7 +1345,7 @@
       "allowed_values": "ICD-O-3 国际疾病分类肿瘤学专辑（第三版）",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1359,7 +1359,7 @@
         "WS/T 364.10:CV05.01.027"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1373,7 +1373,7 @@
         "WS/T 364.10:CV05.01.036"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1387,7 +1387,7 @@
         "WS/T 364.10:CV05.01.001"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1399,7 +1399,7 @@
       "allowed_values": "1.是 2.基本是 3.倾向是",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1411,7 +1411,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1423,7 +1423,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1435,7 +1435,7 @@
       "allowed_values": "1.否 2.是 3.不确定",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1447,7 +1447,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1459,7 +1459,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1471,7 +1471,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1483,7 +1483,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1495,7 +1495,7 @@
       "allowed_values": "WS364.5 CV03.00.305 传播途径代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1507,7 +1507,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1521,7 +1521,7 @@
         "WS/T 364.10:CV05.01.044"
       ],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1533,7 +1533,7 @@
       "allowed_values": "WS364.11 CV05.10.037 严重程度代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1545,7 +1545,7 @@
       "allowed_values": "1.疑似病例 2.临床诊断病例 3.确诊病例",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1557,7 +1557,7 @@
       "allowed_values": "WS364.10 CV05.01.046 尘肺合并症名称代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1569,7 +1569,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1581,7 +1581,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1593,7 +1593,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1605,7 +1605,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1617,7 +1617,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1629,7 +1629,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1641,7 +1641,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1653,7 +1653,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1665,7 +1665,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1677,7 +1677,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1689,7 +1689,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1701,7 +1701,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1713,7 +1713,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1725,7 +1725,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1737,7 +1737,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1749,7 +1749,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1761,7 +1761,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1773,7 +1773,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1785,7 +1785,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1797,7 +1797,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1809,7 +1809,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1821,7 +1821,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1833,7 +1833,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1845,7 +1845,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1857,7 +1857,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1869,7 +1869,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1881,7 +1881,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1893,7 +1893,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1905,7 +1905,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1917,7 +1917,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1929,7 +1929,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1941,7 +1941,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1953,7 +1953,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1965,7 +1965,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1977,7 +1977,7 @@
       "allowed_values": "GB/T 15657 中医病证分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1989,7 +1989,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2001,7 +2001,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2013,7 +2013,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2025,7 +2025,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2037,7 +2037,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2049,7 +2049,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2061,7 +2061,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2073,7 +2073,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2085,7 +2085,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2097,7 +2097,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2109,7 +2109,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2121,7 +2121,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2133,7 +2133,7 @@
       "allowed_values": "—",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2145,7 +2145,7 @@
       "allowed_values": "— 附 录 A （资料性） 数据元索引 B 辨证论治详细描述 DE05.01.173.00 辨证依据 DE05.01.174.00 并发症或合并症标志 DE05.01.097.00 并发症或合并症描述 DE05.01.098.00 病毒性肝炎类型代码 DE05.01.002.00 病理诊断疾病代码 DE05.01.024.06 病理诊断名称 DE05.01.025.06 补充诊断西医疾病代码 DE05.01.024.11 补充诊断西医疾病名称 DE05.01.025.11 C 产前诊断孕周(d) DE05.01.004.00 产时并发症代码 DE05.01.005.00 尘肺合并肺结核的标志 DE05.01.006.00 尘肺合并症名称代码 DE05.01.167.00 尘肺合并症诊断日期时间 DE05.01.099.00 尘肺类别代码 DE05.01.007.00 尘肺期别代码 DE05.01.008.00 出生缺陷类别代码 DE05.01.009.00 出生缺陷确诊时间类别代码 DE05.01.010.00 出生缺陷诊断依据代码 DE05.01.011.00 出院其他诊断西医疾病代码 DE05.01.024.04 出院其他诊断西医疾病名称 DE05.01.025.04 出院诊断西医疾病代码 DE05.01.024.02 出院诊断西医疾病名称 DE05.01.025.02 出院诊断中医病名代码 DE05.01.168.02 出院诊断中医病名名称 DE05.01.169.02 出院诊断中医证候代码 DE05.01.170.02 出院诊断中医证候名称 DE05.01.171.02 出院诊断中医主病代码 DE05.01.168.03 出院诊断中医主病名称 DE05.01.169.03 出院诊断中医主证代码 DE05.01.170.03 出院诊断中医主证名称 DE05.01.171.03 出院主要诊断西医疾病代码 DE05.01.024.03 出院主要诊断西医疾病名称 DE05.01.025.03 初步诊断西医疾病代码 DE05.01.024.12 初步诊断西医疾病名称 DE05.01.025.12 初步诊断中医病名代码 DE05.01.168.10 初步诊断中医病名名称 DE05.01.169.10 初步诊断中医证候代码 DE05.01.170.05 初步诊断中医证候名称 DE05.01.171.05 传播途径代码 DE05.01.100.00 传染病名称代码 DE05.01.012.00 D 多胎类型代码 DE05.01.014.00 F 放射性疾病主要诊断依据 DE05.01.101.00 肺结核标志 DE05.01.017.00 肺结核诊断结果代码 DE05.01.018.00 肺外结核部位代码 DE05.01.019.00 G 肝衰竭分类代码 DE05.01.020.00 根本死亡原因西医疾病代码 DE05.01.024.08 根本死亡原因西医疾病名称 DE05.01.025.08 根本死亡诊断依据类别代码 DE05.01.043.00 过敏源代码 DE05.01.022.00 H 怀孕标志 DE05.01.023.00 会阴裂伤情况代码 DE05.01.003.00 J 急性放射病的分度代码 DE05.01.015.00 急性放射病的分期代码 DE05.01.016.00 鉴别诊断西医疾病代码 DE05.01.024.14 鉴别诊断西医疾病名称 DE05.01.025.14 鉴别诊断中医病名代码 DE05.01.168.05 鉴别诊断中医病名名称 DE05.01.169.05 鉴别诊断中医证候名称 DE05.01.171.06 检查及治疗可能引起的并发症及风险 DE05.01.075.00 结核病合并症代码 DE05.01.026.00 L 淋巴管或淋巴结炎发作伴随高热寒战标志 DE05.01.027.00 淋巴管或淋巴结炎发作代码 DE05.01.028.00 M 麻醉合并症标志代码 DE05.01.077.00 慢性 HBV 感染临床诊断分类代码 DE05.01.029.00 慢性乙型肝炎的临床分级代码 DE05.01.030.00 门（急）诊诊断西医疾病代码 DE05.01.024.01 门（急）诊诊断西医疾病名称 DE05.01.025.01 门（急）诊诊断中医病名代码 DE05.01.168.01 门（急）诊诊断中医病名名称 DE05.01.169.01 门（急）诊诊断中医证候代码 DE05.01.170.01 门（急）诊诊断中医证候名称 DE05.01.171.01 明确诊断检查项目描述 DE05.01.056.00 目前诊断西医疾病代码 DE05.01.024.13 目前诊断西医疾病名称 DE05.01.025.13 目前诊断中医病名代码 DE05.01.168.04 目前诊断中医病名名称 DE05.01.169.04 目前诊断中医证候代码 DE05.01.170.06 N 农药中毒原因类型代码 DE05.01.031.00 Q 其他场景西医诊断疾病代码 DE05.01.024.99 其他场景西医诊断疾病名称 DE05.01.025.99 其他场景诊断中医病名名称 DE05.01.169.99 其他场景诊断中医病名代码 DE05.01.168.99 其他场景诊断中医证候名称 DE05.01.171.99 其他场景诊断中医证候代码 DE05.01.170.99 其他死亡原因 DE05.01.032.00 躯体疾病名称 DE05.01.033.00 确定诊断日期 DE05.01.034.00 确定诊断西医疾病代码 DE05.01.024.16 确定诊断西医疾病名称 DE05.01.025.16 确定诊断中医病名代码 DE05.01.168.07 确定诊断中医病名名称 DE05.01.169.07 确定诊断中医证候代码 DE05.01.170.08 确定诊断中医证候名称 DE05.01.171.08 确诊日期时间 DE05.01.035.00 R 乳糜尿发作诱因代码 DE05.01.036.00 入院诊断顺位 DE05.01.080.00 入院诊断西医疾病代码 DE05.01.024.10 入院诊断西医疾病名称 DE05.01.025.10 入院诊断中医病名代码 DE05.01.168.09 入院诊断中医病名名称 DE05.01.169.09 入院诊断中医证候代码 DE05.01.170.04 入院诊断中医证候名称 DE05.01.171.04 S 伤害性质代码 DE05.01.037.00 伤害诊断西医疾病代码 DE05.01.024.19 伤害诊断西医疾病名称 DE05.01.025.19 伤口愈合状况代码 DE05.01.039.00 首次确诊晚期血吸虫病病例类型代码 DE05.01.040.00 首次诊断血吸虫病依据代码 DE05.01.041.00 术后诊断西医疾病代码 DE05.01.024.18 术后诊断西医疾病名称 DE05.01.025.18 术前合并疾病 DE05.01.076.00 术前诊断西医疾病代码 DE05.01.024.17 术前诊断西医疾病名称 DE05.01.025.17 死亡原因类别代码 DE05.01.103.00 死亡诊断西医疾病代码 DE05.01.024.07 死亡诊断西医疾病名称 DE05.01.025.07 死亡诊断中医病名代码 DE05.01.168.08 死亡诊断中医病名名称 DE05.01.169.08 死亡诊断中医证候代码 DE05.01.170.09 死亡诊断中医证候名称 DE05.01.171.09 损伤中毒的外部原因西医疾病代码 DE05.01.024.05 损伤中毒的外部原因西医疾病名称 DE05.01.025.05 T 胎方位代码 DE05.01.044.00 胎先露类别代码 DE05.01.045.00 W 五岁以下儿童死因分类代码 DE05.01.001.00 西医疾病诊断代码 DE05.01.024.00 西医疾病诊断名称 DE05.01.025.00 新生儿并发症标志 DE05.01.046.00 新生儿并发症代码 DE05.01.047.00 新生儿黄疸程度代码 DE05.01.048.00 修正诊断西医疾病代码 DE05.01.024.15 修正诊断西医疾病名称 DE05.01.025.15 修正诊断中医病名代码 DE05.01.168.06 修正诊断中医病名名称 DE05.01.169.06 修正诊断中医证候代码 DE05.01.170.07 修正诊断中医证候名称 DE05.01.171.07 血吸虫病感染方式代码 DE05.01.049.00 血吸虫病合并症代码 DE05.01.050.00 Y 严重程度代码 DE05.01.104.00 严重精神障碍诊断名称代码 DE05.01.071.00 预防接种后不良反应临床诊断代码 DE05.01.052.00 预防接种异常反应发生日期时间 DE05.01.051.00 孕产妇死因分类代码 DE05.01.053.00 孕妇高危妊娠级别代码 DE05.01.054.00 Z 诊断方法描述 DE05.01.055.00 诊断分型代码 DE05.01.105.00 诊断结果描述 DE05.01.172.00 诊断结核病类型代码 DE05.01.057.00 诊断日期 DE05.01.058.00 诊断日期时间 DE05.01.059.00 诊断状态代码 DE05.01.060.00 直接死亡原因西医疾病代码 DE05.01.024.09 直接死亡原因西医疾病名称 DE05.01.025.09 职业病诊断西医疾病代码 DE05.01.024.20 职业病诊断西医疾病名称 DE05.01.025.20 职业病种类代码 DE05.01.063.00 职业性放射性疾病代码 DE05.01.064.00 中医病名代码 DE05.01.168.00 中医病名名称 DE05.01.169.00 中医体质分类代码 DE05.01.065.00 中医体质分类判定结果代码 DE05.01.073.00 中医证候代码 DE05.01.170.00 中医证候名称 DE05.01.171.00 肿瘤 TNM 分期代码 DE05.01.066.00 肿瘤临床分期代码 DE05.01.067.00 肿瘤学分类代码 DE05.01.068.00 肿瘤诊断代码 DE05.01.024.21 肿瘤诊断名称 DE05.01.025.21 肿瘤诊断依据代码 DE05.01.070.00 住院者疾病状态代码 DE05.01.072.00 本标准于 2023 年 12 月 8 日对 2、4.2 进行了勘误，标准文本为勘误后内容。",
       "value_domain_refs": [],
       "source_part": "WS/T 363.10—2023",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "extraction_status": "parsed"
     }
   ]

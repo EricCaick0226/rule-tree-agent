@@ -1,0 +1,2028 @@
+{
+  "standard": "WS/T 363.6—2023",
+  "part": "06",
+  "title": "主诉与症状",
+  "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+  "extraction_status": "parsed",
+  "element_count": 160,
+  "elements": [
+    {
+      "element_code": "DE04.01.001.00",
+      "element_name": "便秘标志",
+      "definition": "标识个体是否有便秘症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.002.00",
+      "element_name": "便血标志",
+      "definition": "标识个体是否有便血症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.003.00",
+      "element_name": "产后开奶时长（min）",
+      "definition": "产妇分娩后第一次哺乳距分娩时点的时长,计量单位为 min",
+      "data_type": "N",
+      "display_format": "N..4",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.004.00",
+      "element_name": "产后检查累计天数",
+      "definition": "产妇产后检查日期距分娩日期的累计天数,计量单位为 d",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.005.00",
+      "element_name": "出现症状日期",
+      "definition": "个体出现某项症状当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.006.00",
+      "element_name": "萌牙月龄",
+      "definition": "婴幼儿首颗乳牙萌出时的月龄,计量单位为月",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.007.00",
+      "element_name": "大便次数（次/d）",
+      "definition": "个体回顾每天大便的次数,计量单位为次/d",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.008.00",
+      "element_name": "盗汗标志",
+      "definition": "标识个体是否有盗汗症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.009.00",
+      "element_name": "多汗标志",
+      "definition": "标识个体是否有多汗症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.010.00",
+      "element_name": "多汗部位",
+      "definition": "对个体多汗部位的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.011.00",
+      "element_name": "多梦标志",
+      "definition": "标识个体是否有多梦症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.012.00",
+      "element_name": "恶心标志",
+      "definition": "标识个体是否有恶心症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.013.00",
+      "element_name": "儿童大便性状代码",
+      "definition": "儿童大便的性状的类型在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.012 儿童大便性状代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.012"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.014.00",
+      "element_name": "儿童睡眠的质量代码",
+      "definition": "儿童睡眠的质量状况所属类型在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.010 儿童睡眠质量代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.010"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.015.00",
+      "element_name": "儿童睡眠情况代码",
+      "definition": "儿童在睡眠时的身体情况在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.011 儿童睡眠情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.011"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.016.00",
+      "element_name": "耳聋标志",
+      "definition": "标识个体是否有耳聋症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.017.00",
+      "element_name": "耳鸣标志",
+      "definition": "标识个体是否有耳鸣症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.018.00",
+      "element_name": "发病日期时间",
+      "definition": "疾病发病症状的首次出现的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.019.00",
+      "element_name": "妇科及乳腺不适症状代码",
+      "definition": "妇女现有妇科及乳腺不适症状在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.6 CV04.01.001 妇科及乳腺不适症状代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.001"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.020.00",
+      "element_name": "腹痛标志",
+      "definition": "标识个体是否有腹痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.021.00",
+      "element_name": "腹痛程度代码",
+      "definition": "个体出现腹痛程度所属类别在特定分类体系中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.轻度 2.中度 3.重度",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.022.00",
+      "element_name": "腹泻标志",
+      "definition": "标识个体是否有腹泻症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.023.00",
+      "element_name": "腹泻次数",
+      "definition": "个体某段时间内腹泻次数的累计值",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.024.00",
+      "element_name": "腹胀标志",
+      "definition": "标识个体是否有腹胀症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.025.00",
+      "element_name": "肝区痛标志",
+      "definition": "标识个体是否有肝区痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.026.00",
+      "element_name": "感觉异常情况",
+      "definition": "对个体感觉异常情况的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..100",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.027.00",
+      "element_name": "感染日期",
+      "definition": "个体由于接触感染疾病的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.028.00",
+      "element_name": "关节痛标志",
+      "definition": "标识个体是否有关节痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.029.00",
+      "element_name": "记忆力减退标志",
+      "definition": "标识个体是否出现记忆力减退症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.030.00",
+      "element_name": "精神症状代码",
+      "definition": "个体存在的精神症状在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.6 CV04.01.009 精神症状代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.009"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.031.00",
+      "element_name": "皲裂部位",
+      "definition": "个体体表皲裂部位的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.032.00",
+      "element_name": "咳嗽标志",
+      "definition": "标识个体是否有咳嗽症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.033.00",
+      "element_name": "咳痰标志",
+      "definition": "标识个体是否有咳痰症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.034.00",
+      "element_name": "可疑佝偻病症状代码",
+      "definition": "对儿童体检时发现可疑佝偻病症状的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.7 CV04.10.021 可疑佝偻病症状代码表",
+      "value_domain_refs": [
+        "WS/T 364.7:CV04.10.021"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.035.00",
+      "element_name": "口渴标志",
+      "definition": "标识个体是否有口渴症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.036.00",
+      "element_name": "老年人健康状态自我评估代码",
+      "definition": "老年人对自己的健康状态进行自我评价的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.013 老年人健康状态自我评估代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.013"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.037.00",
+      "element_name": "流泪标志",
+      "definition": "标识个体是否有流泪症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.038.00",
+      "element_name": "流涕标志",
+      "definition": "标识个体是否有流涕症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.039.00",
+      "element_name": "流涎标志",
+      "definition": "标识个体是否有流涎症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.040.00",
+      "element_name": "咯血标志",
+      "definition": "标识个体是否有咯血症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.041.00",
+      "element_name": "慢性丝虫病患者症状/体征代码",
+      "definition": "建档时慢性丝虫病患者出现与该病相关症状/体征的在特定编码体系中的代 码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.008 慢性丝虫病患者症状代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.008"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.042.00",
+      "element_name": "每天吃奶次数",
+      "definition": "儿童每天吃奶的次数",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.043.00",
+      "element_name": "每天吃奶量（mL）",
+      "definition": "儿童每天吃奶的量,计量单位为 mL",
+      "data_type": "N",
+      "display_format": "N3..4",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.044.00",
+      "element_name": "末次月经日期明确标志",
+      "definition": "标识末次月经日期是否明确",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.045.00",
+      "element_name": "尿急标志",
+      "definition": "标识个体是否有尿急症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.046.00",
+      "element_name": "尿频标志",
+      "definition": "标识个体是否有尿频症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.047.00",
+      "element_name": "尿液外观",
+      "definition": "个体尿外观检查结果的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.048.00",
+      "element_name": "呕吐标志",
+      "definition": "标识个体是否有呕吐症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.049.00",
+      "element_name": "呕吐次数",
+      "definition": "个体一段时间内呕吐的次数",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.050.00",
+      "element_name": "呕血标志",
+      "definition": "标识个体是否有呕血症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.051.00",
+      "element_name": "排尿困难标志",
+      "definition": "标识个体是否有排尿困难症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.052.00",
+      "element_name": "皮肤瘙痒标志",
+      "definition": "标识个体是否有皮肤搔痒症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.053.00",
+      "element_name": "疲乏无力标志",
+      "definition": "标识个体是否有疲乏无力症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.054.00",
+      "element_name": "气短标志",
+      "definition": "标识个体是否有气短症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.055.00",
+      "element_name": "全身酸痛标志",
+      "definition": "标识个体是否有全身酸痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.056.00",
+      "element_name": "全天睡眠时长（min）",
+      "definition": "通常一天内,中午及其他时间睡眠的时间长度,计量单位为 min",
+      "data_type": "N",
+      "display_format": "N..4",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.057.00",
+      "element_name": "乳糜尿发作规律代码",
+      "definition": "个体乳糜尿发作规律特点在特定分类体系中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.有一定规律间歇发作 2.不定期发作",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.058.00",
+      "element_name": "乳汁量代码",
+      "definition": "产妇乳汁量类别在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.002 乳汁量代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.002"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.059.00",
+      "element_name": "伤害发生地点代码",
+      "definition": "伤害发生时本人所在地点在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.6 CV04.01.005 伤害发生地点代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.005"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.060.00",
+      "element_name": "伤害发生日期时间",
+      "definition": "个体发生伤害的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.061.00",
+      "element_name": "伤害发生时活动类别代码",
+      "definition": "伤害发生本人正在进行的活动所属类别在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.006 伤害发住时活动类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.006"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.062.00",
+      "element_name": "伤害发生原因代码",
+      "definition": "个体伤害发生原因所属类别在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.6 CV04.01.003 伤害发生原因代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.003"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.063.00",
+      "element_name": "伤害严重程度代码",
+      "definition": "个体伤害的严重程度在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.轻度 2.中度 3.重度",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.064.00",
+      "element_name": "伤害意图类别代码",
+      "definition": "个体伤害发生的意图在特定分类体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.004 伤害意图类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.004"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.065.00",
+      "element_name": "失眠标志",
+      "definition": "标识个体是否有失眠症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.066.00",
+      "element_name": "食欲减退标志",
+      "definition": "标识个体是否有食欲减退症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.067.00",
+      "element_name": "嗜睡标志",
+      "definition": "标识个体是否有嗜睡症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.068.00",
+      "element_name": "首次出现症状日期",
+      "definition": "个体首次发生某症状的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.069.00",
+      "element_name": "刷牙出血标志",
+      "definition": "标识个体是否有刷牙出血症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.070.00",
+      "element_name": "睡眠情况代码",
+      "definition": "对患者睡眠情况评判结果的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.良好 2.一般 3.较差",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.071.00",
+      "element_name": "四肢麻木标志",
+      "definition": "标识个体是否出现四肢麻木症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.072.00",
+      "element_name": "随诊月龄",
+      "definition": "随诊时婴幼儿的月龄,计量单位为月",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.073.00",
+      "element_name": "胎动孕周（d）",
+      "definition": "孕妇自我感觉到胎动时的妊娠时长,计量单位为 d",
+      "data_type": "N",
+      "display_format": "N2..3",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.074.00",
+      "element_name": "抬头月龄",
+      "definition": "婴幼儿独自抬头时的月龄,计量单位为月",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.075.00",
+      "element_name": "痛经标志",
+      "definition": "标识月经周期中是否发生痛经",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.076.00",
+      "element_name": "痛经程度代码",
+      "definition": "标识月经周期中痛经程度所属类别在特定分类体系中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.轻度 2.中度 3.重度",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.077.00",
+      "element_name": "头昏标志",
+      "definition": "标识个体是否有头昏症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.078.00",
+      "element_name": "头痛标志",
+      "definition": "标识个体是否有头痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.079.00",
+      "element_name": "脱发标志",
+      "definition": "标识个体是否有脱发症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.080.00",
+      "element_name": "脱发部位",
+      "definition": "脱发部位的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.081.00",
+      "element_name": "脱毛部位",
+      "definition": "脱毛部位的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.082.00",
+      "element_name": "脱屑部位",
+      "definition": "脱屑部位的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.083.00",
+      "element_name": "外伤出血时间（s）",
+      "definition": "指个体皮肤受特定条件外伤后,出血自行停止所需的时间,计量单位为 s",
+      "data_type": "N",
+      "display_format": "N..3",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.084.00",
+      "element_name": "消瘦标志",
+      "definition": "标识个体是否有消瘦症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.085.00",
+      "element_name": "小便状况记录",
+      "definition": "个体小便频率、量、尿液性状等状况的记录",
+      "data_type": "S1",
+      "display_format": "AN..100",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.086.00",
+      "element_name": "哮喘标志",
+      "definition": "标识个体是否出现哮喘症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.087.00",
+      "element_name": "心悸标志",
+      "definition": "标识个体是否有心悸症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.088.00",
+      "element_name": "心前区不适标志",
+      "definition": "标识个体是否有心前区不适症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.089.00",
+      "element_name": "行经期天数",
+      "definition": "妇女行经期间的天数",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.090.00",
+      "element_name": "性欲减退标志",
+      "definition": "标识个体是否有性欲减退症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.091.00",
+      "element_name": "胸闷标志",
+      "definition": "标识个体是否有胸闷症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.092.00",
+      "element_name": "胸痛标志",
+      "definition": "标识个体是否有胸痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.093.00",
+      "element_name": "羞明标志",
+      "definition": "标识个体是否有羞明症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.094.00",
+      "element_name": "嗅觉减退标志",
+      "definition": "标识个体是否有嗅觉减退症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.095.00",
+      "element_name": "眩晕标志",
+      "definition": "标识个体是否有眩晕症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.096.00",
+      "element_name": "血吸虫病感染地点",
+      "definition": "血吸虫病感染的详细地点",
+      "data_type": "S1",
+      "display_format": "A..70",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.097.00",
+      "element_name": "血吸虫病感染环境名称",
+      "definition": "感染血吸虫病所在的环境具体名称",
+      "data_type": "S1",
+      "display_format": "A..70",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.098.00",
+      "element_name": "牙痛标志",
+      "definition": "标识个体是否有牙痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.099.00",
+      "element_name": "咽痛标志",
+      "definition": "标识个体是否有咽痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.100.00",
+      "element_name": "眼痛标志",
+      "definition": "标识个体是否有眼痛症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.101.00",
+      "element_name": "疑似结核患者症状代码",
+      "definition": "疑似结核病患者出现的临床症状在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.6 CV04.01.007 疑似结核患者症状代码表",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.007"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.102.00",
+      "element_name": "易激动标志",
+      "definition": "标识个体是否有易激动症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.103.00",
+      "element_name": "疫苗异常反应史描述",
+      "definition": "本人既往接种疫苗发生的异常反应的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.104.00",
+      "element_name": "婴幼儿独坐月龄",
+      "definition": "婴幼儿独自坐立时的月龄,计量单位为月",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.105.00",
+      "element_name": "婴幼儿翻身月龄",
+      "definition": "婴幼儿独自翻身时的月龄,计量单位为月",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.106.00",
+      "element_name": "月经出血量类别代码",
+      "definition": "一个月经周期中月经出血量在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.多 2.中 3.少",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.107.00",
+      "element_name": "月经异常标志",
+      "definition": "标识是否有月经异常症状",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.108.00",
+      "element_name": "孕次",
+      "definition": "妊娠次数的累计值，包括异位妊娠，计量单位为次",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.109.00",
+      "element_name": "孕期异常情况记录",
+      "definition": "对孕妇孕期出现异常情况的描述",
+      "data_type": "S1",
+      "display_format": "AN..100",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.110.00",
+      "element_name": "孕早期患病标志",
+      "definition": "标识孕妇在孕早期是否患病",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.111.00",
+      "element_name": "孕早期患病情况",
+      "definition": "对孕妇在孕早期罹患疾病情况的描述",
+      "data_type": "S1",
+      "display_format": "AN..50",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.112.00",
+      "element_name": "症状/体征发作持续天数",
+      "definition": "个体某症状/体征发作的持续天数,计量单位为 d",
+      "data_type": "N",
+      "display_format": "N..5",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.113.00",
+      "element_name": "症状/体征发作次数",
+      "definition": "标识距离上次随访期间个体某症状/体征发作的次数",
+      "data_type": "N",
+      "display_format": "N..5",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.114.00",
+      "element_name": "症状/体征发作开始日期",
+      "definition": "个体某症状/体征发作日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.115.00",
+      "element_name": "症状持续时间（min）",
+      "definition": "某症状发作的持续时间，计量单位为 min",
+      "data_type": "N",
+      "display_format": "N..3",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.116.00",
+      "element_name": "症状编码",
+      "definition": "个体的症状在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "AN..18",
+      "allowed_values": "GB/T 14396 疾病分类与代码 R 编码",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.117.00",
+      "element_name": "症状描述",
+      "definition": "对个体出现症状的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.118.00",
+      "element_name": "症状名称",
+      "definition": "个体出现的临床主要症状的名称",
+      "data_type": "S1",
+      "display_format": "AN..50",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.119.00",
+      "element_name": "主诉",
+      "definition": "患者向医师描述的对自身本次疾病相关的感受的记录",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.120.00",
+      "element_name": "咨询问题",
+      "definition": "对个体所患疾病提出的咨询问题的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.121.00",
+      "element_name": "患者基础疾病",
+      "definition": "患者所患的基础疾病的描述，包括基础代谢障碍类疾病、免疫功能低下类疾 病以及重大的慢性消耗性疾病等",
+      "data_type": "S1",
+      "display_format": "AN..500",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.122.00",
+      "element_name": "心理状况详细描述",
+      "definition": "产妇心理状况的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.123.00",
+      "element_name": "肠胀气标志",
+      "definition": "标识患者是否有肠胀气情况的标志",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.127.00",
+      "element_name": "发现方式代码",
+      "definition": "本人发现方式的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.12 CV06.00.236 发现方式代码表",
+      "value_domain_refs": [
+        "WS/T 364.12:CV06.00.236"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.128.00",
+      "element_name": "症状及体征代码",
+      "definition": "肺结核患者症状及体征类别的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.6 CV04.01.015 肺结核患者症状及体征代码",
+      "value_domain_refs": [
+        "WS/T 364.6:CV04.01.015"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.129.00",
+      "element_name": "其他症状及体征",
+      "definition": "肺结核患者其他症状及体征的描述",
+      "data_type": "S1",
+      "display_format": "AN..100",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.130.00",
+      "element_name": "鼻塞、流鼻涕情况代码",
+      "definition": "本人是否没有感冒时也会鼻塞、流鼻涕的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.131.00",
+      "element_name": "吃了凉的食物的情况代码",
+      "definition": "本人吃了凉的食物后会不舒服的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.132.00",
+      "element_name": "大便干燥情况代码",
+      "definition": "本人大便干燥的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.133.00",
+      "element_name": "大便情况代码",
+      "definition": "本人是否有大便黏滞不爽、解不尽的的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.134.00",
+      "element_name": "腹部肥大情况代码",
+      "definition": "本人腹部肥大的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.030 腹部肥大情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.030"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.135.00",
+      "element_name": "感到孤独情况代码",
+      "definition": "本人感到孤独、失落的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.136.00",
+      "element_name": "感到害怕情况代码",
+      "definition": "本人容易感到害怕或受到惊吓的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.137.00",
+      "element_name": "过敏情况代码",
+      "definition": "本人容易过敏的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.029 过敏情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.029"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.138.00",
+      "element_name": "呼吸情况代码",
+      "definition": "本人是否容易气短，呼吸短促，接不上气的情况代买",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.139.00",
+      "element_name": "精力充沛情况代码",
+      "definition": "本人精神头足、乐于做事的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.140.00",
+      "element_name": "口干咽燥情况代码",
+      "definition": "本人口干咽燥的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.141.00",
+      "element_name": "口苦或口臭情况代码",
+      "definition": "本人是否有指口苦或口臭的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.142.00",
+      "element_name": "面部油腻情况代码",
+      "definition": "本人面部或鼻部有油腻感或者油亮发光的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.143.00",
+      "element_name": "面色晦黯情况代码",
+      "definition": "本人面色或目眶晦黯的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.144.00",
+      "element_name": "耐受寒冷情况代码",
+      "definition": "本人耐受寒冷的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.145.00",
+      "element_name": "皮肤干燥的情况代码",
+      "definition": "本人皮肤或口唇干燥的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.146.00",
+      "element_name": "皮肤湿疹情况代码",
+      "definition": "本人是否有皮肤湿疹、疮疖的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.147.00",
+      "element_name": "皮肤现抓痕情况代码",
+      "definition": "本人皮肤一抓就红，并出现抓痕的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.148.00",
+      "element_name": "皮下出血情况代码",
+      "definition": "本人皮肤在不知不觉中会出现青紫瘀斑、皮下出血的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.149.00",
+      "element_name": "疲情况代码",
+      "definition": "本人是否稍微活动一下或做一点家务劳动就感到累的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.150.00",
+      "element_name": "情绪低落情况代码",
+      "definition": "本人心情不愉快，情绪低落的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.151.00",
+      "element_name": "容易感冒情况代码",
+      "definition": "本人是否容易患感冒的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.028 容易感冒情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.028"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.152.00",
+      "element_name": "容易起荨麻疹情况代码",
+      "definition": "本人皮肤容易起荨麻疹的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.153.00",
+      "element_name": "舌苔厚腻情况代码",
+      "definition": "本人舌苔厚腻或有舌苔厚厚的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.154.00",
+      "element_name": "舌下静脉瘀紫情况代码",
+      "definition": "本人是否有舌下静脉瘀紫或增粗的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.155.00",
+      "element_name": "身体超重情况代码",
+      "definition": "本人身体超重的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.027 身体超重情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.027"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.156.00",
+      "element_name": "手脚发凉情况代码",
+      "definition": "本人手脚发凉的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.157.00",
+      "element_name": "睡眠打鼾情况代码",
+      "definition": "本人睡眠打鼾的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.158.00",
+      "element_name": "说话情况代码",
+      "definition": "本人说话声音低弱无力的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.159.00",
+      "element_name": "胃部、背部或腰膝部怕冷情况代码",
+      "definition": "本人胃脘部、背部或腰膝部怕冷的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.160.00",
+      "element_name": "心情紧张情况代码",
+      "definition": "本人遇事是否心情紧张的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.161.00",
+      "element_name": "眼睛干涩情况代码",
+      "definition": "本人眼睛干涩的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.162.00",
+      "element_name": "肢体麻木情况代码",
+      "definition": "本人有肢体麻木或固定部位疼痛的情况代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.026 身体情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.026"
+      ],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE04.01.163.00",
+      "element_name": "中医体质辨识得分",
+      "definition": "本人体质辨识的分数",
+      "data_type": "N",
+      "display_format": "N..3",
+      "allowed_values": "A A 附 录 A （资料性） 数据元索引 B 鼻塞、流鼻涕情况代码 DE04.01.130.00 便秘标志 DE04.01.001.00 便血标志 DE04.01.002.00 C 产后检查累计天数 DE04.01.004.00 产后开奶时长（min） DE04.01.003.00 肠胀气标志 DE04.01.123.00 吃了凉的食物的情况代码 DE04.01.131.00 出现症状日期 DE04.01.005.00 D 大便次数（次/d） DE04.01.007.00 大便干燥情况代码 DE04.01.132.00 大便情况代码 DE04.01.133.00 盗汗标志 DE04.01.008.00 多汗标志 DE04.01.009.00 多汗部位 DE04.01.010.00 多梦标志 DE04.01.011.00 E 恶心标志 DE04.01.012.00 儿童大便性状代码 DE04.01.013.00 儿童睡眠的质量代码 DE04.01.014.00 儿童睡眠情况代码 DE04.01.015.00 耳聋标志 DE04.01.016.00 耳鸣标志 DE04.01.017.00 F 发病日期时间 DE04.01.018.00 发现方式代码 DE04.01.127.00 妇科及乳腺不适症状代码 DE04.01.019.00 腹部肥大情况代码 DE04.01.134.00 腹痛标志 DE04.01.020.00 腹痛程度代码 DE04.01.021.00 腹泻标志 DE04.01.022.00 腹泻次数 DE04.01.023.00 腹胀标志 DE04.01.024.00 G 肝区痛标志 DE04.01.025.00 感到孤独情况代码 DE04.01.135.00 感到害怕情况代码 DE04.01.136.00 感觉异常情况 DE04.01.026.00 感染日期 DE04.01.027.00 关节痛标志 DE04.01.028.00 过敏情况代码 DE04.01.137.00 H 呼吸情况代码 DE04.01.138.00 患者基础疾病 DE04.01.121.00 J 记忆力减退标志 DE04.01.029.00 精力充沛情况代码 DE04.01.139.00 精神症状代码 DE04.01.030.00 皲裂部位 DE04.01.031.00 K 咯血标志 DE04.01.040.00 咳嗽标志 DE04.01.032.00 咳痰标志 DE04.01.033.00 可疑佝偻病症状代码 DE04.01.034.00 口干咽燥情况代码 DE04.01.140.00 口渴标志 DE04.01.035.00 口苦或口臭情况代码 DE04.01.141.00 L 老年人健康状态自我评估代码 DE04.01.036.00 流泪标志 DE04.01.037.00 流涕标志 DE04.01.038.00 流涎标志 DE04.01.039.00 M 慢性丝虫病患者症状/体征代码 DE04.01.041.00 每天吃奶次数 DE04.01.042.00 每天吃奶量（mL） DE04.01.043.00 萌牙月龄 DE04.01.006.00 面部油腻情况代码 DE04.01.142.00 面色晦黯情况代码 DE04.01.143.00 末次月经日期明确标志 DE04.01.044.00 N 耐受寒冷情况代码 DE04.01.144.00 尿急标志 DE04.01.045.00 尿频标志 DE04.01.046.00 尿液外观 DE04.01.047.00 O 呕吐标志 DE04.01.048.00 呕吐次数 DE04.01.049.00 呕血标志 DE04.01.050.00 P 排尿困难标志 DE04.01.051.00 皮肤干燥的情况代码 DE04.01.145.00 皮肤瘙痒标志 DE04.01.052.00 皮肤湿疹情况代码 DE04.01.146.00 皮肤现抓痕情况代码 DE04.01.147.00 皮下出血情况代码 DE04.01.148.00 疲乏无力标志 DE04.01.053.00 疲情况代码 DE04.01.149.00 Q 其他症状及体征 DE04.01.129.00 气短标志 DE04.01.054.00 情绪低落情况代码 DE04.01.150.00 全身酸痛标志 DE04.01.055.00 全天睡眠时长（min） DE04.01.056.00 R 容易感冒情况代码 DE04.01.151.00 容易起荨麻疹情况代码 DE04.01.152.00 乳糜尿发作规律代码 DE04.01.057.00 乳汁量代码 DE04.01.058.00 S 伤害发生地点代码 DE04.01.059.00 伤害发生日期时间 DE04.01.060.00 伤害发生时活动类别代码 DE04.01.061.00 伤害发生原因代码 DE04.01.062.00 伤害严重程度代码 DE04.01.063.00 伤害意图类别代码 DE04.01.064.00 舌苔厚腻情况代码 DE04.01.153.00 舌下静脉瘀紫情况代码 DE04.01.154.00 身体超重情况代码 DE04.01.155.00 失眠标志 DE04.01.065.00 食欲减退标志 DE04.01.066.00 嗜睡标志 DE04.01.067.00 手脚发凉情况代码 DE04.01.156.00 首次出现症状日期 DE04.01.068.00 刷牙出血标志 DE04.01.069.00 睡眠打鼾情况代码 DE04.01.157.00 睡眠情况代码 DE04.01.070.00 说话情况代码 DE04.01.158.00 四肢麻木标志 DE04.01.071.00 随诊月龄 DE04.01.072.00 T 胎动孕周（d） DE04.01.073.00 抬头月龄 DE04.01.074.00 痛经标志 DE04.01.075.00 痛经程度代码 DE04.01.076.00 头昏标志 DE04.01.077.00 头痛标志 DE04.01.078.00 脱发标志 DE04.01.079.00 脱发部位 DE04.01.080.00 脱毛部位 DE04.01.081.00 脱屑部位 DE04.01.082.00 W 外伤出血时间（s） DE04.01.083.00 胃部、背部或腰膝部怕冷情况代码 DE04.01.159.00 消瘦标志 DE04.01.084.00 小便状况记录 DE04.01.085.00 哮喘标志 DE04.01.086.00 心悸标志 DE04.01.087.00 心理状况详细描述 DE04.01.122.00 心前区不适标志 DE04.01.088.00 心情紧张情况代码 DE04.01.160.00 行经期天数 DE04.01.089.00 性欲减退标志 DE04.01.090.00 胸闷标志 DE04.01.091.00 胸痛标志 DE04.01.092.00 羞明标志 DE04.01.093.00 嗅觉减退标志 DE04.01.094.00 眩晕标志 DE04.01.095.00 血吸虫病感染地点 DE04.01.096.00 血吸虫病感染环境名称 DE04.01.097.00 Y 牙痛标志 DE04.01.098.00 眼睛干涩情况代码 DE04.01.161.00 眼痛标志 DE04.01.100.00 咽痛标志 DE04.01.099.00 疑似结核患者症状代码 DE04.01.101.00 易激动标志 DE04.01.102.00 疫苗异常反应史描述 DE04.01.103.00 婴幼儿独坐月龄 DE04.01.104.00 婴幼儿翻身月龄 DE04.01.105.00 月经出血量类别代码 DE04.01.106.00 月经异常标志 DE04.01.107.00 孕次 DE04.01.108.00 孕期异常情况记录 DE04.01.109.00 孕早期患病标志 DE04.01.110.00 孕早期患病情况 DE04.01.111.00 Z 症状/体征发作持续天数 DE04.01.112.00 症状/体征发作次数 DE04.01.113.00 症状/体征发作开始日期 DE04.01.114.00 症状编码 DE04.01.116.00 症状持续时间（min） DE04.01.115.00 症状及体征代码 DE04.01.128.00 症状描述 DE04.01.117.00 症状名称 DE04.01.118.00 肢体麻木情况代码 DE04.01.162.00 中医体质辨识得分 DE04.01.163.00 主诉 DE04.01.119.00 咨询问题 DE04.01.120.00 本标准于2023年12月8日对可疑佝偻病症状代码CV表进行了勘误，标准文本为勘误后内容。",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.6—2023",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "extraction_status": "parsed"
+    }
+  ]
+}

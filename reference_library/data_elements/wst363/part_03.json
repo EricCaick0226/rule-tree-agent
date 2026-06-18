@@ -2,7 +2,7 @@
   "standard": "WS/T 363.3—2023",
   "part": "03",
   "title": "人口学及社会经济学特征",
-  "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+  "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
   "extraction_status": "parsed",
   "element_count": 347,
   "elements": [
@@ -15,7 +15,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -27,7 +27,7 @@
       "allowed_values": "1.城市 2.农村",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -39,7 +39,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -53,7 +53,7 @@
         "WS/T 364.3:CV02.01.102"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -65,7 +65,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -77,7 +77,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -89,7 +89,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -101,7 +101,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -113,7 +113,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -125,7 +125,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -137,7 +137,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -149,7 +149,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -163,7 +163,7 @@
         "WS/T 364.3:CV02.01.104"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -177,7 +177,7 @@
         "WS/T 364.3:CV02.01.202"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -189,7 +189,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -201,7 +201,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -213,7 +213,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -225,7 +225,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -237,7 +237,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -249,7 +249,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -261,7 +261,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -273,7 +273,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -285,7 +285,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -297,7 +297,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -309,7 +309,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -321,7 +321,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -333,7 +333,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -345,7 +345,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -357,7 +357,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -369,7 +369,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -381,7 +381,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -393,7 +393,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -405,7 +405,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -417,7 +417,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -429,7 +429,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -441,7 +441,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -453,7 +453,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -465,7 +465,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -477,7 +477,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -491,7 +491,7 @@
         "WS/T 364.3:CV02.01.102"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -503,7 +503,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -515,7 +515,7 @@
       "allowed_values": "GB/T 2659 世界各国和地区名称代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -527,7 +527,7 @@
       "allowed_values": "GB/T 2659 世界各国和地区名称代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -539,7 +539,7 @@
       "allowed_values": "GB/T 2659 世界各国和地区名称代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -551,7 +551,7 @@
       "allowed_values": "GB/T 2659 世界各国和地区名称代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -563,7 +563,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -575,7 +575,7 @@
       "allowed_values": "GB/T 4761 家庭关系代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -587,7 +587,7 @@
       "allowed_values": "GB/T 4761 家庭关系代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -599,7 +599,7 @@
       "allowed_values": "GB/T 4761 家庭关系代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -611,7 +611,7 @@
       "allowed_values": "GB/T 4761 家庭关系代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -623,7 +623,7 @@
       "allowed_values": "GB/T 2261.2 婚姻状况代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -637,7 +637,7 @@
         "WS/T 364.3:CV02.01.203"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -649,7 +649,7 @@
       "allowed_values": "GB/T 4761 家庭关系代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -661,7 +661,7 @@
       "allowed_values": "1.宽带 2.专线 3.拨号",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -673,7 +673,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -685,7 +685,7 @@
       "allowed_values": "1.贫困,在当地贫困线标准以下 2.非贫困 3.不详",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -697,7 +697,7 @@
       "allowed_values": "1.平原 2.山区 9.其他",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -709,7 +709,7 @@
       "allowed_values": "GB 3304 民族类别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -721,7 +721,7 @@
       "allowed_values": "GB 3304 民族类别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -733,7 +733,7 @@
       "allowed_values": "GB 3304 民族类别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -745,7 +745,7 @@
       "allowed_values": "GB 3304 民族类别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -757,7 +757,7 @@
       "allowed_values": "GB 3304 民族类别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -769,7 +769,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -781,7 +781,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -793,7 +793,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -805,7 +805,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -817,7 +817,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -829,7 +829,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -841,7 +841,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -853,7 +853,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -865,7 +865,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -877,7 +877,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -889,7 +889,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -903,7 +903,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -917,7 +917,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -931,7 +931,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -945,7 +945,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -959,7 +959,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -973,7 +973,7 @@
         "WS/T 364.3:CV02.01.101"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -985,7 +985,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -999,7 +999,7 @@
         "WS/T 364.3:CV02.01.103"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1011,7 +1011,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1023,7 +1023,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1035,7 +1035,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1047,7 +1047,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1059,7 +1059,7 @@
       "allowed_values": "GB/T 16835 高等学校本科、专科专业名称代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1071,7 +1071,7 @@
       "allowed_values": "GB/T 2260 中华人民共和国行政区划代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1083,7 +1083,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1095,7 +1095,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1107,7 +1107,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1119,7 +1119,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1131,7 +1131,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1143,7 +1143,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1155,7 +1155,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1167,7 +1167,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1179,7 +1179,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1191,7 +1191,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1203,7 +1203,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1215,7 +1215,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1227,7 +1227,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1239,7 +1239,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1251,7 +1251,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1263,7 +1263,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1275,7 +1275,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1287,7 +1287,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1299,7 +1299,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1311,7 +1311,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1323,7 +1323,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1335,7 +1335,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1347,7 +1347,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1359,7 +1359,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1371,7 +1371,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1383,7 +1383,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1395,7 +1395,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1407,7 +1407,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1419,7 +1419,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1431,7 +1431,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1443,7 +1443,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1455,7 +1455,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1467,7 +1467,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1479,7 +1479,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1491,7 +1491,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1503,7 +1503,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1515,7 +1515,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1527,7 +1527,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1539,7 +1539,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1551,7 +1551,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1563,7 +1563,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1575,7 +1575,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1587,7 +1587,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1599,7 +1599,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1611,7 +1611,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1623,7 +1623,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1635,7 +1635,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1647,7 +1647,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1659,7 +1659,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1671,7 +1671,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1683,7 +1683,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1695,7 +1695,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1707,7 +1707,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1719,7 +1719,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1731,7 +1731,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1743,7 +1743,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1755,7 +1755,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1767,7 +1767,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1779,7 +1779,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1791,7 +1791,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1803,7 +1803,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1815,7 +1815,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1827,7 +1827,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1839,7 +1839,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1851,7 +1851,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1863,7 +1863,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1875,7 +1875,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1887,7 +1887,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1899,7 +1899,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1911,7 +1911,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1923,7 +1923,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1935,7 +1935,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1947,7 +1947,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1959,7 +1959,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1971,7 +1971,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1983,7 +1983,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -1995,7 +1995,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2007,7 +2007,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2019,7 +2019,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2031,7 +2031,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2043,7 +2043,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2055,7 +2055,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2067,7 +2067,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2079,7 +2079,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2091,7 +2091,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2103,7 +2103,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2115,7 +2115,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2127,7 +2127,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2139,7 +2139,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2151,7 +2151,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2163,7 +2163,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2175,7 +2175,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2187,7 +2187,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2199,7 +2199,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2211,7 +2211,7 @@
       "allowed_values": "GB/T 2261.1 生理性别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2223,7 +2223,7 @@
       "allowed_values": "GB/T 2261.1 生理性别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2235,7 +2235,7 @@
       "allowed_values": "GB/T 2261.1 生理性别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2247,7 +2247,7 @@
       "allowed_values": "GB/T 2261.1 生理性别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2259,7 +2259,7 @@
       "allowed_values": "GB/T 2261.1 生理性别代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2271,7 +2271,7 @@
       "allowed_values": "GB/T 4658 学历代码表",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2283,7 +2283,7 @@
       "allowed_values": "GB/T 6864 中华人民共和国学位代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2297,7 +2297,7 @@
         "WS/T 364.3:CV02.01.201"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2311,7 +2311,7 @@
         "WS/T 364.3:CV02.01.204"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2323,7 +2323,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2335,7 +2335,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2347,7 +2347,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2359,7 +2359,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2371,7 +2371,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2383,7 +2383,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2395,7 +2395,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2407,7 +2407,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2419,7 +2419,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2431,7 +2431,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2443,7 +2443,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2455,7 +2455,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2467,7 +2467,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2479,7 +2479,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2491,7 +2491,7 @@
       "allowed_values": "1.高级职称 2.中级职称 3.初级职称",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2503,7 +2503,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2515,7 +2515,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2527,7 +2527,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2539,7 +2539,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2551,7 +2551,7 @@
       "allowed_values": "GB/T 6565 职业分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2563,7 +2563,7 @@
       "allowed_values": "GB/T 6565 职业分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2575,7 +2575,7 @@
       "allowed_values": "GB/T 6565 职业分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2587,7 +2587,7 @@
       "allowed_values": "GB/T 6565 职业分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2599,7 +2599,7 @@
       "allowed_values": "GB/T 6565 职业分类与代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2611,7 +2611,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2623,7 +2623,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2635,7 +2635,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2647,7 +2647,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2659,7 +2659,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2671,7 +2671,7 @@
       "allowed_values": "GB/T 8561 专业技术职务代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2683,7 +2683,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2695,7 +2695,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2707,7 +2707,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2719,7 +2719,7 @@
       "allowed_values": "1.本地户口 2.非本地户口 3.非本地户口居住一年以上",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2733,7 +2733,7 @@
         "WS/T 364.17:CV09.00.404"
       ],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2745,7 +2745,7 @@
       "allowed_values": "GB/T 2659 世界各国和地区代码名称",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2757,7 +2757,7 @@
       "allowed_values": "1.迁入 2.迁出 3.死亡",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2769,7 +2769,7 @@
       "allowed_values": "1.本土感染 2.境外输入",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2781,7 +2781,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2793,7 +2793,7 @@
       "allowed_values": "1.城镇 2.农村",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2805,7 +2805,7 @@
       "allowed_values": "GB/T 2261.4 个人基本信息分类与代码 第 4 部分 从业状况(个人身份)代码",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2817,7 +2817,7 @@
       "allowed_values": "1.初治 2.复治",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2829,7 +2829,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2841,7 +2841,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2853,7 +2853,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2865,7 +2865,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2877,7 +2877,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2889,7 +2889,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2901,7 +2901,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2913,7 +2913,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2925,7 +2925,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2937,7 +2937,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2949,7 +2949,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2961,7 +2961,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2973,7 +2973,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2985,7 +2985,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -2997,7 +2997,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3009,7 +3009,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3021,7 +3021,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3033,7 +3033,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3045,7 +3045,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3057,7 +3057,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3069,7 +3069,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3081,7 +3081,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3093,7 +3093,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3105,7 +3105,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3117,7 +3117,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3129,7 +3129,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3141,7 +3141,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3153,7 +3153,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3165,7 +3165,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3177,7 +3177,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3189,7 +3189,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3201,7 +3201,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3213,7 +3213,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3225,7 +3225,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3237,7 +3237,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3249,7 +3249,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3261,7 +3261,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3273,7 +3273,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3285,7 +3285,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3297,7 +3297,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3309,7 +3309,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3321,7 +3321,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3333,7 +3333,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3345,7 +3345,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3357,7 +3357,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3369,7 +3369,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3381,7 +3381,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3393,7 +3393,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3405,7 +3405,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3417,7 +3417,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3429,7 +3429,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3441,7 +3441,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3453,7 +3453,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3465,7 +3465,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3477,7 +3477,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3489,7 +3489,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3501,7 +3501,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3513,7 +3513,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3525,7 +3525,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3537,7 +3537,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3549,7 +3549,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3561,7 +3561,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3573,7 +3573,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3585,7 +3585,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3597,7 +3597,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3609,7 +3609,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3621,7 +3621,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3633,7 +3633,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3645,7 +3645,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3657,7 +3657,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3669,7 +3669,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3681,7 +3681,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3693,7 +3693,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3705,7 +3705,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3717,7 +3717,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3729,7 +3729,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3741,7 +3741,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3753,7 +3753,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3765,7 +3765,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3777,7 +3777,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3789,7 +3789,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3801,7 +3801,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3813,7 +3813,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3825,7 +3825,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3837,7 +3837,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3849,7 +3849,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3861,7 +3861,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3873,7 +3873,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3885,7 +3885,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3897,7 +3897,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3909,7 +3909,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3921,7 +3921,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3933,7 +3933,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3945,7 +3945,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3957,7 +3957,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3969,7 +3969,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3981,7 +3981,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -3993,7 +3993,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4005,7 +4005,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4017,7 +4017,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4029,7 +4029,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4041,7 +4041,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4053,7 +4053,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4065,7 +4065,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4077,7 +4077,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4089,7 +4089,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4101,7 +4101,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4113,7 +4113,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4125,7 +4125,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4137,7 +4137,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4149,7 +4149,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4161,7 +4161,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4173,7 +4173,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4185,7 +4185,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     },
     {
@@ -4197,7 +4197,7 @@
       "allowed_values": "A A 附 录 A （资料性） 数据元索引 Ⅰ助签名 DE02.01.126.79 Ⅰ助姓名 DE02.01.039.79 Ⅱ助签名 DE02.01.126.80 Ⅱ助姓名 DE02.01.039.80 A 案件承办人签名 DE02.01.126.52 案件承办人姓名 DE02.01.039.52 B 办公电话号码 DE02.01.010.01 本人电话号码 DE02.01.010.02 编码员签名 DE02.01.126.53 编码员姓名 DE02.01.039.53 病史陈述者签名 DE02.01.126.54 病史陈述者姓名 DE02.01.039.54 C 采血人员签名 DE02.01.126.81 采血人员姓名 DE02.01.039.81 参加工作日期 DE02.01.001.00 产程检查者签名 DE02.01.126.82 产程检查者姓名 DE02.01.039.82 产后休养地址-村（街、路、弄等） DE02.01.095.01 产后休养地址-门牌号码 DE02.01.096.01 产后休养地址-省（自治区、直辖市） DE02.01.091.01 产后休养地址-市（地区、州） DE02.01.092.01 产后休养地址-县（市、区） DE02.01.093.01 产后休养地址-乡（镇、街道办事处） DE02.01.094.01 产前检查医师签名 DE02.01.126.05 产前检查医师姓名 DE02.01.039.05 产前筛査医师签名 DE02.01.126.03 产前筛査医师姓名 DE02.01.039.03 产前诊断医师签名 DE02.01.126.04 产前诊断医师姓名 DE02.01.039.04 常住地类型代码 DE02.01.002.00 常住地址-村（街、路、弄等） DE02.01.095.02 常住地址户籍标志 DE02.01.003.00 常住地址-门牌号码 DE02.01.096.02 常住地址-省（自治区、直辖市） DE02.01.091.02 常住地址-市（地区、州） DE02.01.092.02 常住地址-县（市、区） DE02.01.093.02 常住地址-乡（镇、街道办事处） DE02.01.094.02 出生地类别代码 DE02.01.004.00 出生地址-村（街、路、弄等） DE02.01.095.03 出生地址-门牌号码 DE02.01.096.03 出生地址-省（自治区、直辖市） DE02.01.091.03 出生地址-市（地区、州） DE02.01.092.03 出生地址-县（市、区） DE02.01.093.03 出生地址-乡（镇、街道办事处） DE02.01.094.03 出生缺陷儿出生日期 DE02.01.005.01 出生缺陷儿民族 DE02.01.025.01 出生缺陷儿性别代码 DE02.01.040.01 出生日期 DE02.01.005.00 出生日期时间 DE02.01.090.00 初复诊（治）类型代码 DE02.01.087.00 处方调配药剂师签名 DE02.01.126.40 处方调配药剂师姓名 DE02.01.039.40 处方发药药剂师签名 DE02.01.126.37 处方发药药剂师姓名 DE02.01.039.37 处方核对药剂师签名 DE02.01.126.38 处方核对药剂师姓名 DE02.01.039.38 处方审核药剂师签名 DE02.01.126.39 处方审核药剂师姓名 DE02.01.039.39 传染病患者归属代码 DE02.01.006.00 传染病患者职业代码 DE02.01.007.00 传真号码 DE02.01.008.00 从事毒害职业开始日期 DE02.01.051.01 从事毒害职业终止日期 DE02.01.053.01 D 单位负责人签名 DE02.01.126.55 单位负责人姓名 DE02.01.039.55 地址-村（街、路、弄等） DE02.01.095.00 地址-门牌号码 DE02.01.096.00 地址-省（自治区、直辖市） DE02.01.091.00 地址-市（地区、州） DE02.01.092.00 地址-县（区） DE02.01.093.00 地址-乡（镇、街道办事处） DE02.01.094.00 电话号码 DE02.01.010.00 电话类别 DE02.01.011.00 电子邮件地址 DE02.01.012.00 调查者签名 DE02.01.126.75 调查者姓名 DE02.01.039.75 对方签名 DE02.01.126.56 对方姓名 DE02.01.039.56 E 儿童出生日期 DE02.01.005.02 儿童出生日期时间 DE02.01.090.03 儿童签名 DE02.01.126.92 儿童性别代码 DE02.01.040.02 儿童姓名 DE02.01.039.92 F 法定代表人签名 DE02.01.126.57 法定代表人姓名 DE02.01.039.57 法定代理人签名 DE02.01.126.58 法定代理人姓名 DE02.01.039.58 访视医师签名 DE02.01.126.06 访视医师姓名 DE02.01.039.06 分娩地点类别代码 DE02.01.013.00 分娩日期 DE02.01.014.00 分娩日期时间 DE02.01.089.00 父亲出生日期 DE02.01.005.03 父亲地址-村（街、路、弄等） DE02.01.095.04 父亲地址-门牌号码 DE02.01.096.04 父亲地址-省（自治区、直辖市） DE02.01.091.04 父亲地址-市（地区、州） DE02.01.092.04 父亲地址-县（市、区） DE02.01.093.04 父亲地址-乡（镇、街道办事处） DE02.01.094.04 父亲电话号码 DE02.01.010.03 父亲国籍 DE02.01.015.01 父亲民族 DE02.01.025.02 父亲签名 DE02.01.126.59 父亲身份证件号码 DE02.01.030.01 父亲身份证件类别代码 DE02.01.031.01 父亲姓名 DE02.01.039.59 父亲职业类别代码 DE02.01.052.01 G 感染地点代码 DE02.01.083.00 工作单位地址-村（街、路、弄等） DE02.01.095.05 工作单位地址-门牌号码 DE02.01.096.05 工作单位地址-省（自治区、直辖市） DE02.01.091.05 工作单位地址-市（地区、州） DE02.01.092.05 工作单位地址-县（区） DE02.01.093.05 工作单位地址-乡（镇、街道办事处） DE02.01.094.05 工作单位地址-邮政编码 DE02.01.047.01 工作单位电话号码 DE02.01.010.04 国籍 DE02.01.015.00 国家或地区代码 DE02.01.080.00 H 核对医嘱护士签名 DE02.01.126.42 核对医嘱护士姓名 DE02.01.039.42 户别类别代码 DE02.01.085.00 户籍地址-村（街、路、弄等） DE02.01.095.06 户籍地址-门牌号码 DE02.01.096.06 户籍地址-省（自治区、直辖市） DE02.01.091.06 户籍地址-市（地区、州） DE02.01.092.06 户籍地址-县（市、区） DE02.01.093.06 户籍地址-乡（镇、街道办事处） DE02.01.094.06 户籍类型代码 DE02.01.058.00 户口地址-邮政编码 DE02.01.047.02 户口迁移日期 DE02.01.016.00 护士签名 DE02.01.126.41 护士姓名 DE02.01.039.41 患者/法定代理人签名 DE02.01.126.60 患者/法定代理人姓名 DE02.01.039.60 患者电话号码 DE02.01.010.05 患者电子邮件地址 DE02.01.012.01 患者类型代码 DE02.01.060.00 患者签名 DE02.01.126.01 患者身份证件号码 DE02.01.030.02 患者身份证件类别代码 DE02.01.031.02 患者姓名 DE02.01.039.01 患者与本人关系 DE02.01.017.00 会诊申请医师签名 DE02.01.126.07 会诊申请医师姓名 DE02.01.039.07 会诊医师签名 DE02.01.126.08 会诊医师姓名 DE02.01.039.08 婚姻状况代码 DE02.01.018.00 J 机构地址-村（街、路、弄等） DE02.01.095.16 机构地址-门牌号码 DE02.01.096.16 机构地址-省（自治区、直辖市） DE02.01.091.16 机构地址-市（地区、州） DE02.01.092.16 机构地址-县（区） DE02.01.093.16 机构地址-乡（街、路、弄等） DE02.01.094.16 籍贯-村（街、路、弄等） DE02.01.095.07 籍贯-门牌号码 DE02.01.096.07 籍贯-省（自治区、直辖市） DE02.01.091.07 籍贯-市（地区、州） DE02.01.092.07 籍贯-县（区） DE02.01.093.07 籍贯-乡（镇、街道办事处） DE02.01.094.07 家人电话号码 DE02.01.010.06 家庭电话号码 DE02.01.010.07 家庭年人均收入类别 DE02.01.019.00 家族中其他肿瘤患者与本人关系代码 DE02.01.017.01 家族中乙肝患者与本人关系代码 DE02.01.017.02 监督员签名 DE02.01.126.61 监督员姓名 DE02.01.039.61 监护人地址-村（街、路、弄等） DE02.01.095.08 监护人地址-门牌号码 DE02.01.096.08 监护人地址-省（自治区、直辖市） DE02.01.091.08 监护人地址-市（地区、州） DE02.01.092.08 监护人地址-县（区） DE02.01.093.08 监护人地址-乡（镇、街道） DE02.01.094.08 监护人地址邮政编码 DE02.01.047.03 监护人电话号码 DE02.01.010.08 监护人签名 DE02.01.126.62 监护人身份证件号码 DE02.01.030.03 监护人姓名 DE02.01.039.62 监护人与本人关系代码 DE02.01.020.00 检测人员签名 DE02.01.126.63 检测人员姓名 DE02.01.039.63 检查技师签名 DE02.01.126.50 检查技师姓名 DE02.01.039.50 检查医师签名 DE02.01.126.09 检查医师姓名 DE02.01.039.09 检验技师签名 DE02.01.126.51 检验技师姓名 DE02.01.039.51 检验医师签名 DE02.01.126.10 检验医师姓名 DE02.01.039.10 建档记录者签名 DE02.01.126.64 建档记录者姓名 DE02.01.039.64 交班者签名 DE02.01.126.65 交班者姓名 DE02.01.039.65 交接护士签名 DE02.01.126.43 交接护士姓名 DE02.01.039.43 接班者签名 DE02.01.126.66 接班者姓名 DE02.01.039.66 接产人员签名 DE02.01.126.83 接产人员姓名 DE02.01.039.83 接入互联网方式代码 DE02.01.021.00 接诊护士签名 DE02.01.126.44 接诊护士姓名 DE02.01.039.44 接诊医师签名 DE02.01.126.11 接诊医师姓名 DE02.01.039.11 结案医师签名 DE02.01.126.12 结案医师姓名 DE02.01.039.12 结婚日期 DE02.01.022.00 进修医师签名 DE02.01.126.13 进修医师姓名 DE02.01.039.13 经济状况代码 DE02.01.023.00 经营地址-村（街、路、弄等） DE02.01.095.09 经营地址-门牌号码 DE02.01.096.09 经营地址-省（自治区、直辖市） DE02.01.091.09 经营地址-市（地区、州） DE02.01.092.09 经营地址-县（区） DE02.01.093.09 经营地址-乡（镇、街道办事处） DE02.01.094.09 就业情况代码 DE02.01.086.00 居委会联系人电话号码 DE02.01.010.09 居委会联系人签名 DE02.01.126.67 居委会联系人姓名 DE02.01.039.67 居住地区类别代码 DE02.01.024.00 举报电话号码 DE02.01.010.10 K 科主任签名 DE02.01.126.14 科主任姓名 DE02.01.039.14 L 联系人地址-村（街、路、弄等） DE02.01.095.10 联系人地址-门牌号码 DE02.01.096.10 联系人地址-省（自治区、直辖市） DE02.01.091.10 联系人地址-市（地区、州） DE02.01.092.10 联系人地址-县（区） DE02.01.093.10 联系人地址-乡（镇、街道办事处） DE02.01.094.10 联系人电话号码 DE02.01.010.11 联系人签名 DE02.01.126.68 联系人姓名 DE02.01.039.68 领证人员签名 DE02.01.126.69 领证人员姓名 DE02.01.039.69 M 麻醉医师签名 DE02.01.126.84 麻醉医师姓名 DE02.01.039.84 密切接触者标志 DE02.01.084.00 民族 DE02.01.025.00 母亲出生日期 DE02.01.005.04 母亲地址-村（街、路、弄等） DE02.01.095.11 母亲地址-门牌号码 DE02.01.096.11 母亲地址-省（自治区、直辖市） DE02.01.091.11 母亲地址-市（地区、州） DE02.01.092.11 母亲地址-县（市、区） DE02.01.093.11 母亲地址-乡（镇、街道办事处） DE02.01.094.11 母亲电话号码 DE02.01.010.12 母亲国籍 DE02.01.015.02 母亲民族 DE02.01.025.03 母亲签名 DE02.01.126.70 母亲身份证件号码 DE02.01.030.04 母亲身份证件类别代码 DE02.01.031.03 母亲姓名 DE02.01.039.70 母亲职业类别代码 DE02.01.052.02 N 年龄 DE02.01.026.00 年龄（月） DE02.01.127.00 P 陪同检查人签名 DE02.01.126.71 陪同检查人姓名 DE02.01.039.71 配偶职业类别代码 DE02.01.052.03 Q 其他场景出生日期 DE02.01.005.99 其他场景出生日期时间 DE02.01.090.99 其他场景地址-村（街、路、弄等） DE02.01.095.99 其他场景地址-门牌号码 DE02.01.096.99 其他场景地址-省（自治区、直辖市） DE02.01.091.99 其他场景地址-市（地区、州） DE02.01.092.99 其他场景地址-县（区） DE02.01.093.99 其他场景地址-乡（镇、街道办事处） DE02.01.094.99 其他场景电话号码 DE02.01.010.99 其他场景电子邮件地址 DE02.01.012.99 其他场景国籍 DE02.01.015.99 其他场景患者与本人关系 DE02.01.017.99 其他场景民族 DE02.01.025.99 其他场景签名 DE02.01.126.99 其他场景身份证件号码 DE02.01.030.99 其他场景身份证件类别代码 DE02.01.031.99 其他场景死亡日期 DE02.01.035.99 其他场景下次访视地点 DE02.01.057.99 其他场景性别 DE02.01.040.99 其他场景姓名 DE02.01.039.99 其他场景-邮政编码 DE02.01.047.99 其他场景职称代码 DE02.01.049.99 其他场景职业开始日期 DE02.01.051.99 其他场景职业类别代码 DE02.01.052.99 其他场景职业终止日期 DE02.01.053.99 器械护士签名 DE02.01.126.45 器械护士姓名 DE02.01.039.45 迁出日期 DE02.01.027.00 迁出原因 DE02.01.028.00 迁入/迁出/死亡 DE02.01.081.00 迁入日期 DE02.01.029.00 签发人员签名 DE02.01.126.72 签发人员姓名 DE02.01.039.72 签名 DE02.01.126.00 取消医嘱者签名 DE02.01.126.85 取消医嘱者姓名 DE02.01.039.85 S 筛查人员签名 DE02.01.126.86 筛查人员姓名 DE02.01.039.86 上级医师签名 DE02.01.126.15 上级医师姓名 DE02.01.039.15 身份证件号码 DE02.01.030.00 身份证件类别代码 DE02.01.031.00 审核医师签名 DE02.01.126.16 审核医师姓名 DE02.01.039.16 省级审表人签名 DE02.01.126.73 省级审表人姓名 DE02.01.039.73 省级审表人职称代码 DE02.01.049.01 实习医师签名 DE02.01.126.17 实习医师姓名 DE02.01.039.17 实足年龄 DE02.01.032.00 手术医师签名 DE02.01.126.18 手术医师姓名 DE02.01.039.18 手术助手签名 DE02.01.126.87 手术助手姓名 DE02.01.039.87 术前检查医师签名 DE02.01.126.19 术前检查医师姓名 DE02.01.039.19 死亡地点类别代码 DE02.01.034.00 死亡日期 DE02.01.035.00 死亡日期时间 DE02.01.036.00 随访医师签名 DE02.01.126.20 随访医师姓名 DE02.01.039.20 随诊医师签名 DE02.01.126.21 随诊医师姓名 DE02.01.039.21 所学专业代码 DE02.01.037.00 T 胎儿娩出日期时间 DE02.01.090.01 填报机构电话号码 DE02.01.010.13 填报人签名 DE02.01.126.74 填报人姓名 DE02.01.039.74 填报人职称代码 DE02.01.049.02 停止医嘱者签名 DE02.01.126.88 停止医嘱者姓名 DE02.01.039.88 通知到达人签名 DE02.01.126.89 通知到达人姓名 DE02.01.039.89 通知者签名 DE02.01.126.90 通知者姓名 DE02.01.039.90 W 卫生监督员职业开始时间 DE02.01.051.02 下次产前检查地点 DE02.01.057.01 下次访视地点 DE02.01.057.00 现住地址-村（街、路、弄等） DE02.01.095.12 现住地址-门牌号码 DE02.01.096.12 现住地址-省（自治区、直辖市） DE02.01.091.12 现住地址-市（地区、州） DE02.01.092.12 现住地址-县（市、区） DE02.01.093.12 现住地址-乡（镇、街道办事处） DE02.01.094.12 现住址-邮政编码 DE02.01.047.04 新生儿出生日期 DE02.01.005.05 新生儿出生日期时间 DE02.01.090.02 新生儿签名 DE02.01.126.02 新生儿身份证件号码 DE02.01.030.05 新生儿身份证件类别代码 DE02.01.031.04 新生儿性别代码 DE02.01.040.03 新生儿姓名 DE02.01.039.02 行政区划代码 DE02.01.038.00 性别代码 DE02.01.040.00 姓名 DE02.01.039.00 学历代码 DE02.01.041.00 学位代码 DE02.01.042.00 血缘关系代码 DE02.01.043.00 巡台护士签名 DE02.01.126.46 巡台护士姓名 DE02.01.039.46 Y 医疗保险类别代码 DE02.01.044.00 医疗保险类别名称 DE02.01.045.00 医疗机构负责人联系电话 DE02.01.010.14 医疗机构联系电话 DE02.01.010.15 医师签名 DE02.01.126.22 医师姓名 DE02.01.039.22 医院地址-村（街、路、弄等） DE02.01.095.13 医院地址-门牌号码 DE02.01.096.13 医院地址-省（自治区、直辖市） DE02.01.091.13 医院地址-市（地区、州） DE02.01.092.13 医院地址-县（市、区） DE02.01.093.13 医院地址-乡（镇、街道办事处） DE02.01.094.13 医院审表人签名 DE02.01.126.76 医院审表人姓名 DE02.01.039.76 医院审表人职称代码 DE02.01.049.03 医嘱（处方）开立医师签名 DE02.01.126.23 医嘱（处方）开立医师姓名 DE02.01.039.23 医嘱执行者签名 DE02.01.126.47 医嘱执行者姓名 DE02.01.039.47 疫苗接种医师签名 DE02.01.126.24 疫苗接种医师姓名 DE02.01.039.24 英文域名 DE02.01.046.00 邮政编码 DE02.01.047.00 育子/女标志 DE02.01.048.00 Z 暂住地址-村（街、路、弄等） DE02.01.095.14 暂住地址-门牌号码 DE02.01.096.14 暂住地址-省（自治区、直辖市） DE02.01.091.14 暂住地址-市（地区、州） DE02.01.092.14 暂住地址-县（市、区） DE02.01.093.14 暂住地址-乡（镇、街道办事处） DE02.01.094.14 责任护士签名 DE02.01.126.48 责任护士姓名 DE02.01.039.48 责任医师电话号码 DE02.01.010.16 责任医师签名 DE02.01.126.25 责任医师姓名 DE02.01.039.25 丈夫出生日期 DE02.01.005.06 丈夫电话号码 DE02.01.010.17 丈夫签名 DE02.01.126.77 丈夫姓名 DE02.01.039.77 丈夫职业类别代码 DE02.01.052.04 诊断医师签名 DE02.01.126.26 诊断医师姓名 DE02.01.039.26 知情同意签字人签名 DE02.01.126.78 知情同意签字人姓名 DE02.01.039.78 值班电话号码 DE02.01.010.18 职称代码 DE02.01.049.00 职称级别代码 DE02.01.050.00 职业开始日期 DE02.01.051.00 职业类别代码 DE02.01.052.00 职业终止日期 DE02.01.053.00 质控护士签名 DE02.01.126.49 质控护士姓名 DE02.01.039.49 质控医师签名 DE02.01.126.27 质控医师姓名 DE02.01.039.27 中文域名 DE02.01.054.00 重性精神疾病患者死亡日期 DE02.01.035.01 主持人签名 DE02.01.126.28 主持人姓名 DE02.01.039.28 主管医师签名 DE02.01.126.29 主管医师姓名 DE02.01.039.29 主任（副主任）医师签名 DE02.01.126.30 主任（副主任）医师姓名 DE02.01.039.30 主任医师签名 DE02.01.126.31 主任医师姓名 DE02.01.039.31 主治医师签名 DE02.01.126.32 主治医师姓名 DE02.01.039.32 住院医师签名 DE02.01.126.33 住院医师姓名 DE02.01.039.33 注册地址-村（街、路、弄等） DE02.01.095.15 注册地址-门牌号码 DE02.01.096.15 注册地址-省（自治区、直辖市） DE02.01.091.15 注册地址-市（地区、州） DE02.01.092.15 注册地址-县（区） DE02.01.093.15 注册地址-乡（镇、街道办事处） DE02.01.094.15 专业技术职务资格 DE02.01.056.00 转出医师签名 DE02.01.126.34 转出医师姓名 DE02.01.039.34 转入医师签名 DE02.01.126.35 转入医师姓名 DE02.01.039.35 转运者签名 DE02.01.126.91 转运者姓名 DE02.01.039.91 转诊医师签名 DE02.01.126.36 转诊医师姓名 DE02.01.039.36",
       "value_domain_refs": [],
       "source_part": "WS/T 363.3—2023",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "extraction_status": "parsed"
     }
   ]

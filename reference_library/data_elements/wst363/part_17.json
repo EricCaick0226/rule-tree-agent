@@ -1,0 +1,1478 @@
+{
+  "standard": "WS/T 363.17—2023",
+  "part": "17",
+  "title": "卫生健康管理",
+  "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+  "extraction_status": "parsed",
+  "element_count": 116,
+  "elements": [
+    {
+      "element_code": "DE09.00.001.00",
+      "element_name": "案件听证标志",
+      "definition": "标识是否举行听证案件",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.002.00",
+      "element_name": "办学性质代码",
+      "definition": "学校投资办学的性质在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.公办 2.民办 9.其他",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.003.00",
+      "element_name": "采供血卫生违法事实代码",
+      "definition": "采供血卫生被监督单位被查实认定并作出相应处罚的违法行为在特定编码 体系中的代码",
+      "data_type": "S3",
+      "display_format": "N4",
+      "allowed_values": "WS/T 364.17 CV09.00.213 采供血卫生违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.213"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.004.00",
+      "element_name": "处罚案件来源代码",
+      "definition": "本次行政处罚案件的案件来源在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.202 卫生监督检查与行政处罚案件来源代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.202"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.005.00",
+      "element_name": "处罚程序类别代码",
+      "definition": "卫生监督机构对被监督单位实施处罚程序的类别在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.简易程序 2.一般程序",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.006.00",
+      "element_name": "处罚结果类别代码",
+      "definition": "被监督单位卫生行政处罚决定书上所载明的处罚结果种类在特定编码系中 的代码",
+      "data_type": "S3",
+      "display_format": "N..3",
+      "allowed_values": "WS/T 364.17 CV09.00.204 卫生行政处罚结果及行政措施代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.204"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.007.00",
+      "element_name": "处罚文号",
+      "definition": "被监督单位行政处罚决定书上载明的处罚文号或当场行政处罚决定书上载 明的编号",
+      "data_type": "S1",
+      "display_format": "AN..50",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.008.00",
+      "element_name": "传染病防治违法事实代码",
+      "definition": "传染病防治被监督单位被查实认定并作出相应处罚的违法行为在特定编码 体系中的代码",
+      "data_type": "S3",
+      "display_format": "N5",
+      "allowed_values": "WS/T 364.17 CV09.00.212 传染病防治违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.212"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.009.00",
+      "element_name": "从事放射工作人员数",
+      "definition": "机构中实际从事放射工作的人员数量",
+      "data_type": "N",
+      "display_format": "N..6",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.010.00",
+      "element_name": "单位类别代码",
+      "definition": "单位所属的行业类别在特定编码体系中的代码 数据元值的数据类 型 S3",
+      "data_type": "",
+      "display_format": "N..8",
+      "allowed_values": "WS/T 364.17 CV09.00.101 卫生监督对象类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.101"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.011.00",
+      "element_name": "调查日期",
+      "definition": "开展调查当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.012.00",
+      "element_name": "罚款金额（元）",
+      "definition": "对个体或机构实际罚款金额数,计量单位为人民币元",
+      "data_type": "N",
+      "display_format": "N..8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.013.00",
+      "element_name": "放射卫生违法事实代码",
+      "definition": "放射卫生被监督单位被查实认定并作出相应处罚的违法行为在特定编码体 系中的代码",
+      "data_type": "S3",
+      "display_format": "N3",
+      "allowed_values": "WS/T 364.17 CV09.00.208 放射卫生违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.208"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.014.00",
+      "element_name": "放射性同位素和射线装置的种类代码",
+      "definition": "被监督单位实际生产、使用、销售的放射性同位素和射线装置的种类",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.112 放射性同位索和射线装置的种类代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.112"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.015.00",
+      "element_name": "公告收回并销毁食品重量（kg）",
+      "definition": "处罚案件结案后,实际执行的公告收回并销毁食品的重量,计量单位为 kg",
+      "data_type": "N",
+      "display_format": "N..7",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.016.00",
+      "element_name": "公共场所监测类别代码",
+      "definition": "公共场所卫生被监督单位监测的类别在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.公共用品用具 2.非用品",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.017.00",
+      "element_name": "公共场所违法事实代码",
+      "definition": "公共场所被监督机构被查实认定并作出相应处罚的违法行为在特定编码体 系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.205 公共场所违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.205"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.018.00",
+      "element_name": "供水人口数",
+      "definition": "供水机构的供水受益人口总数,计量单位为万人",
+      "data_type": "N",
+      "display_format": "N..4,2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.019.00",
+      "element_name": "资质等级代码",
+      "definition": "机构的资质等级在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.111 资质等级代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.111"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.020.00",
+      "element_name": "机构资质类别代码",
+      "definition": "职业卫生技术机构拥有的职业卫生技术服务资质类别代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.110 职业卫生技术服务业务范围代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.110"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.021.00",
+      "element_name": "机构资质证申请类别代码",
+      "definition": "职业卫生技术机构资质证书申请的类别代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.217 卫生监督证书类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.217"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.022.00",
+      "element_name": "监测样品合格件数",
+      "definition": "监测样品总数中合格样品件数",
+      "data_type": "N",
+      "display_format": "N..6",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.023.00",
+      "element_name": "监督地点",
+      "definition": "进行监督检查场所地理位置",
+      "data_type": "S1",
+      "display_format": "AN..100",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.024.00",
+      "element_name": "监督地点情况描述",
+      "definition": "进行监督检查场所地点或部位的具体情况的描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.025.00",
+      "element_name": "监督检查结果代码",
+      "definition": "进行监督检查的结果在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.合格 2.不合格",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.026.00",
+      "element_name": "监督检查结束日期时间",
+      "definition": "监督检查结束当日公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.027.00",
+      "element_name": "监督检查内容描述",
+      "definition": "被监督单位监督检查的具体内容的描述",
+      "data_type": "S1",
+      "display_format": "AN..4000",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.028.00",
+      "element_name": "监督检验指标代码",
+      "definition": "实施卫生监督时的监督检验指标在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.108 检验指标代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.108"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.029.00",
+      "element_name": "监督意见描述",
+      "definition": "卫生监督员按监督检查后出具监督意见的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..4000",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.030.00",
+      "element_name": "检查结果通知形式代码",
+      "definition": "标识新生儿筛查的相关检验的项目在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.301 检查结果通知形式代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.301"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.031.00",
+      "element_name": "建卡日期",
+      "definition": "建立预防接种卡的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.032.00",
+      "element_name": "建设项目选址卫生审查情况代码",
+      "definition": "对建设项目选址进行卫生审查结果在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.通过 2.未通过 3.未审查",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.033.00",
+      "element_name": "建设项目选址卫生审查日期",
+      "definition": "对建设项目选址进行卫生审查的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.034.00",
+      "element_name": "结案日期时间",
+      "definition": "案件终结当日的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.035.00",
+      "element_name": "竣工验收情况代码",
+      "definition": "被监督单位建设项目的竣工验收情况在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.通过 2.未通过 3.未验收",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.036.00",
+      "element_name": "竣工验收日期",
+      "definition": "建设项目竣工验收当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.037.00",
+      "element_name": "立案日期",
+      "definition": "案件立案当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.038.00",
+      "element_name": "没收非法所得金额数（元）",
+      "definition": "处罚案件结案后,实际执行的没收非法所得金额数,计量单位为人民币元",
+      "data_type": "N",
+      "display_format": "N..7",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.039.00",
+      "element_name": "没收物品件数",
+      "definition": "处罚案件结案后,实际执行的没收物品件数,计量单位为件",
+      "data_type": "N",
+      "display_format": "N..7",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.040.00",
+      "element_name": "没收物品重量（kg）",
+      "definition": "处罚案件结案后,实际执行的没收物晶重量,计量单位为 kg",
+      "data_type": "N",
+      "display_format": "N..7",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.041.00",
+      "element_name": "其他法定管理以及重点监测传染病名称",
+      "definition": "《传染病防治法》外纳入法定管理以及重点监测传染病名称的详细描述",
+      "data_type": "S1",
+      "display_format": "A..50",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.042.00",
+      "element_name": "签发日期",
+      "definition": "机构签发相关证明的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.043.00",
+      "element_name": "人员流动日期",
+      "definition": "卫生监督机构内人员流人、流出机构当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.044.00",
+      "element_name": "建设项目设计卫生审查情况代码",
+      "definition": "建设项目设计卫生审查情况在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.通过 2.未通过 3.未审查",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.045.00",
+      "element_name": "建设项目设计卫生审查日期",
+      "definition": "建设项目设计卫生审查的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.046.00",
+      "element_name": "生产经营状况代码",
+      "definition": "被监督单位本年度生产经营状况在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.营业 2.关闭",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.047.00",
+      "element_name": "生活饮用水违法事实代码",
+      "definition": "生活饮用水被监督单位被查实认定并作出相应处罚的违法行为在特定编码 体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.206 生活饮用水违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.206"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.048.00",
+      "element_name": "省级审表日期",
+      "definition": "省级机构审查记录表单时的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.049.00",
+      "element_name": "收入与支出类别代码",
+      "definition": "机构年度收人与支出的类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N..3",
+      "allowed_values": "WS/T 364.17 CV09.00.401 收入与支出代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.401"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.050.00",
+      "element_name": "水源水类型代码",
+      "definition": "集中式供水单位所使用的最主要的水源类型在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.105 水源水类型代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.105"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.051.00",
+      "element_name": "送达日期",
+      "definition": "文书或物品送达当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.052.00",
+      "element_name": "填报日期",
+      "definition": "填报记录表单时的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.053.00",
+      "element_name": "填报日期时间",
+      "definition": "填报记录表单时的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.054.00",
+      "element_name": "通知到达人与新生儿关系",
+      "definition": "通知到达人与新生儿家庭和社会关系类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "GB/T 4761 家庭关系代码",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.055.00",
+      "element_name": "退卡原因",
+      "definition": "卡片填报不合格的具体原因描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.056.00",
+      "element_name": "卫生服务需求",
+      "definition": "患者就诊时对本人所患疾病提出的卫生服务需求的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.057.00",
+      "element_name": "卫生监督检查与行政处罚专业类别代码",
+      "definition": "卫生监督检查与行政处罚专业的类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.203 卫生监督检査与行政处罚专业类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.203"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.058.00",
+      "element_name": "卫生监督量化分级管理等级评定情况代码",
+      "definition": "被监督单位被评定的卫生监督量化分级管理等级在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.201 卫生监督量化分级管理等级评定情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.201"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.059.00",
+      "element_name": "卫生事件发生地点",
+      "definition": "卫生事件发生所在地点",
+      "data_type": "S1",
+      "display_format": "AN..50",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.060.00",
+      "element_name": "卫生事件发生日期",
+      "definition": "本人卫生事件发生当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.061.00",
+      "element_name": "卫生事件名称",
+      "definition": "发生卫生事件的名称",
+      "data_type": "S1",
+      "display_format": "A..40",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.062.00",
+      "element_name": "卫生行政处罚结果及行政措施代码",
+      "definition": "案件查处过程中做出的行政处罚决定及行政强制及其他措施在特定编码体 系中的代码",
+      "data_type": "S3",
+      "display_format": "N3",
+      "allowed_values": "WS/T 364.17 CV09.00.204 卫生行政处罚结果及行政措施代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.204"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.063.00",
+      "element_name": "项目建筑面积（㎡）",
+      "definition": "建设项目的建筑面积,计量单位为㎡",
+      "data_type": "N",
+      "display_format": "N..8,2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.064.00",
+      "element_name": "预算项目名称",
+      "definition": "建设项目的项目全称",
+      "data_type": "S1",
+      "display_format": "AN..70",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.065.00",
+      "element_name": "建设项目项目性质代码",
+      "definition": "建设项目的项目性质在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.102 项目性质代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.102"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.066.00",
+      "element_name": "校内辅助设施类别代码",
+      "definition": "学校内所有辅助设施类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.209 校内辅助设施类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.209"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.067.00",
+      "element_name": "信息录入日期时间",
+      "definition": "记录卡片信息被录人时系统日期时间",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.068.00",
+      "element_name": "行政处罚标志",
+      "definition": "标识是否对机构进行行政处罚",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.069.00",
+      "element_name": "行政处分类别代码",
+      "definition": "被监督单位所受行政处分结果的类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.216 行政处分类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.216"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.070.00",
+      "element_name": "行政处分人数",
+      "definition": "被监督机构所受行政处分涉及的人数",
+      "data_type": "N",
+      "display_format": "N..4",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.071.00",
+      "element_name": "行政复议情况代码",
+      "definition": "发生行政复议的处罚案件的情况在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.214 行政复议情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.214"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.072.00",
+      "element_name": "行政诉讼情况代码",
+      "definition": "个体或机构发生行政诉讼的处罚案件的情况在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.215 行政诉讼情况代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.215"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.073.00",
+      "element_name": "许可类别代码",
+      "definition": "机构获得许可的类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.218 许可类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.218"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.074.00",
+      "element_name": "学生宿舍建设标志",
+      "definition": "标识学校是否建有学生宿舍",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.075.00",
+      "element_name": "学校卫生违法事实代码",
+      "definition": "学校被查实认定并作出相应处罚的违法行为在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.210 学校卫生违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.210"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.076.00",
+      "element_name": "样品监测数",
+      "definition": "监测样品总数量,计量单位为件",
+      "data_type": "N",
+      "display_format": "N..6",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.077.00",
+      "element_name": "医疗卫生违法事实代码",
+      "definition": "医疗卫生被监督单位被查实认定并作出相应处罚的违法行为在特定编码体 系中的代码",
+      "data_type": "S3",
+      "display_format": "N2",
+      "allowed_values": "WS/T 364.17 CV09.00.211 医疗卫生违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.211"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.078.00",
+      "element_name": "医院审表日期时间",
+      "definition": "医院审查记录表单当日的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.079.00",
+      "element_name": "饮用水类别代码",
+      "definition": "供水机构提供的生活饮用水供水类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.104 饮用水类别代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.104"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.080.00",
+      "element_name": "生活饮用水消毒方式代码",
+      "definition": "机构对生活饮用水进行消毒的方式在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.107 生活饮用水消毒方式代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.107"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.081.00",
+      "element_name": "饮用水制水工艺代码",
+      "definition": "机构生产生活饮用水的工艺在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.106 制水工艺代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.106"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.082.00",
+      "element_name": "责令改正和通报批评人数",
+      "definition": "责令单位改正和通知批评涉及的人数",
+      "data_type": "N",
+      "display_format": "N..2",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.083.00",
+      "element_name": "召回日期",
+      "definition": "个体或事物被召回时的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.084.00",
+      "element_name": "执行方式代码",
+      "definition": "机构处罚案件执行方式在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.自觉履行 2.强制执行",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.085.00",
+      "element_name": "执行结果代码",
+      "definition": "机构处罚案件执行结果在特定分类中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.完全履行 2.不完全履行 3.未履行",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.086.00",
+      "element_name": "职业病防护设施竣工卫生验收备案日期",
+      "definition": "机构职业病防护设施竣工卫生验收备案当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.087.00",
+      "element_name": "职业病防护设施竣工卫生验收情况代码",
+      "definition": "机构职业病防护设施竣工卫生验收情况（控制效果评价报告的备案）在特定 编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.103 职业病建设项目审核代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.103"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.088.00",
+      "element_name": "职业病防护设施竣工卫生验收审核日期",
+      "definition": "机构职业病防护设施竣工卫生验收审核当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.089.00",
+      "element_name": "职业病防护设施设计卫生审查情况代码",
+      "definition": "机构职业病防护设施设计卫生审核情况（仅指职业病危害严重的项目）在特 定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.103 职业病建设项目审核代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.103"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.090.00",
+      "element_name": "职业病防护设施设计卫生审查日期",
+      "definition": "机构职业病防护设施设计卫生审查当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.091.00",
+      "element_name": "职业病危害预评价卫生备案日期",
+      "definition": "对机构职业病危害预评价备案（预评价报告的备案）当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.092.00",
+      "element_name": "职业病危害预评价卫生审核情况代码",
+      "definition": "对机构职业病危害预评价卫生审核（预评价报告的备案）审核（备案）情况 在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.103 职业病建设项目审核代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.103"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.093.00",
+      "element_name": "职业病危害预评价卫生审核日期",
+      "definition": "对机构职业病危害预评价卫生审核当日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.094.00",
+      "element_name": "职业病诊断机构批准证书号码",
+      "definition": "对职业病诊断机构的批准证书号",
+      "data_type": "S1",
+      "display_format": "AN..22",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.095.00",
+      "element_name": "职业健康监护档案建立情况代码",
+      "definition": "用人单位为从事接触职业病危害的作业的劳动者建立职业健康监护档案的 情况在特定编码体系中的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.全部建立 2.部分建立 3.未建立",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.096.00",
+      "element_name": "职业健康检查机构批准证书号码",
+      "definition": "被监督职业健康检查机构的批准证书号码",
+      "data_type": "S1",
+      "display_format": "AN..21",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.097.00",
+      "element_name": "职业卫生技术服务业务范围代码",
+      "definition": "机构取得的职业卫生技术服务、职业健康检查、职业病诊断等资质证书（批 准证书）上所批准的业务范围在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N..3",
+      "allowed_values": "WS/T 364.17 CV09.00.110 职业卫生技术服务业务范围代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.110"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.098.00",
+      "element_name": "职业卫生违法事实代码",
+      "definition": "机构被查实认定并作出相应处罚的违法行为在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N3",
+      "allowed_values": "WS/T 364.17 CV09.00.207 职业卫生违法事实代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.207"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.099.00",
+      "element_name": "职业性健康监护类别代码",
+      "definition": "职业性健康监护检查类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.17 CV09.00.109 职业性健康监护体检类别代 码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.109"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.100.00",
+      "element_name": "专案管理结束日期",
+      "definition": "专案管理结束日的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.101.00",
+      "element_name": "资产与负债类别代码",
+      "definition": "机构本年度资产与负债的类别在特定编码体系中的代码",
+      "data_type": "S3",
+      "display_format": "N..2",
+      "allowed_values": "WS/T 364.17 CV09.00.402 资产与负债代码表",
+      "value_domain_refs": [
+        "WS/T 364.17:CV09.00.402"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.102.00",
+      "element_name": "计划生育指标标志",
+      "definition": "标识本次妊娠是否有生育指标",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.103.00",
+      "element_name": "病案质量代码",
+      "definition": "按照医院病案评审标准对病案终末质量所做的综合评价结果的分类代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.甲 2.乙 3.丙",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.104.00",
+      "element_name": "出院诊断-主要诊断入院病情代码",
+      "definition": "对出院主要诊断在患者入院时是否已具有的评估情况分类在特定编码体系 中的代码。",
+      "data_type": "S3",
+      "display_format": "N1",
+      "allowed_values": "WS/T 364.11 CV05.10.019 入院病情代码表",
+      "value_domain_refs": [
+        "WS/T 364.11:CV05.10.019"
+      ],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.107.00",
+      "element_name": "交接日期时间",
+      "definition": "手术患者在转运过程（术前交接、术后交接及麻醉恢复后患者交接）中进行 交接时的公元纪年日期和时间的完整描述",
+      "data_type": "DT",
+      "display_format": "DT15",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.108.00",
+      "element_name": "死亡患者尸检标志",
+      "definition": "是否对死亡患者的机体进行剖验，以明确死亡原因的标志。非死亡患者应当 在“□”内填写“-”。",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.111.00",
+      "element_name": "术前清点标志",
+      "definition": "标识术前是否对即将使用的物品进行清点的标志",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.115.00",
+      "element_name": "家属是否同意尸体解剖标志",
+      "definition": "标识患者家属是否同意进行尸体解剖的标志",
+      "data_type": "L",
+      "display_format": "T/F",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.116.00",
+      "element_name": "知情同意内容",
+      "definition": "知情同意书中涉及的诊疗项目在实施或应用过程中可能存在的风险及其他 意外或不良后果的详细描述",
+      "data_type": "S1",
+      "display_format": "AN..1000",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.117.00",
+      "element_name": "知情同意书名称",
+      "definition": "患者在医疗机构接受诊治过程中需要被告知的知情同意书的名称",
+      "data_type": "S1",
+      "display_format": "AN..200",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.118.00",
+      "element_name": "知情同意书编号",
+      "definition": "按照某一特定编码规则赋予患者本人的知情同意书的顺序号",
+      "data_type": "S1",
+      "display_format": "AN..20",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.119.00",
+      "element_name": "注意事项",
+      "definition": "对可能出现问题及采取相应措施的描述",
+      "data_type": "S1",
+      "display_format": "AN..1000",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.120.00",
+      "element_name": "质控日期",
+      "definition": "对病案终末质量进行检查及评价的公元纪年日期的完整描述",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.529.00",
+      "element_name": "发病终审时间",
+      "definition": "本人发病报告卡终审的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.530.00",
+      "element_name": "审核状态代码",
+      "definition": "本人发病报告卡审核状态的代码",
+      "data_type": "S2",
+      "display_format": "N1",
+      "allowed_values": "1.未审 2.已审",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    },
+    {
+      "element_code": "DE09.00.531.00",
+      "element_name": "死亡终审时间",
+      "definition": "本人发病报告卡终审的公元纪年日期",
+      "data_type": "D",
+      "display_format": "D8",
+      "allowed_values": "A A 附 录 A （资料性） 数据元索引 A 案件听证标志 DE09.00.001.00 B 办学性质代码 DE09.00.002.00 病案质量代码 DE09.00.103.00 C 采供血卫生违法事实代码 DE09.00.003.00 出院诊断-主要诊断入院病情代码 DE09.00.104.00 处罚案件来源代码 DE09.00.004.00 处罚程序类别代码 DE09.00.005.00 处罚结果类别代码 DE09.00.006.00 处罚文号 DE09.00.007.00 传染病防治违法事实代码 DE09.00.008.00 从事放射工作人员数 DE09.00.009.00 D 单位类别代码 DE09.00.010.00 调查日期 DE09.00.011.00 F 发病终审时间 DE09.00.529.00 罚款金额（元） DE09.00.012.00 放射卫生违法事实代码 DE09.00.013.00 放射性同位素和射线装置的种类代码 DE09.00.014.00 G 公告收回并销毁食品重量（kg） DE09.00.015.00 公共场所监测类别代码 DE09.00.016.00 公共场所违法事实代码 DE09.00.017.00 供水人口数 DE09.00.018.00 J 机构资质类别代码 DE09.00.020.00 机构资质证申请类别代码 DE09.00.021.00 计划生育指标标志 DE09.00.102.00 家属是否同意尸体解剖标志 DE09.00.115.00 监测样品合格件数 DE09.00.022.00 监督地点 DE09.00.023.00 监督地点情况描述 DE09.00.024.00 监督检查结果代码 DE09.00.025.00 监督检查结束日期时间 DE09.00.026.00 监督检查内容描述 DE09.00.027.00 监督检验指标代码 DE09.00.028.00 监督意见描述 DE09.00.029.00 检查结果通知形式代码 DE09.00.030.00 建卡日期 DE09.00.031.00 建设项目设计卫生审查情况代码 DE09.00.044.00 建设项目设计卫生审查日期 DE09.00.045.00 建设项目项目性质代码 DE09.00.065.00 建设项目选址卫生审查情况代码 DE09.00.032.00 建设项目选址卫生审查日期 DE09.00.033.00 交接日期时间 DE09.00.107.00 结案日期时间 DE09.00.034.00 竣工验收情况代码 DE09.00.035.00 竣工验收日期 DE09.00.036.00 L 立案日期 DE09.00.037.00 M 没收非法所得金额数（元） DE09.00.038.00 没收物品件数 DE09.00.039.00 没收物品重量（kg） DE09.00.040.00 Q 其他法定管理以及重点监测传染病名称 DE09.00.041.00 签发日期 DE09.00.042.00 R 人员流动日期 DE09.00.043.00 S 审核状态代码 DE09.00.530.00 生产经营状况代码 DE09.00.046.00 生活饮用水违法事实代码 DE09.00.047.00 生活饮用水消毒方式代码 DE09.00.080.00 省级审表日期 DE09.00.048.00 收入与支出类别代码 DE09.00.049.00 术前清点标志 DE09.00.111.00 水源水类型代码 DE09.00.050.00 死亡患者尸检标志 DE09.00.108.00 死亡终审时间 DE09.00.531.00 送达日期 DE09.00.051.00 T 填报日期 DE09.00.052.00 填报日期时间 DE09.00.053.00 通知到达人与新生儿关系 DE09.00.054.00 退卡原因 DE09.00.055.00 W 卫生服务需求 DE09.00.056.00 卫生监督检查与行政处罚专业类别代码 DE09.00.057.00 卫生监督量化分级管理等级评定情况代码 DE09.00.058.00 卫生事件发生地点 DE09.00.059.00 卫生事件发生日期 DE09.00.060.00 卫生事件名称 DE09.00.061.00 卫生行政处罚结果及行政措施代码 DE09.00.062.00 项目建筑面积（㎡） DE09.00.063.00 校内辅助设施类别代码 DE09.00.066.00 信息录入日期时间 DE09.00.067.00 行政处罚标志 DE09.00.068.00 行政处分类别代码 DE09.00.069.00 行政处分人数 DE09.00.070.00 行政复议情况代码 DE09.00.071.00 行政诉讼情况代码 DE09.00.072.00 许可类别代码 DE09.00.073.00 学生宿舍建设标志 DE09.00.074.00 学校卫生违法事实代码 DE09.00.075.00 Y 样品监测数 DE09.00.076.00 医疗卫生违法事实代码 DE09.00.077.00 医院审表日期时间 DE09.00.078.00 饮用水类别代码 DE09.00.079.00 饮用水制水工艺代码 DE09.00.081.00 预算项目名称 DE09.00.064.00 Z 责令改正和通报批评人数 DE09.00.082.00 召回日期 DE09.00.083.00 知情同意内容 DE09.00.116.00 知情同意书编号 DE09.00.118.00 知情同意书名称 DE09.00.117.00 执行方式代码 DE09.00.084.00 执行结果代码 DE09.00.085.00 职业病防护设施竣工卫生验收备案日期 DE09.00.086.00 职业病防护设施竣工卫生验收情况代码 DE09.00.087.00 职业病防护设施竣工卫生验收审核日期 DE09.00.088.00 职业病防护设施设计卫生审查情况代码 DE09.00.089.00 职业病防护设施设计卫生审查日期 DE09.00.090.00 职业病危害预评价卫生备案日期 DE09.00.091.00 职业病危害预评价卫生审核情况代码 DE09.00.092.00 职业病危害预评价卫生审核日期 DE09.00.093.00 职业病诊断机构批准证书号码 DE09.00.094.00 职业健康监护档案建立情况代码 DE09.00.095.00 职业健康检查机构批准证书号码 DE09.00.096.00 职业卫生技术服务业务范围代码 DE09.00.097.00 职业卫生违法事实代码 DE09.00.098.00 职业性健康监护类别代码 DE09.00.099.00 质控日期 DE09.00.120.00 注意事项 DE09.00.119.00 专案管理结束日期 DE09.00.100.00 资产与负债类别代码 DE09.00.101.00 资质等级代码 DE09.00.019.00",
+      "value_domain_refs": [],
+      "source_part": "WS/T 363.17—2023",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "extraction_status": "parsed"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "standard": "WS/T 363.2—2023",
   "part": "02",
   "title": "标识",
-  "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+  "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
   "extraction_status": "parsed",
   "element_count": 24,
   "elements": [
@@ -15,7 +15,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -27,7 +27,7 @@
       "allowed_values": "1.初次报告 2.订正报告",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -39,7 +39,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -51,7 +51,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -63,7 +63,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -75,7 +75,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -87,7 +87,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -99,7 +99,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -111,7 +111,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -123,7 +123,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -135,7 +135,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -147,7 +147,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -159,7 +159,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -171,7 +171,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -183,7 +183,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -195,7 +195,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -207,7 +207,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -219,7 +219,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -231,7 +231,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -243,7 +243,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -255,7 +255,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -267,7 +267,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -279,7 +279,7 @@
       "allowed_values": "",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     },
     {
@@ -291,7 +291,7 @@
       "allowed_values": "A A 附 录 A （资料性） 数据元索引 B 报告卡编号 DE01.00.001.00 报告卡类别代码 DE01.00.002.00 标本编号 DE01.00.003.00 病案号 DE01.00.004.00 病床号 DE01.00.026.00 病房号 DE01.00.019.00 病理号 DE01.00.005.00 C 参加麻醉安全保险标志 DE01.00.016.00 处方编号 DE01.00.020.00 F 服务记录表编号 DE01.00.036.00 H 会诊单编号 DE01.00.015.00 J 记录表单编号 DE01.00.008.00 检查报告单编号 DE01.00.018.00 健康档案编号 DE01.00.009.00 接种单位编码 DE01.00.037.00 居民健康卡号 DE01.00.021.00 M 门诊号 DE01.00.010.00 S 随访记录表单编号 DE01.00.035.00 系统内部标识 DE01.00.012.00 血袋编码 DE01.00.023.00 Y 医学证明编号 DE01.00.006.00 预防接种卡编号 DE01.00.013.00 Z 中毒事故编码 DE01.00.034.00 住院号 DE01.00.014.00 本标准于2023年12月8日对4.2中的居民健康卡号进行了勘误，标准文本为勘误后内容。",
       "value_domain_refs": [],
       "source_part": "WS/T 363.2—2023",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "extraction_status": "parsed"
     }
   ]

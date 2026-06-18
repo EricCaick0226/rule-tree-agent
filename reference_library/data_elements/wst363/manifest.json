@@ -3,10 +3,19 @@
   "library_type": "data_element_library",
   "parts": [
     {
+      "part": "01",
+      "standard": "WS/T 363.1—2023",
+      "title": "总则",
+      "source_path": "data/input_docs/WST 363.1—2023 总则.txt",
+      "output_path": "reference_library/data_elements/wst363/part_01.json",
+      "element_count": 0,
+      "status": "parsed"
+    },
+    {
       "part": "02",
       "standard": "WS/T 363.2—2023",
       "title": "标识",
-      "source_path": "data/input_docs/1733821987071_29917_副本.txt",
+      "source_path": "data/input_docs/WST 363.2—2023 标识.txt",
       "output_path": "reference_library/data_elements/wst363/part_02.json",
       "element_count": 24,
       "status": "parsed"
@@ -15,20 +24,137 @@
       "part": "03",
       "standard": "WS/T 363.3—2023",
       "title": "人口学及社会经济学特征",
-      "source_path": "data/input_docs/1739782590964_77827_副本.txt",
+      "source_path": "data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt",
       "output_path": "reference_library/data_elements/wst363/part_03.json",
       "element_count": 347,
+      "status": "parsed"
+    },
+    {
+      "part": "04",
+      "standard": "WS/T 363.4—2023",
+      "title": "健康史",
+      "source_path": "data/input_docs/WST 363.4—2023 健康史.txt",
+      "output_path": "reference_library/data_elements/wst363/part_04.json",
+      "element_count": 99,
+      "status": "parsed"
+    },
+    {
+      "part": "05",
+      "standard": "WS/T 363.5—2023",
+      "title": "健康危险因素",
+      "source_path": "data/input_docs/WST 363.5—2023 健康危险因素.txt",
+      "output_path": "reference_library/data_elements/wst363/part_05.json",
+      "element_count": 106,
+      "status": "parsed"
+    },
+    {
+      "part": "06",
+      "standard": "WS/T 363.6—2023",
+      "title": "主诉与症状",
+      "source_path": "data/input_docs/WST 363.6—2023 主诉与症状.txt",
+      "output_path": "reference_library/data_elements/wst363/part_06.json",
+      "element_count": 160,
+      "status": "parsed"
+    },
+    {
+      "part": "07",
+      "standard": "WS/T 363.7—2023",
+      "title": "体格检查",
+      "source_path": "data/input_docs/WST 363.7—2023 体格检查.txt",
+      "output_path": "reference_library/data_elements/wst363/part_07.json",
+      "element_count": 260,
+      "status": "parsed"
+    },
+    {
+      "part": "08",
+      "standard": "WS/T 363.8—2023",
+      "title": "临床辅助检查",
+      "source_path": "data/input_docs/WST 363.8—2023 临床辅助检查.txt",
+      "output_path": "reference_library/data_elements/wst363/part_08.json",
+      "element_count": 82,
+      "status": "parsed"
+    },
+    {
+      "part": "09",
+      "standard": "WS/T 363.9—2023",
+      "title": "实验室检查",
+      "source_path": "data/input_docs/WST 363.9—2023 实验室检查.txt",
+      "output_path": "reference_library/data_elements/wst363/part_09.json",
+      "element_count": 146,
       "status": "parsed"
     },
     {
       "part": "10",
       "standard": "WS/T 363.10—2023",
       "title": "医学诊断",
-      "source_path": "data/input_docs/1733821986179_91444_副本.txt",
+      "source_path": "data/input_docs/WST 363.10—2023 医学诊断.txt",
       "output_path": "reference_library/data_elements/wst363/part_10.json",
       "element_count": 172,
       "status": "parsed"
+    },
+    {
+      "part": "11",
+      "standard": "WS/T 363.11—2023",
+      "title": "医学评估",
+      "source_path": "data/input_docs/WST 363.11—2023 医学评估.txt",
+      "output_path": "reference_library/data_elements/wst363/part_11.json",
+      "element_count": 173,
+      "status": "parsed"
+    },
+    {
+      "part": "12",
+      "standard": "WS/T 363.12—2023",
+      "title": "计划与干预",
+      "source_path": "data/input_docs/WST 363.12—2023 计划与干预.txt",
+      "output_path": "reference_library/data_elements/wst363/part_12.json",
+      "element_count": 319,
+      "status": "parsed"
+    },
+    {
+      "part": "13",
+      "standard": "WS/T 363.13—2023",
+      "title": "卫生健康费用",
+      "source_path": "data/input_docs/WST 363.13—2023 卫生健康费用.txt",
+      "output_path": "reference_library/data_elements/wst363/part_13.json",
+      "element_count": 62,
+      "status": "parsed"
+    },
+    {
+      "part": "14",
+      "standard": "WS/T 363.14—2023",
+      "title": "卫生健康机构",
+      "source_path": "data/input_docs/WST 363.14—2023 卫生健康机构.txt",
+      "output_path": "reference_library/data_elements/wst363/part_14.json",
+      "element_count": 62,
+      "status": "parsed"
+    },
+    {
+      "part": "15",
+      "standard": "WS/T 363.15—2023",
+      "title": "卫生健康人员",
+      "source_path": "data/input_docs/WST 363.15—2023 卫生健康人员.txt",
+      "output_path": "reference_library/data_elements/wst363/part_15.json",
+      "element_count": 34,
+      "status": "parsed"
+    },
+    {
+      "part": "16",
+      "standard": "WS/T 363.16—2023",
+      "title": "药品与医疗器械",
+      "source_path": "data/input_docs/WST 363.16—2023 药品与医疗器械.txt",
+      "output_path": "reference_library/data_elements/wst363/part_16.json",
+      "element_count": 6,
+      "status": "parsed"
+    },
+    {
+      "part": "17",
+      "standard": "WS/T 363.17—2023",
+      "title": "卫生健康管理",
+      "source_path": "data/input_docs/WST 363.17—2023 卫生健康管理.txt",
+      "output_path": "reference_library/data_elements/wst363/part_17.json",
+      "element_count": 116,
+      "status": "parsed"
     }
   ],
-  "total_elements": 543
+  "total_elements": 2168
 }

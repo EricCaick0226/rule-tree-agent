@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
 
+import scripts.build_wst363_data_elements as builder
 from src.io.wst363_data_elements import build_wst363_payload, parse_wst363_data_elements
 
 
@@ -61,9 +63,9 @@ WS/T 363.2—2023
 
     def test_real_wst363_text_files_are_parseable(self) -> None:
         cases = [
-            ("data/input_docs/1733821987071_29917_副本.txt", "02", 20),
-            ("data/input_docs/1739782590964_77827_副本.txt", "03", 300),
-            ("data/input_docs/1733821986179_91444_副本.txt", "10", 150),
+            ("data/input_docs/WST 363.2—2023 标识.txt", "02", 20),
+            ("data/input_docs/WST 363.3—2023 人口学及社会经济学特征.txt", "03", 300),
+            ("data/input_docs/WST 363.10—2023 医学诊断.txt", "10", 150),
         ]
 
         for path_text, expected_part, min_elements in cases:
@@ -79,6 +81,24 @@ WS/T 363.2—2023
                 self.assertFalse(
                     any("WS/T 363." in element["definition"] for element in payload["elements"])
                 )
+
+    def test_build_script_discovers_and_writes_all_real_wst363_parts(self) -> None:
+        inputs = builder.discover_wst363_inputs(Path("data/input_docs"))
+
+        self.assertEqual(sorted(inputs), [f"{part:02d}" for part in range(1, 18)])
+
+        with TemporaryDirectory() as tmp:
+            manifest = builder.build_library(
+                inputs=inputs,
+                output_dir=Path(tmp) / "wst363",
+            )
+
+            self.assertEqual(len(manifest["parts"]), 17)
+            self.assertEqual(
+                sorted(path.name for path in (Path(tmp) / "wst363").glob("part_*.json")),
+                [f"part_{part:02d}.json" for part in range(1, 18)],
+            )
+            self.assertGreater(manifest["total_elements"], 1900)
 
 
 if __name__ == "__main__":
