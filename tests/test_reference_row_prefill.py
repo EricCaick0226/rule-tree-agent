@@ -85,6 +85,63 @@ def _untrusted_complete_reference_library(root: Path) -> Path:
     return library
 
 
+def _restrictive_reuse_allowed_fields_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "reuse_policy": "direct",
+            "reference_trust_level": "authoritative",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_hardware",
+                    "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                    "description": "硬件设备相关信息。",
+                    "data_range_examples": ["设备名称", "设备编号"],
+                    "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
+                    "reuse_allowed_fields": ["description"],
+                }
+            ]
+        },
+    )
+    return library
+
+
+def _mixed_case_direct_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "reuse_policy": " Direct ",
+            "reference_trust_level": " Authoritative ",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_hardware",
+                    "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                    "description": "硬件设备相关信息。",
+                    "data_range_examples": ["设备名称", "设备编号"],
+                    "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
+                }
+            ]
+        },
+    )
+    return library
+
+
 def _path_only_reference_library(root: Path) -> Path:
     library = root / "reference_library"
     _write_json(
@@ -254,6 +311,68 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(current.row_source, "current_document")
         self.assertEqual(current.evidence_status, "current_document_supported")
         self.assertEqual(current.reference_matches[0]["match_type"], "parent_and_leaf")
+        self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
+        self.assertEqual(result.step_traces[-1].step_name, "apply_reference_row_reuse")
+        self.assertEqual(
+            result.step_traces[-1].output_summary,
+            {
+                "direct_reused_rows": 1,
+                "reused_fields": 4,
+                "candidate_rows": 1,
+                "classification_rows": 2,
+            },
+        )
+
+    def test_restrictive_reuse_allowed_fields_does_not_limit_direct_reuse(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _restrictive_reuse_allowed_fields_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["设备资源", "硬件设备"],
+                        description="本地硬件描述。",
+                        description_source="quoted",
+                        data_range_examples=["本地设备字段"],
+                        data_element_refs=["LOCAL:DE01"],
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_hardware")
+        self.assertEqual(current.path_levels, ["基础资源", "设备资源", "硬件设备"])
+        self.assertEqual(current.description, "硬件设备相关信息。")
+        self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
+        self.assertEqual(current.data_element_refs, ["WS/T 363.16—2023:DE08.10.001.00"])
+        self.assertEqual(
+            current.reference_prefilled_fields,
+            ["path_levels", "description", "data_range_examples", "data_element_refs"],
+        )
+        self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
+
+    def test_direct_reuse_policy_metadata_is_case_and_whitespace_insensitive(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _mixed_case_direct_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["设备资源", "硬件设备"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_hardware")
+        self.assertEqual(current.description, "硬件设备相关信息。")
+        self.assertEqual(current.data_range_examples, ["设备名称", "设备编号"])
         self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
 
     def test_untrusted_complete_reference_row_is_ignored(self) -> None:

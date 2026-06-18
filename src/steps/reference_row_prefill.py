@@ -16,15 +16,8 @@ REFERENCE_LIBRARY_ENV = "REFERENCE_LIBRARY_DIR"
 REVIEW_CANDIDATE_REASON = "该行来自参考库，当前文档未找到基本一致的分类行，需人工确认是否应纳入。"
 DIRECT_REUSE_POLICIES = {"direct"}
 DIRECT_REUSE_TRUST_LEVELS = {"authoritative", "trusted"}
-REUSE_FIELDS = {
-    "path_levels",
-    "description",
-    "data_range_examples",
-    "data_element_refs",
-    "processing_degree",
-    "impact_object",
-    "impact_degree",
-}
+
+
 def _load_dotenv_if_available() -> None:
     try:
         from dotenv import load_dotenv
@@ -82,21 +75,20 @@ def _reference_description(row: dict[str, Any]) -> str:
 
 def _is_complete_reference_row(row: dict[str, Any]) -> bool:
     description = _reference_description(row)
-    allowed = _allowed_prefill_fields(row)
     return bool(
         _path_levels(row)
-        and "description" in allowed
         and description
         and description != INSUFFICIENT_DESCRIPTION
-        and "data_range_examples" in allowed
         and _string_list(row.get("data_range_examples"))
     )
 
 
 def _allows_direct_reuse(reference: RuleTableReference) -> bool:
+    reuse_policy = str(reference.reuse_policy or "").strip().lower()
+    trust_level = str(reference.reference_trust_level or "").strip().lower()
     return (
-        reference.reuse_policy in DIRECT_REUSE_POLICIES
-        and reference.reference_trust_level in DIRECT_REUSE_TRUST_LEVELS
+        reuse_policy in DIRECT_REUSE_POLICIES
+        and trust_level in DIRECT_REUSE_TRUST_LEVELS
     )
 
 
@@ -147,43 +139,35 @@ def _reference_match_payload(
     }
 
 
-def _allowed_prefill_fields(reference_row: dict[str, Any]) -> set[str]:
-    configured = set(_string_list(reference_row.get("reuse_allowed_fields")))
-    if configured:
-        return configured & REUSE_FIELDS
-    return set(REUSE_FIELDS)
-
-
 def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) -> list[str]:
-    allowed = _allowed_prefill_fields(reference_row)
     reused: list[str] = []
 
     ref_path = _path_levels(reference_row)
-    if "path_levels" in allowed and ref_path and row.path_levels != ref_path:
+    if ref_path and row.path_levels != ref_path:
         if not row.original_path_levels:
             row.original_path_levels = list(row.path_levels)
         row.path_levels = ref_path
         reused.append("path_levels")
 
     ref_description = _reference_description(reference_row)
-    if "description" in allowed and ref_description and ref_description != INSUFFICIENT_DESCRIPTION:
+    if ref_description and ref_description != INSUFFICIENT_DESCRIPTION:
         row.description = ref_description
         row.description_source = "reference_library"
         row.description_evidence_quote = str(reference_row.get("description_evidence_quote") or "")
         reused.append("description")
 
     ref_examples = _string_list(reference_row.get("data_range_examples"))
-    if "data_range_examples" in allowed and ref_examples:
+    if ref_examples:
         row.data_range_examples = ref_examples
         reused.append("data_range_examples")
 
     ref_data_element_refs = _string_list(reference_row.get("data_element_refs"))
-    if "data_element_refs" in allowed and ref_data_element_refs:
+    if ref_data_element_refs:
         row.data_element_refs = ref_data_element_refs
         reused.append("data_element_refs")
 
     for field_name in ("processing_degree", "impact_object", "impact_degree"):
-        if field_name in allowed and reference_row.get(field_name):
+        if reference_row.get(field_name):
             setattr(row, field_name, str(reference_row.get(field_name)))
             reused.append(field_name)
 
