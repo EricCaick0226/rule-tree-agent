@@ -91,6 +91,15 @@ def _has_stronger_description(row: dict[str, Any]) -> bool:
     return bool(quote and source and source != DESCRIPTION_SOURCE)
 
 
+def _already_current_from_excel(row: dict[str, Any], description: str) -> bool:
+    return (
+        str(row.get("description") or "").strip() == description
+        and str(row.get("description_source") or "").strip() == DESCRIPTION_SOURCE
+        and str(row.get("source_confidence") or "").strip() == SOURCE_CONFIDENCE
+        and "description_evidence_quote" not in row
+    )
+
+
 def import_descriptions(
     rule_table_path: Path,
     excel_path: Path,
@@ -118,6 +127,7 @@ def import_descriptions(
 
     exact_path_matches = 0
     descriptions_imported = 0
+    skipped_already_current = 0
     skipped_existing_stronger_source = 0
     matched_excel_paths: set[tuple[str, ...]] = set()
     imported_rows: list[dict[str, Any]] = []
@@ -139,6 +149,10 @@ def import_descriptions(
         description = str(excel_row.get("description") or "").strip()
         if not description:
             skipped_rows.append({"reason": "empty_excel_description", "path_levels": list(path_key)})
+            continue
+        if _already_current_from_excel(row, description):
+            skipped_already_current += 1
+            skipped_rows.append({"reason": "already_current", "path_levels": list(path_key)})
             continue
         if _has_stronger_description(row):
             skipped_existing_stronger_source += 1
@@ -204,6 +218,7 @@ def import_descriptions(
         "exact_path_matches": exact_path_matches,
         "descriptions_imported": descriptions_imported,
         "new_rows_appended": new_rows_appended,
+        "skipped_already_current": skipped_already_current,
         "skipped_existing_stronger_source": skipped_existing_stronger_source,
         "skipped_no_exact_reference_path": skipped_no_exact_reference_path,
         "ambiguous_excel_paths": len(ambiguous_paths),

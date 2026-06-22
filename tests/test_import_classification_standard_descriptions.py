@@ -168,6 +168,43 @@ class ImportClassificationStandardDescriptionsTests(unittest.TestCase):
         self.assertEqual(row["description_source"], "local_standard_quote")
         self.assertEqual(row["description_evidence_quote"], "患者信息包括身份识别资料。")
 
+    def test_skips_exact_match_row_already_current_from_excel(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            excel = root / "标准.xlsx"
+            rule_table = root / "rule_table.json"
+            description = "患者信息包括患者身份识别和联系方式等基本资料。"
+            _write_excel(
+                excel,
+                [
+                    [
+                        "基础资源",
+                        "服务范围与对象",
+                        "患者",
+                        "患者信息",
+                        None,
+                        "3级",
+                        description,
+                    ]
+                ],
+            )
+            original_row = {
+                "row_id": "row_patient_info",
+                "path_levels": ["基础资源", "服务范围与对象", "患者", "患者信息"],
+                "description": description,
+                "description_source": "classification_standard_excel",
+                "source_confidence": "curated_answer",
+            }
+            _write_json(rule_table, {"classification_rows": [original_row]})
+
+            summary = import_descriptions(rule_table, excel)
+            data = json.loads(rule_table.read_text(encoding="utf-8"))
+
+        self.assertEqual(summary["exact_path_matches"], 1)
+        self.assertEqual(summary["descriptions_imported"], 0)
+        self.assertEqual(summary["skipped_already_current"], 1)
+        self.assertEqual(data["classification_rows"][0], original_row)
+
     def test_skips_duplicate_excel_paths_as_ambiguous(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
