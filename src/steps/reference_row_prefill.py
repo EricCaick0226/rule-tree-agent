@@ -35,10 +35,16 @@ def _string_list(value: object) -> list[str]:
 
 
 def _clean_label(value: object) -> str:
-    text = re.sub(r"\s+", "", str(value or "").strip()).replace("．", ".")
+    text = str(value or "").strip()
+    text = text.replace("．", ".").replace("（", "(").replace("）", ")")
+    text = re.sub(r"\s+", "", text)
     text = re.sub(r"^[A-Za-z]?[、.)）.．]+", "", text)
     text = re.sub(r"^\d+(?:[.．]\d+)*", "", text)
     return text.strip("、.)）.．:-：")
+
+
+def _clean_path_levels(row: Any) -> list[str]:
+    return [cleaned for level in _path_levels(row) if (cleaned := _clean_label(level))]
 
 
 def _path_levels(row: Any) -> list[str]:
@@ -48,17 +54,27 @@ def _path_levels(row: Any) -> list[str]:
 
 
 def _path_key(row: Any) -> str:
-    return "/".join(_clean_label(level) for level in _path_levels(row) if _clean_label(level))
+    return "/".join(_clean_path_levels(row))
 
 
 def _leaf_key(row: Any) -> str:
-    levels = [_clean_label(level) for level in _path_levels(row) if _clean_label(level)]
+    levels = _clean_path_levels(row)
     return levels[-1] if levels else ""
 
 
 def _parent_leaf_key(row: Any) -> str:
-    levels = [_clean_label(level) for level in _path_levels(row) if _clean_label(level)]
+    levels = _clean_path_levels(row)
     return "/".join(levels[-2:]) if len(levels) >= 2 else ""
+
+
+def _is_reference_path_suffix_match(current: ClassificationRow, reference_row: dict[str, Any]) -> bool:
+    current_levels = _clean_path_levels(current)
+    reference_levels = _clean_path_levels(reference_row)
+    return (
+        bool(current_levels)
+        and len(current_levels) <= len(reference_levels)
+        and reference_levels[-len(current_levels):] == current_levels
+    )
 
 
 def _code_key(row: Any) -> str:
@@ -118,7 +134,11 @@ def _strong_match(current: ClassificationRow, reference_row: dict[str, Any]) -> 
     if current_code and current_code == reference_code and current_leaf == reference_leaf:
         return {"match_type": "code_and_leaf", "score": 0.97}
 
-    if _parent_leaf_key(current) and _parent_leaf_key(current) == _parent_leaf_key(reference_row):
+    if (
+        _parent_leaf_key(current)
+        and _parent_leaf_key(current) == _parent_leaf_key(reference_row)
+        and _is_reference_path_suffix_match(current, reference_row)
+    ):
         return {"match_type": "parent_and_leaf", "score": 0.94}
 
     if current_leaf in _alias_keys(reference_row):

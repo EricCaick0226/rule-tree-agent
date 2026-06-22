@@ -315,6 +315,34 @@ def _classification_standard_excel_reference_library(root: Path) -> Path:
     return library
 
 
+def _cross_domain_parent_leaf_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "reuse_policy": "direct",
+            "reference_trust_level": "authoritative",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_infectious_disease_monitoring",
+                    "path_levels": ["业务资源", "公共卫生", "疾病控制", "传染病动态监测"],
+                    "description": "传染病动态监测相关信息。",
+                    "description_source": "classification_standard_excel",
+                    "source_confidence": "curated_answer",
+                }
+            ]
+        },
+    )
+    return library
+
+
 def _evidence_ref() -> EvidenceRef:
     return EvidenceRef(
         evidence_id="ev_1",
@@ -377,6 +405,45 @@ class ReferenceRowPrefillTests(unittest.TestCase):
             {
                 "direct_reused_rows": 1,
                 "reused_fields": 4,
+                "candidate_rows": 1,
+                "classification_rows": 2,
+            },
+        )
+
+    def test_parent_and_leaf_does_not_direct_reuse_when_current_path_is_not_reference_suffix(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _cross_domain_parent_leaf_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_infectious_disease_monitoring",
+                        path_levels=["主题资源", "电子健康档案数据库", "疾病控制", "传染病动态监测"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(
+            row
+            for row in result.classification_rows
+            if row.row_id == "cur_infectious_disease_monitoring"
+        )
+        self.assertEqual(
+            current.path_levels,
+            ["主题资源", "电子健康档案数据库", "疾病控制", "传染病动态监测"],
+        )
+        self.assertEqual(current.description_source, "insufficient")
+        self.assertEqual(current.reference_prefilled_fields, [])
+        self.assertEqual(current.reference_matches, [])
+        self.assertEqual(
+            result.step_traces[-1].output_summary,
+            {
+                "direct_reused_rows": 0,
+                "reused_fields": 0,
                 "candidate_rows": 1,
                 "classification_rows": 2,
             },
