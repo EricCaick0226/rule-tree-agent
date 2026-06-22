@@ -193,6 +193,38 @@ class RowGroundingValidatorTests(unittest.TestCase):
             )
         )
 
+    def test_classification_standard_excel_description_source_is_allowed_without_quote(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            recommended_grade="3级",
+            description="患者信息包括患者身份识别和联系方式等基本资料。",
+            description_source="classification_standard_excel",
+            evidence_quote="基础资源 服务范围与对象 患者 3级",
+            evidence_refs=[_evidence_ref()],
+            support_level="explicit",
+            needs_review=False,
+            reference_prefilled_fields=["description"],
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        self.assertFalse(
+            any(
+                issue.issue_type == "schema_contract_violation"
+                and "description_source" in issue.problem
+                for issue in issues
+            )
+        )
+        self.assertFalse(
+            any(
+                issue.issue_type == "weak_trace"
+                and "description_evidence_quote" in issue.problem
+                for issue in issues
+            )
+        )
+
     def test_path_level_match_allows_heading_punctuation_variants(self) -> None:
         doc_text = "C、主题资源\n5其他数据库\n002住院记录摘要"
         doc = SourceDocument(

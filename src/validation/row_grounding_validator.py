@@ -7,7 +7,13 @@ from ..core.agent_state import AgentState, ValidationIssue
 
 
 ALLOWED_ROW_SUPPORT_LEVELS = {"explicit", "structural", "weak"}
-ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient", "reference_library"}
+REFERENCE_DESCRIPTION_SOURCES = {"reference_library", "classification_standard_excel"}
+ALLOWED_DESCRIPTION_SOURCES = {
+    "quoted",
+    "summarized",
+    "insufficient",
+    *REFERENCE_DESCRIPTION_SOURCES,
+}
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 LABEL_MATCH_PUNCTUATION = str.maketrans("", "", "、,，.．:：;；-—－_()（）[]【】")
 
@@ -231,7 +237,7 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
         )
         if (
             row.description_source != "insufficient"
-            and row.description_source != "reference_library"
+            and row.description_source not in REFERENCE_DESCRIPTION_SOURCES
             and not row.description_evidence_quote
             and not description_is_covered
         ):
