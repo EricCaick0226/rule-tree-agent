@@ -9,6 +9,7 @@ from openpyxl import Workbook
 
 from scripts.import_classification_standard_descriptions import (
     import_descriptions,
+    normalize_path_level,
 )
 
 
@@ -30,6 +31,13 @@ def _write_excel(path: Path, rows: list[list[object]]) -> None:
 
 
 class ImportClassificationStandardDescriptionsTests(unittest.TestCase):
+    def test_normalize_path_level_strips_only_delimited_list_markers(self) -> None:
+        self.assertEqual(normalize_path_level("A类资源"), "A类资源")
+        self.assertEqual(normalize_path_level("1型糖尿病"), "1型糖尿病")
+        self.assertEqual(normalize_path_level("2号楼"), "2号楼")
+        self.assertEqual(normalize_path_level("A、基础资源"), "基础资源")
+        self.assertEqual(normalize_path_level("1.基础资源"), "基础资源")
+
     def test_imports_description_for_exact_full_path_match(self) -> None:
         with TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -185,6 +193,8 @@ class ImportClassificationStandardDescriptionsTests(unittest.TestCase):
 
         row = data["classification_rows"][0]
         self.assertEqual(summary["ambiguous_excel_paths"], 1)
+        self.assertEqual(summary["ambiguous_excel_rows"], 2)
+        self.assertEqual(summary["skipped_ambiguous_excel_rows"], 2)
         self.assertEqual(summary["descriptions_imported"], 0)
         self.assertEqual(row["description"], "证据不足，无法从当前文档确定")
 

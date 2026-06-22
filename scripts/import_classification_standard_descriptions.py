@@ -26,9 +26,9 @@ def normalize_path_level(value: Any) -> str:
     text = str(value or "").strip()
     text = text.replace("（", "(").replace("）", ")")
     text = re.sub(r"\s+", "", text)
-    text = re.sub(r"^[A-Z][、.]?", "", text)
+    text = re.sub(r"^[A-Z][、.]", "", text)
     if not re.match(r"^\d+(周岁|岁)", text):
-        text = re.sub(r"^\d+[、.]?", "", text)
+        text = re.sub(r"^\d+[、.]", "", text)
     return text.strip()
 
 
@@ -46,7 +46,9 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp_path = path.with_name(f".{path.name}.tmp")
+    temp_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp_path.replace(path)
 
 
 def load_excel_rows(excel_path: Path) -> list[dict[str, Any]]:
@@ -102,6 +104,11 @@ def import_descriptions(
         for path_key, count in sorted(excel_path_counts.items())
         if count > 1
     ]
+    ambiguous_excel_rows = sum(
+        count
+        for count in excel_path_counts.values()
+        if count > 1
+    )
 
     exact_path_matches = 0
     descriptions_imported = 0
@@ -160,6 +167,8 @@ def import_descriptions(
         "skipped_existing_stronger_source": skipped_existing_stronger_source,
         "skipped_no_exact_reference_path": skipped_no_exact_reference_path,
         "ambiguous_excel_paths": len(ambiguous_paths),
+        "ambiguous_excel_rows": ambiguous_excel_rows,
+        "skipped_ambiguous_excel_rows": ambiguous_excel_rows,
         "ambiguous_path_examples": ambiguous_paths[:20],
         "imported_rows": imported_rows,
         "skipped_rows": skipped_rows[:50],
