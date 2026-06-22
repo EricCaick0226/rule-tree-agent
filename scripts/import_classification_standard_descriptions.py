@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -38,6 +39,11 @@ def _path_key(path_levels: list[Any]) -> tuple[str, ...]:
         for level in path_levels
         if (normalized := normalize_path_level(level))
     )
+
+
+def _stable_excel_row_id(path_key: tuple[str, ...]) -> str:
+    digest = hashlib.sha1("/".join(path_key).encode("utf-8")).hexdigest()[:12]
+    return f"row_excel_{digest}"
 
 
 def _load_json(path: Path) -> dict[str, Any]:
@@ -91,7 +97,7 @@ def import_descriptions(
     report_path: Path | None = None,
 ) -> dict[str, Any]:
     data = _load_json(rule_table_path)
-    rows = data.get("classification_rows") or []
+    rows = data.setdefault("classification_rows", [])
     excel_rows = load_excel_rows(excel_path)
     excel_path_counts = Counter(row["path_key"] for row in excel_rows)
     excel_by_path = {
@@ -116,6 +122,7 @@ def import_descriptions(
     matched_excel_paths: set[tuple[str, ...]] = set()
     imported_rows: list[dict[str, Any]] = []
     skipped_rows: list[dict[str, Any]] = []
+    existing_path_keys: set[tuple[str, ...]] = set()
 
     for row in rows:
         if not isinstance(row, dict):
@@ -123,6 +130,7 @@ def import_descriptions(
         path_key = _path_key(list(row.get("path_levels") or []))
         if not path_key:
             continue
+        existing_path_keys.add(path_key)
         excel_row = excel_by_path.get(path_key)
         if excel_row is None:
             continue
@@ -150,10 +158,41 @@ def import_descriptions(
             }
         )
 
+    new_rows_appended = 0
+    appended_rows: list[dict[str, Any]] = []
+    for path_key, excel_row in sorted(excel_by_path.items()):
+        if path_key in existing_path_keys:
+            continue
+        description = str(excel_row.get("description") or "").strip()
+        if not description:
+            skipped_rows.append({"reason": "empty_excel_description", "path_levels": list(path_key)})
+            continue
+        new_row = {
+            "row_id": _stable_excel_row_id(path_key),
+            "path_levels": list(path_key),
+            "recommended_grade": str(excel_row.get("recommended_grade") or "").strip(),
+            "description": description,
+            "description_source": DESCRIPTION_SOURCE,
+            "source_confidence": SOURCE_CONFIDENCE,
+            "row_source": DESCRIPTION_SOURCE,
+            "curation_status": "classification_standard_excel_import",
+        }
+        rows.append(new_row)
+        existing_path_keys.add(path_key)
+        new_rows_appended += 1
+        appended_rows.append(
+            {
+                "row_id": new_row["row_id"],
+                "path_levels": list(path_key),
+                "excel_row_number": excel_row.get("row_number"),
+            }
+        )
+
     skipped_no_exact_reference_path = sum(
         1
         for excel_row in excel_rows
         if excel_row["path_key"] not in matched_excel_paths
+        and excel_row["path_key"] not in existing_path_keys
         and excel_path_counts[excel_row["path_key"]] == 1
     )
 
@@ -164,6 +203,7 @@ def import_descriptions(
         "excel_rows": len(excel_rows),
         "exact_path_matches": exact_path_matches,
         "descriptions_imported": descriptions_imported,
+        "new_rows_appended": new_rows_appended,
         "skipped_existing_stronger_source": skipped_existing_stronger_source,
         "skipped_no_exact_reference_path": skipped_no_exact_reference_path,
         "ambiguous_excel_paths": len(ambiguous_paths),
@@ -171,6 +211,7 @@ def import_descriptions(
         "skipped_ambiguous_excel_rows": ambiguous_excel_rows,
         "ambiguous_path_examples": ambiguous_paths[:20],
         "imported_rows": imported_rows,
+        "appended_rows": appended_rows,
         "skipped_rows": skipped_rows[:50],
     }
     if report_path is not None:

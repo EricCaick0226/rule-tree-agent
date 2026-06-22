@@ -123,8 +123,13 @@ class ImportClassificationStandardDescriptionsTests(unittest.TestCase):
         row = data["classification_rows"][0]
         self.assertEqual(summary["exact_path_matches"], 0)
         self.assertEqual(summary["descriptions_imported"], 0)
-        self.assertEqual(summary["skipped_no_exact_reference_path"], 1)
+        self.assertEqual(summary["new_rows_appended"], 1)
+        self.assertEqual(summary["skipped_no_exact_reference_path"], 0)
         self.assertEqual(row["description"], "证据不足，无法从当前文档确定")
+        self.assertEqual(
+            data["classification_rows"][1]["path_levels"],
+            ["基础资源", "服务范围与对象", "患者", "患者信息"],
+        )
 
     def test_preserves_existing_stronger_description_source(self) -> None:
         with TemporaryDirectory() as tmp:
@@ -197,6 +202,71 @@ class ImportClassificationStandardDescriptionsTests(unittest.TestCase):
         self.assertEqual(summary["skipped_ambiguous_excel_rows"], 2)
         self.assertEqual(summary["descriptions_imported"], 0)
         self.assertEqual(row["description"], "证据不足，无法从当前文档确定")
+
+    def test_appends_unmatched_excel_row_as_curated_reference_row(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            excel = root / "标准.xlsx"
+            rule_table = root / "rule_table.json"
+            _write_excel(
+                excel,
+                [
+                    [
+                        "基础资源",
+                        "服务范围与对象",
+                        "患者",
+                        "患者信息",
+                        None,
+                        "3级",
+                        "患者信息包括患者身份识别和联系方式等基本资料。",
+                    ]
+                ],
+            )
+            _write_json(rule_table, {"classification_rows": []})
+
+            summary = import_descriptions(rule_table, excel)
+            data = json.loads(rule_table.read_text(encoding="utf-8"))
+
+        self.assertEqual(summary["new_rows_appended"], 1)
+        row = data["classification_rows"][0]
+        self.assertTrue(row["row_id"].startswith("row_excel_"))
+        self.assertEqual(row["path_levels"], ["基础资源", "服务范围与对象", "患者", "患者信息"])
+        self.assertEqual(row["recommended_grade"], "3级")
+        self.assertEqual(row["description"], "患者信息包括患者身份识别和联系方式等基本资料。")
+        self.assertEqual(row["description_source"], "classification_standard_excel")
+        self.assertEqual(row["source_confidence"], "curated_answer")
+        self.assertEqual(row["row_source"], "classification_standard_excel")
+        self.assertEqual(row["curation_status"], "classification_standard_excel_import")
+        self.assertNotIn("description_evidence_quote", row)
+
+    def test_append_mode_is_idempotent_by_normalized_full_path(self) -> None:
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            excel = root / "标准.xlsx"
+            rule_table = root / "rule_table.json"
+            _write_excel(
+                excel,
+                [
+                    [
+                        "基础资源",
+                        "服务范围与对象",
+                        "患者",
+                        "患者信息",
+                        None,
+                        "3级",
+                        "患者信息包括患者身份识别和联系方式等基本资料。",
+                    ]
+                ],
+            )
+            _write_json(rule_table, {"classification_rows": []})
+
+            first_summary = import_descriptions(rule_table, excel)
+            second_summary = import_descriptions(rule_table, excel)
+            data = json.loads(rule_table.read_text(encoding="utf-8"))
+
+        self.assertEqual(first_summary["new_rows_appended"], 1)
+        self.assertEqual(second_summary["new_rows_appended"], 0)
+        self.assertEqual(len(data["classification_rows"]), 1)
 
 
 if __name__ == "__main__":
