@@ -16,6 +16,8 @@ REFERENCE_LIBRARY_ENV = "REFERENCE_LIBRARY_DIR"
 REVIEW_CANDIDATE_REASON = "该行来自参考库，当前文档未找到基本一致的分类行，需人工确认是否应纳入。"
 DIRECT_REUSE_POLICIES = {"direct"}
 DIRECT_REUSE_TRUST_LEVELS = {"authoritative", "trusted"}
+CURATED_DESCRIPTION_SOURCES = {"classification_standard_excel"}
+CURATED_SOURCE_CONFIDENCE = {"curated_answer"}
 
 
 def _load_dotenv_if_available() -> None:
@@ -75,11 +77,15 @@ def _reference_description(row: dict[str, Any]) -> str:
 
 def _is_complete_reference_row(row: dict[str, Any]) -> bool:
     description = _reference_description(row)
-    return bool(
-        _path_levels(row)
-        and description
-        and description != INSUFFICIENT_DESCRIPTION
-        and _string_list(row.get("data_range_examples"))
+    if not _path_levels(row) or not description or description == INSUFFICIENT_DESCRIPTION:
+        return False
+    if _string_list(row.get("data_range_examples")):
+        return True
+    description_source = str(row.get("description_source") or "").strip()
+    source_confidence = str(row.get("source_confidence") or "").strip()
+    return (
+        description_source in CURATED_DESCRIPTION_SOURCES
+        and source_confidence in CURATED_SOURCE_CONFIDENCE
     )
 
 

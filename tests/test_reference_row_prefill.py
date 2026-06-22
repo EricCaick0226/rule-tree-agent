@@ -283,6 +283,38 @@ def _complete_alias_reference_library(root: Path) -> Path:
     return library
 
 
+def _classification_standard_excel_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "description": "国家卫生信息资源分类与编码管理规范",
+            "reuse_policy": "direct",
+            "reference_trust_level": "authoritative",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "row_excel_patient_info",
+                    "path_levels": ["基础资源", "服务范围与对象", "患者", "患者信息"],
+                    "recommended_grade": "3级",
+                    "description": "患者信息包括患者身份识别和联系方式等基本资料。",
+                    "description_source": "classification_standard_excel",
+                    "source_confidence": "curated_answer",
+                    "row_source": "classification_standard_excel",
+                    "curation_status": "classification_standard_excel_import",
+                }
+            ]
+        },
+    )
+    return library
+
+
 def _evidence_ref() -> EvidenceRef:
     return EvidenceRef(
         evidence_id="ev_1",
@@ -430,6 +462,32 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(current.processing_degree, "")
         self.assertEqual(current.impact_object, "")
         self.assertEqual(current.impact_degree, "")
+
+    def test_curated_excel_description_can_direct_reuse_without_examples(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _classification_standard_excel_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient_info",
+                        path_levels=["基础资源", "服务范围与对象", "患者", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        data_range_examples=["本地字段"],
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient_info")
+        self.assertEqual(current.description, "患者信息包括患者身份识别和联系方式等基本资料。")
+        self.assertEqual(current.description_source, "classification_standard_excel")
+        self.assertEqual(current.data_range_examples, ["本地字段"])
+        self.assertEqual(current.reference_prefilled_fields, ["description"])
+        self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
+        self.assertEqual(current.reference_matches[0]["match_type"], "exact_path")
 
     def test_untrusted_complete_reference_row_is_ignored(self) -> None:
         with TemporaryDirectory() as tmp:
