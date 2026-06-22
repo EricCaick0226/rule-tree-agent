@@ -1,0 +1,2295 @@
+{
+  "rule_table": "reference_library/wst787_2021/rule_table.json",
+  "excel": "data/input_docs/分类分级标准.xlsx",
+  "excel_rows": 230,
+  "exact_path_matches": 0,
+  "descriptions_imported": 0,
+  "new_rows_appended": 230,
+  "skipped_already_current": 0,
+  "skipped_existing_stronger_source": 0,
+  "skipped_no_exact_reference_path": 0,
+  "ambiguous_excel_paths": 0,
+  "ambiguous_excel_rows": 0,
+  "skipped_ambiguous_excel_rows": 0,
+  "ambiguous_path_examples": [],
+  "imported_rows": [],
+  "appended_rows": [
+    {
+      "row_id": "row_excel_c1906b8e7ca4",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药医疗资源与服务"
+      ],
+      "excel_row_number": 141
+    },
+    {
+      "row_id": "row_excel_e6e2c4c1d34d",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药教育人才"
+      ],
+      "excel_row_number": 143
+    },
+    {
+      "row_id": "row_excel_56208119fa34",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药科研"
+      ],
+      "excel_row_number": 142
+    },
+    {
+      "row_id": "row_excel_b3b8128d350a",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康指导与支持"
+      ],
+      "excel_row_number": 66
+    },
+    {
+      "row_id": "row_excel_bea55482f456",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康教育计划管理"
+      ],
+      "excel_row_number": 64
+    },
+    {
+      "row_id": "row_excel_561a6419593d",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康认知评价"
+      ],
+      "excel_row_number": 65
+    },
+    {
+      "row_id": "row_excel_a1415fd9dac7",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "5岁以下儿童死亡报告"
+      ],
+      "excel_row_number": 61
+    },
+    {
+      "row_id": "row_excel_2d8071eb79f3",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "产前筛查与诊断"
+      ],
+      "excel_row_number": 52
+    },
+    {
+      "row_id": "row_excel_53e9812d5bdd",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "儿童健康体检"
+      ],
+      "excel_row_number": 59
+    },
+    {
+      "row_id": "row_excel_568e287e5d1f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "儿童意外伤害防治"
+      ],
+      "excel_row_number": 62
+    },
+    {
+      "row_id": "row_excel_c072c60efd35",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "其他"
+      ],
+      "excel_row_number": 63
+    },
+    {
+      "row_id": "row_excel_89c95a97cad8",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "出生医学证明"
+      ],
+      "excel_row_number": 56
+    },
+    {
+      "row_id": "row_excel_506bb453711f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "出生缺陷监测"
+      ],
+      "excel_row_number": 53
+    },
+    {
+      "row_id": "row_excel_bb4af416c8dc",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "妇女常见病筛查"
+      ],
+      "excel_row_number": 54
+    },
+    {
+      "row_id": "row_excel_d526be52e966",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "婚前保健服务"
+      ],
+      "excel_row_number": 49
+    },
+    {
+      "row_id": "row_excel_b7afbaa847c5",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "孕产期保健与风险管理"
+      ],
+      "excel_row_number": 51
+    },
+    {
+      "row_id": "row_excel_2e14b28a2f61",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "孕前优生健康检查"
+      ],
+      "excel_row_number": 50
+    },
+    {
+      "row_id": "row_excel_4f0e69414b80",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "新生儿听力筛查"
+      ],
+      "excel_row_number": 58
+    },
+    {
+      "row_id": "row_excel_b9ca876d0b2b",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "新生儿遗传代谢病筛查"
+      ],
+      "excel_row_number": 57
+    },
+    {
+      "row_id": "row_excel_f4c900bb2b68",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "营养性疾病儿童管理"
+      ],
+      "excel_row_number": 60
+    },
+    {
+      "row_id": "row_excel_6baf7ce1215e",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "计划生育技术服务"
+      ],
+      "excel_row_number": 55
+    },
+    {
+      "row_id": "row_excel_077fb357e54c",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "传染病动态监测"
+      ],
+      "excel_row_number": 43
+    },
+    {
+      "row_id": "row_excel_7d51d741614d",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "健康危害因素监测"
+      ],
+      "excel_row_number": 47
+    },
+    {
+      "row_id": "row_excel_28d33e42f521",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "免疫规划监测"
+      ],
+      "excel_row_number": 45
+    },
+    {
+      "row_id": "row_excel_3af0201ed678",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "慢性病及其危险因素监测"
+      ],
+      "excel_row_number": 44
+    },
+    {
+      "row_id": "row_excel_25def27f8843",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "疾病综合管理与爱国卫生资源管理服务"
+      ],
+      "excel_row_number": 48
+    },
+    {
+      "row_id": "row_excel_1b4176b2ec8a",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "精神卫生监测"
+      ],
+      "excel_row_number": 46
+    },
+    {
+      "row_id": "row_excel_6b8e9c1eebdb",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "体检筛查"
+      ],
+      "excel_row_number": 69
+    },
+    {
+      "row_id": "row_excel_ed1768dd5d9e",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "库存信息"
+      ],
+      "excel_row_number": 74
+    },
+    {
+      "row_id": "row_excel_cc5198cb8f30",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "报废血管理"
+      ],
+      "excel_row_number": 78
+    },
+    {
+      "row_id": "row_excel_361ea1d1279f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "溯源标本管理"
+      ],
+      "excel_row_number": 70
+    },
+    {
+      "row_id": "row_excel_7d0a6c927edd",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "献血服务"
+      ],
+      "excel_row_number": 67
+    },
+    {
+      "row_id": "row_excel_a782f9de38f4",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "用血审批"
+      ],
+      "excel_row_number": 77
+    },
+    {
+      "row_id": "row_excel_a63ca9a361c3",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "用血直免"
+      ],
+      "excel_row_number": 79
+    },
+    {
+      "row_id": "row_excel_97aaaa20afab",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液冻结"
+      ],
+      "excel_row_number": 73
+    },
+    {
+      "row_id": "row_excel_5bf58462cbb5",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液制备"
+      ],
+      "excel_row_number": 71
+    },
+    {
+      "row_id": "row_excel_0e9aa6ce31e1",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液发放"
+      ],
+      "excel_row_number": 75
+    },
+    {
+      "row_id": "row_excel_9d489d326001",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液回收"
+      ],
+      "excel_row_number": 76
+    },
+    {
+      "row_id": "row_excel_2a82284718e9",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液检测"
+      ],
+      "excel_row_number": 68
+    },
+    {
+      "row_id": "row_excel_33506780cd9c",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液流转"
+      ],
+      "excel_row_number": 72
+    },
+    {
+      "row_id": "row_excel_5cf77896531d",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "信息查询"
+      ],
+      "excel_row_number": 127
+    },
+    {
+      "row_id": "row_excel_949f3ce46600",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "其他"
+      ],
+      "excel_row_number": 130
+    },
+    {
+      "row_id": "row_excel_dd3706ecf789",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "医疗服务机构管理"
+      ],
+      "excel_row_number": 125
+    },
+    {
+      "row_id": "row_excel_f0974c857049",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "参保登记"
+      ],
+      "excel_row_number": 123
+    },
+    {
+      "row_id": "row_excel_68e363ad831c",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "基金管理"
+      ],
+      "excel_row_number": 126
+    },
+    {
+      "row_id": "row_excel_b28ee57b8ef8",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "报销审批"
+      ],
+      "excel_row_number": 128
+    },
+    {
+      "row_id": "row_excel_781b1e80919e",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "监督检查"
+      ],
+      "excel_row_number": 129
+    },
+    {
+      "row_id": "row_excel_4c852aae4f2f",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "缴费管理"
+      ],
+      "excel_row_number": 124
+    },
+    {
+      "row_id": "row_excel_e20cd2675579",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "信息查询"
+      ],
+      "excel_row_number": 135
+    },
+    {
+      "row_id": "row_excel_5d4ce6f61f2a",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "其他"
+      ],
+      "excel_row_number": 138
+    },
+    {
+      "row_id": "row_excel_55a96f40b32b",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "医疗服务机构管理"
+      ],
+      "excel_row_number": 133
+    },
+    {
+      "row_id": "row_excel_cce0864baf21",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "参保登记"
+      ],
+      "excel_row_number": 131
+    },
+    {
+      "row_id": "row_excel_f9bd181b6fed",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "基金管理"
+      ],
+      "excel_row_number": 134
+    },
+    {
+      "row_id": "row_excel_b7004d163e22",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "报销审批"
+      ],
+      "excel_row_number": 136
+    },
+    {
+      "row_id": "row_excel_a3b082b10c83",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "监督检查"
+      ],
+      "excel_row_number": 137
+    },
+    {
+      "row_id": "row_excel_7d0c9ad5751e",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "缴费管理"
+      ],
+      "excel_row_number": 132
+    },
+    {
+      "row_id": "row_excel_feca88df7e8d",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "生育保险",
+        "基金管理"
+      ],
+      "excel_row_number": 139
+    },
+    {
+      "row_id": "row_excel_c270197e1e11",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "长期护理保险",
+        "基金管理"
+      ],
+      "excel_row_number": 140
+    },
+    {
+      "row_id": "row_excel_75dc2f275fff",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "临床检验信息管理"
+      ],
+      "excel_row_number": 90
+    },
+    {
+      "row_id": "row_excel_4dfa4d3d22d8",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "临床路径管理"
+      ],
+      "excel_row_number": 85
+    },
+    {
+      "row_id": "row_excel_cd60d4b743db",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "住院医嘱管理"
+      ],
+      "excel_row_number": 84
+    },
+    {
+      "row_id": "row_excel_890e3a6c0602",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "住院病历书写"
+      ],
+      "excel_row_number": 83
+    },
+    {
+      "row_id": "row_excel_f61c6d16f1a4",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "体检管理"
+      ],
+      "excel_row_number": 96
+    },
+    {
+      "row_id": "row_excel_bdf327990785",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "内窥镜影像管理"
+      ],
+      "excel_row_number": 95
+    },
+    {
+      "row_id": "row_excel_99d32172bb06",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "手术信息管理"
+      ],
+      "excel_row_number": 88
+    },
+    {
+      "row_id": "row_excel_85dd3ad4d4a0",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "护理记录"
+      ],
+      "excel_row_number": 86
+    },
+    {
+      "row_id": "row_excel_5cb6af0fad00",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "放射信息管理"
+      ],
+      "excel_row_number": 93
+    },
+    {
+      "row_id": "row_excel_337f341eae50",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "电生理信息管理"
+      ],
+      "excel_row_number": 92
+    },
+    {
+      "row_id": "row_excel_c6a3005ad449",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "病理信息管理"
+      ],
+      "excel_row_number": 91
+    },
+    {
+      "row_id": "row_excel_adef84490b4e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "超声影像管理"
+      ],
+      "excel_row_number": 94
+    },
+    {
+      "row_id": "row_excel_e0458df3576e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "输液管理"
+      ],
+      "excel_row_number": 87
+    },
+    {
+      "row_id": "row_excel_e19b6b935453",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "远程医疗"
+      ],
+      "excel_row_number": 97
+    },
+    {
+      "row_id": "row_excel_1a50e97b11cb",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门急诊处方和处置管理"
+      ],
+      "excel_row_number": 81
+    },
+    {
+      "row_id": "row_excel_ffb2076ee32b",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门急诊电子病历"
+      ],
+      "excel_row_number": 80
+    },
+    {
+      "row_id": "row_excel_a414363e2f67",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门诊合理用药"
+      ],
+      "excel_row_number": 82
+    },
+    {
+      "row_id": "row_excel_84441873dc06",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "麻醉信息管理"
+      ],
+      "excel_row_number": 89
+    },
+    {
+      "row_id": "row_excel_10b2adcd4568",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "医保接口管理"
+      ],
+      "excel_row_number": 104
+    },
+    {
+      "row_id": "row_excel_a73cb521d9be",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "医务管理"
+      ],
+      "excel_row_number": 98
+    },
+    {
+      "row_id": "row_excel_dc59df57a42e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "就诊卡管理"
+      ],
+      "excel_row_number": 103
+    },
+    {
+      "row_id": "row_excel_62f7b72f78d6",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "护理管理"
+      ],
+      "excel_row_number": 99
+    },
+    {
+      "row_id": "row_excel_2d1889900683",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "数据上报管理"
+      ],
+      "excel_row_number": 102
+    },
+    {
+      "row_id": "row_excel_55c80af828ca",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "药事管理"
+      ],
+      "excel_row_number": 100
+    },
+    {
+      "row_id": "row_excel_2b55655367ed",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "院感管理"
+      ],
+      "excel_row_number": 101
+    },
+    {
+      "row_id": "row_excel_a08108bf66fa",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "人力资源管理"
+      ],
+      "excel_row_number": 110
+    },
+    {
+      "row_id": "row_excel_2ae2ade648ac",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "固定资产管理"
+      ],
+      "excel_row_number": 107
+    },
+    {
+      "row_id": "row_excel_860164f0c030",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "成本核算"
+      ],
+      "excel_row_number": 111
+    },
+    {
+      "row_id": "row_excel_67db8cca9a6d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "物资管理"
+      ],
+      "excel_row_number": 108
+    },
+    {
+      "row_id": "row_excel_afe9aac58b6f",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "绩效考核"
+      ],
+      "excel_row_number": 112
+    },
+    {
+      "row_id": "row_excel_8125734b593e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "药品管理"
+      ],
+      "excel_row_number": 109
+    },
+    {
+      "row_id": "row_excel_8d5702a00d2c",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "财务管理"
+      ],
+      "excel_row_number": 105
+    },
+    {
+      "row_id": "row_excel_cc2c815d604a",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "预算管理"
+      ],
+      "excel_row_number": 106
+    },
+    {
+      "row_id": "row_excel_08a31215464e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "住院管理"
+      ],
+      "excel_row_number": 114
+    },
+    {
+      "row_id": "row_excel_905062c75a69",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "健康体检服务"
+      ],
+      "excel_row_number": 116
+    },
+    {
+      "row_id": "row_excel_1350bf21c986",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "全科诊疗服务"
+      ],
+      "excel_row_number": 113
+    },
+    {
+      "row_id": "row_excel_10016f33051d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "双向转诊服务"
+      ],
+      "excel_row_number": 118
+    },
+    {
+      "row_id": "row_excel_3369ca50cdf3",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "家庭病床与护理"
+      ],
+      "excel_row_number": 115
+    },
+    {
+      "row_id": "row_excel_2c712827b6e4",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "检验检查服务"
+      ],
+      "excel_row_number": 117
+    },
+    {
+      "row_id": "row_excel_b8165cad2756",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "远程会诊服务"
+      ],
+      "excel_row_number": 119
+    },
+    {
+      "row_id": "row_excel_74b67dd51f48",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "绩效与薪酬管理"
+      ],
+      "excel_row_number": 122
+    },
+    {
+      "row_id": "row_excel_2b5e9921b82e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "财务管理"
+      ],
+      "excel_row_number": 121
+    },
+    {
+      "row_id": "row_excel_178006ff1c2d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "资产管理"
+      ],
+      "excel_row_number": 120
+    },
+    {
+      "row_id": "row_excel_8c792ebc03fc",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "传染病防治监督",
+        "执法人员信息"
+      ],
+      "excel_row_number": 160
+    },
+    {
+      "row_id": "row_excel_8ce73617f141",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "传染病防治监督",
+        "监督检查信息"
+      ],
+      "excel_row_number": 161
+    },
+    {
+      "row_id": "row_excel_ca4e119b96ba",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "公共卫生监督",
+        "执法人员信息"
+      ],
+      "excel_row_number": 162
+    },
+    {
+      "row_id": "row_excel_2b28f7313664",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "公共卫生监督",
+        "监督检查信息"
+      ],
+      "excel_row_number": 163
+    },
+    {
+      "row_id": "row_excel_aac383a02baa",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "其他"
+      ],
+      "excel_row_number": 168
+    },
+    {
+      "row_id": "row_excel_c29802e7a690",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "医疗卫生监督",
+        "执法人员信息"
+      ],
+      "excel_row_number": 158
+    },
+    {
+      "row_id": "row_excel_9262f1a0d4da",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "医疗卫生监督",
+        "监督检查信息"
+      ],
+      "excel_row_number": 159
+    },
+    {
+      "row_id": "row_excel_418a569a4072",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "妇幼健康监督",
+        "执法人员信息"
+      ],
+      "excel_row_number": 164
+    },
+    {
+      "row_id": "row_excel_9142195aca40",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "妇幼健康监督",
+        "监督检查信息"
+      ],
+      "excel_row_number": 165
+    },
+    {
+      "row_id": "row_excel_590cb60299e9",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "职业与放射卫生监督",
+        "执法人员信息"
+      ],
+      "excel_row_number": 166
+    },
+    {
+      "row_id": "row_excel_2979bccca5e2",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "职业与放射卫生监督",
+        "监督检查信息"
+      ],
+      "excel_row_number": 167
+    },
+    {
+      "row_id": "row_excel_0a77d1a91c16",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "公卫业务管理"
+      ],
+      "excel_row_number": 145
+    },
+    {
+      "row_id": "row_excel_754b5c81acf6",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "医疗业务管理"
+      ],
+      "excel_row_number": 144
+    },
+    {
+      "row_id": "row_excel_e84ac03c902a",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "药品业务管理"
+      ],
+      "excel_row_number": 146
+    },
+    {
+      "row_id": "row_excel_8e8441c4417b",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生人力资源管理"
+      ],
+      "excel_row_number": 154
+    },
+    {
+      "row_id": "row_excel_58293999df2f",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生基础设施资源管理"
+      ],
+      "excel_row_number": 156
+    },
+    {
+      "row_id": "row_excel_1ff5d88840d3",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生机构资源管理"
+      ],
+      "excel_row_number": 155
+    },
+    {
+      "row_id": "row_excel_f8ff5ecbdaef",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生物资设备管理"
+      ],
+      "excel_row_number": 157
+    },
+    {
+      "row_id": "row_excel_a84547a8f6f3",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "个人绩效评估"
+      ],
+      "excel_row_number": 148
+    },
+    {
+      "row_id": "row_excel_46b7faed9450",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "指标管理"
+      ],
+      "excel_row_number": 147
+    },
+    {
+      "row_id": "row_excel_fd0f7390d7b5",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "机构绩效评估"
+      ],
+      "excel_row_number": 149
+    },
+    {
+      "row_id": "row_excel_9f5f512cb395",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "统计分析"
+      ],
+      "excel_row_number": 150
+    },
+    {
+      "row_id": "row_excel_24b7dc195d28",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "医疗行为监管"
+      ],
+      "excel_row_number": 151
+    },
+    {
+      "row_id": "row_excel_b0a6060b613a",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "医疗质量控制"
+      ],
+      "excel_row_number": 152
+    },
+    {
+      "row_id": "row_excel_5c72c42da531",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "基本药物监管"
+      ],
+      "excel_row_number": 153
+    },
+    {
+      "row_id": "row_excel_044f2f20c377",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+医疗保障结算服务"
+      ],
+      "excel_row_number": 231
+    },
+    {
+      "row_id": "row_excel_f7c5d76217e5",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+医疗服务"
+      ],
+      "excel_row_number": 229
+    },
+    {
+      "row_id": "row_excel_d74632844797",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+药品供应保障服务"
+      ],
+      "excel_row_number": 230
+    },
+    {
+      "row_id": "row_excel_5338726be2d9",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "其他"
+      ],
+      "excel_row_number": 232
+    },
+    {
+      "row_id": "row_excel_efd7fa2f70f4",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "住院记录摘要"
+      ],
+      "excel_row_number": 219
+    },
+    {
+      "row_id": "row_excel_fdf1507a99e6",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "手术记录摘要"
+      ],
+      "excel_row_number": 224
+    },
+    {
+      "row_id": "row_excel_8382c1cac8c7",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "检查记录摘要"
+      ],
+      "excel_row_number": 223
+    },
+    {
+      "row_id": "row_excel_df52c55b64b8",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "检验记录摘要"
+      ],
+      "excel_row_number": 222
+    },
+    {
+      "row_id": "row_excel_e345cd6f5659",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "用药记录摘要"
+      ],
+      "excel_row_number": 221
+    },
+    {
+      "row_id": "row_excel_3dfa1f9861db",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "输血记录摘要"
+      ],
+      "excel_row_number": 225
+    },
+    {
+      "row_id": "row_excel_f45d0f6fd535",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "过敏史摘要"
+      ],
+      "excel_row_number": 226
+    },
+    {
+      "row_id": "row_excel_46ea14e3240e",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "门诊记录摘要"
+      ],
+      "excel_row_number": 220
+    },
+    {
+      "row_id": "row_excel_dee1832ca843",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "住院信息"
+      ],
+      "excel_row_number": 216
+    },
+    {
+      "row_id": "row_excel_82987777280c",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "体检信息"
+      ],
+      "excel_row_number": 217
+    },
+    {
+      "row_id": "row_excel_8841ee5ef2e3",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "健康档案信息"
+      ],
+      "excel_row_number": 218
+    },
+    {
+      "row_id": "row_excel_8c320f8bf603",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "病历概要信息"
+      ],
+      "excel_row_number": 214
+    },
+    {
+      "row_id": "row_excel_7343feccff53",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "门诊信息"
+      ],
+      "excel_row_number": 215
+    },
+    {
+      "row_id": "row_excel_9d436bc98553",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "远程医疗",
+        "远程会诊"
+      ],
+      "excel_row_number": 227
+    },
+    {
+      "row_id": "row_excel_6141c8fe1e3c",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "远程医疗",
+        "远程影像诊断"
+      ],
+      "excel_row_number": 228
+    },
+    {
+      "row_id": "row_excel_e18de24d3bdd",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "其他医学研究数据"
+      ],
+      "excel_row_number": 213
+    },
+    {
+      "row_id": "row_excel_115868d83545",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究基础信息"
+      ],
+      "excel_row_number": 210
+    },
+    {
+      "row_id": "row_excel_63959da5ba3b",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究成果数据"
+      ],
+      "excel_row_number": 212
+    },
+    {
+      "row_id": "row_excel_1df6e072b4ba",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究科学数据"
+      ],
+      "excel_row_number": 211
+    },
+    {
+      "row_id": "row_excel_d39cfc89520e",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "住院摘要"
+      ],
+      "excel_row_number": 190
+    },
+    {
+      "row_id": "row_excel_3c4e89c5b931",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "健康体检"
+      ],
+      "excel_row_number": 185
+    },
+    {
+      "row_id": "row_excel_7f68f15e002b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "居民电子健康档案首页"
+      ],
+      "excel_row_number": 191
+    },
+    {
+      "row_id": "row_excel_930b40a19ff2",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "职业病报告卡"
+      ],
+      "excel_row_number": 188
+    },
+    {
+      "row_id": "row_excel_d8f8ab3aaad8",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "门诊摘要"
+      ],
+      "excel_row_number": 189
+    },
+    {
+      "row_id": "row_excel_3e8207538a06",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "预防接种卡"
+      ],
+      "excel_row_number": 186
+    },
+    {
+      "row_id": "row_excel_4b8b99b5a82b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "食源性疾病报告卡"
+      ],
+      "excel_row_number": 187
+    },
+    {
+      "row_id": "row_excel_174cd869b617",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "5岁以下儿童死亡报告"
+      ],
+      "excel_row_number": 199
+    },
+    {
+      "row_id": "row_excel_5d0fd87be453",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "儿童健康体检"
+      ],
+      "excel_row_number": 197
+    },
+    {
+      "row_id": "row_excel_fd7a5db05304",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "儿童意外伤害防治"
+      ],
+      "excel_row_number": 200
+    },
+    {
+      "row_id": "row_excel_f94815206396",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "其他"
+      ],
+      "excel_row_number": 201
+    },
+    {
+      "row_id": "row_excel_6be8b6ea93ed",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "出生医学证明"
+      ],
+      "excel_row_number": 194
+    },
+    {
+      "row_id": "row_excel_37edf2780605",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "新生儿听力筛查"
+      ],
+      "excel_row_number": 196
+    },
+    {
+      "row_id": "row_excel_1af7361d6360",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "新生儿遗传代谢病筛查"
+      ],
+      "excel_row_number": 195
+    },
+    {
+      "row_id": "row_excel_460b27e0a411",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "营养性疾病儿童管理"
+      ],
+      "excel_row_number": 198
+    },
+    {
+      "row_id": "row_excel_79fd02dcd699",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "产前筛查与诊断"
+      ],
+      "excel_row_number": 205
+    },
+    {
+      "row_id": "row_excel_1d8d84385f6b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "其他"
+      ],
+      "excel_row_number": 209
+    },
+    {
+      "row_id": "row_excel_fdc2500109e1",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "出生缺陷监测"
+      ],
+      "excel_row_number": 206
+    },
+    {
+      "row_id": "row_excel_729cd56cbbdd",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "妇女常见病筛查"
+      ],
+      "excel_row_number": 207
+    },
+    {
+      "row_id": "row_excel_c381614a6a28",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "婚前保健服务"
+      ],
+      "excel_row_number": 202
+    },
+    {
+      "row_id": "row_excel_47bca89e7870",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "孕产期保健与风险管理"
+      ],
+      "excel_row_number": 204
+    },
+    {
+      "row_id": "row_excel_e5272804a0c8",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "孕前优生健康检查"
+      ],
+      "excel_row_number": 203
+    },
+    {
+      "row_id": "row_excel_0a1c4f77d862",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "计划生育技术服务"
+      ],
+      "excel_row_number": 208
+    },
+    {
+      "row_id": "row_excel_887e663a99d1",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "疾病控制",
+        "慢性病及其危险因素监测"
+      ],
+      "excel_row_number": 193
+    },
+    {
+      "row_id": "row_excel_d977c78baf3d",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "疾病管理",
+        "肿瘤病例管理"
+      ],
+      "excel_row_number": 192
+    },
+    {
+      "row_id": "row_excel_21b3080397e5",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "业务运营",
+        "住院业务"
+      ],
+      "excel_row_number": 170
+    },
+    {
+      "row_id": "row_excel_6c9c62509044",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "业务运营",
+        "门急诊业务"
+      ],
+      "excel_row_number": 169
+    },
+    {
+      "row_id": "row_excel_ba9cfb460eea",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "住院就诊信息"
+      ],
+      "excel_row_number": 172
+    },
+    {
+      "row_id": "row_excel_c74472bcbb9a",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "检验检查信息"
+      ],
+      "excel_row_number": 173
+    },
+    {
+      "row_id": "row_excel_8057d30ab0f9",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "诊断明细信息"
+      ],
+      "excel_row_number": 174
+    },
+    {
+      "row_id": "row_excel_c7c1bf939454",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "门诊就诊信息"
+      ],
+      "excel_row_number": 171
+    },
+    {
+      "row_id": "row_excel_f7a83649102b",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "其他"
+      ],
+      "excel_row_number": 184
+    },
+    {
+      "row_id": "row_excel_357bd69049a1",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "医用设备表"
+      ],
+      "excel_row_number": 183
+    },
+    {
+      "row_id": "row_excel_2bd1040b49be",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "医疗机构信息表"
+      ],
+      "excel_row_number": 182
+    },
+    {
+      "row_id": "row_excel_abe5abe5b1cd",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "患者主索引"
+      ],
+      "excel_row_number": 181
+    },
+    {
+      "row_id": "row_excel_cea00320286e",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "科室字典表"
+      ],
+      "excel_row_number": 180
+    },
+    {
+      "row_id": "row_excel_2d0f91c4a53b",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "项目/药品字典表"
+      ],
+      "excel_row_number": 179
+    },
+    {
+      "row_id": "row_excel_f4d0d43deaaa",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "一般处置记录信息"
+      ],
+      "excel_row_number": 175
+    },
+    {
+      "row_id": "row_excel_60707ed6fe9c",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "体检信息"
+      ],
+      "excel_row_number": 178
+    },
+    {
+      "row_id": "row_excel_e8f007d22f3c",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "操作护理记录"
+      ],
+      "excel_row_number": 176
+    },
+    {
+      "row_id": "row_excel_e9a36606aca4",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "病程记录"
+      ],
+      "excel_row_number": 177
+    },
+    {
+      "row_id": "row_excel_cbd10cc1969e",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "人力资源规划",
+        "人力资源表"
+      ],
+      "excel_row_number": 19
+    },
+    {
+      "row_id": "row_excel_4f83d5b21c7b",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "人力资源规划",
+        "其他"
+      ],
+      "excel_row_number": 20
+    },
+    {
+      "row_id": "row_excel_057a04bbbaff",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "劳动关系管理"
+      ],
+      "excel_row_number": 25
+    },
+    {
+      "row_id": "row_excel_8caf037eca49",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "培训与开发"
+      ],
+      "excel_row_number": 22
+    },
+    {
+      "row_id": "row_excel_aa7cccb81204",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "招聘与配置"
+      ],
+      "excel_row_number": 21
+    },
+    {
+      "row_id": "row_excel_7a38fe3de4c9",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "绩效管理"
+      ],
+      "excel_row_number": 23
+    },
+    {
+      "row_id": "row_excel_11a256633e13",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "薪酬福利管理"
+      ],
+      "excel_row_number": 24
+    },
+    {
+      "row_id": "row_excel_1f441f3d8b3c",
+      "path_levels": [
+        "基础资源",
+        "单位法人"
+      ],
+      "excel_row_number": 16
+    },
+    {
+      "row_id": "row_excel_bddf0649ce1b",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "全民健康信息平台"
+      ],
+      "excel_row_number": 33
+    },
+    {
+      "row_id": "row_excel_d9690686f551",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "医院信息平台"
+      ],
+      "excel_row_number": 34
+    },
+    {
+      "row_id": "row_excel_24b1d849e597",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "应用系统"
+      ],
+      "excel_row_number": 35
+    },
+    {
+      "row_id": "row_excel_92b068b8028a",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "业务指标类数据查询接口"
+      ],
+      "excel_row_number": 37
+    },
+    {
+      "row_id": "row_excel_3e11921496b4",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "医疗信息类数据接口"
+      ],
+      "excel_row_number": 40
+    },
+    {
+      "row_id": "row_excel_c351b9feab1c",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "医疗指标类数据查询接口"
+      ],
+      "excel_row_number": 38
+    },
+    {
+      "row_id": "row_excel_9e03b97daadd",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "基础数据查询接口"
+      ],
+      "excel_row_number": 42
+    },
+    {
+      "row_id": "row_excel_edf5d491d46d",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "标签类数据接口"
+      ],
+      "excel_row_number": 41
+    },
+    {
+      "row_id": "row_excel_fafc53f91384",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "检验检查实时接口"
+      ],
+      "excel_row_number": 36
+    },
+    {
+      "row_id": "row_excel_adcda9feffaa",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "过程类数据查询接口"
+      ],
+      "excel_row_number": 39
+    },
+    {
+      "row_id": "row_excel_b58d8af2a731",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "60周岁以上老年人"
+      ],
+      "excel_row_number": 12
+    },
+    {
+      "row_id": "row_excel_81e107d91335",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "健康人",
+        "个人信息"
+      ],
+      "excel_row_number": 5
+    },
+    {
+      "row_id": "row_excel_4261b89e7233",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "健康人",
+        "个人敏感信息"
+      ],
+      "excel_row_number": 6
+    },
+    {
+      "row_id": "row_excel_c4c0b363758a",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "医务人员",
+        "医务人员信息"
+      ],
+      "excel_row_number": 7
+    },
+    {
+      "row_id": "row_excel_267e6752a079",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "医务人员",
+        "医务人员敏感信息"
+      ],
+      "excel_row_number": 8
+    },
+    {
+      "row_id": "row_excel_506492dad34b",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "患者",
+        "患者信息"
+      ],
+      "excel_row_number": 3
+    },
+    {
+      "row_id": "row_excel_73453c5e90a6",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "患者",
+        "患者敏感信息"
+      ],
+      "excel_row_number": 4
+    },
+    {
+      "row_id": "row_excel_161d4705d39c",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "未满14周岁未成年人"
+      ],
+      "excel_row_number": 11
+    },
+    {
+      "row_id": "row_excel_4f85c03c646a",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "管理者",
+        "管理者信息"
+      ],
+      "excel_row_number": 9
+    },
+    {
+      "row_id": "row_excel_9ec1e617cbe9",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "管理者",
+        "管理者敏感信息"
+      ],
+      "excel_row_number": 10
+    },
+    {
+      "row_id": "row_excel_b071820318f2",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "标准规范",
+        "地方标准"
+      ],
+      "excel_row_number": 15
+    },
+    {
+      "row_id": "row_excel_4fd5a948a530",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "法规规章",
+        "地方性法规"
+      ],
+      "excel_row_number": 13
+    },
+    {
+      "row_id": "row_excel_ed05b2ef12b2",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "法规规章",
+        "市政府规章"
+      ],
+      "excel_row_number": 14
+    },
+    {
+      "row_id": "row_excel_e327355c0928",
+      "path_levels": [
+        "基础资源",
+        "编制体制",
+        "人员编制"
+      ],
+      "excel_row_number": 17
+    },
+    {
+      "row_id": "row_excel_dbf5a2438e5f",
+      "path_levels": [
+        "基础资源",
+        "编制体制",
+        "机构体制"
+      ],
+      "excel_row_number": 18
+    },
+    {
+      "row_id": "row_excel_b13ad607fcbd",
+      "path_levels": [
+        "基础资源",
+        "设备资源",
+        "硬件设备"
+      ],
+      "excel_row_number": 31
+    },
+    {
+      "row_id": "row_excel_638278652f2e",
+      "path_levels": [
+        "基础资源",
+        "设备资源",
+        "软件设备"
+      ],
+      "excel_row_number": 32
+    },
+    {
+      "row_id": "row_excel_c0b635b3cafd",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "会计信息管理"
+      ],
+      "excel_row_number": 30
+    },
+    {
+      "row_id": "row_excel_4e73f886fe85",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资产管理",
+        "固定资产管理"
+      ],
+      "excel_row_number": 27
+    },
+    {
+      "row_id": "row_excel_a7de194676c2",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资产管理",
+        "无形资产管理"
+      ],
+      "excel_row_number": 28
+    },
+    {
+      "row_id": "row_excel_308907157cda",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资金管理"
+      ],
+      "excel_row_number": 29
+    },
+    {
+      "row_id": "row_excel_ebe4556e1147",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "预算管理"
+      ],
+      "excel_row_number": 26
+    }
+  ],
+  "skipped_rows": []
+}

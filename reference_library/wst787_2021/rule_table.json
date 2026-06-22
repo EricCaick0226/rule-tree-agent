@@ -4061,6 +4061,3432 @@
       "needs_review": true,
       "review_reason": "仅含分类标题与编号，无数据范围、分级及详细说明；分类说明仅重复分类标题，缺少解释性行级证据。",
       "status": "proposed"
+    },
+    {
+      "row_id": "row_excel_c1906b8e7ca4",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药医疗资源与服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "统计中医药领域医疗资源和服务相关数据，包括机构数量、人员配备、服务覆盖等，为中医药发展提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e6e2c4c1d34d",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药教育人才"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于统计和分析中医药领域的综合数据，包括中医药资源分布、利用情况及发展趋势等信息，旨在为中医药行业发展提供数据支持和决策依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_56208119fa34",
+      "path_levels": [
+        "业务资源",
+        "中医药",
+        "中医药综合统计",
+        "中医药科研"
+      ],
+      "recommended_grade": "3级",
+      "description": "收集和分析中医药科研相关数据，包括科研项目、成果转化、资金投入等，促进中医药领域的创新与发展。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b3b8128d350a",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康指导与支持"
+      ],
+      "recommended_grade": "1级",
+      "description": "公共卫生健康教育的支持服务，通过专业指导和资源提供，帮助个体或群体改善健康行为，预防疾病，提升生活质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_bea55482f456",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康教育计划管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "公共卫生下健康教育相关内容，负责制定和实施健康教育计划，统筹安排教育活动，提升公众健康意识和行为改变。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_561a6419593d",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "健康教育",
+        "健康认知评价"
+      ],
+      "recommended_grade": "2级",
+      "description": "公共卫生健康教育的一部分，专注于评估个体的健康知识水平和认知能力，为后续教育干预提供数据支持和依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a1415fd9dac7",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "5岁以下儿童死亡报告"
+      ],
+      "recommended_grade": "4级",
+      "description": "收集和分析5岁以下儿童死亡数据，研究死亡原因，为制定公共卫生政策和干预措施提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2d8071eb79f3",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "产前筛查与诊断"
+      ],
+      "recommended_grade": "4级",
+      "description": "通过产前筛查和诊断技术，评估胎儿健康状况，早期发现潜在异常，为孕产妇提供科学指导和干预措施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_53e9812d5bdd",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "儿童健康体检"
+      ],
+      "recommended_grade": "3级",
+      "description": "定期为儿童提供健康体检服务，监测生长发育情况，及时发现健康问题并给予指导和干预。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_568e287e5d1f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "儿童意外伤害防治"
+      ],
+      "recommended_grade": "3级",
+      "description": "关注儿童意外伤害的预防和干预，通过教育和措施减少意外事故发生，保障儿童安全成长。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c072c60efd35",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "其他"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及公共卫生领域的妇幼保健服务，涵盖妇女和儿童的健康管理、预防保健、疾病筛查及相关健康促进活动，旨在保障母婴健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_89c95a97cad8",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "出生医学证明"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录和管理新生儿出生医学证明信息，作为身份识别和法律依据的重要文件，确保信息准确和完整。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_506bb453711f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "出生缺陷监测"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于监测和记录出生缺陷相关数据，帮助分析和预防新生儿先天性疾病，促进公共卫生政策的制定和实施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_bb4af416c8dc",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "妇女常见病筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对妇女常见疾病的筛查工作，旨在早期发现和干预健康问题，保障女性健康和生活质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d526be52e966",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "婚前保健服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "为准备结婚的夫妇提供健康检查和咨询服务，评估健康状况，降低遗传病和相关健康风险，促进家庭健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b7afbaa847c5",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "孕产期保健与风险管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "提供孕产期全程健康管理服务，监测孕产妇健康状况，识别并干预潜在风险，确保母婴安全和健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2e14b28a2f61",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "孕前优生健康检查"
+      ],
+      "recommended_grade": "4级",
+      "description": "为计划怀孕的夫妇提供健康检查和指导，优化孕前健康状态，降低出生缺陷风险，促进优生优育。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4f0e69414b80",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "新生儿听力筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "对新生儿进行听力筛查，早期发现听力障碍问题，为后续治疗和康复提供科学依据和支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b9ca876d0b2b",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "新生儿遗传代谢病筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "通过筛查新生儿遗传代谢病，早期发现潜在疾病风险，及时干预以减少疾病对儿童成长的影响。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f4c900bb2b68",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "营养性疾病儿童管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对儿童营养性疾病的管理工作，通过干预和指导改善儿童营养状况，预防相关疾病的发生。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_6baf7ce1215e",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "妇幼保健",
+        "计划生育技术服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "提供计划生育相关技术支持和服务，包括咨询、手术等，确保生育政策的有效落实和家庭健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_077fb357e54c",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "传染病动态监测"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于监测和分析传染病的发生、传播和流行趋势，收集相关数据以支持疫情预警和防控措施的制定，保障公共健康安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7d51d741614d",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "健康危害因素监测"
+      ],
+      "recommended_grade": "3级",
+      "description": "监测环境、职业、生活方式等健康危害因素对人群健康的影响，为制定健康保护政策和干预措施提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_28d33e42f521",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "免疫规划监测"
+      ],
+      "recommended_grade": "2级",
+      "description": "通过监测免疫规划的实施情况，评估疫苗接种覆盖率和效果，确保人群免疫屏障的建立，预防疫苗可控疾病的发生。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3af0201ed678",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "慢性病及其危险因素监测"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对慢性病的发病情况及相关危险因素进行长期跟踪和数据收集，为预防和控制慢性病提供科学依据，改善人群健康状况。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_25def27f8843",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "疾病综合管理与爱国卫生资源管理服务"
+      ],
+      "recommended_grade": "2级",
+      "description": "整合疾病防控和爱国卫生资源，提供综合管理服务，推动公共卫生环境的改善，增强疾病预防和健康促进能力。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1b4176b2ec8a",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "疾病控制",
+        "精神卫生监测"
+      ],
+      "recommended_grade": "4级",
+      "description": "关注精神健康问题的发生率和影响因素，收集相关数据以支持精神疾病的预防、干预和治疗，提升社会心理健康水平。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_6b8e9c1eebdb",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "体检筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "公共卫生血液管理中的体检筛查工作，通过对献血者或特定人群的健康检查，排除不适宜献血或潜在健康风险，确保血液质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ed1768dd5d9e",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "库存信息"
+      ],
+      "recommended_grade": "2级",
+      "description": "库存信息涉及对血液及相关制品的库存量、类型、保存状态等数据的记录和管理，确保血液资源的可追溯性和及时供应，满足临床用血需求。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cc5198cb8f30",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "报废血管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "报废血管理是对不适合使用的血液或血液制品进行报废处理的管理工作，包括原因记录、报废流程和合规处置，确保医疗安全和资源管理规范。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_361ea1d1279f",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "溯源标本管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "公共卫生血液管理中的溯源标本管理，记录血液样本的来源、处理及存储信息，确保血液可追溯，保障安全和合规性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7d0a6c927edd",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "献血服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "公共卫生血液管理中的献血服务环节，涉及献血者的招募、登记、献血过程管理及相关宣传教育，确保血液来源安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a782f9de38f4",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "用血审批"
+      ],
+      "recommended_grade": "3级",
+      "description": "用血审批是指对临床用血申请进行审核和批准的管理过程，确保用血的合理性和必要性，符合医疗规范和政策要求，保障患者安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a63ca9a361c3",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "用血直免"
+      ],
+      "recommended_grade": "3级",
+      "description": "用血直免是指在特定条件下，患者可直接免除部分用血费用的管理机制，通常与政策支持或特殊医疗情况相关，确保公平性和合规性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_97aaaa20afab",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液冻结"
+      ],
+      "recommended_grade": "2级",
+      "description": "血液冻结是指对血液或血液制品进行冷冻保存的管理过程，确保血液在特定条件下保持活性，以便在需要时解冻使用，适用于紧急医疗需求或长期储存。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5bf58462cbb5",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液制备"
+      ],
+      "recommended_grade": "2级",
+      "description": "公共卫生血液管理中的血液制备过程，包括血液分离、成分制备及储存等环节，确保血液制品符合临床使用标准。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_0e9aa6ce31e1",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液发放"
+      ],
+      "recommended_grade": "2级",
+      "description": "血液发放是指根据医疗需求，将库存中的血液或血液制品分配给相关医疗机构或患者的过程，确保发放流程规范、记录完整，保障用血安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9d489d326001",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液回收"
+      ],
+      "recommended_grade": "2级",
+      "description": "血液回收涉及对未使用或过期血液的回收处理工作，包括回收流程、记录管理及合规处置，确保资源合理利用并防止浪费或污染。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2a82284718e9",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液检测"
+      ],
+      "recommended_grade": "3级",
+      "description": "公共卫生血液管理的重要环节，负责对采集的血液进行质量检测，包括血型鉴定、病原体筛查等，确保血液安全可用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_33506780cd9c",
+      "path_levels": [
+        "业务资源",
+        "公共卫生",
+        "血液管理",
+        "血液流转"
+      ],
+      "recommended_grade": "2级",
+      "description": "公共卫生血液管理中的血液流转环节，涉及血液从采集到分配的全流程管理，确保血液运输、储存和使用的安全与高效。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5cf77896531d",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "信息查询"
+      ],
+      "recommended_grade": "2级",
+      "description": "城镇居民基本医疗保险信息查询是为参保人提供便捷的查询服务，包括个人参保状态、缴费记录、报销情况等信息，方便参保人了解自身医保权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_949f3ce46600",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "其他"
+      ],
+      "recommended_grade": "4级",
+      "description": "城镇居民基本医疗保险其他事项包括与上述分类不直接相关的特殊情况处理、政策咨询、投诉受理等内容，为参保人提供全面的辅助支持和服务。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_dd3706ecf789",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "医疗服务机构管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "城镇居民基本医疗保险医疗服务机构管理是指对定点医疗机构和药店的资质、行为规范、服务质量等进行监督和管理，以保障参保人获得优质医疗服务。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f0974c857049",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "参保登记"
+      ],
+      "recommended_grade": "4级",
+      "description": "城镇居民基本医疗保险参保登记是指为符合条件的城镇居民办理医疗保险的登记手续，确保其纳入保障范围，享受相应的医疗保险待遇，涉及个人信息录入和身份核验等流程。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_68e363ad831c",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "基金管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "城镇居民基本医疗保险基金管理是对医疗保险基金的筹集、使用、分配及监管的全过程管理，确保基金安全、合理使用，维护参保人权益和社会稳定。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b28ee57b8ef8",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "报销审批"
+      ],
+      "recommended_grade": "3级",
+      "description": "城镇居民基本医疗保险报销审批是指对参保人提交的医疗费用报销申请进行审核和审批，确保符合政策规定的费用得到及时补偿，维护公平性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_781b1e80919e",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "监督检查"
+      ],
+      "recommended_grade": "2级",
+      "description": "城镇居民基本医疗保险监督检查是对参保单位、个人及医疗服务机构遵守医保政策的情况进行检查，防止欺诈、滥用基金等行为，保障制度规范运行。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4c852aae4f2f",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇居民基本医疗保险",
+        "缴费管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "城镇居民基本医疗保险缴费管理涉及参保人员按规定缴纳医疗保险费用，包括缴费标准、缴费时间、缴费方式等管理事项，确保基金的正常运转和参保人权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e20cd2675579",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "信息查询"
+      ],
+      "recommended_grade": "2级",
+      "description": "提供城镇职工基本医疗保险相关信息的查询服务，包括个人账户余额、缴费记录、报销进度等，方便参保人员了解自身权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5d4ce6f61f2a",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "其他"
+      ],
+      "recommended_grade": "3级",
+      "description": "涵盖城镇职工基本医疗保险中未明确归类的其他相关事务或特殊情况的管理，确保全面覆盖各类业务需求。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_55a96f40b32b",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "医疗服务机构管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于管理城镇职工基本医疗保险相关医疗服务机构的信息，包括机构资质、合作协议、服务范围等，确保医疗服务的规范性和可及性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cce0864baf21",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "参保登记"
+      ],
+      "recommended_grade": "4级",
+      "description": "城镇职工基本医疗保险参保登记是指为符合条件的城镇职工办理医疗保险登记，确保其纳入保障体系，享受相应的医疗保险待遇，涉及信息采集和核实。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f9bd181b6fed",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "基金管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "涉及城镇职工基本医疗保险基金的收支管理、预算编制、资金调配等，确保基金的安全运行和合理使用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b7004d163e22",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "报销审批"
+      ],
+      "recommended_grade": "3级",
+      "description": "处理城镇职工基本医疗保险的报销申请审批工作，包括审核医疗费用、核定报销金额等，确保报销流程的透明和公平。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a3b082b10c83",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "监督检查"
+      ],
+      "recommended_grade": "2级",
+      "description": "针对城镇职工基本医疗保险的实施情况进行监督和检查，防范欺诈行为，保障政策执行的合规性和有效性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7d0c9ad5751e",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "城镇职工基本医疗保险",
+        "缴费管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "城镇职工基本医疗保险缴费管理涉及职工及用人单位按规定缴纳医疗保险费用，包括缴费基数、比例、时间等管理事项，确保基金正常运行和权益保障。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_feca88df7e8d",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "生育保险",
+        "基金管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "涉及生育保险基金的筹集、分配和使用管理，确保基金支持生育相关医疗费用，保障参保人员权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c270197e1e11",
+      "path_levels": [
+        "业务资源",
+        "医疗保障",
+        "长期护理保险",
+        "基金管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "负责长期护理保险基金的运营管理，包括资金筹集、使用监控和财务审计，保障长期护理服务的可持续性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_75dc2f275fff",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "临床检验信息管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "管理临床检验相关数据，包括检验项目、结果记录及分析，确保检验数据的准确性和及时性，为诊断提供科学依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4dfa4d3d22d8",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "临床路径管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "通过标准化的治疗流程和方案，指导临床医生对特定疾病的诊疗活动，旨在提高医疗质量、控制医疗成本并优化患者治疗效果。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cd60d4b743db",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "住院医嘱管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于管理医生对住院患者下达的各类治疗、用药、检查等指令，确保医疗过程的规范性和执行的准确性，提升医疗服务的效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_890e3a6c0602",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "住院病历书写"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于记录患者住院期间的病情变化、诊断过程、治疗方案及效果等详细信息，是医疗过程中重要的文档记录，方便医生和护士跟踪患者情况。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f61c6d16f1a4",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "体检管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及体检相关数据的收集、整理和分析，包括体检预约、结果记录和健康评估，为个人和群体健康管理提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_bdf327990785",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "内窥镜影像管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "专注于内窥镜影像数据的管理与应用，提供影像记录、存储及分析功能，支持内窥镜检查的临床诊断和治疗。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_99d32172bb06",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "手术信息管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录和管理患者手术相关信息，包括手术方案、手术过程、术后恢复等，确保手术全流程的可追溯性和安全性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_85dd3ad4d4a0",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "护理记录"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录患者住院期间的护理活动、观察结果及护理措施，确保护理工作的连续性和规范性，为患者提供全面的护理支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5cb6af0fad00",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "放射信息管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "负责管理医院放射科相关影像数据的存储、查询和分析，确保放射检查数据的准确性和安全性，支持临床诊断和治疗决策。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_337f341eae50",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "电生理信息管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "管理电生理检查相关数据，如心电图、脑电图等信息，确保检查结果的准确性，为临床诊断和治疗提供技术支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c6a3005ad449",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "病理信息管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录和管理病理检查的相关信息，包括组织标本分析、病理诊断结果等，为疾病的精准诊断和治疗提供重要参考。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_adef84490b4e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "超声影像管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于管理和维护医院超声影像数据，包括影像采集、存储和报告生成，协助医生进行超声诊断和患者随访。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e0458df3576e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "输液管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "管理患者输液过程中的药物配制、输液速度、时间安排等信息，确保输液治疗的安全性和有效性，减少医疗差错。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e19b6b935453",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "远程医疗"
+      ],
+      "recommended_grade": "3级",
+      "description": "支持远程医疗服务的数据管理，包括远程会诊、影像传输和病例讨论，确保远程医疗的高效性和数据安全性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1a50e97b11cb",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门急诊处方和处置管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "门急诊处方和处置管理涉及对门诊及急诊患者的药物处方和医疗处置的记录与管理，确保治疗方案的合理性、规范性和患者用药安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ffb2076ee32b",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门急诊电子病历"
+      ],
+      "recommended_grade": "4级",
+      "description": "门急诊电子病历是指通过电子系统记录门诊和急诊患者的诊疗信息，包括病史、检查结果和治疗方案等，便于信息共享和医疗质量管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a414363e2f67",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "门诊合理用药"
+      ],
+      "recommended_grade": "3级",
+      "description": "门诊合理用药是指通过系统或规范指导门诊患者的药物使用，避免过度用药或不合理用药，提升治疗效果，保障患者安全和医疗资源合理分配。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_84441873dc06",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "临床服务",
+        "麻醉信息管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于记录和管理麻醉过程中的药物使用、患者生命体征监测等信息，确保麻醉过程的安全性和术中患者的稳定状态。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_10b2adcd4568",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "医保接口管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "负责对接医保系统接口，处理医保报销、结算、政策查询等相关事务，确保医院与医保机构之间数据交互的顺畅和合规性，保障患者权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a73cb521d9be",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "医务管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涵盖医院医务工作的组织与协调，涉及医疗资源分配、医生排班及医疗质量监控，提升医院整体医疗服务水平。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_dc59df57a42e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "就诊卡管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于管理医院内患者的就诊卡信息，包括卡的发行、挂失、补办以及余额查询等功能，确保患者就诊过程中的身份识别和费用结算的便捷性与准确性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_62f7b72f78d6",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "护理管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "关注医院护理工作的管理和优化，包括护理计划制定、执行记录和质量评估，确保患者护理服务的规范性和安全性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2d1889900683",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "数据上报管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于医院数据上报工作的管理和跟踪，包括医疗数据统计、报送和合规性审核，确保数据及时准确提交至相关部门。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_55c80af828ca",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "药事管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "负责医院药品相关数据的管理和监督，包括药品采购、库存、配发及使用记录，确保药事服务的合规性和高效性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2b55655367ed",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "医疗管理",
+        "院感管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "专注于医院感染控制数据的管理，包括感染病例监测、防控措施记录和分析，保障医院环境和患者安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a08108bf66fa",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "人力资源管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及医院人员招聘、培训、薪资、考勤等管理事务，优化人力资源配置，提升员工工作效率，保障医院正常运营。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2ae2ade648ac",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "固定资产管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "管理医院固定资产的采购、使用、折旧、报废等全生命周期流程，确保资产使用效率最大化，同时维护资产数据的准确性和完整性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_860164f0c030",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "成本核算"
+      ],
+      "recommended_grade": "3级",
+      "description": "通过对医院各项成本的统计和分析，计算医疗服务成本，优化资源分配，为医院的定价策略和成本控制提供数据支撑。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_67db8cca9a6d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "物资管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "负责医院物资的采购、库存、分配和使用管理，确保医疗耗材和设备供应充足，优化库存结构，降低运营成本。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_afe9aac58b6f",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "绩效考核"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于评估员工工作表现，制定绩效考核标准，激励员工提升服务质量和工作效率，促进医院整体运营水平的提高。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8125734b593e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "药品管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "专注于药品的采购、库存、配送和使用管理，确保药品质量安全，满足临床需求，同时监控药品流向，防止浪费或滥用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8d5702a00d2c",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "财务管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及医院日常财务运作，包括收入、支出、账目核对、报表生成等，确保资金流转透明，财务数据准确，为医院决策提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cc2c815d604a",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(医院)",
+        "运营管理",
+        "预算管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于规划和控制医院的年度预算，包括资金分配、成本预测和预算执行情况监控，帮助医院合理配置资源，避免资源浪费。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_08a31215464e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "住院管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "负责基层医疗机构内住院患者的入院、治疗、护理及出院管理，确保住院服务流程规范，提升患者满意度。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_905062c75a69",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "健康体检服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "为居民提供定期或针对性的健康体检服务，帮助早期发现潜在健康问题，促进健康管理与疾病预防。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1350bf21c986",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "全科诊疗服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "提供全面的医疗诊断和治疗服务，涵盖常见病、多发病的诊治，为居民提供基础的医疗保障，满足日常健康需求。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_10016f33051d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "双向转诊服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "实现基层医疗机构与上级医院之间的患者转诊协调，确保患者在不同层级医疗机构间获得连续性医疗服务。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3369ca50cdf3",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "家庭病床与护理"
+      ],
+      "recommended_grade": "3级",
+      "description": "为行动不便或长期卧床患者提供家庭病床设立及专业护理服务，保障患者在家也能获得必要的医疗支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2c712827b6e4",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "检验检查服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "提供基础的实验室检验和影像检查等辅助诊断服务，为临床诊断和治疗提供科学依据，提升诊疗准确性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b8165cad2756",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "基本医疗服务",
+        "远程会诊服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "通过远程技术与上级医院或专家进行会诊，为基层患者提供高质量的诊疗意见，解决复杂病例的诊治难题。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_74b67dd51f48",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "绩效与薪酬管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "制定并实施绩效考核与薪酬分配制度，激励医务人员工作积极性，促进医疗服务质量和效率的提升。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2b5e9921b82e",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "财务管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "负责基层医疗机构的资金收支、预算编制及财务报表分析，确保财务运作透明合规，支持机构正常运转。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_178006ff1c2d",
+      "path_levels": [
+        "业务资源",
+        "医疗服务(基层)",
+        "运营管理",
+        "资产管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "对基层医疗机构的固定资产、设备等进行统一管理，确保资产使用效率和安全，降低运营风险。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8c792ebc03fc",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "传染病防治监督",
+        "执法人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类存储传染病防治监督中执法人员的基本信息，包括人员身份、培训情况等，为传染病防控执法提供人员支持和管理依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8ce73617f141",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "传染病防治监督",
+        "监督检查信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类记录传染病防治监督中的检查活动信息，包括检查时间、地点、发现问题及整改情况等，为传染病防控提供数据支持和监督保障。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ca4e119b96ba",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "公共卫生监督",
+        "执法人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类涉及公共卫生监督中执法人员的基本信息，包括人员资质、工作分工等，为公共卫生监督执法提供必要的人员管理信息。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2b28f7313664",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "公共卫生监督",
+        "监督检查信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存储与公共卫生相关的监督检查数据，涵盖公共卫生领域的合规性检查、问题发现及整改情况等信息，旨在确保公共卫生服务的质量和安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_aac383a02baa",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "其他"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存放综合监督中其他未明确归类的相关数据或信息，涵盖特殊监督事项或临时性监督任务，保障监督工作的全面性和灵活性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c29802e7a690",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "医疗卫生监督",
+        "执法人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类记录医疗卫生监督工作中执法人员的基本信息，包括身份、资质、职责分工等，为监督执法工作提供人员管理依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9262f1a0d4da",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "医疗卫生监督",
+        "监督检查信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类包含医疗卫生监督过程中开展的检查活动相关信息，如检查时间、对象、结果等，用于规范医疗服务行为和保障服务质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_418a569a4072",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "妇幼健康监督",
+        "执法人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于记录妇幼健康领域的执法人员相关信息，包括人员的基本资料、执法资质及工作安排等，用于支持妇幼健康监督工作的开展。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9142195aca40",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "妇幼健康监督",
+        "监督检查信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存储妇幼健康监督过程中的检查数据，记录对妇幼保健机构、服务质量及安全措施的监督情况，以保障妇女儿童健康权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_590cb60299e9",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "职业与放射卫生监督",
+        "执法人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于记录职业与放射卫生领域的执法人员信息，包括人员身份、资质认证及执法任务分配等，支持相关监督工作的有效实施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2979bccca5e2",
+      "path_levels": [
+        "业务资源",
+        "综合监督",
+        "职业与放射卫生监督",
+        "监督检查信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存储职业与放射卫生监督的检查信息，涵盖职业病防治、放射卫生安全等检查记录，确保工作场所健康与安全符合标准。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_0a77d1a91c16",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "公卫业务管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "关注公共卫生领域的业务管理，涵盖疾病防控、公共卫生项目实施及应急响应等内容，以保障公众健康和安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_754b5c81acf6",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "医疗业务管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "涉及医疗业务的日常管理和运营，包括医疗机构的服务流程、资源配置及业务规范，确保医疗服务的高效性和规范性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e84ac03c902a",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "业务管理",
+        "药品业务管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "专注于药品相关的业务管理，包括药品采购、库存管理、使用监管及安全评估，确保药品使用的合法性和安全性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8e8441c4417b",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生人力资源管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类涉及卫生系统中人力资源的规划、配置及管理信息，涵盖人员招聘、培训、考核等内容，以确保医疗服务团队的专业性和稳定性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_58293999df2f",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生基础设施资源管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类关注卫生基础设施的建设与管理信息，包括医院、诊所等设施的建设状况和使用情况，为基础设施规划和维护提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1ff5d88840d3",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生机构资源管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类聚焦于卫生机构的基本信息管理，包括机构设置、分布、规模等数据，用于支持医疗服务体系的优化和资源合理分配。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f8ff5ecbdaef",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "卫生资源管理",
+        "卫生物资设备管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于记录和管理卫生相关的物资与设备信息，包括采购、库存、使用及维护情况，确保医疗物资和设备的有效供应和使用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a84547a8f6f3",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "个人绩效评估"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对个人工作表现的绩效评估，记录员工在医疗服务、管理或科研中的贡献与成果，用于激励和改进个人工作质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_46b7faed9450",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "指标管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于制定和管理绩效考核中的具体指标，包括指标的设定、权重分配及考核标准，为绩效评估提供科学依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_fd0f7390d7b5",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "机构绩效评估"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对医疗机构的整体绩效评估，分析机构在服务质量、运营效率及社会效益等方面的表现，为机构改进提供参考。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9f5f512cb395",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "绩效考核",
+        "统计分析"
+      ],
+      "recommended_grade": "3级",
+      "description": "通过数据分析和统计方法，对绩效考核结果进行深入研究，挖掘潜在问题和改进空间，为管理决策提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_24b7dc195d28",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "医疗行为监管"
+      ],
+      "recommended_grade": "3级",
+      "description": "对医疗行为进行监督和管理，确保医务人员在诊疗过程中的合规性，防止医疗纠纷和违规行为的发生。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b0a6060b613a",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "医疗质量控制"
+      ],
+      "recommended_grade": "3级",
+      "description": "关注医疗服务的质量控制，涵盖诊疗技术、护理服务及患者安全等方面，旨在提升医疗服务水平和患者满意度。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5c72c42da531",
+      "path_levels": [
+        "业务资源",
+        "综合管理",
+        "行业监管",
+        "基本药物监管"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于管理医疗行业中与业务相关的综合性事务，包括政策制定、组织协调及整体规划等方面的信息，旨在提高管理效率和资源整合能力。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_044f2f20c377",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+医疗保障结算服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储和归类互联网+医疗健康服务中的医疗保障结算数据，记录在线支付和医保结算信息，优化费用管理流程。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f7c5d76217e5",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+医疗服务"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于存储和归类互联网+医疗健康服务中的医疗服务数据，涵盖在线问诊、预约挂号等功能，提升患者就医便捷性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d74632844797",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "互联网+药品供应保障服务"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储和归类互联网+医疗健康服务中的药品供应保障数据，涉及在线药品配送和库存管理，确保药品供应及时性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5338726be2d9",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "互联网+医疗健康",
+        "其他"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于存储和归类互联网+医疗健康服务中其他未明确分类的数据，涵盖新兴服务或特殊功能，适应未来发展需求。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_efd7fa2f70f4",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "住院记录摘要"
+      ],
+      "recommended_grade": "4级",
+      "description": "提取住院记录中的关键信息，形成简要摘要，包含入院原因、主要治疗措施和出院情况等，便于快速查阅和跨机构数据共享。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_fdf1507a99e6",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "手术记录摘要"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于存储和归类电子健康档案中的手术相关信息，包含手术过程、时间及结果的摘要，方便医疗人员查询和分析患者手术史。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8382c1cac8c7",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "检查记录摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储和归类电子健康档案中的检查相关信息，涵盖患者历次检查的基本摘要数据，便于快速了解检查结果和健康状况变化。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_df52c55b64b8",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "检验记录摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "提取检验记录的摘要内容，包括检验项目、结果数据、异常指标等，为医生提供诊断依据，同时便于跟踪患者健康变化趋势。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e345cd6f5659",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "用药记录摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "汇总患者用药历史的摘要数据，记录药物名称、剂量、使用时间和疗效反馈等信息，支持用药安全管理和治疗方案优化。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3dfa1f9861db",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "输血记录摘要"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于存储和归类电子健康档案中的输血相关信息，记录患者输血历史及相关摘要数据，确保输血安全和追踪管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f45d0f6fd535",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "过敏史摘要"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于存储和归类电子健康档案中的过敏史信息，包含患者过敏原及反应情况的摘要，为临床诊疗提供重要参考依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_46ea14e3240e",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子健康档案摘要",
+        "门诊记录摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "整理门诊记录的摘要信息，包括就诊时间、主要症状、诊断结果和治疗建议等，方便医生快速获取患者门诊历史，提升诊疗效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_dee1832ca843",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "住院信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "包含患者住院期间的全面信息，如入院诊断、治疗过程、手术记录、护理情况等，用于跟踪患者病情变化和评估治疗效果，方便医院管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_82987777280c",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "体检信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录患者体检相关数据，包括各项检查指标、健康评估结果等，帮助监测个人健康状况，为预防性医疗和健康管理提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8841ee5ef2e3",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "健康档案信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "存储患者的长期健康档案信息，涵盖个人基本信息、既往病史、家族病史等内容，支持全面了解患者健康背景，辅助临床决策。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8c320f8bf603",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "病历概要信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "包含与电子病历相关的概要信息，提取患者基本就诊记录和关键医疗数据，便于快速了解患者病情和治疗背景，适用于医疗管理和数据共享场景。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7343feccff53",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "电子病历摘要",
+        "门诊信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录患者在门诊就诊过程中的详细信息，包括症状描述、初步诊断、治疗方案等，为医生提供参考，同时支持医疗数据统计和分析。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9d436bc98553",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "远程医疗",
+        "远程会诊"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储和归类远程医疗服务中的会诊相关数据，记录远程会诊的参与方、内容和结论，支持跨区域医疗协作。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_6141c8fe1e3c",
+      "path_levels": [
+        "主题资源",
+        "其他数据库",
+        "远程医疗",
+        "远程影像诊断"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储和归类远程医疗服务中的影像诊断数据，记录远程影像分析和诊断结果，提升诊断效率和资源共享。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e18de24d3bdd",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "其他医学研究数据"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于存储和整理医学研究相关的核心数据，涵盖临床试验、科研项目、病例分析等内容，支持医学研究人员进行数据挖掘和学术分析，确保数据的准确性和完整性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_115868d83545",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究基础信息"
+      ],
+      "recommended_grade": "2级",
+      "description": "存储医学研究的基础信息数据，包括研究对象基本资料、实验设计等内容，为医学研究提供可靠的数据支撑和背景参考。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_63959da5ba3b",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究成果数据"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录医学研究成果相关数据，包括论文、专利、临床试验结果等内容，为医学领域的创新与应用提供重要参考和依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1df6e072b4ba",
+      "path_levels": [
+        "主题资源",
+        "医学研究数据库",
+        "医学研究科学数据"
+      ],
+      "recommended_grade": "4级",
+      "description": "包含医学研究中的科学数据，如实验结果、数据分析、模型参数等信息，用于支持医学研究的深入探索和科学验证。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d39cfc89520e",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "住院摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，用于存储住院摘要相关信息，记录患者住院期间的诊断和治疗数据，为后续医疗服务和健康管理提供重要参考依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3c4e89c5b931",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "健康体检"
+      ],
+      "recommended_grade": "4级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，记录居民健康体检相关信息，包括体检结果和健康评估数据，为个人健康管理提供依据，支持健康监测和干预措施的实施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7f68f15e002b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "居民电子健康档案首页"
+      ],
+      "recommended_grade": "4级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，用于记录居民电子健康档案首页信息，包含居民基本健康概况和档案入口，为健康档案的统一管理和查询提供便捷支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_930b40a19ff2",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "职业病报告卡"
+      ],
+      "recommended_grade": "4级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，用于存储职业病报告卡相关信息，记录职业病患者的诊断和治疗数据，为职业健康管理提供依据，支持相关政策制定和干预。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d8f8ab3aaad8",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "门诊摘要"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，记录门诊摘要相关信息，包括门诊就诊记录和诊断结果，为患者提供连续性医疗服务支持，便于医生快速了解患者病情。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3e8207538a06",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "预防接种卡"
+      ],
+      "recommended_grade": "2级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，用于存储预防接种卡相关数据，记录居民疫苗接种历史和计划，为公共卫生管理提供支持，确保接种信息的完整性和准确性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4b8b99b5a82b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "健康档案基本数据集",
+        "食源性疾病报告卡"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子健康档案数据库中的健康档案基本数据集类目，记录食源性疾病报告卡相关信息，用于追踪和分析食源性疾病的发生情况，为公共卫生部门提供数据支持，保障食品安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_174cd869b617",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "5岁以下儿童死亡报告"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录5岁以下儿童死亡的相关信息，包括死亡原因、时间等，用于分析儿童死亡率及制定防控措施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_5d0fd87be453",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "儿童健康体检"
+      ],
+      "recommended_grade": "4级",
+      "description": "存储儿童健康体检的相关数据，包括生长发育指标、健康状况评估等，用于监测儿童健康发展。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_fd7a5db05304",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "儿童意外伤害防治"
+      ],
+      "recommended_grade": "3级",
+      "description": "收集儿童意外伤害的相关数据，包括伤害类型、发生环境及防治措施，用于减少儿童意外伤害事件。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f94815206396",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "其他"
+      ],
+      "recommended_grade": "4级",
+      "description": "涵盖儿童保健中其他未分类的相关数据，记录特殊情况或补充信息，为全面儿童健康管理提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_6be8b6ea93ed",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "出生医学证明"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录新生儿出生时的医学证明信息，包括出生时间、地点、父母信息等，用于身份确认和后续健康管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_37edf2780605",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "新生儿听力筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "记录新生儿听力筛查数据，旨在早期发现听力障碍问题，为及时干预和治疗提供依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1af7361d6360",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "新生儿遗传代谢病筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "收集新生儿遗传代谢病筛查结果数据，用于早期发现和干预遗传性疾病，保障儿童健康成长。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_460b27e0a411",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "儿童保健",
+        "营养性疾病儿童管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "管理患有营养性疾病儿童的相关数据，包括营养状况评估、干预措施及效果跟踪，确保儿童健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_79fd02dcd699",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "产前筛查与诊断"
+      ],
+      "recommended_grade": "4级",
+      "description": "存储妇女产前筛查与诊断相关数据，如唐氏筛查、超声检查等结果，用于早期发现胎儿异常，及时采取干预措施，确保孕期安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1d8d84385f6b",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "其他"
+      ],
+      "recommended_grade": "4级",
+      "description": "涵盖妇女保健领域其他未分类的数据内容，包括特殊人群健康管理、心理健康支持等信息，为全面保健服务提供补充。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_fdc2500109e1",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "出生缺陷监测"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录出生缺陷相关监测数据，包括新生儿畸形、遗传性疾病等信息，用于分析缺陷发生原因，制定预防策略，降低出生缺陷率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_729cd56cbbdd",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "妇女常见病筛查"
+      ],
+      "recommended_grade": "3级",
+      "description": "包含妇女常见病筛查数据，如乳腺癌、宫颈癌等检查结果，旨在早期发现疾病，提高治愈率，维护妇女身心健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c381614a6a28",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "婚前保健服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录婚前保健服务相关数据，包括健康检查、遗传病筛查及健康指导等，旨在保障婚姻双方及后代健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_47bca89e7870",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "孕产期保健与风险管理"
+      ],
+      "recommended_grade": "4级",
+      "description": "包含孕产期间妇女的保健数据及风险管理记录，涵盖孕期检查、营养指导、疾病防控等内容，旨在保障母婴健康，降低孕产期风险。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e5272804a0c8",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "孕前优生健康检查"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于记录妇女在孕前进行的优生健康检查数据，包括体检结果、遗传病史筛查等信息，帮助评估孕前健康状况，为优生优育提供科学依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_0a1c4f77d862",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "妇女保健",
+        "计划生育技术服务"
+      ],
+      "recommended_grade": "4级",
+      "description": "记录计划生育技术服务相关数据，包括避孕措施指导、手术记录等信息，为妇女提供科学的生育调控支持，保障生殖健康。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_887e663a99d1",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "疾病控制",
+        "慢性病及其危险因素监测"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于记录和监测慢性病及其相关危险因素的数据，涵盖患者的生活方式、环境影响及健康状况等信息，帮助制定疾病防控策略和干预措施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d977c78baf3d",
+      "path_levels": [
+        "主题资源",
+        "电子健康档案数据库",
+        "疾病管理",
+        "肿瘤病例管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子健康档案数据库中的疾病管理类目，专门用于肿瘤病例管理，记录肿瘤患者的诊断、治疗和随访数据，为肿瘤疾病的防控和研究提供支持，提升疾病管理效率和效果。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_21b3080397e5",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "业务运营",
+        "住院业务"
+      ],
+      "recommended_grade": "4级",
+      "description": "此分类用于存储电子病历数据库中与住院业务相关的数据，涵盖住院服务的运营管理、床位使用情况及患者服务流程等信息，提升管理效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_6c9c62509044",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "业务运营",
+        "门急诊业务"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于记录电子病历数据库中与门急诊业务相关的数据，包括门诊和急诊的运营情况、资源分配及服务效率等信息，支持业务优化。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ba9cfb460eea",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "住院就诊信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存储电子病历数据库中住院就诊的临床诊疗信息，涵盖住院患者的病情记录、治疗过程及康复情况等数据，助力医疗质量提升。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c74472bcbb9a",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "检验检查信息"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于存储和管理患者的电子病历数据，包含临床诊疗过程中的检验检查相关信息，支持医疗诊断和治疗决策，确保数据准确性和完整性，方便医务人员查询和分析。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8057d30ab0f9",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "诊断明细信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于记录患者的临床诊疗过程中的详细诊断信息，包括疾病名称、诊断时间等内容，辅助医生进行病情评估和治疗方案制定，提升诊疗效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c7c1bf939454",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "临床诊疗",
+        "门诊就诊信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于记录电子病历数据库中门诊就诊的临床诊疗信息，包括患者门诊记录、诊断结果及治疗方案等数据，支持临床决策和患者管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f7a83649102b",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "其他"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子病历数据库中的基础字典类目，包含医疗行业中的其他通用基础数据，用于支持电子病历系统的多样化需求，确保数据的规范化和可追溯性，方便后续分析和应用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_357bd69049a1",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "医用设备表"
+      ],
+      "recommended_grade": "3级",
+      "description": "电子病历数据库中的基础字典类目，用于存储医疗行业中常用的基础术语和编码信息，方便统一管理和调用，确保数据的一致性和准确性，适用于医用设备相关数据的分类和标准化。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2bd1040b49be",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "医疗机构信息表"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于存储医疗机构的详细信息，包括机构名称、地址、级别等内容，支持医疗资源整合和跨机构协作，提升医疗服务体系的整体效能。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_abe5abe5b1cd",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "患者主索引"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于记录患者的基本身份信息和唯一标识，包括姓名、身份证号等内容，作为患者信息管理的核心索引，确保数据唯一性和安全性。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cea00320286e",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "科室字典表"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于存储医疗机构内部科室的基础信息，包括科室名称、编码、职责等内容，支持医疗资源分配和患者分诊，提高管理效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_2d0f91c4a53b",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "基础字典",
+        "项目/药品字典表"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于维护医疗系统中的项目和药品相关基础数据，包括名称、编码、规格等信息，确保医疗服务和计费的准确性，方便统一管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_f4d0d43deaaa",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "一般处置记录信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于记录患者在医疗过程中接受的一般处置措施信息，包括处置内容、时间等，方便医护人员跟踪患者治疗进展，确保医疗服务质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_60707ed6fe9c",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "体检信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储患者的体检相关数据，包括体检项目、结果和时间等信息，支持健康状况评估和疾病预防，为个性化医疗提供数据支撑。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e8f007d22f3c",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "操作护理记录"
+      ],
+      "recommended_grade": "3级",
+      "description": "用于存储患者在医疗过程中接受的操作护理相关记录，涵盖护理内容、执行时间等信息，支持护理工作的规范化和患者康复跟踪。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e9a36606aca4",
+      "path_levels": [
+        "主题资源",
+        "电子病历数据库",
+        "电子病历",
+        "病程记录"
+      ],
+      "recommended_grade": "4级",
+      "description": "用于记录患者在住院或门诊期间的病程变化信息，包括病情描述、治疗措施等内容，帮助医生全面了解患者病情演变，提供科学依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_cbd10cc1969e",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "人力资源规划",
+        "人力资源表"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于存储医疗行业人力资源规划中的人力资源表相关数据，包含人员结构、分布等信息，为规划和决策提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4f83d5b21c7b",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "人力资源规划",
+        "其他"
+      ],
+      "recommended_grade": "3级",
+      "description": "此分类用于归档医疗行业人力资源规划中的其他相关内容，涵盖未分类的具体规划细节或补充信息，为全面管理提供辅助。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_057a04bbbaff",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "劳动关系管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涵盖医疗行业中与员工劳动合同、劳动纠纷处理、劳动权益保障等相关事务的管理，确保劳动关系的合法性与稳定性，维护企业和员工双方利益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_8caf037eca49",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "培训与开发"
+      ],
+      "recommended_grade": "2级",
+      "description": "此分类用于存储医疗行业人力资源管理中的培训与开发相关数据，涉及员工技能提升、职业发展计划等内容，为人才培养提供支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_aa7cccb81204",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "招聘与配置"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类用于记录医疗行业人力资源管理中的招聘与配置相关信息，包括招聘计划、岗位匹配等内容，为人员引进和分配提供指导。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_7a38fe3de4c9",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "绩效管理"
+      ],
+      "recommended_grade": "2级",
+      "description": "用于管理医疗行业中人力资源的绩效评估和考核体系，包括员工表现、目标达成情况等信息的记录与分析，旨在提升组织效率和个人工作表现。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_11a256633e13",
+      "path_levels": [
+        "基础资源",
+        "人力资源",
+        "薪酬福利管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及医疗行业人力资源的薪酬结构设计、福利政策制定及发放管理，确保员工薪资公平合理，并符合法规要求，提升员工满意度。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_1f441f3d8b3c",
+      "path_levels": [
+        "基础资源",
+        "单位法人"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类用于存储医疗行业中单位法人的相关信息，涵盖医疗机构或其他医疗相关实体的法人登记、资质认证等基础数据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_bddf0649ce1b",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "全民健康信息平台"
+      ],
+      "recommended_grade": "2级",
+      "description": "全民健康信息平台是整合全国范围内个人健康数据的重要基础设施，支持跨区域、跨机构的健康信息共享与管理，为公共卫生决策和个人健康服务提供全面的数据支撑。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_d9690686f551",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "医院信息平台"
+      ],
+      "recommended_grade": "2级",
+      "description": "医院信息平台是医疗机构内部信息化管理的核心系统，涵盖患者信息、诊疗记录、资源调度等功能，旨在提升医院运营效率和服务质量，确保医疗数据的安全与准确。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_24b1d849e597",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "应用系统"
+      ],
+      "recommended_grade": "2级",
+      "description": "应用系统是指在卫生健康领域中为特定业务或场景设计的软件系统，如电子病历、预约挂号等，用于支持医疗服务的数字化转型和智能化管理。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_92b068b8028a",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "业务指标类数据查询接口"
+      ],
+      "recommended_grade": "2级",
+      "description": "业务指标类数据查询接口用于获取与医疗业务相关的关键绩效指标数据，如床位周转率、门诊量等，辅助管理者进行资源分配和业务优化。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_3e11921496b4",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "医疗信息类数据接口"
+      ],
+      "recommended_grade": "3级",
+      "description": "医疗信息类数据接口提供与患者诊疗相关的详细信息交互功能，包括病历、处方、影像数据等，支持临床信息共享和医疗协同工作。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c351b9feab1c",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "医疗指标类数据查询接口"
+      ],
+      "recommended_grade": "3级",
+      "description": "医疗指标类数据查询接口专注于提供与医疗质量和效果相关的指标数据，如手术成功率、感染率等，为医疗机构质量评估和改进提供数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9e03b97daadd",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "基础数据查询接口"
+      ],
+      "recommended_grade": "2级",
+      "description": "基础数据查询接口提供卫生健康领域的基本数据访问功能，如科室信息、人员信息、设备信息等，为各类应用系统提供底层数据支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_edf5d491d46d",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "标签类数据接口"
+      ],
+      "recommended_grade": "3级",
+      "description": "标签类数据接口用于获取与数据分类或标识相关的标签信息，如疾病分类、患者分组等，方便数据分析和个性化医疗服务的实施。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_fafc53f91384",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "检验检查实时接口"
+      ],
+      "recommended_grade": "2级",
+      "description": "检验检查实时接口提供医疗机构间检验和检查数据的即时交互功能，确保患者诊断数据的及时性和一致性，支持临床决策和跨机构协作。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_adcda9feffaa",
+      "path_levels": [
+        "基础资源",
+        "卫生健康信息化",
+        "数据接口",
+        "过程类数据查询接口"
+      ],
+      "recommended_grade": "3级",
+      "description": "过程类数据查询接口用于查询医疗服务过程中的各类数据，如诊疗流程、护理记录等，帮助分析和优化医疗服务环节，提升患者体验。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b58d8af2a731",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "60周岁以上老年人"
+      ],
+      "recommended_grade": "4级",
+      "description": "60周岁以上老年人的相关数据包括身份、健康状况等信息，需特别关注保护其隐私，确保数据安全和老年人的合法权益。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_81e107d91335",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "健康人",
+        "个人信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "健康人的个人信息包括身份、联系方式等基本数据，用于健康管理或预防服务，需妥善保护以避免隐私侵犯和不当使用。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4261b89e7233",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "健康人",
+        "个人敏感信息"
+      ],
+      "recommended_grade": "4级",
+      "description": "健康人的个人敏感信息涉及健康状况、基因数据等私密内容，需高度保护以防止泄露，确保个人隐私和数据安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c4c0b363758a",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "医务人员",
+        "医务人员信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "医务人员信息包括医生的身份、资质、联系方式等基本资料，用于医疗服务管理和沟通，需保护以确保工作安全和隐私。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_267e6752a079",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "医务人员",
+        "医务人员敏感信息"
+      ],
+      "recommended_grade": "4级",
+      "description": "医务人员敏感信息涉及医务人员的个人健康状况、家庭信息等私密数据，需严格保密以保护其个人隐私和职业安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_506492dad34b",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "患者",
+        "患者信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "患者信息包括患者的身份识别、联系方式等基本资料，用于医疗服务中的身份确认和沟通，确保医疗服务的准确性和连续性，涉及患者的基本隐私保护。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_73453c5e90a6",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "患者",
+        "患者敏感信息"
+      ],
+      "recommended_grade": "4级",
+      "description": "患者敏感信息涵盖患者的病历、诊断结果、治疗方案等高度私密数据，需严格保密以防止泄露，确保患者权益和医疗伦理的遵守。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_161d4705d39c",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "未满14周岁未成年人"
+      ],
+      "recommended_grade": "4级",
+      "description": "未满14周岁未成年人的相关数据涉及其身份、健康状况等信息，需特别保护以符合法律要求，确保其隐私和权益不受侵害。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4f85c03c646a",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "管理者",
+        "管理者信息"
+      ],
+      "recommended_grade": "3级",
+      "description": "管理者信息包括管理人员的身份、职务、联系方式等基本数据，用于医疗机构的行政管理和决策支持，需妥善保护以确保管理安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_9ec1e617cbe9",
+      "path_levels": [
+        "基础资源",
+        "服务范围与对象",
+        "管理者",
+        "管理者敏感信息"
+      ],
+      "recommended_grade": "4级",
+      "description": "管理者敏感信息涵盖管理人员的个人背景、财务信息等高度私密内容，需严格保护以防止泄露，确保个人隐私和机构安全。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b071820318f2",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "标准规范",
+        "地方标准"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类用于收集医疗行业的地方标准，涉及地方性技术规范和操作指南，为医疗服务和设备管理提供统一的技术依据和标准。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4fd5a948a530",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "法规规章",
+        "地方性法规"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类用于存储与医疗行业相关的法律法规中的地方性法规内容，涵盖地方立法机构制定的规范性文件，为医疗行业的合规性提供法律依据和指导。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ed05b2ef12b2",
+      "path_levels": [
+        "基础资源",
+        "法律法规",
+        "法规规章",
+        "市政府规章"
+      ],
+      "recommended_grade": "1级",
+      "description": "此分类用于归档医疗行业相关的市政府规章，包含由市政府制定并发布的规范性文件，旨在指导和约束地方医疗行业的管理和运营行为。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_e327355c0928",
+      "path_levels": [
+        "基础资源",
+        "编制体制",
+        "人员编制"
+      ],
+      "recommended_grade": "2级",
+      "description": "此分类用于记录医疗行业内人员编制的相关数据，包括人员数量、岗位分配等信息，为人力资源管理提供基础支持。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_dbf5a2438e5f",
+      "path_levels": [
+        "基础资源",
+        "编制体制",
+        "机构体制"
+      ],
+      "recommended_grade": "2级",
+      "description": "此分类用于归档医疗行业机构体制的相关信息，涉及机构设置、职能划分等内容，为组织架构管理提供依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_b13ad607fcbd",
+      "path_levels": [
+        "基础资源",
+        "设备资源",
+        "硬件设备"
+      ],
+      "recommended_grade": "2级",
+      "description": "涉及医疗行业中硬件设备如医疗器械、办公设备等的采购、维护和更新管理，确保设备正常运行，支持医疗服务质量。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_638278652f2e",
+      "path_levels": [
+        "基础资源",
+        "设备资源",
+        "软件设备"
+      ],
+      "recommended_grade": "2级",
+      "description": "涵盖医疗行业中软件系统的开发、部署、维护及升级管理，确保信息系统的稳定性和安全性，提升医疗服务效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_c0b635b3cafd",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "会计信息管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "用于医疗行业中会计信息的收集、处理、分析和报告，确保财务数据的准确性和透明度，为决策提供可靠依据。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_4e73f886fe85",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资产管理",
+        "固定资产管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及医疗行业中固定资产的采购、使用、维护及处置管理，确保资产安全完整，延长使用寿命，提升资源利用效率。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_a7de194676c2",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资产管理",
+        "无形资产管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "针对医疗行业中无形资产如专利、商标、软件版权等的管理，保护知识产权，确保其价值最大化并符合法律规范。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_308907157cda",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "资金管理"
+      ],
+      "recommended_grade": "3级",
+      "description": "涉及医疗行业中资金的筹集、分配、使用及监控，确保资金流动性和安全性，支持机构日常运营及战略目标的实现。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
+    },
+    {
+      "row_id": "row_excel_ebe4556e1147",
+      "path_levels": [
+        "基础资源",
+        "财务资源",
+        "预算管理"
+      ],
+      "recommended_grade": "1级",
+      "description": "用于医疗行业中财务资源的预算编制、执行和监控，确保资金分配合理，支持机构运营和发展目标的实现，防范财务风险。",
+      "description_source": "classification_standard_excel",
+      "source_confidence": "curated_answer",
+      "row_source": "classification_standard_excel",
+      "curation_status": "classification_standard_excel_import"
     }
   ],
   "validation_issues": []
