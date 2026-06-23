@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from ..core.agent_state import AgentState
@@ -42,13 +43,19 @@ def _raise_for_unsupported_row_first_inputs(input_files: list[str]) -> None:
         )
 
 
+def _env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
 def create_plan(task_type: str) -> list[dict]:
     if task_type == "generate_rule_tree_from_docs":
-        return [
+        plan = [
             {"tool": "parse_documents", "label": "Parse source documents"},
             {"tool": "chunk_documents", "label": "Chunk documents"},
             {"tool": "build_evidence_index", "label": "Build evidence index"},
-            {"tool": "extract_evidence_claims_with_llm", "label": "Extract evidence claims with LLM"},
             {"tool": "classify_document_blocks_with_llm", "label": "Classify document blocks with LLM"},
             {"tool": "extract_classification_rows_with_llm", "label": "Extract classification rows with LLM"},
             {"tool": "extract_grade_definitions_with_llm", "label": "Extract grade definitions with LLM"},
@@ -59,6 +66,12 @@ def create_plan(task_type: str) -> list[dict]:
             {"tool": "project_tree_from_rows", "label": "Project tree from rows"},
             {"tool": "export_outputs", "label": "Export outputs"},
         ]
+        if _env_bool("CLAIMS_ENABLED", False):
+            plan.insert(
+                3,
+                {"tool": "extract_evidence_claims_with_llm", "label": "Extract evidence claims with LLM"},
+            )
+        return plan
     return []
 
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 import unittest
@@ -12,6 +13,15 @@ from src.pipeline.agent_executor import _run_llm_steps, _run_step, create_plan, 
 
 
 class RowFirstPipelineTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self._original_claims_enabled = os.environ.pop("CLAIMS_ENABLED", None)
+
+    def tearDown(self) -> None:
+        if self._original_claims_enabled is not None:
+            os.environ["CLAIMS_ENABLED"] = self._original_claims_enabled
+        else:
+            os.environ.pop("CLAIMS_ENABLED", None)
+
     def test_default_plan_uses_row_first_steps_and_not_tree_first_steps(self) -> None:
         tools = [step["tool"] for step in create_plan("generate_rule_tree_from_docs")]
 
@@ -29,7 +39,6 @@ class RowFirstPipelineTests(unittest.TestCase):
                 "parse_documents",
                 "chunk_documents",
                 "build_evidence_index",
-                "extract_evidence_claims_with_llm",
                 "classify_document_blocks_with_llm",
                 "extract_classification_rows_with_llm",
                 "extract_grade_definitions_with_llm",
@@ -40,6 +49,16 @@ class RowFirstPipelineTests(unittest.TestCase):
                 "project_tree_from_rows",
                 "export_outputs",
             ],
+        )
+
+    def test_claim_extraction_can_be_enabled_for_audit_reports(self) -> None:
+        with patch.dict("os.environ", {"CLAIMS_ENABLED": "true"}):
+            tools = [step["tool"] for step in create_plan("generate_rule_tree_from_docs")]
+
+        self.assertIn("extract_evidence_claims_with_llm", tools)
+        self.assertLess(
+            tools.index("extract_evidence_claims_with_llm"),
+            tools.index("classify_document_blocks_with_llm"),
         )
 
     def test_rejects_pdf_inputs_for_row_first_mvp(self) -> None:

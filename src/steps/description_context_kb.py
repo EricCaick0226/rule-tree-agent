@@ -77,7 +77,7 @@ def _apply_insufficient_description(row: ClassificationRow, reason: str) -> None
 def _apply_label_only_description_policy(state: AgentState) -> int:
     changed = 0
     for row in state.classification_rows:
-        if row.description_source == "reference_library":
+        if _should_skip_description_generation(row):
             continue
         if row.description_source == "insufficient" or not str(row.description or "").strip():
             continue
@@ -91,8 +91,11 @@ def _apply_label_only_description_policy(state: AgentState) -> int:
 
 
 def _should_skip_description_generation(row: Any) -> bool:
+    prefilled_fields = getattr(row, "reference_prefilled_fields", [])
     return bool(
         getattr(row, "description_source", "") == "reference_library"
+        or getattr(row, "description_source", "") == "classification_standard_excel"
+        or "description" in prefilled_fields
         or getattr(row, "evidence_status", "") == "reference_only"
         or getattr(row, "inclusion_status", "") == "review_candidate"
     )

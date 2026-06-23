@@ -325,6 +325,48 @@ class DescriptionContextKBTests(unittest.TestCase):
         self.assertIn("基于检索上下文总结生成", row.review_reason)
         self.assertEqual(state.step_traces[-1].status, "success")
 
+    def test_enhancement_skips_reference_prefilled_descriptions(self) -> None:
+        state = AgentState(
+            task="test",
+            documents=[
+                SourceDocument(
+                    "doc_1",
+                    "source.txt",
+                    "source.txt",
+                    "基础资源 服务范围与对象 患者 患者信息",
+                )
+            ],
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者", "患者信息"],
+                    description="患者信息包括患者身份识别和联系方式等基本资料。",
+                    description_source="classification_standard_excel",
+                    reference_prefilled_fields=["description"],
+                    evidence_quote="基础资源 服务范围与对象 患者 患者信息",
+                )
+            ],
+        )
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch.dict(
+                "os.environ",
+                {
+                    "DESCRIPTION_CONTEXT_ENABLED": "true",
+                    "DESCRIPTION_CONTEXT_LIMIT": "5",
+                },
+            ):
+                with patch("src.steps.description_context_kb.generate_description_candidates_batched") as generate:
+                    result = enhance_descriptions_with_context(state, object(), output_dir=tmpdir)
+
+            report = json.loads((Path(tmpdir) / "description_context_report.json").read_text(encoding="utf-8"))
+
+        generate.assert_not_called()
+        row = result.classification_rows[0]
+        self.assertEqual(row.description_source, "classification_standard_excel")
+        self.assertEqual(report["sampled_row_count"], 0)
+        self.assertEqual(state.step_traces[-1].output_summary["enhanced_rows"], 0)
+
     def test_enhancement_step_applies_llm_insufficient_for_weak_description(self) -> None:
         state = AgentState(
             task="test",
