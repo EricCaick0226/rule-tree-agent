@@ -48,6 +48,13 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
                                 {"reference_row_id": "ref_software"}
                             ],
                         },
+                        {
+                            "row_id": "term_definition",
+                            "path_levels": ["术语和定义", "核心数据"],
+                            "description": "核心数据是指...",
+                            "description_source": "quoted",
+                            "review_reason": "原文为术语定义段落而非标准分类分级表格明细行，需人工确认是否作为分级基准行纳入规则树。",
+                        },
                     ],
                     "validation_issues": [],
                 },
@@ -72,6 +79,13 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
                             "level": 3,
                             "parent_id": "old_parent",
                         },
+                        {
+                            "node_id": "old_term",
+                            "name": "核心数据",
+                            "path": "术语和定义 / 核心数据",
+                            "level": 2,
+                            "parent_id": "old_terms",
+                        },
                     ],
                     "llm_enabled": True,
                     "llm_used": True,
@@ -90,9 +104,11 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
             has_review_report = (output_dir / "review_report.md").exists()
             has_candidates_md = (output_dir / "reference_candidates.md").exists()
 
-        self.assertEqual(summary["original_rows"], 2)
+        self.assertEqual(summary["original_rows"], 3)
         self.assertEqual(summary["classification_rows"], 1)
         self.assertEqual(summary["reference_candidate_rows"], 1)
+        table_paths = [" / ".join(row["path_levels"]) for row in table["classification_rows"]]
+        self.assertNotIn("术语和定义 / 核心数据", table_paths)
         self.assertEqual(table["classification_rows"][0]["row_id"], "current")
         self.assertFalse(table["classification_rows"][0]["needs_review"])
         self.assertEqual(table["classification_rows"][0]["review_reason"], "")
@@ -101,6 +117,7 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
         node_paths = [node["path"] for node in tree["nodes"]]
         self.assertIn("基础资源 / 设备资源 / 硬件设备", node_paths)
         self.assertNotIn("基础资源 / 设备资源 / 软件设备", node_paths)
+        self.assertNotIn("术语和定义 / 核心数据", node_paths)
         self.assertFalse(has_review_report)
         self.assertFalse(has_candidates_md)
         self.assertIn("- Reference candidate rows: 1", readme)

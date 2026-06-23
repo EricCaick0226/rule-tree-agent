@@ -27,6 +27,7 @@ from src.core.agent_state import (  # noqa: E402
     ValidationIssue,
 )
 from src.output.exporter import export_outputs  # noqa: E402
+from src.steps.classification_row_normalizer import filter_non_classification_rows  # noqa: E402
 from src.steps.reference_row_prefill import clear_curated_reference_review_flags  # noqa: E402
 from src.steps.tree_projector import project_tree_from_rows  # noqa: E402
 
@@ -228,6 +229,7 @@ def split_reference_candidates(input_dir: Path, output_dir: Path) -> dict[str, i
     state = _load_state_from_rule_table(rule_table_path)
     state = _merge_run_state(input_dir, state)
     original_rows = len(state.classification_rows) + len(state.reference_candidate_rows)
+    excluded_non_classification_rows = filter_non_classification_rows(state)
     state = clear_curated_reference_review_flags(state)
     state = project_tree_from_rows(state)
     export_outputs(state, str(output_dir))
@@ -235,6 +237,7 @@ def split_reference_candidates(input_dir: Path, output_dir: Path) -> dict[str, i
         "original_rows": original_rows,
         "classification_rows": len(state.classification_rows),
         "reference_candidate_rows": len(state.reference_candidate_rows),
+        "excluded_non_classification_rows": excluded_non_classification_rows,
         "reference_prefilled_rows": sum(
             1 for row in state.classification_rows if row.reference_prefilled_fields
         ),

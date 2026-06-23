@@ -152,6 +152,45 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
         self.assertEqual(explanatory.description_source, "quoted")
         self.assertFalse(explanatory.needs_review)
 
+    def test_filters_term_definition_rows_from_main_classification_rows(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="term_1",
+                    path_levels=["术语和定义", "核心数据"],
+                    description="核心数据是指...",
+                    description_source="quoted",
+                    review_reason="原文为术语定义段落而非标准分类分级表格明细行，需人工确认是否作为分级基准行纳入规则树。",
+                ),
+                ClassificationRow(
+                    row_id="term_2",
+                    path_levels=["个人信息"],
+                    description="个人信息是指...",
+                    description_source="quoted",
+                    review_reason="术语定义条目，非标准表格明细行，需人工确认分类路径归属",
+                ),
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者"],
+                    description="患者相关信息。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(
+            result.classification_rows[0].path_levels,
+            ["基础资源", "服务范围与对象", "患者"],
+        )
+        self.assertEqual(
+            result.step_traces[-1].output_summary["excluded_non_classification_rows"],
+            2,
+        )
+
     def test_duplicate_prefers_refs_and_explicit_support_over_quoted_no_refs(self) -> None:
         state = AgentState(
             task="test",
