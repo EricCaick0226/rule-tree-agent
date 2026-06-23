@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from dataclasses import asdict
 from pathlib import Path
@@ -11,6 +12,12 @@ from ..core.agent_state import AgentState, TreeNode
 LEVEL_NAMES = "一二三四五六七八九十"
 HIERARCHICAL_CODE_RE = re.compile(r"(?<!\d)\d+(?:\s*[.．]\s*\d+)+(?!\d)")
 NUMERIC_LEVEL_RE = re.compile(r"^\d+(?:\s*[.．]\s*\d+)*$")
+RUN_QUALITY_THRESHOLDS = {
+    "min_rows": "RUN_QUALITY_MIN_ROWS",
+    "min_quoted_descriptions": "RUN_QUALITY_MIN_QUOTED_DESCRIPTIONS",
+    "max_insufficient_descriptions": "RUN_QUALITY_MAX_INSUFFICIENT_DESCRIPTIONS",
+    "min_reference_prefilled_rows": "RUN_QUALITY_MIN_REFERENCE_PREFILLED_ROWS",
+}
 
 
 def _level_column(index: int) -> str:
@@ -74,6 +81,133 @@ def _reference_candidates_md(state: AgentState) -> str:
             row.review_reason,
         ]
         lines.append("| " + " | ".join(_safe_md_cell(cell) for cell in cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
+def _optional_env_int(name: str) -> int | None:
+    value = os.getenv(name, "").strip()
+    if not value:
+        return None
+    try:
+        return int(value)
+    except ValueError:
+        return None
+
+
+def _run_quality_json(state: AgentState) -> dict:
+    description_sources: dict[str, int] = {}
+    support_levels: dict[str, int] = {}
+    for row in state.classification_rows:
+        description_sources[row.description_source] = (
+            description_sources.get(row.description_source, 0) + 1
+        )
+        support_levels[row.support_level] = support_levels.get(row.support_level, 0) + 1
+
+    metrics = {
+        "classification_rows": len(state.classification_rows),
+        "reference_candidate_rows": len(state.reference_candidate_rows),
+        "reference_prefilled_rows": sum(
+            1 for row in state.classification_rows if row.reference_prefilled_fields
+        ),
+        "validation_issues": len(state.validation_issues),
+        "description_sources": dict(sorted(description_sources.items())),
+        "support_levels": dict(sorted(support_levels.items())),
+    }
+    thresholds = {
+        key: _optional_env_int(env_name)
+        for key, env_name in RUN_QUALITY_THRESHOLDS.items()
+    }
+    reasons: list[dict[str, object]] = []
+    min_rows = thresholds["min_rows"]
+    if min_rows is not None and metrics["classification_rows"] < min_rows:
+        reasons.append(
+            {
+                "code": "classification_rows_below_min",
+                "metric": "classification_rows",
+                "actual": metrics["classification_rows"],
+                "threshold": min_rows,
+            }
+        )
+    min_quoted = thresholds["min_quoted_descriptions"]
+    quoted_count = description_sources.get("quoted", 0)
+    if min_quoted is not None and quoted_count < min_quoted:
+        reasons.append(
+            {
+                "code": "quoted_descriptions_below_min",
+                "metric": "description_sources.quoted",
+                "actual": quoted_count,
+                "threshold": min_quoted,
+            }
+        )
+    max_insufficient = thresholds["max_insufficient_descriptions"]
+    insufficient_count = description_sources.get("insufficient", 0)
+    if max_insufficient is not None and insufficient_count > max_insufficient:
+        reasons.append(
+            {
+                "code": "insufficient_descriptions_above_max",
+                "metric": "description_sources.insufficient",
+                "actual": insufficient_count,
+                "threshold": max_insufficient,
+            }
+        )
+    min_prefilled = thresholds["min_reference_prefilled_rows"]
+    if min_prefilled is not None and metrics["reference_prefilled_rows"] < min_prefilled:
+        reasons.append(
+            {
+                "code": "reference_prefilled_rows_below_min",
+                "metric": "reference_prefilled_rows",
+                "actual": metrics["reference_prefilled_rows"],
+                "threshold": min_prefilled,
+            }
+        )
+    return {
+        "status": "degraded" if reasons else "passed",
+        "metrics": metrics,
+        "thresholds": thresholds,
+        "reasons": reasons,
+    }
+
+
+def _run_quality_md(state: AgentState) -> str:
+    quality = _run_quality_json(state)
+    metrics = quality["metrics"]
+    thresholds = quality["thresholds"]
+    reasons = quality["reasons"]
+    lines = [
+        "# Run Quality",
+        "",
+        f"- Status: {quality['status']}",
+        f"- Classification rows: {metrics['classification_rows']}",
+        f"- Reference candidate rows: {metrics['reference_candidate_rows']}",
+        f"- Reference-prefilled rows: {metrics['reference_prefilled_rows']}",
+        f"- Validation issues: {metrics['validation_issues']}",
+        "",
+        "## Description Sources",
+        "",
+    ]
+    description_sources = metrics["description_sources"]
+    if description_sources:
+        for source, count in description_sources.items():
+            lines.append(f"- `{source}`: {count}")
+    else:
+        lines.append("(none)")
+
+    lines.extend(["", "## Thresholds", ""])
+    configured = {key: value for key, value in thresholds.items() if value is not None}
+    if configured:
+        for key, value in configured.items():
+            lines.append(f"- `{key}`: {value}")
+    else:
+        lines.append("(none configured)")
+
+    lines.extend(["", "## Degradation Reasons", ""])
+    if reasons:
+        for reason in reasons:
+            lines.append(
+                "- {code}: {metric} actual={actual} threshold={threshold}".format(**reason)
+            )
+    else:
+        lines.append("(none)")
     return "\n".join(lines) + "\n"
 
 
@@ -252,6 +386,7 @@ def _review_report(state: AgentState) -> str:
         "# Human Review Report",
         "",
         "## Summary",
+        f"- Run quality: {_run_quality_json(state)['status']}",
         f"- LLM enabled: {'yes' if state.llm_enabled else 'no'}",
         f"- LLM used: {'yes' if state.llm_used else 'no'}",
         f"- LLM model: {state.llm_model if state.llm_enabled else 'not used'}",
@@ -385,6 +520,8 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     table_md_path = out_dir / "rule_table.md"
     reference_candidates_json_path = out_dir / "reference_candidates.json"
     reference_candidates_md_path = out_dir / "reference_candidates.md"
+    run_quality_json_path = out_dir / "run_quality.json"
+    run_quality_md_path = out_dir / "run_quality.md"
     report_path = out_dir / "review_report.md"
     state.output_paths = {
         "rule_tree_json": str(json_path),
@@ -393,6 +530,8 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         "rule_table_md": str(table_md_path),
         "reference_candidates_json": str(reference_candidates_json_path),
         "reference_candidates_md": str(reference_candidates_md_path),
+        "run_quality_json": str(run_quality_json_path),
+        "run_quality_md": str(run_quality_md_path),
         "review_report_md": str(report_path),
     }
     if trace_dir:
@@ -416,6 +555,11 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         _reference_candidates_md(state),
         encoding="utf-8",
     )
+    run_quality_json_path.write_text(
+        json.dumps(_run_quality_json(state), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    run_quality_md_path.write_text(_run_quality_md(state), encoding="utf-8")
 
     tree_lines = [
         "# Candidate Rule Tree",

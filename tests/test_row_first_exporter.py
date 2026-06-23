@@ -4,6 +4,7 @@ import json
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
 from src.core.agent_state import AgentState, ClassificationRow, ClassificationSchema
 from src.output.exporter import export_outputs
@@ -235,6 +236,59 @@ class RowFirstExporterTests(unittest.TestCase):
         )
         self.assertIn("软件设备", candidates_md)
         self.assertIn("- Reference candidate rows: 1", report)
+
+    def test_exports_degraded_run_quality_when_thresholds_are_missed(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="quoted",
+                    path_levels=["基础资源", "患者"],
+                    description="患者信息说明。",
+                    description_source="quoted",
+                ),
+                ClassificationRow(
+                    row_id="weak",
+                    path_levels=["基础资源", "管理者"],
+                    description_source="insufficient",
+                ),
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            with patch.dict(
+                "os.environ",
+                {
+                    "RUN_QUALITY_MIN_ROWS": "3",
+                    "RUN_QUALITY_MIN_QUOTED_DESCRIPTIONS": "2",
+                    "RUN_QUALITY_MAX_INSUFFICIENT_DESCRIPTIONS": "0",
+                    "RUN_QUALITY_MIN_REFERENCE_PREFILLED_ROWS": "1",
+                },
+            ):
+                result = export_outputs(state, tmp)
+            quality = json.loads(
+                Path(result.output_paths["run_quality_json"]).read_text(encoding="utf-8")
+            )
+            quality_md = Path(result.output_paths["run_quality_md"]).read_text(encoding="utf-8")
+            report = Path(result.output_paths["review_report_md"]).read_text(encoding="utf-8")
+
+        self.assertEqual(quality["status"], "degraded")
+        self.assertEqual(quality["metrics"]["classification_rows"], 2)
+        self.assertEqual(quality["metrics"]["description_sources"]["quoted"], 1)
+        self.assertEqual(quality["metrics"]["description_sources"]["insufficient"], 1)
+        self.assertEqual(quality["metrics"]["reference_prefilled_rows"], 0)
+        self.assertEqual(
+            [reason["code"] for reason in quality["reasons"]],
+            [
+                "classification_rows_below_min",
+                "quoted_descriptions_below_min",
+                "insufficient_descriptions_above_max",
+                "reference_prefilled_rows_below_min",
+            ],
+        )
+        self.assertIn("# Run Quality", quality_md)
+        self.assertIn("- Status: degraded", quality_md)
+        self.assertIn("- Run quality: degraded", report)
 
 
 if __name__ == "__main__":
