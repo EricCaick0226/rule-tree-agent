@@ -332,7 +332,7 @@ def apply_reference_row_reuse(
                 continue
             candidate_rows.append(_candidate_from_reference(reference, reference_row))
 
-    state.classification_rows.extend(candidate_rows)
+    state.reference_candidate_rows = candidate_rows
     append_step_trace(
         state.step_traces,
         "apply_reference_row_reuse",
@@ -350,6 +350,7 @@ def apply_reference_row_reuse(
             "reused_fields": reused_fields,
             "candidate_rows": len(candidate_rows),
             "classification_rows": len(state.classification_rows),
+            "reference_candidate_rows": len(state.reference_candidate_rows),
         },
     )
     return state

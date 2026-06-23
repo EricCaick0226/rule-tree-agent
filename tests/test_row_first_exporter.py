@@ -192,6 +192,50 @@ class RowFirstExporterTests(unittest.TestCase):
             report,
         )
 
+    def test_exports_reference_candidates_separately_from_rule_table(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                )
+            ],
+            reference_candidate_rows=[
+                ClassificationRow(
+                    row_id="candidate",
+                    path_levels=["基础资源", "设备资源", "软件设备"],
+                    description="软件设备相关信息。",
+                    description_source="reference_library",
+                    row_source="reference_library",
+                    content_source="reference_library",
+                    inclusion_status="review_candidate",
+                    evidence_status="reference_only",
+                    needs_review=True,
+                )
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            result = export_outputs(state, tmp)
+            table = json.loads(Path(result.output_paths["rule_table_json"]).read_text(encoding="utf-8"))
+            candidates = json.loads(
+                Path(result.output_paths["reference_candidates_json"]).read_text(encoding="utf-8")
+            )
+            candidates_md = Path(result.output_paths["reference_candidates_md"]).read_text(
+                encoding="utf-8"
+            )
+            report = Path(result.output_paths["review_report_md"]).read_text(encoding="utf-8")
+
+        self.assertEqual(len(table["classification_rows"]), 1)
+        self.assertEqual(len(candidates["reference_candidate_rows"]), 1)
+        self.assertEqual(
+            candidates["reference_candidate_rows"][0]["path_levels"],
+            ["基础资源", "设备资源", "软件设备"],
+        )
+        self.assertIn("软件设备", candidates_md)
+        self.assertIn("- Reference candidate rows: 1", report)
+
 
 if __name__ == "__main__":
     unittest.main()

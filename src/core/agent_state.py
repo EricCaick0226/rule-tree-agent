@@ -178,6 +178,7 @@ class AgentState:
     block_signals: dict[str, dict[str, Any]] = field(default_factory=dict)
     classification_schema: Optional[ClassificationSchema] = None
     classification_rows: list[ClassificationRow] = field(default_factory=list)
+    reference_candidate_rows: list[ClassificationRow] = field(default_factory=list)
     nodes: list[TreeNode] = field(default_factory=list)
     validation_issues: list[ValidationIssue] = field(default_factory=list)
     output_paths: dict[str, str] = field(default_factory=dict)

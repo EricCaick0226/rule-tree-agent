@@ -179,7 +179,7 @@ def generate_reference_reuse_report(
     ]
     review_candidates = [
         _review_candidate_payload(row)
-        for row in state.classification_rows[original_count:]
+        for row in state.reference_candidate_rows
         if row.inclusion_status == "review_candidate"
     ]
     match_types = Counter(

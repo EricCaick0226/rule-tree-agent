@@ -34,6 +34,49 @@ def _rule_table_json(state: AgentState) -> dict:
     }
 
 
+def _reference_candidates_json(state: AgentState) -> dict:
+    return {
+        "reference_candidate_rows": [
+            asdict(row) for row in state.reference_candidate_rows
+        ],
+    }
+
+
+def _reference_candidates_md(state: AgentState) -> str:
+    lines = [
+        "# Reference Candidate Rows",
+        "",
+        "> These rows come from the reference library and were not directly matched to the current document. Review before adding them to the main rule table.",
+        "",
+        f"- Candidate rows: {len(state.reference_candidate_rows)}",
+        "",
+    ]
+    if not state.reference_candidate_rows:
+        lines.append("(none)")
+        return "\n".join(lines) + "\n"
+
+    headers = [
+        "分类路径",
+        "分类说明",
+        "参考行",
+        "需复核",
+        "复核原因",
+    ]
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join(["---"] * len(headers)) + " |")
+    for row in state.reference_candidate_rows:
+        match = row.reference_matches[0] if row.reference_matches else {}
+        cells = [
+            " / ".join(row.path_levels),
+            row.description,
+            str(match.get("reference_row_id") or ""),
+            "yes" if row.needs_review else "no",
+            row.review_reason,
+        ]
+        lines.append("| " + " | ".join(_safe_md_cell(cell) for cell in cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
 def _rule_table_md(state: AgentState) -> str:
     schema_depth = state.classification_schema.max_depth if state.classification_schema else 0
     row_depth = max((len(row.path_levels) for row in state.classification_rows), default=0)
@@ -179,11 +222,7 @@ def _review_report(state: AgentState) -> str:
     reference_prefilled_rows = sum(
         1 for row in state.classification_rows if row.reference_prefilled_fields
     )
-    reference_candidate_rows = sum(
-        1
-        for row in state.classification_rows
-        if row.row_source == "reference_library" and row.inclusion_status == "review_candidate"
-    )
+    reference_candidate_rows = len(state.reference_candidate_rows)
     source_counts: dict[str, int] = {}
     for chunk in state.chunks:
         source_counts[chunk.source_method] = source_counts.get(chunk.source_method, 0) + 1
@@ -344,12 +383,16 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     md_path = out_dir / "rule_tree.md"
     table_json_path = out_dir / "rule_table.json"
     table_md_path = out_dir / "rule_table.md"
+    reference_candidates_json_path = out_dir / "reference_candidates.json"
+    reference_candidates_md_path = out_dir / "reference_candidates.md"
     report_path = out_dir / "review_report.md"
     state.output_paths = {
         "rule_tree_json": str(json_path),
         "rule_tree_md": str(md_path),
         "rule_table_json": str(table_json_path),
         "rule_table_md": str(table_md_path),
+        "reference_candidates_json": str(reference_candidates_json_path),
+        "reference_candidates_md": str(reference_candidates_md_path),
         "review_report_md": str(report_path),
     }
     if trace_dir:
@@ -365,6 +408,14 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         encoding="utf-8",
     )
     table_md_path.write_text(_rule_table_md(state), encoding="utf-8")
+    reference_candidates_json_path.write_text(
+        json.dumps(_reference_candidates_json(state), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    reference_candidates_md_path.write_text(
+        _reference_candidates_md(state),
+        encoding="utf-8",
+    )
 
     tree_lines = [
         "# Candidate Rule Tree",

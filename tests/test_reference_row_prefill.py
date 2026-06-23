@@ -406,7 +406,8 @@ class ReferenceRowPrefillTests(unittest.TestCase):
                 "direct_reused_rows": 1,
                 "reused_fields": 4,
                 "candidate_rows": 1,
-                "classification_rows": 2,
+                "classification_rows": 1,
+                "reference_candidate_rows": 1,
             },
         )
 
@@ -445,7 +446,8 @@ class ReferenceRowPrefillTests(unittest.TestCase):
                 "direct_reused_rows": 0,
                 "reused_fields": 0,
                 "candidate_rows": 1,
-                "classification_rows": 2,
+                "classification_rows": 1,
+                "reference_candidate_rows": 1,
             },
         )
 
@@ -588,7 +590,7 @@ class ReferenceRowPrefillTests(unittest.TestCase):
             )
         )
 
-    def test_adds_unmatched_reference_rows_as_review_candidates(self) -> None:
+    def test_stores_unmatched_reference_rows_as_separate_review_candidates(self) -> None:
         with TemporaryDirectory() as tmp:
             library = _reference_library(Path(tmp))
             state = AgentState(
@@ -603,11 +605,8 @@ class ReferenceRowPrefillTests(unittest.TestCase):
 
             result = apply_reference_row_reuse(state, library_dir=str(library))
 
-        candidates = [
-            row
-            for row in result.classification_rows
-            if row.row_source == "reference_library" and row.inclusion_status == "review_candidate"
-        ]
+        candidates = result.reference_candidate_rows
+        self.assertEqual(len(result.classification_rows), 1)
         self.assertEqual(len(candidates), 1)
         self.assertEqual(candidates[0].path_levels, ["基础资源", "设备资源", "软件设备"])
         self.assertIsNone(candidates[0].recommended_grade)
