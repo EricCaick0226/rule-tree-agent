@@ -558,6 +558,35 @@ class ReferenceRowPrefillTests(unittest.TestCase):
         self.assertEqual(current.reference_matches[0]["usage"], "direct_reuse")
         self.assertEqual(current.reference_matches[0]["match_type"], "exact_path")
 
+    def test_curated_excel_direct_reuse_clears_stale_review_flag(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _classification_standard_excel_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient_info",
+                        path_levels=["患者", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                        needs_review=True,
+                        review_reason="层级路径继承自上下文，原文存在换行与表头穿插排版干扰",
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient_info")
+        self.assertEqual(
+            current.path_levels,
+            ["基础资源", "服务范围与对象", "患者", "患者信息"],
+        )
+        self.assertEqual(current.description_source, "classification_standard_excel")
+        self.assertEqual(current.reference_prefilled_fields, ["path_levels", "description"])
+        self.assertFalse(current.needs_review)
+        self.assertEqual(current.review_reason, "")
+
     def test_untrusted_complete_reference_row_is_ignored(self) -> None:
         with TemporaryDirectory() as tmp:
             library = _untrusted_complete_reference_library(Path(tmp))

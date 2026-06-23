@@ -203,6 +203,19 @@ def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) 
     return reused
 
 
+def clear_curated_reference_review_flags(state: AgentState) -> AgentState:
+    for row in state.classification_rows:
+        reused_fields = set(row.reference_prefilled_fields)
+        if (
+            row.description_source in CURATED_DESCRIPTION_SOURCES
+            and {"path_levels", "description"}.issubset(reused_fields)
+            and row.content_source == "reference_library"
+        ):
+            row.needs_review = False
+            row.review_reason = ""
+    return state
+
+
 def _current_row_match_keys(rows: list[ClassificationRow]) -> set[str]:
     return {_path_key(row) for row in rows if _path_key(row)}
 
@@ -315,6 +328,7 @@ def apply_reference_row_reuse(
             row.reference_prefilled_fields.extend(
                 field for field in reused if field not in row.reference_prefilled_fields
             )
+            clear_curated_reference_review_flags(state)
             direct_reused_rows += 1
             reused_fields += len(reused)
         matched_reference_keys.add((reference.path, str(reference_row.get("row_id") or "")))

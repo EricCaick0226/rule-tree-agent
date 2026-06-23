@@ -29,8 +29,11 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
                             "row_id": "current",
                             "path_levels": ["基础资源", "设备资源", "硬件设备"],
                             "description": "硬件设备相关信息。",
-                            "description_source": "quoted",
-                            "reference_prefilled_fields": ["description"],
+                            "description_source": "classification_standard_excel",
+                            "content_source": "reference_library",
+                            "reference_prefilled_fields": ["path_levels", "description"],
+                            "needs_review": True,
+                            "review_reason": "层级路径继承自上下文，原文存在换行与表头穿插排版干扰",
                         },
                         {
                             "row_id": "candidate",
@@ -91,6 +94,8 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
         self.assertEqual(summary["classification_rows"], 1)
         self.assertEqual(summary["reference_candidate_rows"], 1)
         self.assertEqual(table["classification_rows"][0]["row_id"], "current")
+        self.assertFalse(table["classification_rows"][0]["needs_review"])
+        self.assertEqual(table["classification_rows"][0]["review_reason"], "")
         self.assertEqual(candidates["reference_candidate_rows"][0]["row_id"], "candidate")
         self.assertEqual(tree["llm_model"], "test-model")
         node_paths = [node["path"] for node in tree["nodes"]]
