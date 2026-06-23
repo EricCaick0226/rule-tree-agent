@@ -18,6 +18,7 @@ RUN_QUALITY_THRESHOLDS = {
     "max_insufficient_descriptions": "RUN_QUALITY_MAX_INSUFFICIENT_DESCRIPTIONS",
     "min_reference_prefilled_rows": "RUN_QUALITY_MIN_REFERENCE_PREFILLED_ROWS",
 }
+AUDIT_EXPORT_PROFILES = {"audit", "debug", "full"}
 
 
 def _level_column(index: int) -> str:
@@ -28,6 +29,15 @@ def _level_column(index: int) -> str:
 
 def _safe_md_cell(value: object) -> str:
     return str(value).replace("|", "\\|").replace("\n", "<br>")
+
+
+def _export_profile() -> str:
+    profile = os.getenv("EXPORT_PROFILE", "deliverable").strip().lower()
+    return profile or "deliverable"
+
+
+def _is_audit_export() -> bool:
+    return _export_profile() in AUDIT_EXPORT_PROFILES
 
 
 def _rule_table_json(state: AgentState) -> dict:
@@ -208,6 +218,43 @@ def _run_quality_md(state: AgentState) -> str:
             )
     else:
         lines.append("(none)")
+    return "\n".join(lines) + "\n"
+
+
+def _readme_md(state: AgentState) -> str:
+    quality = _run_quality_json(state)
+    metrics = quality["metrics"]
+    lines = [
+        "# Rule Tree Agent Output",
+        "",
+        "## Deliverables",
+        "- `rule_table.json` / `rule_table.md`: main classification table.",
+        "- `rule_tree.json` / `rule_tree.md`: projected classification tree.",
+        "- `run_quality.json`: compact run-quality gate.",
+        "",
+        "## Summary",
+        f"- Run quality: {quality['status']}",
+        f"- Classification rows: {metrics['classification_rows']}",
+        f"- Reference candidate rows: {metrics['reference_candidate_rows']}",
+        f"- Reference-prefilled rows: {metrics['reference_prefilled_rows']}",
+        f"- Validation issues: {metrics['validation_issues']}",
+    ]
+    if state.reference_candidate_rows:
+        lines.extend(
+            [
+                "",
+                "## Reference Candidates",
+                "`reference_candidates.json` contains reference-library rows not directly matched to the current document. Review before adding them to the main table.",
+            ]
+        )
+    if not _is_audit_export():
+        lines.extend(
+            [
+                "",
+                "## Audit Output",
+                "Detailed markdown reports are omitted by default. Set `EXPORT_PROFILE=audit` to write them.",
+            ]
+        )
     return "\n".join(lines) + "\n"
 
 
@@ -509,15 +556,22 @@ def _export_raw_traces(state: AgentState, out_dir: Path) -> Path | None:
     return trace_dir
 
 
+def _remove_stale_file(path: Path) -> None:
+    if path.exists():
+        path.unlink()
+
+
 def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     out_dir = Path(output_dir).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    audit_export = _is_audit_export()
     trace_dir = _export_raw_traces(state, out_dir)
 
     json_path = out_dir / "rule_tree.json"
     md_path = out_dir / "rule_tree.md"
     table_json_path = out_dir / "rule_table.json"
     table_md_path = out_dir / "rule_table.md"
+    readme_path = out_dir / "README.md"
     reference_candidates_json_path = out_dir / "reference_candidates.json"
     reference_candidates_md_path = out_dir / "reference_candidates.md"
     run_quality_json_path = out_dir / "run_quality.json"
@@ -528,12 +582,15 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         "rule_tree_md": str(md_path),
         "rule_table_json": str(table_json_path),
         "rule_table_md": str(table_md_path),
-        "reference_candidates_json": str(reference_candidates_json_path),
-        "reference_candidates_md": str(reference_candidates_md_path),
+        "readme_md": str(readme_path),
         "run_quality_json": str(run_quality_json_path),
-        "run_quality_md": str(run_quality_md_path),
-        "review_report_md": str(report_path),
     }
+    if state.reference_candidate_rows or audit_export:
+        state.output_paths["reference_candidates_json"] = str(reference_candidates_json_path)
+    if audit_export:
+        state.output_paths["reference_candidates_md"] = str(reference_candidates_md_path)
+        state.output_paths["run_quality_md"] = str(run_quality_md_path)
+        state.output_paths["review_report_md"] = str(report_path)
     if trace_dir:
         state.output_paths["trace_dir"] = str(trace_dir)
 
@@ -547,19 +604,29 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
         encoding="utf-8",
     )
     table_md_path.write_text(_rule_table_md(state), encoding="utf-8")
-    reference_candidates_json_path.write_text(
-        json.dumps(_reference_candidates_json(state), ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    reference_candidates_md_path.write_text(
-        _reference_candidates_md(state),
-        encoding="utf-8",
-    )
+    readme_path.write_text(_readme_md(state), encoding="utf-8")
+    if state.reference_candidate_rows or audit_export:
+        reference_candidates_json_path.write_text(
+            json.dumps(_reference_candidates_json(state), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    else:
+        _remove_stale_file(reference_candidates_json_path)
+    if audit_export:
+        reference_candidates_md_path.write_text(
+            _reference_candidates_md(state),
+            encoding="utf-8",
+        )
+    else:
+        _remove_stale_file(reference_candidates_md_path)
     run_quality_json_path.write_text(
         json.dumps(_run_quality_json(state), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-    run_quality_md_path.write_text(_run_quality_md(state), encoding="utf-8")
+    if audit_export:
+        run_quality_md_path.write_text(_run_quality_md(state), encoding="utf-8")
+    else:
+        _remove_stale_file(run_quality_md_path)
 
     tree_lines = [
         "# Candidate Rule Tree",
@@ -585,6 +652,9 @@ def export_outputs(state: AgentState, output_dir: str) -> AgentState:
     tree_lines.append("")
     md_path.write_text("\n".join(tree_lines), encoding="utf-8")
 
-    report_path.write_text(_review_report(state), encoding="utf-8")
+    if audit_export:
+        report_path.write_text(_review_report(state), encoding="utf-8")
+    else:
+        _remove_stale_file(report_path)
 
     return state

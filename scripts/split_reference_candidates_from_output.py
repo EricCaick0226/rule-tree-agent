@@ -27,6 +27,7 @@ from src.core.agent_state import (  # noqa: E402
     ValidationIssue,
 )
 from src.output.exporter import export_outputs  # noqa: E402
+from src.steps.tree_projector import project_tree_from_rows  # noqa: E402
 
 T = TypeVar("T")
 
@@ -226,6 +227,7 @@ def split_reference_candidates(input_dir: Path, output_dir: Path) -> dict[str, i
     state = _load_state_from_rule_table(rule_table_path)
     state = _merge_run_state(input_dir, state)
     original_rows = len(state.classification_rows) + len(state.reference_candidate_rows)
+    state = project_tree_from_rows(state)
     export_outputs(state, str(output_dir))
     return {
         "original_rows": original_rows,

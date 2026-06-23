@@ -160,6 +160,80 @@ class RowFirstExporterTests(unittest.TestCase):
             self.assertIn("数据范围及示例", markdown)
             self.assertIn("影响程度", markdown)
 
+    def test_default_export_profile_keeps_only_deliverable_reports(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                )
+            ],
+            reference_candidate_rows=[
+                ClassificationRow(
+                    row_id="candidate",
+                    path_levels=["基础资源", "设备资源", "软件设备"],
+                    description="软件设备相关信息。",
+                    description_source="reference_library",
+                    row_source="reference_library",
+                    content_source="reference_library",
+                    inclusion_status="review_candidate",
+                    evidence_status="reference_only",
+                )
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            with patch.dict("os.environ", {}, clear=True):
+                result = export_outputs(state, tmp)
+            output_dir = Path(tmp)
+
+            self.assertTrue((output_dir / "rule_table.json").exists())
+            self.assertTrue((output_dir / "rule_table.md").exists())
+            self.assertTrue((output_dir / "rule_tree.json").exists())
+            self.assertTrue((output_dir / "rule_tree.md").exists())
+            self.assertTrue((output_dir / "run_quality.json").exists())
+            self.assertTrue((output_dir / "reference_candidates.json").exists())
+            self.assertTrue((output_dir / "README.md").exists())
+            self.assertFalse((output_dir / "review_report.md").exists())
+            self.assertFalse((output_dir / "run_quality.md").exists())
+            self.assertFalse((output_dir / "reference_candidates.md").exists())
+
+        self.assertIn("rule_table_json", result.output_paths)
+        self.assertIn("reference_candidates_json", result.output_paths)
+        self.assertNotIn("review_report_md", result.output_paths)
+        self.assertNotIn("run_quality_md", result.output_paths)
+        self.assertNotIn("reference_candidates_md", result.output_paths)
+
+    def test_default_export_profile_removes_stale_audit_reports(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                )
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            output_dir = Path(tmp)
+            for name in [
+                "review_report.md",
+                "run_quality.md",
+                "reference_candidates.md",
+                "reference_candidates.json",
+            ]:
+                (output_dir / name).write_text("stale", encoding="utf-8")
+
+            with patch.dict("os.environ", {}, clear=True):
+                export_outputs(state, tmp)
+
+            self.assertFalse((output_dir / "review_report.md").exists())
+            self.assertFalse((output_dir / "run_quality.md").exists())
+            self.assertFalse((output_dir / "reference_candidates.md").exists())
+            self.assertFalse((output_dir / "reference_candidates.json").exists())
+
     def test_review_report_includes_structure_quality_metrics(self) -> None:
         state = AgentState(
             task="test",
@@ -180,7 +254,8 @@ class RowFirstExporterTests(unittest.TestCase):
         )
 
         with TemporaryDirectory() as tmp:
-            result = export_outputs(state, tmp)
+            with patch.dict("os.environ", {"EXPORT_PROFILE": "audit"}):
+                result = export_outputs(state, tmp)
             report = Path(result.output_paths["review_report_md"]).read_text(encoding="utf-8")
 
         self.assertIn("## Structure Quality Notes", report)
@@ -218,7 +293,8 @@ class RowFirstExporterTests(unittest.TestCase):
         )
 
         with TemporaryDirectory() as tmp:
-            result = export_outputs(state, tmp)
+            with patch.dict("os.environ", {"EXPORT_PROFILE": "audit"}):
+                result = export_outputs(state, tmp)
             table = json.loads(Path(result.output_paths["rule_table_json"]).read_text(encoding="utf-8"))
             candidates = json.loads(
                 Path(result.output_paths["reference_candidates_json"]).read_text(encoding="utf-8")
@@ -259,6 +335,7 @@ class RowFirstExporterTests(unittest.TestCase):
             with patch.dict(
                 "os.environ",
                 {
+                    "EXPORT_PROFILE": "audit",
                     "RUN_QUALITY_MIN_ROWS": "3",
                     "RUN_QUALITY_MIN_QUOTED_DESCRIPTIONS": "2",
                     "RUN_QUALITY_MAX_INSUFFICIENT_DESCRIPTIONS": "0",

@@ -183,7 +183,7 @@ def _run_completeness(
         loaded.path.name
         for loaded in inputs.files.values()
         if not loaded.exists
-        and loaded.path.name in {"rule_table.json", "rule_tree.json", "review_report.md"}
+        and loaded.path.name in {"rule_table.json", "rule_tree.json"}
     ]
     file_errors = {
         name: loaded.error

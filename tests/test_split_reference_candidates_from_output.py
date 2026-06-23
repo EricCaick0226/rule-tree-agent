@@ -49,22 +49,56 @@ class SplitReferenceCandidatesFromOutputTests(unittest.TestCase):
                     "validation_issues": [],
                 },
             )
+            _write_json(
+                input_dir / "rule_tree.json",
+                {
+                    "task": "old run",
+                    "task_type": "generate_rule_tree_from_docs",
+                    "nodes": [
+                        {
+                            "node_id": "old_current",
+                            "name": "硬件设备",
+                            "path": "基础资源 / 设备资源 / 硬件设备",
+                            "level": 3,
+                            "parent_id": "old_parent",
+                        },
+                        {
+                            "node_id": "old_candidate",
+                            "name": "软件设备",
+                            "path": "基础资源 / 设备资源 / 软件设备",
+                            "level": 3,
+                            "parent_id": "old_parent",
+                        },
+                    ],
+                    "llm_enabled": True,
+                    "llm_used": True,
+                    "llm_model": "test-model",
+                    "llm_base_url": "https://example.test/v1",
+                },
+            )
 
             summary = split_reference_candidates(input_dir, output_dir)
             table = json.loads((output_dir / "rule_table.json").read_text(encoding="utf-8"))
             candidates = json.loads(
                 (output_dir / "reference_candidates.json").read_text(encoding="utf-8")
             )
-            report = (output_dir / "review_report.md").read_text(encoding="utf-8")
-            candidate_md = (output_dir / "reference_candidates.md").read_text(encoding="utf-8")
+            tree = json.loads((output_dir / "rule_tree.json").read_text(encoding="utf-8"))
+            readme = (output_dir / "README.md").read_text(encoding="utf-8")
+            has_review_report = (output_dir / "review_report.md").exists()
+            has_candidates_md = (output_dir / "reference_candidates.md").exists()
 
         self.assertEqual(summary["original_rows"], 2)
         self.assertEqual(summary["classification_rows"], 1)
         self.assertEqual(summary["reference_candidate_rows"], 1)
         self.assertEqual(table["classification_rows"][0]["row_id"], "current")
         self.assertEqual(candidates["reference_candidate_rows"][0]["row_id"], "candidate")
-        self.assertIn("- Reference candidate rows: 1", report)
-        self.assertIn("ref_software", candidate_md)
+        self.assertEqual(tree["llm_model"], "test-model")
+        node_paths = [node["path"] for node in tree["nodes"]]
+        self.assertIn("基础资源 / 设备资源 / 硬件设备", node_paths)
+        self.assertNotIn("基础资源 / 设备资源 / 软件设备", node_paths)
+        self.assertFalse(has_review_report)
+        self.assertFalse(has_candidates_md)
+        self.assertIn("- Reference candidate rows: 1", readme)
 
 
 if __name__ == "__main__":

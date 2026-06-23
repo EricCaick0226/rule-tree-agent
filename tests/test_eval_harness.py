@@ -341,7 +341,7 @@ class EvalHarnessMetricsTests(unittest.TestCase):
 
             self.assertEqual(
                 report["run_completeness"]["missing_final_artifacts"],
-                ["rule_table.json", "rule_tree.json", "review_report.md"],
+                ["rule_table.json", "rule_tree.json"],
             )
             self.assertIn(
                 "missing final artifact: rule_table.json",
@@ -349,10 +349,6 @@ class EvalHarnessMetricsTests(unittest.TestCase):
             )
             self.assertIn(
                 "missing final artifact: rule_tree.json",
-                report["recommendation"]["reasons"],
-            )
-            self.assertIn(
-                "missing final artifact: review_report.md",
                 report["recommendation"]["reasons"],
             )
 
