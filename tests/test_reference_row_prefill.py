@@ -39,6 +39,7 @@ def _reference_library(root: Path) -> Path:
                     "recommended_grade": "一般数据 2 级",
                     "description": "硬件设备相关信息。",
                     "description_source": "quoted",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["设备名称", "设备编号"],
                     "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
                 },
@@ -48,8 +49,38 @@ def _reference_library(root: Path) -> Path:
                     "recommended_grade": "一般数据 2 级",
                     "description": "软件设备相关信息。",
                     "description_source": "quoted",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["软件名称"],
                 },
+            ]
+        },
+    )
+    return library
+
+
+def _draft_description_reference_library(root: Path) -> Path:
+    library = root / "reference_library"
+    _write_json(
+        library / "wst787_2021" / "metadata.json",
+        {
+            "name": "WST 787-2021",
+            "source_type": "national_standard",
+            "description": "国家卫生信息资源分类与编码管理规范",
+            "reuse_policy": "direct",
+            "reference_trust_level": "authoritative",
+        },
+    )
+    _write_json(
+        library / "wst787_2021" / "rule_table.json",
+        {
+            "classification_rows": [
+                {
+                    "row_id": "ref_hardware",
+                    "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                    "description": "硬件设备相关信息。",
+                    "description_source": "quoted",
+                    "data_range_examples": ["设备名称"],
+                }
             ]
         },
     )
@@ -104,6 +135,7 @@ def _restrictive_reuse_allowed_fields_reference_library(root: Path) -> Path:
                     "row_id": "ref_hardware",
                     "path_levels": ["基础资源", "设备资源", "硬件设备"],
                     "description": "硬件设备相关信息。",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["设备名称", "设备编号"],
                     "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
                     "reuse_allowed_fields": ["description"],
@@ -133,6 +165,7 @@ def _mixed_case_direct_reference_library(root: Path) -> Path:
                     "row_id": "ref_hardware",
                     "path_levels": ["基础资源", "设备资源", "硬件设备"],
                     "description": "硬件设备相关信息。",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["设备名称", "设备编号"],
                     "data_element_refs": ["WS/T 363.16—2023:DE08.10.001.00"],
                 }
@@ -161,6 +194,7 @@ def _complete_without_optional_fields_reference_library(root: Path) -> Path:
                     "row_id": "ref_hardware",
                     "path_levels": ["基础资源", "设备资源", "硬件设备"],
                     "description": "硬件设备相关信息。",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["设备名称", "设备编号"],
                 }
             ]
@@ -274,6 +308,7 @@ def _complete_alias_reference_library(root: Path) -> Path:
                     "path_levels": ["患者"],
                     "aliases": ["患者信息"],
                     "description": "患者相关信息。",
+                    "reference_maturity": "curated",
                     "data_range_examples": ["患者姓名"],
                     "data_element_refs": ["WS/T 363.3—2023:DE02.01.039.01"],
                 }
@@ -356,6 +391,52 @@ def _evidence_ref() -> EvidenceRef:
 
 
 class ReferenceRowPrefillTests(unittest.TestCase):
+    def test_draft_reference_description_does_not_direct_reuse(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _draft_description_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_hardware",
+                        path_levels=["基础资源", "设备资源", "硬件设备"],
+                        description="当前文档中的硬件设备描述。",
+                        description_source="quoted",
+                        data_range_examples=["本地字段"],
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_hardware")
+        self.assertEqual(current.description, "当前文档中的硬件设备描述。")
+        self.assertEqual(current.description_source, "quoted")
+        self.assertEqual(current.data_range_examples, ["本地字段"])
+        self.assertEqual(current.reference_prefilled_fields, [])
+        self.assertEqual(current.reference_matches, [])
+
+    def test_curated_reference_match_records_maturity(self) -> None:
+        with TemporaryDirectory() as tmp:
+            library = _classification_standard_excel_reference_library(Path(tmp))
+            state = AgentState(
+                task="test",
+                classification_rows=[
+                    ClassificationRow(
+                        row_id="cur_patient_info",
+                        path_levels=["基础资源", "服务范围与对象", "患者", "患者信息"],
+                        description="证据不足，无法从当前文档确定",
+                        description_source="insufficient",
+                    )
+                ],
+            )
+
+            result = apply_reference_row_reuse(state, library_dir=str(library))
+
+        current = next(row for row in result.classification_rows if row.row_id == "cur_patient_info")
+        self.assertEqual(current.reference_maturity, "curated")
+        self.assertEqual(current.reference_matches[0]["reference_maturity"], "curated")
+
     def test_direct_reuse_replaces_reusable_fields_without_reusing_grade(self) -> None:
         with TemporaryDirectory() as tmp:
             library = _reference_library(Path(tmp))

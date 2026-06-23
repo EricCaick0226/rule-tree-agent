@@ -18,6 +18,9 @@ DIRECT_REUSE_POLICIES = {"direct"}
 DIRECT_REUSE_TRUST_LEVELS = {"authoritative", "trusted"}
 CURATED_DESCRIPTION_SOURCES = {"classification_standard_excel"}
 CURATED_SOURCE_CONFIDENCE = {"curated_answer"}
+REFERENCE_MATURITY_CURATED = "curated"
+REFERENCE_MATURITY_DRAFT = "draft"
+REFERENCE_MATURITY_PATH_ONLY = "path_only"
 
 
 def _load_dotenv_if_available() -> None:
@@ -91,18 +94,33 @@ def _reference_description(row: dict[str, Any]) -> str:
     return str(row.get("description") or "").strip()
 
 
-def _is_complete_reference_row(row: dict[str, Any]) -> bool:
+def _reference_maturity(row: dict[str, Any]) -> str:
     description = _reference_description(row)
-    if not _path_levels(row) or not description or description == INSUFFICIENT_DESCRIPTION:
-        return False
-    if _string_list(row.get("data_range_examples")):
-        return True
+    if not description or description == INSUFFICIENT_DESCRIPTION:
+        return REFERENCE_MATURITY_PATH_ONLY
+
+    explicit = str(row.get("reference_maturity") or "").strip().lower()
+    if explicit in {
+        REFERENCE_MATURITY_CURATED,
+        REFERENCE_MATURITY_DRAFT,
+        REFERENCE_MATURITY_PATH_ONLY,
+    }:
+        return explicit
+
     description_source = str(row.get("description_source") or "").strip()
     source_confidence = str(row.get("source_confidence") or "").strip()
-    return (
+    if (
         description_source in CURATED_DESCRIPTION_SOURCES
         and source_confidence in CURATED_SOURCE_CONFIDENCE
-    )
+    ):
+        return REFERENCE_MATURITY_CURATED
+    return REFERENCE_MATURITY_DRAFT
+
+
+def _is_complete_reference_row(row: dict[str, Any]) -> bool:
+    if not _path_levels(row):
+        return False
+    return _reference_maturity(row) == REFERENCE_MATURITY_CURATED
 
 
 def _allows_direct_reuse(reference: RuleTableReference) -> bool:
@@ -159,6 +177,7 @@ def _reference_match_payload(
         "reference_file": reference.path,
         "reference_row_id": str(reference_row.get("row_id") or ""),
         "reference_path": _path_levels(reference_row),
+        "reference_maturity": _reference_maturity(reference_row),
         "score": match["score"],
         "match_type": match["match_type"],
         "usage": usage,
@@ -200,6 +219,7 @@ def _direct_reuse_fields(row: ClassificationRow, reference_row: dict[str, Any]) 
 
     if reused:
         row.content_source = "reference_library"
+        row.reference_maturity = _reference_maturity(reference_row)
     return reused
 
 
@@ -244,7 +264,9 @@ def _candidate_from_reference(reference: RuleTableReference, row: dict[str, Any]
         row_source="reference_library",
         content_source="reference_library",
         inclusion_status="review_candidate",
+        row_role="reference_candidate",
         evidence_status="reference_only",
+        reference_maturity=_reference_maturity(row),
         reference_matches=[
             {
                 "reference_name": reference.name,
@@ -252,6 +274,7 @@ def _candidate_from_reference(reference: RuleTableReference, row: dict[str, Any]
                 "reference_file": reference.path,
                 "reference_row_id": ref_id,
                 "reference_path": path_levels,
+                "reference_maturity": _reference_maturity(row),
                 "score": 1.0,
                 "match_type": "missing_reference_candidate",
                 "usage": "review_candidate",
