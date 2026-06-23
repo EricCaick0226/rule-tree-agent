@@ -152,6 +152,58 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
         self.assertEqual(explanatory.description_source, "quoted")
         self.assertFalse(explanatory.needs_review)
 
+    def test_assigns_row_role_for_deliverable_rows(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者"],
+                    description="患者相关信息。",
+                    description_source="quoted",
+                )
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].row_role, "classification_detail")
+
+    def test_filters_non_deliverable_rows_by_row_role(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="term",
+                    path_levels=["术语和定义", "核心数据"],
+                    description="核心数据是指...",
+                    description_source="quoted",
+                    review_reason="原文为术语定义段落而非标准分类分级表格明细行，需人工确认是否作为分级基准行纳入规则树。",
+                ),
+                ClassificationRow(
+                    row_id="title",
+                    path_levels=["1.10.4 数据接口"],
+                    description_source="insufficient",
+                    support_level="structural",
+                    review_reason="仅含分类编号与名称，缺乏分级标准、数据范围及详细说明",
+                ),
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                    description="硬件设备相关信息。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].path_levels, ["基础资源", "设备资源", "硬件设备"])
+        self.assertEqual(result.classification_rows[0].row_role, "classification_detail")
+        self.assertEqual(result.step_traces[-1].output_summary["excluded_non_classification_rows"], 2)
+
     def test_filters_term_definition_rows_from_main_classification_rows(self) -> None:
         state = AgentState(
             task="test",

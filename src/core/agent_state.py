@@ -138,6 +138,7 @@ class ClassificationRow:
     row_source: str = "current_document"
     content_source: str = "current_document"
     inclusion_status: str = "accepted"
+    row_role: str = "classification_detail"
     evidence_status: str = "current_document_supported"
     reference_matches: list[dict[str, Any]] = field(default_factory=list)
     reference_prefilled_fields: list[str] = field(default_factory=list)

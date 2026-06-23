@@ -32,6 +32,9 @@ STRUCTURAL_FRAGMENT_REVIEW_MARKERS = (
     "疑似表格表头",
     "文本断裂",
 )
+ROW_ROLE_CLASSIFICATION_DETAIL = "classification_detail"
+ROW_ROLE_STRUCTURAL_HEADING = "structural_heading"
+ROW_ROLE_DEFINITION_TERM = "definition_term"
 
 
 def _row_key(row: ClassificationRow) -> tuple[str, ...]:
@@ -185,16 +188,26 @@ def _is_structural_title_or_fragment_row(row: ClassificationRow) -> bool:
     )
 
 
+def _classify_row_role(
+    row: ClassificationRow,
+    row_keys: list[tuple[str, ...]],
+) -> str:
+    if _is_non_classification_term_row(row):
+        return ROW_ROLE_DEFINITION_TERM
+    if _is_insufficient_parent_title_row(row, row_keys):
+        return ROW_ROLE_STRUCTURAL_HEADING
+    if _is_structural_title_or_fragment_row(row):
+        return ROW_ROLE_STRUCTURAL_HEADING
+    return ROW_ROLE_CLASSIFICATION_DETAIL
+
+
 def filter_non_classification_rows(state: AgentState) -> int:
     row_keys = [_row_key(row) for row in state.classification_rows]
     kept: list[ClassificationRow] = []
     excluded_count = 0
     for row in state.classification_rows:
-        if (
-            _is_non_classification_term_row(row)
-            or _is_insufficient_parent_title_row(row, row_keys)
-            or _is_structural_title_or_fragment_row(row)
-        ):
+        row.row_role = _classify_row_role(row, row_keys)
+        if row.row_role != ROW_ROLE_CLASSIFICATION_DETAIL:
             excluded_count += 1
             continue
         kept.append(row)
