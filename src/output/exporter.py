@@ -107,11 +107,17 @@ def _optional_env_int(name: str) -> int | None:
 def _run_quality_json(state: AgentState) -> dict:
     description_sources: dict[str, int] = {}
     support_levels: dict[str, int] = {}
+    row_roles: dict[str, int] = {}
+    reference_maturity: dict[str, int] = {}
     for row in state.classification_rows:
         description_sources[row.description_source] = (
             description_sources.get(row.description_source, 0) + 1
         )
         support_levels[row.support_level] = support_levels.get(row.support_level, 0) + 1
+        role = str(getattr(row, "row_role", "") or "classification_detail")
+        row_roles[role] = row_roles.get(role, 0) + 1
+        maturity = str(getattr(row, "reference_maturity", "") or "none")
+        reference_maturity[maturity] = reference_maturity.get(maturity, 0) + 1
 
     metrics = {
         "classification_rows": len(state.classification_rows),
@@ -122,6 +128,8 @@ def _run_quality_json(state: AgentState) -> dict:
         "validation_issues": len(state.validation_issues),
         "description_sources": dict(sorted(description_sources.items())),
         "support_levels": dict(sorted(support_levels.items())),
+        "row_roles": dict(sorted(row_roles.items())),
+        "reference_maturity": dict(sorted(reference_maturity.items())),
     }
     thresholds = {
         key: _optional_env_int(env_name)

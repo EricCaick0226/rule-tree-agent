@@ -234,6 +234,39 @@ class RowFirstExporterTests(unittest.TestCase):
             self.assertFalse((output_dir / "reference_candidates.md").exists())
             self.assertFalse((output_dir / "reference_candidates.json").exists())
 
+    def test_run_quality_includes_accuracy_boundary_counters_without_extra_reports(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                    row_role="classification_detail",
+                    reference_maturity="curated",
+                    reference_prefilled_fields=["description"],
+                ),
+                ClassificationRow(
+                    row_id="draft",
+                    path_levels=["基础资源", "设备资源", "软件设备"],
+                    row_role="classification_detail",
+                    reference_maturity="",
+                ),
+            ],
+        )
+
+        with TemporaryDirectory() as tmp:
+            with patch.dict("os.environ", {}, clear=True):
+                result = export_outputs(state, tmp)
+            output_dir = Path(tmp)
+            quality = json.loads(Path(result.output_paths["run_quality_json"]).read_text(encoding="utf-8"))
+
+            self.assertEqual(quality["metrics"]["row_roles"], {"classification_detail": 2})
+            self.assertEqual(quality["metrics"]["reference_maturity"], {"curated": 1, "none": 1})
+            self.assertTrue((output_dir / "rule_table.json").exists())
+            self.assertTrue((output_dir / "run_quality.json").exists())
+            self.assertFalse((output_dir / "run_quality.md").exists())
+            self.assertFalse((output_dir / "review_report.md").exists())
+
     def test_review_report_includes_structure_quality_metrics(self) -> None:
         state = AgentState(
             task="test",
