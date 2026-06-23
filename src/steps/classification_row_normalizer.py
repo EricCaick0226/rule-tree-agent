@@ -20,6 +20,18 @@ NON_CLASSIFICATION_REVIEW_MARKERS = (
     "术语定义/注释条目",
     "原文为术语定义段落",
 )
+TITLE_ONLY_REVIEW_MARKERS = (
+    "仅含分类标题",
+    "仅含分类编号",
+    "仅含当前层级编号",
+    "仅包含分类层级标题",
+)
+STRUCTURAL_FRAGMENT_REVIEW_MARKERS = (
+    "孤立短语",
+    "分级判定因素片段",
+    "疑似表格表头",
+    "文本断裂",
+)
 
 
 def _row_key(row: ClassificationRow) -> tuple[str, ...]:
@@ -138,11 +150,51 @@ def _is_non_classification_term_row(row: ClassificationRow) -> bool:
     return any(marker in review_reason for marker in NON_CLASSIFICATION_REVIEW_MARKERS)
 
 
+def _is_prefix_path(prefix: tuple[str, ...], path: tuple[str, ...]) -> bool:
+    return len(prefix) < len(path) and path[: len(prefix)] == prefix
+
+
+def _is_insufficient_parent_title_row(
+    row: ClassificationRow,
+    row_keys: list[tuple[str, ...]],
+) -> bool:
+    key = _row_key(row)
+    if not key:
+        return False
+    if row.description_source != "insufficient":
+        return False
+    if row.recommended_grade or row.data_range_examples:
+        return False
+    review_reason = str(row.review_reason or "")
+    if not any(marker in review_reason for marker in TITLE_ONLY_REVIEW_MARKERS):
+        return False
+    return any(_is_prefix_path(key, other_key) for other_key in row_keys)
+
+
+def _is_structural_title_or_fragment_row(row: ClassificationRow) -> bool:
+    if row.description_source != "insufficient":
+        return False
+    if row.support_level != "structural":
+        return False
+    if row.recommended_grade or row.data_range_examples:
+        return False
+    review_reason = str(row.review_reason or "")
+    return any(
+        marker in review_reason
+        for marker in (*TITLE_ONLY_REVIEW_MARKERS, *STRUCTURAL_FRAGMENT_REVIEW_MARKERS)
+    )
+
+
 def filter_non_classification_rows(state: AgentState) -> int:
+    row_keys = [_row_key(row) for row in state.classification_rows]
     kept: list[ClassificationRow] = []
     excluded_count = 0
     for row in state.classification_rows:
-        if _is_non_classification_term_row(row):
+        if (
+            _is_non_classification_term_row(row)
+            or _is_insufficient_parent_title_row(row, row_keys)
+            or _is_structural_title_or_fragment_row(row)
+        ):
             excluded_count += 1
             continue
         kept.append(row)

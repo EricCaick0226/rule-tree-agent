@@ -191,6 +191,98 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
             2,
         )
 
+    def test_filters_insufficient_parent_title_rows_with_children(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="parent",
+                    path_levels=["基础资源类"],
+                    description_source="insufficient",
+                    recommended_grade=None,
+                    support_level="structural",
+                    review_reason="仅含分类编号与名称，缺乏分级、数据范围及详细说明，依赖结构推断。",
+                ),
+                ClassificationRow(
+                    row_id="child",
+                    path_levels=["基础资源类", "服务范围与对象"],
+                    description="服务对象相关数据。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].path_levels, ["基础资源类", "服务范围与对象"])
+        self.assertEqual(
+            result.step_traces[-1].output_summary["excluded_non_classification_rows"],
+            1,
+        )
+
+    def test_keeps_explicit_insufficient_leaf_rows_without_children(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="leaf",
+                    path_levels=["基础资源类", "服务范围与对象"],
+                    description_source="insufficient",
+                    recommended_grade=None,
+                    support_level="explicit",
+                    review_reason="仅含分类标题/编号，无明确分级及详细说明。",
+                )
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].path_levels, ["基础资源类", "服务范围与对象"])
+        self.assertEqual(
+            result.step_traces[-1].output_summary["excluded_non_classification_rows"],
+            0,
+        )
+
+    def test_filters_structural_title_or_fragment_rows_without_children(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="title",
+                    path_levels=["1.10.4 数据接口"],
+                    description_source="insufficient",
+                    recommended_grade=None,
+                    support_level="structural",
+                    review_reason="仅含分类编号与名称，缺乏分级标准、数据范围及详细说明",
+                ),
+                ClassificationRow(
+                    row_id="fragment",
+                    path_levels=["严重危害"],
+                    description_source="insufficient",
+                    recommended_grade=None,
+                    support_level="structural",
+                    review_reason="孤立短语，疑似表格表头或分类标签，证据不足。",
+                ),
+                ClassificationRow(
+                    row_id="current",
+                    path_levels=["基础资源", "设备资源", "硬件设备"],
+                    description="硬件设备相关信息。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].path_levels, ["基础资源", "设备资源", "硬件设备"])
+        self.assertEqual(
+            result.step_traces[-1].output_summary["excluded_non_classification_rows"],
+            2,
+        )
+
     def test_duplicate_prefers_refs_and_explicit_support_over_quoted_no_refs(self) -> None:
         state = AgentState(
             task="test",
