@@ -95,6 +95,15 @@ def _all_quote_parts_in_refs(row, quote: str) -> bool:
     return all(_quote_in_any_ref(row, part) for part in _quote_parts(quote))
 
 
+def _is_curated_reference_reuse(row) -> bool:
+    return (
+        row.content_source == "reference_library"
+        and row.reference_maturity == "curated"
+        and row.description_source == "classification_standard_excel"
+        and {"path_levels", "description"}.issubset(set(row.reference_prefilled_fields))
+    )
+
+
 def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
     issues: list[ValidationIssue] = []
     corpus = _corpus_text(state)
@@ -278,7 +287,11 @@ def validate_row_grounding(state: AgentState) -> list[ValidationIssue]:
                 "人工确认该行是否应绑定该推荐分级，或补充包含该分级映射的行级证据。",
             )
 
-        if row.support_level in {"structural", "weak"} and not row.needs_review:
+        if (
+            row.support_level in {"structural", "weak"}
+            and not row.needs_review
+            and not _is_curated_reference_reuse(row)
+        ):
             _add_issue(
                 issues,
                 "schema_contract_violation",

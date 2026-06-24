@@ -98,6 +98,34 @@ class RowGroundingValidatorTests(unittest.TestCase):
         issue_types = {issue.issue_type for issue in issues}
         self.assertIn("schema_contract_violation", issue_types)
 
+    def test_curated_reference_reuse_can_clear_structural_review_flag(self) -> None:
+        row = ClassificationRow(
+            row_id="row_1",
+            path_levels=["基础资源", "服务范围与对象", "患者"],
+            original_path_levels=["服务范围与对象", "患者"],
+            recommended_grade="3级",
+            description="患者信息包括患者身份识别和联系方式等基本资料。",
+            description_source="classification_standard_excel",
+            evidence_quote="服务范围与对象 患者 3级",
+            evidence_refs=[_evidence_ref("服务范围与对象 患者 3级")],
+            support_level="structural",
+            needs_review=False,
+            content_source="reference_library",
+            reference_prefilled_fields=["path_levels", "description"],
+            reference_maturity="curated",
+        )
+        state = AgentState(task="test", documents=[_doc()], classification_rows=[row])
+
+        issues = validate_row_grounding(state)
+
+        self.assertFalse(
+            any(
+                issue.issue_type == "schema_contract_violation"
+                and "结构推断或弱证据行没有标记 needs_review" in issue.problem
+                for issue in issues
+            )
+        )
+
     def test_flags_non_insufficient_description_without_quote(self) -> None:
         row = ClassificationRow(
             row_id="row_1",
