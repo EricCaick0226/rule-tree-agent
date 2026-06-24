@@ -116,8 +116,12 @@ Generated files:
 - `outputs/rule_table.md`
 - `outputs/rule_tree.json`
 - `outputs/rule_tree.md`
-- `outputs/review_report.md`
+- `outputs/run_quality.json`
 - `outputs/traces/` when LLM raw responses are available
+
+Set `EXPORT_PROFILE=audit` to also write detailed audit files such as
+`outputs/review_report.md`, `outputs/run_quality.md`, and
+`outputs/reference_candidates.md`.
 
 Optional tuning:
 
