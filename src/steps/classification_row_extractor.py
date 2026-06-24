@@ -26,6 +26,13 @@ from ..llm.task_utils import (
 
 ALLOWED_SUPPORT_LEVELS = {"explicit", "structural", "weak"}
 ALLOWED_DESCRIPTION_SOURCES = {"quoted", "summarized", "insufficient"}
+ALLOWED_ROW_ROLES = {
+    "classification_detail",
+    "definition_term",
+    "structural_heading",
+    "grading_criterion",
+}
+DEFAULT_ROW_ROLE = "classification_detail"
 INSUFFICIENT_DESCRIPTION = "证据不足，无法从当前文档确定"
 SUPPORT_RANK = {"weak": 0, "structural": 1, "explicit": 2}
 DESCRIPTION_SOURCE_RANK = {"insufficient": 0, "summarized": 1, "quoted": 2}
@@ -212,6 +219,7 @@ def _payload(segments: list[TableSegment]) -> dict[str, Any]:
         "task": "从表格/层级文本 segment 中抽取候选分类分级明细行。",
         "table_segments": _segment_payload(segments),
         "allowed_support_levels": sorted(ALLOWED_SUPPORT_LEVELS),
+        "allowed_row_roles": sorted(ALLOWED_ROW_ROLES),
         "description_policy": {
             "insufficient_text": INSUFFICIENT_DESCRIPTION,
             "allowed_description_sources": sorted(ALLOWED_DESCRIPTION_SOURCES),
@@ -220,6 +228,7 @@ def _payload(segments: list[TableSegment]) -> dict[str, Any]:
             "classification_rows": [
                 {
                     "path_levels": [],
+                    "row_role": "classification_detail | definition_term | structural_heading | grading_criterion",
                     "recommended_grade": None,
                     "description": "",
                     "description_source": "quoted | summarized | insufficient",
@@ -240,6 +249,13 @@ def _payload(segments: list[TableSegment]) -> dict[str, Any]:
             ]
         },
     }
+
+
+def _row_role(value: Any) -> str:
+    role = str(value or "").strip()
+    if role in ALLOWED_ROW_ROLES:
+        return role
+    return DEFAULT_ROW_ROLE
 
 
 def _to_rows(data: dict[str, Any], state: AgentState) -> list[ClassificationRow]:
@@ -297,6 +313,7 @@ def _to_rows(data: dict[str, Any], state: AgentState) -> list[ClassificationRow]
         row = ClassificationRow(
             row_id=stable_id("row", fingerprint),
             path_levels=path_levels,
+            row_role=_row_role(item.get("row_role")),
             recommended_grade=recommended_grade,
             description=description,
             description_source=description_source,

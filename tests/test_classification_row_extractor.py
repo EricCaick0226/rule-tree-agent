@@ -106,6 +106,87 @@ class ClassificationRowExtractorTests(unittest.TestCase):
         self.assertEqual(row.status, "proposed")
         self.assertEqual(row.review_reason, "分类行缺少有效证据引用。")
 
+    def test_preserves_valid_row_role_from_llm_response(self) -> None:
+        state = make_state()
+
+        def fake_call_llm_json(**kwargs):
+            return (
+                {
+                    "classification_rows": [
+                        {
+                            "path_levels": ["分级规则", "影响对象与影响程度", "国家安全"],
+                            "row_role": "grading_criterion",
+                            "recommended_grade": None,
+                            "description": "国家安全影响程度判定因素。",
+                            "description_source": "summarized",
+                            "evidence_quote": "影响对象与影响程度 国家安全",
+                            "evidence_chunk_ids": ["doc_1_chunk_1"],
+                            "support_level": "structural",
+                            "confidence": 0.8,
+                            "needs_review": True,
+                            "review_reason": "分级判定因素，不是分类明细行。",
+                            "status": "proposed",
+                        }
+                    ]
+                },
+                "raw",
+            )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].row_role, "grading_criterion")
+
+    def test_defaults_missing_or_invalid_row_role_to_classification_detail(self) -> None:
+        state = make_state()
+
+        def fake_call_llm_json(**kwargs):
+            return (
+                {
+                    "classification_rows": [
+                        {
+                            "path_levels": ["基础资源", "服务范围与对象", "患者"],
+                            "row_role": "not_a_supported_role",
+                            "recommended_grade": "3级",
+                            "description": "患者信息包括身份识别资料",
+                            "description_source": "quoted",
+                            "evidence_quote": "基础资源 服务范围与对象 患者 3级 患者信息包括身份识别资料",
+                            "evidence_chunk_ids": ["doc_1_chunk_1"],
+                            "support_level": "explicit",
+                            "confidence": 0.9,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        },
+                        {
+                            "path_levels": ["基础资源", "设备资源", "硬件设备"],
+                            "recommended_grade": "2级",
+                            "description": "硬件设备相关信息。",
+                            "description_source": "summarized",
+                            "evidence_quote": "基础资源 设备资源 硬件设备 2级",
+                            "evidence_chunk_ids": ["doc_1_chunk_1"],
+                            "support_level": "explicit",
+                            "confidence": 0.8,
+                            "needs_review": False,
+                            "review_reason": "",
+                            "status": "evidence_supported",
+                        },
+                    ]
+                },
+                "raw",
+            )
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("src.steps.classification_row_extractor.call_llm_json", side_effect=fake_call_llm_json):
+                result = extract_classification_rows_with_llm(state, object(), output_dir=tmp)
+
+        self.assertEqual([row.row_role for row in result.classification_rows], [
+            "classification_detail",
+            "classification_detail",
+        ])
+
     def test_empty_description_is_normalized_to_insufficient(self) -> None:
         state = make_state()
 

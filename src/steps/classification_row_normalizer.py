@@ -35,6 +35,12 @@ STRUCTURAL_FRAGMENT_REVIEW_MARKERS = (
 ROW_ROLE_CLASSIFICATION_DETAIL = "classification_detail"
 ROW_ROLE_STRUCTURAL_HEADING = "structural_heading"
 ROW_ROLE_DEFINITION_TERM = "definition_term"
+ROW_ROLE_GRADING_CRITERION = "grading_criterion"
+NON_DETAIL_ROW_ROLES = {
+    ROW_ROLE_STRUCTURAL_HEADING,
+    ROW_ROLE_DEFINITION_TERM,
+    ROW_ROLE_GRADING_CRITERION,
+}
 
 
 def _row_key(row: ClassificationRow) -> tuple[str, ...]:
@@ -192,6 +198,9 @@ def _classify_row_role(
     row: ClassificationRow,
     row_keys: list[tuple[str, ...]],
 ) -> str:
+    existing_role = str(row.row_role or "").strip()
+    if existing_role in NON_DETAIL_ROW_ROLES:
+        return existing_role
     if _is_non_classification_term_row(row):
         return ROW_ROLE_DEFINITION_TERM
     if _is_insufficient_parent_title_row(row, row_keys):

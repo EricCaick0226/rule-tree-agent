@@ -204,6 +204,57 @@ class ClassificationRowNormalizerTests(unittest.TestCase):
         self.assertEqual(result.classification_rows[0].row_role, "classification_detail")
         self.assertEqual(result.step_traces[-1].output_summary["excluded_non_classification_rows"], 2)
 
+    def test_filters_valid_upstream_grading_criterion_role(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="criterion",
+                    path_levels=["分级规则", "影响对象与影响程度", "国家安全"],
+                    row_role="grading_criterion",
+                    description="国家安全影响程度判定因素。",
+                    description_source="summarized",
+                ),
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者"],
+                    description="患者相关信息。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(
+            result.classification_rows[0].path_levels,
+            ["基础资源", "服务范围与对象", "患者"],
+        )
+        self.assertEqual(
+            result.step_traces[-1].output_summary["excluded_non_classification_rows"],
+            1,
+        )
+
+    def test_invalid_upstream_row_role_falls_back_to_existing_heuristics(self) -> None:
+        state = AgentState(
+            task="test",
+            classification_rows=[
+                ClassificationRow(
+                    row_id="row_1",
+                    path_levels=["基础资源", "服务范围与对象", "患者"],
+                    row_role="not_a_supported_role",
+                    description="患者相关信息。",
+                    description_source="quoted",
+                ),
+            ],
+        )
+
+        result = normalize_classification_rows(state)
+
+        self.assertEqual(len(result.classification_rows), 1)
+        self.assertEqual(result.classification_rows[0].row_role, "classification_detail")
+
     def test_filters_term_definition_rows_from_main_classification_rows(self) -> None:
         state = AgentState(
             task="test",

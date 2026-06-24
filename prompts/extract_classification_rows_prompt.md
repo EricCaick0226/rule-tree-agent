@@ -16,6 +16,11 @@
 - 如果 `evidence_quote` 不能完整覆盖 `description`，用 `description_evidence_quote` 单独给出说明证据。
 - 结构推断、弱证据、无明确分级、说明不足都必须设置 `needs_review=true`。
 - 输出字段名和枚举值保持英文，不要翻译 JSON key。
+- 每条候选行必须填写 `row_role`，只能使用 `classification_detail`、`definition_term`、`structural_heading`、`grading_criterion`。
+- `classification_detail` 表示可进入最终规则树的分类分级明细行，通常包含分类路径，并且可能包含数据范围、分级、说明或示例。
+- `definition_term` 表示术语、定义、注释或概念解释，不是分类分级明细行。
+- `structural_heading` 表示目录、章标题、表头、父级标题或只有编号/名称的结构层级，不是完整明细行。
+- `grading_criterion` 表示分级判定因素、影响对象、影响程度、危害程度、加工程度等判定维度，不是具体分类明细行。
 - 必须抽取本批次所有可识别的分类分级明细行；不要只抽取示例、代表行或摘要行。
 - 如果一个 segment 是续表，分类路径中的上级 `类`、`项`、`目` 可以从本 segment 的相邻结构、上一行或表格上下文继承；继承属于 structural support，必须保留证据并在必要时 `needs_review=true`。
 - 每个 segment 可能包含 `structure_context`。这是版式上下文，不是业务答案；只能用于理解附录、分类标题、表题、续表、层级表头、页码和行号。
@@ -38,6 +43,7 @@
   "classification_rows": [
     {
       "path_levels": [],
+      "row_role": "classification_detail",
       "recommended_grade": null,
       "data_range_examples": [],
       "processing_degree": "",
