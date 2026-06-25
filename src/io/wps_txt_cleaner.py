@@ -50,15 +50,6 @@ def clean_wps_txt_file(input_path: Path, output_path: Path, review_path: Path | 
 def write_review_json(result: CleanResult, review_path: Path) -> None:
     payload = {
         "stats": result.stats,
-        "mapping": [
-            {
-                "clean_line_number": item.clean_line_number,
-                "source_line_start": item.source_line_start,
-                "source_line_end": item.source_line_end,
-                "transform": item.transform,
-            }
-            for item in result.mapping
-        ],
         "review_items": result.review_items,
     }
     review_path.parent.mkdir(parents=True, exist_ok=True)
@@ -87,14 +78,6 @@ def clean_wps_txt_text(text: str) -> CleanResult:
 
         if _is_page_noise(stripped):
             stats["removed_page_noise_lines"] += 1
-            review_items.append(
-                {
-                    "kind": "removed_page_noise",
-                    "source_line_start": source_line_number,
-                    "source_line_end": source_line_number,
-                    "text": stripped,
-                }
-            )
             index += 1
             continue
 

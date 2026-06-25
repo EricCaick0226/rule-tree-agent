@@ -162,6 +162,7 @@ class WpsTxtCleanerTests(unittest.TestCase):
             output_path = base / "source.cleaned.txt"
             review_path = base / "review.json"
             input_path.write_text(
+                "- 12 -\n"
                 "1 服务范围与对象 01 患者 001 患者信息\n"
                 "患者姓名\n"
                 "出生日期\n"
@@ -173,11 +174,13 @@ class WpsTxtCleanerTests(unittest.TestCase):
             clean_wps_txt_file(input_path, output_path, review_path)
 
             payload = json.loads(review_path.read_text(encoding="utf-8"))
+            self.assertEqual(set(payload), {"stats", "review_items"})
+            self.assertEqual(payload["stats"]["removed_page_noise_lines"], 1)
             self.assertEqual(payload["stats"]["merged_wrapped_rows"], 1)
             self.assertTrue(payload["review_items"])
-            self.assertEqual(payload["review_items"][0]["source_line_start"], 1)
-            self.assertGreaterEqual(payload["review_items"][0]["source_line_end"], 4)
-            self.assertTrue(payload["mapping"])
+            self.assertEqual(payload["review_items"][0]["kind"], "high_risk_cleaned_line")
+            self.assertEqual(payload["review_items"][0]["source_line_start"], 2)
+            self.assertGreaterEqual(payload["review_items"][0]["source_line_end"], 5)
 
     def test_write_review_json_creates_parent_dir_and_final_newline(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
