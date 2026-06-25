@@ -32,7 +32,6 @@ _ITEM_CODE_RE = re.compile(r"^\s*\d{3,4}(?:\s|$)")
 _DOTTED_CODE_RE = re.compile(r"^\s*\d+(?:[.．]\d+)+(?:\s|$)")
 _CLASSIFICATION_ROW_RE = re.compile(r"^\s*\d{1,2}\s+\S.{2,}\s+\d{1,3}(?:\s|$)")
 _POLICY_HEADING_RE = re.compile(r"^\s*\d{1,2}\s+[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaffA-Za-z][^\d]{0,24}$")
-_SENTENCE_END_RE = re.compile(r"[。！？；:：.!?;]$")
 _ROW_CONTINUATION_TERMS_RE = re.compile(
     r"(?:原始数据|衍生数据|个人|组织|严重危害|一般危害|轻微危害|数据\d*级|一般数据|重要数据|核心数据|姓名|身份证|门诊号|住院号)"
 )
@@ -41,7 +40,8 @@ _ROW_CONTINUATION_TERMS_RE = re.compile(
 def clean_wps_txt_file(input_path: Path, output_path: Path, review_path: Path | None = None) -> CleanResult:
     text = input_path.read_text(encoding="utf-8")
     result = clean_wps_txt_text(text)
-    output_path.write_text(result.text, encoding="utf-8")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(_with_final_newline(result.text), encoding="utf-8")
     if review_path is not None:
         write_review_json(result, review_path)
     return result
@@ -61,7 +61,8 @@ def write_review_json(result: CleanResult, review_path: Path) -> None:
         ],
         "review_items": result.review_items,
     }
-    review_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    review_path.parent.mkdir(parents=True, exist_ok=True)
+    review_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def clean_wps_txt_text(text: str) -> CleanResult:
@@ -232,20 +233,7 @@ def _should_merge_wrapped_row(previous: str, current: str) -> bool:
 
 
 def _should_merge_wrapped_sentence(previous: str, current: str) -> bool:
-    previous_stripped = previous.strip()
-    if (
-        not previous_stripped
-        or not current
-        or _is_structure_line(previous_stripped)
-        or _is_structure_line(current)
-        or _is_policy_heading(previous_stripped)
-        or _is_policy_heading(current)
-        or _is_row_like(previous_stripped)
-        or _is_row_start(current)
-        or _SENTENCE_END_RE.search(previous_stripped)
-    ):
-        return False
-    return len(previous_stripped) >= 8 and len(current) >= 4
+    return False
 
 
 def _join_lines(previous: str, current: str) -> str:
@@ -261,3 +249,9 @@ def _renumber_mapping(mapping: CleanedLineMapping, clean_line_number: int) -> Cl
         source_line_end=mapping.source_line_end,
         transform=mapping.transform,
     )
+
+
+def _with_final_newline(text: str) -> str:
+    if text.endswith("\n"):
+        return text
+    return text + "\n"

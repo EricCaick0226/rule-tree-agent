@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+import tempfile
 import unittest
 
-from src.io.wps_txt_cleaner import clean_wps_txt_text
+from src.io.wps_txt_cleaner import clean_wps_txt_file, clean_wps_txt_text, write_review_json
 
 
 class WpsTxtCleanerTests(unittest.TestCase):
@@ -96,6 +99,23 @@ class WpsTxtCleanerTests(unittest.TestCase):
             ],
         )
 
+    def test_does_not_merge_normal_paragraph_or_title_like_lines(self) -> None:
+        result = clean_wps_txt_text(
+            "数据安全管理要求\n"
+            "本文件规定了卫生健康数据分类分级要求\n"
+            "发布单位：上海市卫生健康委员会\n"
+        )
+
+        self.assertEqual(
+            result.text.splitlines(),
+            [
+                "数据安全管理要求",
+                "本文件规定了卫生健康数据分类分级要求",
+                "发布单位：上海市卫生健康委员会",
+            ],
+        )
+        self.assertEqual(result.stats["merged_wrapped_sentences"], 0)
+
     def test_does_not_change_business_words(self) -> None:
         result = clean_wps_txt_text(
             "001 患者信息\n"
@@ -104,6 +124,33 @@ class WpsTxtCleanerTests(unittest.TestCase):
 
         self.assertIn("技资管理", result.text)
         self.assertNotIn("投资管理", result.text)
+
+    def test_file_helpers_create_parent_dirs_and_write_final_newlines(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            base = Path(temp_dir)
+            input_path = base / "input.txt"
+            output_path = base / "nested" / "cleaned.txt"
+            review_path = base / "review" / "review.json"
+            input_path.write_text("患\n者\n", encoding="utf-8")
+
+            result = clean_wps_txt_file(input_path, output_path, review_path)
+
+            self.assertEqual(result.text, "患者")
+            self.assertEqual(output_path.read_text(encoding="utf-8"), "患者\n")
+            review_text = review_path.read_text(encoding="utf-8")
+            self.assertTrue(review_text.endswith("\n"))
+            self.assertEqual(json.loads(review_text)["stats"]["merged_single_char_lines"], 1)
+
+    def test_write_review_json_creates_parent_dir_and_final_newline(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            result = clean_wps_txt_text("表A.1 基础资源分类目录\n")
+            review_path = Path(temp_dir) / "nested" / "review.json"
+
+            write_review_json(result, review_path)
+
+            review_text = review_path.read_text(encoding="utf-8")
+            self.assertTrue(review_text.endswith("\n"))
+            self.assertEqual(json.loads(review_text)["stats"]["removed_page_noise_lines"], 0)
 
 
 if __name__ == "__main__":
