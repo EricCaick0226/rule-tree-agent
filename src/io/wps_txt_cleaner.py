@@ -183,6 +183,19 @@ def clean_wps_txt_text(text: str) -> CleanResult:
         active_row_merge = False
         active_sentence_merge = False
 
+    for line, mapping in zip(final_lines, final_mappings, strict=True):
+        if _is_high_risk_line(line, mapping):
+            review_items.append(
+                {
+                    "kind": "high_risk_cleaned_line",
+                    "clean_line_number": mapping.clean_line_number,
+                    "source_line_start": mapping.source_line_start,
+                    "source_line_end": mapping.source_line_end,
+                    "transform": mapping.transform,
+                    "text": _preview_text(line),
+                }
+            )
+
     return CleanResult(
         text="\n".join(final_lines),
         mapping=final_mappings,
@@ -255,3 +268,16 @@ def _with_final_newline(text: str) -> str:
     if text.endswith("\n"):
         return text
     return text + "\n"
+
+
+def _is_high_risk_line(line: str, mapping: CleanedLineMapping) -> bool:
+    return (
+        mapping.source_line_end - mapping.source_line_start + 1 >= 4
+        or len(line) > 180
+    )
+
+
+def _preview_text(text: str) -> str:
+    if len(text) <= 180:
+        return text
+    return text[:177] + "..."

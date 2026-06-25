@@ -141,6 +141,44 @@ class WpsTxtCleanerTests(unittest.TestCase):
             self.assertTrue(review_text.endswith("\n"))
             self.assertEqual(json.loads(review_text)["stats"]["merged_single_char_lines"], 1)
 
+    def test_file_cleaner_writes_cleaned_txt_only_by_default(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            base = Path(temp_dir)
+            input_path = base / "source.txt"
+            output_path = base / "source.cleaned.txt"
+            review_path = base / "review.json"
+            input_path.write_text("患\n者\n信\n息\n", encoding="utf-8")
+
+            result = clean_wps_txt_file(input_path, output_path)
+
+            self.assertEqual(output_path.read_text(encoding="utf-8"), "患者信息\n")
+            self.assertFalse(review_path.exists())
+            self.assertEqual(result.stats["merged_single_char_lines"], 1)
+
+    def test_file_cleaner_writes_review_json_when_requested(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            base = Path(temp_dir)
+            input_path = base / "source.txt"
+            output_path = base / "source.cleaned.txt"
+            review_path = base / "review.json"
+            input_path.write_text(
+                "1 服务范围与对象 01 患者 001 患者信息\n"
+                "患者姓名\n"
+                "出生日期\n"
+                "身份证件号码\n"
+                "原始数据 个人 严重危害 一般数据3级\n",
+                encoding="utf-8",
+            )
+
+            clean_wps_txt_file(input_path, output_path, review_path)
+
+            payload = json.loads(review_path.read_text(encoding="utf-8"))
+            self.assertEqual(payload["stats"]["merged_wrapped_rows"], 1)
+            self.assertTrue(payload["review_items"])
+            self.assertEqual(payload["review_items"][0]["source_line_start"], 1)
+            self.assertGreaterEqual(payload["review_items"][0]["source_line_end"], 4)
+            self.assertTrue(payload["mapping"])
+
     def test_write_review_json_creates_parent_dir_and_final_newline(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             result = clean_wps_txt_text("表A.1 基础资源分类目录\n")
