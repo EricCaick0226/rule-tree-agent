@@ -219,7 +219,7 @@ def _is_row_start(stripped: str) -> bool:
 
 def _is_row_like(line: str) -> bool:
     stripped = line.strip()
-    return _is_row_start(stripped) or bool(_ROW_CONTINUATION_TERMS_RE.search(stripped))
+    return _is_row_start(stripped)
 
 
 def _should_merge_wrapped_row(previous: str, current: str) -> bool:

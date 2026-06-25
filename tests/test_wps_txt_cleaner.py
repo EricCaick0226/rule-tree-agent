@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-import subprocess
 import tempfile
 import unittest
 
@@ -117,6 +116,23 @@ class WpsTxtCleanerTests(unittest.TestCase):
         )
         self.assertEqual(result.stats["merged_wrapped_sentences"], 0)
 
+    def test_does_not_merge_policy_articles_with_row_terms(self) -> None:
+        result = clean_wps_txt_text(
+            "第一条 数据处理者是指开展数据处理活动的组织、个人。\n"
+            "第二条 一般数据是指核心数据、重要数据之外的其他数据。\n"
+            "第三条 数据级别确定后，应及时变更。\n"
+        )
+
+        self.assertEqual(
+            result.text.splitlines(),
+            [
+                "第一条 数据处理者是指开展数据处理活动的组织、个人。",
+                "第二条 一般数据是指核心数据、重要数据之外的其他数据。",
+                "第三条 数据级别确定后，应及时变更。",
+            ],
+        )
+        self.assertEqual(result.stats["merged_wrapped_rows"], 0)
+
     def test_does_not_change_business_words(self) -> None:
         result = clean_wps_txt_text(
             "001 患者信息\n"
@@ -195,6 +211,8 @@ class WpsTxtCleanerTests(unittest.TestCase):
             self.assertEqual(json.loads(review_text)["stats"]["removed_page_noise_lines"], 0)
 
     def test_cli_writes_cleaned_txt_and_review_json(self) -> None:
+        import subprocess
+
         with tempfile.TemporaryDirectory() as temp_dir:
             base = Path(temp_dir)
             input_path = base / "source.txt"
