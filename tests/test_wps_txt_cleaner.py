@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 
@@ -192,6 +193,35 @@ class WpsTxtCleanerTests(unittest.TestCase):
             review_text = review_path.read_text(encoding="utf-8")
             self.assertTrue(review_text.endswith("\n"))
             self.assertEqual(json.loads(review_text)["stats"]["removed_page_noise_lines"], 0)
+
+    def test_cli_writes_cleaned_txt_and_review_json(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            base = Path(temp_dir)
+            input_path = base / "source.txt"
+            output_path = base / "source.cleaned.txt"
+            review_path = base / "review.json"
+            input_path.write_text("患\n者\n信\n息\n- 12 -\n", encoding="utf-8")
+
+            result = subprocess.run(
+                [
+                    "python3",
+                    "scripts/clean_wps_txt.py",
+                    "--input",
+                    str(input_path),
+                    "--out",
+                    str(output_path),
+                    "--review-out",
+                    str(review_path),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(output_path.read_text(encoding="utf-8"), "患者信息\n")
+            self.assertTrue(review_path.exists())
+            self.assertIn("Cleaned TXT written:", result.stdout)
 
 
 if __name__ == "__main__":
