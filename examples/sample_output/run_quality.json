@@ -1,0 +1,10 @@
+{
+  "sample": true,
+  "source": "examples/sample_policy.md",
+  "rows_total": 4,
+  "rows_needing_review": 1,
+  "notes": [
+    "Synthetic public example only.",
+    "Rows with insufficient evidence remain marked for human review."
+  ]
+}
