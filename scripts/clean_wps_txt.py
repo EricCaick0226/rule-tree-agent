@@ -27,13 +27,8 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     print(f"Cleaned TXT written: {args.out}")
-    print(
-        "Stats: "
-        f"removed_page_noise_lines={result.stats['removed_page_noise_lines']}, "
-        f"merged_single_char_lines={result.stats['merged_single_char_lines']}, "
-        f"merged_wrapped_rows={result.stats['merged_wrapped_rows']}, "
-        f"merged_wrapped_sentences={result.stats['merged_wrapped_sentences']}"
-    )
+    stats_text = ", ".join(f"{key}={value}" for key, value in result.stats.items())
+    print(f"Stats: {stats_text}")
     if args.review_out is not None:
         print(f"Review JSON written: {args.review_out}")
     return 0

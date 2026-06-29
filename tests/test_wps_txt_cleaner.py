@@ -133,6 +133,40 @@ class WpsTxtCleanerTests(unittest.TestCase):
         )
         self.assertEqual(result.stats["merged_wrapped_rows"], 0)
 
+    def test_does_not_split_policy_sentences_with_data_level_numbers(self) -> None:
+        result = clean_wps_txt_text(
+            "第六条 卫生健康行业数据分为核心数据、重要数据、一般数据 3 级、一般数据 2 级、一般数据 1 级五个级别。\n"
+        )
+
+        self.assertEqual(
+            result.text.splitlines(),
+            ["第六条 卫生健康行业数据分为核心数据、重要数据、一般数据 3 级、一般数据 2 级、一般数据 1 级五个级别。"],
+        )
+        self.assertEqual(result.stats["split_glued_headings"], 0)
+
+    def test_splits_glued_classification_headings_in_table_regions(self) -> None:
+        result = clean_wps_txt_text(
+            "02 人文地理特征 001 人文地理特征信息 人口，民族，交通等3 法律法规 01 政策法规 001 政策法规信息\n"
+            "02 法定代表人信息 001 基本信息 法人状态5 编制体制 01 人员编制 001 人员编制信息\n"
+            "02 机构体制 001 机构体制信息 —6 方案预案 01 方案 001 方案信息\n"
+            "B、业务资源 1 公共卫生\n"
+        )
+
+        self.assertEqual(
+            result.text.splitlines(),
+            [
+                "02 人文地理特征 001 人文地理特征信息 人口，民族，交通等",
+                "3 法律法规 01 政策法规 001 政策法规信息",
+                "02 法定代表人信息 001 基本信息 法人状态",
+                "5 编制体制 01 人员编制 001 人员编制信息",
+                "02 机构体制 001 机构体制信息",
+                "6 方案预案 01 方案 001 方案信息",
+                "B、业务资源",
+                "1 公共卫生",
+            ],
+        )
+        self.assertEqual(result.stats["split_glued_headings"], 4)
+
     def test_does_not_change_business_words(self) -> None:
         result = clean_wps_txt_text(
             "001 患者信息\n"

@@ -32,6 +32,12 @@ _ITEM_CODE_RE = re.compile(r"^\s*\d{3,4}(?:\s|$)")
 _DOTTED_CODE_RE = re.compile(r"^\s*\d+(?:[.．]\d+)+(?:\s|$)")
 _CLASSIFICATION_ROW_RE = re.compile(r"^\s*\d{1,2}\s+\S.{2,}\s+\d{1,3}(?:\s|$)")
 _POLICY_HEADING_RE = re.compile(r"^\s*\d{1,2}\s+[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaffA-Za-z][^\d]{0,24}$")
+_LETTER_CATEGORY_RE = re.compile(r"^\s*[A-Z]、\S+")
+_GLUED_NUMBERED_HEADING_RE = re.compile(
+    r"(?<=[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff])\s*[—-]?\s*"
+    r"([1-9]\d?\s+[\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff][^\d\s]{1,12})(?=\s+\d{2}\s)"
+)
+_GLUED_LETTER_CATEGORY_RE = re.compile(r"^([A-Z]、\S+)\s+([1-9]\d?\s+\S.+)$")
 _ROW_CONTINUATION_TERMS_RE = re.compile(
     r"(?:原始数据|衍生数据|个人|组织|严重危害|一般危害|轻微危害|数据\d*级|一般数据|重要数据|核心数据|姓名|身份证|门诊号|住院号)"
 )
@@ -62,6 +68,7 @@ def clean_wps_txt_text(text: str) -> CleanResult:
         "merged_single_char_lines": 0,
         "merged_wrapped_rows": 0,
         "merged_wrapped_sentences": 0,
+        "split_glued_headings": 0,
     }
     review_items: list[dict[str, Any]] = []
     normalized_lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
@@ -166,6 +173,25 @@ def clean_wps_txt_text(text: str) -> CleanResult:
         active_row_merge = False
         active_sentence_merge = False
 
+    split_lines: list[str] = []
+    split_mappings: list[CleanedLineMapping] = []
+    for line, mapping in zip(final_lines, final_mappings, strict=True):
+        parts = _split_glued_classification_headings(line)
+        if len(parts) > 1:
+            stats["split_glued_headings"] += len(parts) - 1
+        for part in parts:
+            split_lines.append(part)
+            split_mappings.append(
+                CleanedLineMapping(
+                    clean_line_number=len(split_lines),
+                    source_line_start=mapping.source_line_start,
+                    source_line_end=mapping.source_line_end,
+                    transform="split_glued_heading" if len(parts) > 1 else mapping.transform,
+                )
+            )
+    final_lines = split_lines
+    final_mappings = split_mappings
+
     for line, mapping in zip(final_lines, final_mappings, strict=True):
         if _is_high_risk_line(line, mapping):
             review_items.append(
@@ -198,7 +224,7 @@ def _is_single_chinese_char(stripped: str) -> bool:
 
 
 def _is_structure_line(stripped: str) -> bool:
-    return detect_structure_signal(stripped) is not None
+    return detect_structure_signal(stripped) is not None or bool(_LETTER_CATEGORY_RE.match(stripped))
 
 
 def _is_policy_heading(stripped: str) -> bool:
@@ -230,6 +256,31 @@ def _should_merge_wrapped_row(previous: str, current: str) -> bool:
 
 def _should_merge_wrapped_sentence(previous: str, current: str) -> bool:
     return False
+
+
+def _split_glued_classification_headings(line: str) -> list[str]:
+    stripped = line.strip()
+    if not stripped:
+        return [line]
+
+    letter_match = _GLUED_LETTER_CATEGORY_RE.match(stripped)
+    if letter_match:
+        return [letter_match.group(1), letter_match.group(2)]
+
+    parts: list[str] = []
+    start = 0
+    for match in _GLUED_NUMBERED_HEADING_RE.finditer(stripped):
+        before = stripped[start : match.start()].strip()
+        if before:
+            parts.append(before)
+        start = match.start(1)
+    if not parts:
+        return [line]
+
+    tail = stripped[start:].strip()
+    if tail:
+        parts.append(tail)
+    return parts
 
 
 def _join_lines(previous: str, current: str) -> str:
