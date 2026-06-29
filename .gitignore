@@ -5,6 +5,11 @@ __pycache__/
 *.egg-info/
 .env
 .DS_Store
+.worktrees/
+docs/superpowers/
+deliverables/
+PACKAGE_NOTES.md
+*.zip
 outputs_pdf/
 outputs_sample/
 outputs_*/
